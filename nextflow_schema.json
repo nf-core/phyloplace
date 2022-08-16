@@ -37,7 +37,7 @@
                     "pattern": "^\\S+\\.(fasta|faa|fa)$",
                     "schema": "assets/schema_input.json",
                     "description": "Path to fasta file containing the query sequences.",
-                    "help_text": "The query sequences that will be placed in the reference phylogeny."}
+                    "help_text": "The query sequences that will be placed in the reference phylogeny."
                 },
                 "outdir": {
                     "type": "string",
@@ -231,9 +231,6 @@
     "allOf": [
         {
             "$ref": "#/definitions/input_output_options"
-        },
-        {
-            "$ref": "#/definitions/reference_genome_options"
         },
         {
             "$ref": "#/definitions/institutional_config_options"
