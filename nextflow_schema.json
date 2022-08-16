@@ -10,7 +10,7 @@
             "type": "object",
             "fa_icon": "fas fa-terminal",
             "description": "Define where the pipeline should find input data and save output data.",
-            "required": ["input", "outdir"],
+            "required": ["refphylo", "refalignment", "query", "outdir"],
             "properties": {
                 "refphylo": {
                     "type": "string",
@@ -25,7 +25,7 @@
                     "type": "string",
                     "format": "file-path",
                     "mimetype": "application/x-fasta",
-                    "pattern": "^\\S+\\.(fasta|faa|fa)$",
+                    "pattern": "^\\S+\\.(alnfaa|fasta|faa|fa)$",
                     "schema": "assets/schema_input.json",
                     "description": "Path to fasta file containing the reference alignment.",
                     "help_text": "The reference alignment is the alignment from which the reference phylogenetic tree was estimated from."
