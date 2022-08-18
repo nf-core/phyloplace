@@ -9,15 +9,12 @@ def summary_params = NfcoreSchema.paramsSummaryMap(workflow, params)
 // Validate input parameters
 WorkflowPhyloplace.initialise(params, log)
 
-// TODO nf-core: Add all file path parameters for the pipeline to the list below
 // Check input path parameters to see if they exist
-def checkPathParamList = [ params.refphylo, params.refalignment, params.query, params.multiqc_config ]
+def checkPathParamList = [ params.input ]
 for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true) } }
 
 // Check mandatory parameters
-if (params.refphylo)     { ch_refphylo     = file(params.refphylo)     } else { exit 1, 'Reference phylogeny not specified!' }
-if (params.refalignment) { ch_refalignment = file(params.refalignment) } else { exit 1, 'Reference alignment not specified!' }
-if (params.query)        { ch_query        = file(params.query)        } else { exit 1, 'Query sequences not specified!' }
+if (params.input) { ch_input = Channel.fromPath(params.input) } else { exit 1, 'Input file not specified!' }
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -27,6 +24,17 @@ if (params.query)        { ch_query        = file(params.query)        } else { 
 
 ch_multiqc_config        = file("$projectDir/assets/multiqc_config.yml", checkIfExists: true)
 ch_multiqc_custom_config = params.multiqc_config ? Channel.fromPath(params.multiqc_config) : Channel.empty()
+
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    IMPORT LOCAL MODULES/SUBWORKFLOWS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+
+//
+// SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
+//
+include { INPUT_CHECK } from '../subworkflows/local/input_check'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -52,6 +60,24 @@ def multiqc_report = []
 workflow PHYLOPLACE {
 
     ch_versions = Channel.empty()
+    
+    ch_input.splitCsv(header: true)
+        //.map { [ meta: [ id: it.sample ], [ query: it.query, refalign: it.refalignment, refphylo: it.refphylogeny ] ] }
+        .map { 
+            [ 
+                meta: [ id: it.sample ], 
+                data: [ 
+                    queryfile:    file(it.queryfile),
+                    refalignment: file(it.refalignment),
+                    refphylogeny: file(it.refphylogeny)
+                ] 
+            ] 
+        }
+        .set { csv }
+
+    System.err.println("csv class: ${csv.getClass()}")
+    System.err.println(csv)
+    csv.view { "${it}" }
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')

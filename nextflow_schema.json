@@ -10,34 +10,17 @@
             "type": "object",
             "fa_icon": "fas fa-terminal",
             "description": "Define where the pipeline should find input data and save output data.",
-            "required": ["refphylo", "refalignment", "query", "outdir"],
+            "required": ["input", "outdir"],
             "properties": {
-                "refphylo": {
+                "input": {
                     "type": "string",
                     "format": "file-path",
-                    "mimetype": "application/x-nh",
-                    "pattern": "^\\S+\\.(newick|tree)$",
+                    "mimetype": "text/csv",
+                    "pattern": "^\\S+\\.csv$",
                     "schema": "assets/schema_input.json",
-                    "description": "Path to newick file containing the reference phylogeny.",
-                    "help_text": "The reference phylogeny is the phylogenetic tree that query sequences will be placed in."
-                },
-                "refalignment": {
-                    "type": "string",
-                    "format": "file-path",
-                    "mimetype": "application/x-fasta",
-                    "pattern": "^\\S+\\.(alnfaa|fasta|faa|fa)$",
-                    "schema": "assets/schema_input.json",
-                    "description": "Path to fasta file containing the reference alignment.",
-                    "help_text": "The reference alignment is the alignment from which the reference phylogenetic tree was estimated from."
-                },
-                "query": {
-                    "type": "string",
-                    "format": "file-path",
-                    "mimetype": "application/x-fasta",
-                    "pattern": "^\\S+\\.(fasta|faa|fa)$",
-                    "schema": "assets/schema_input.json",
-                    "description": "Path to fasta file containing the query sequences.",
-                    "help_text": "The query sequences that will be placed in the reference phylogeny."
+                    "description": "Path to comma-separated file containing information about the samples in the experiment.",
+                    "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with at least 4 columns, and a header row. See [usage docs](https://nf-co.re/phyloplace/usage#samplesheet-input).",
+                    "fa_icon": "fas fa-file-csv"
                 },
                 "outdir": {
                     "type": "string",
