@@ -34,7 +34,6 @@ ch_multiqc_custom_config = params.multiqc_config ? Channel.fromPath(params.multi
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
-include { INPUT_CHECK } from '../subworkflows/local/input_check'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -62,7 +61,6 @@ workflow PHYLOPLACE {
     ch_versions = Channel.empty()
     
     ch_input.splitCsv(header: true)
-        //.map { [ meta: [ id: it.sample ], [ query: it.query, refalign: it.refalignment, refphylo: it.refphylogeny ] ] }
         .map { 
             [ 
                 meta: [ id: it.sample ], 
@@ -73,11 +71,7 @@ workflow PHYLOPLACE {
                 ] 
             ] 
         }
-        .set { csv }
-
-    System.err.println("csv class: ${csv.getClass()}")
-    System.err.println(csv)
-    csv.view { "${it}" }
+        .set { input }
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')
