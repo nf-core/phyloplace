@@ -3,14 +3,36 @@
     "homePage": "https://github.com/nf-core/phyloplace",
     "repos": {
         "nf-core/modules": {
-            "custom/dumpsoftwareversions": {
-                "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
-            },
-            "fastqc": {
-                "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
-            },
-            "multiqc": {
-                "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
+            "git_url": "https://github.com/nf-core/modules.git",
+            "modules": {
+                "custom/dumpsoftwareversions": {
+                    "branch": "master",
+                    "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
+                },
+                "epang": {
+                    "branch": "master",
+                    "git_sha": "e97d4cd32baf206903b8e15e0ff9b893ae8439d5"
+                },
+                "hmmer/eslalimask": {
+                    "branch": "master",
+                    "git_sha": "b5e3d16d80abfc6aa1c86ffde8c1b507bea80f0d"
+                },
+                "hmmer/eslreformat": {
+                    "branch": "master",
+                    "git_sha": "8bc52363713a00c19a58a03a032c8593ea1b55e5"
+                },
+                "hmmer/hmmalign": {
+                    "branch": "master",
+                    "git_sha": "f9d25aad7fd6e9896b35552df3529e184c67ebc2"
+                },
+                "hmmer/hmmbuild": {
+                    "branch": "master",
+                    "git_sha": "98642619bdfb755a2fb5cfb5d7170b03dd1dd39f"
+                },
+                "multiqc": {
+                    "branch": "master",
+                    "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
+                }
             }
         }
     }
