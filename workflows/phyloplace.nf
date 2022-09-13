@@ -60,6 +60,7 @@ workflow PHYLOPLACE {
 
     ch_versions = Channel.empty()
     
+    // Parse the input data into a map channel
     ch_input.splitCsv(header: true)
         .map { 
             [ 
