@@ -17,7 +17,7 @@ process EPANG {
 
     output:
     tuple val(meta), path("./."), emit: epang   , optional: true
-    path "*.epa_result.jplace"  , emit: jplace  , optional: true
+    path "*.epa_result.jplace.gz"  , emit: jplace  , optional: true
     path "*.epa_info.log"       , emit: log
     path "versions.yml"         , emit: versions
 
