@@ -70,7 +70,7 @@ workflow PHYLOPLACE {
                     queryfile:    file(it.queryfile),
                     refalignment: file(it.refalignment),
                     refphylogeny: file(it.refphylogeny),
-                    model:        it
+                    model:        it.model
                 ] 
             ] 
         }

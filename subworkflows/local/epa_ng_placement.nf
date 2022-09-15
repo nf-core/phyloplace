@@ -17,7 +17,6 @@ workflow EPA_NG_PLACEMENT {
 
     main:
     ch_versions = Channel.empty()
-    //ch_pp_data.view { "pp_data: $it" }
 
     // 1. Build an hmm profile to use for alignment
     EPANGPP_HMMBUILD ( ch_pp_data.map { [ it.meta, it.data.refalignment ] }, [] )
@@ -50,8 +49,11 @@ workflow EPA_NG_PLACEMENT {
     ch_versions = ch_versions.mix(EPANGPP_AFAFORMATQUERY.out.versions)
 
     // 6. Do the actual placement
+    ch_epang_query = ch_pp_data.map { [ it.meta, it.data.model ] }
+        .join ( EPANGPP_AFAFORMATQUERY.out.seqreformated )
+        .map { [ [ id:it[0].id, model:it[1] ], it[2] ] }
     EPANGPP_EPANG (
-        EPANGPP_AFAFORMATQUERY.out.seqreformated.map { [ it[0], it[1] ] },
+        ch_epang_query,
         EPANGPP_AFAFORMATREF.out.seqreformated.map { it[1] },
         ch_pp_data.map { it.data.refphylogeny },
         [], [], []
