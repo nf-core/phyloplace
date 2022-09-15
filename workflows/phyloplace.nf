@@ -34,7 +34,7 @@ ch_multiqc_logo     = params.multiqc_logo   ? file( params.multiqc_logo, checkIf
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
-include { EPA_NG_PLACEMENT } from '../subworkflows/local/epa_ng_placement'
+include { EPANG_PLACEMENT } from '../subworkflows/local/epang_placement'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -76,8 +76,8 @@ workflow PHYLOPLACE {
         }
         .set { ch_pp_data }
 
-    EPA_NG_PLACEMENT ( ch_pp_data )
-    ch_versions = ch_versions.mix(EPA_NG_PLACEMENT.out.versions)
+    EPANG_PLACEMENT ( ch_pp_data )
+    ch_versions = ch_versions.mix(EPANG_PLACEMENT.out.versions)
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')

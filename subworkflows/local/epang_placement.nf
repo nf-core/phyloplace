@@ -11,7 +11,7 @@ include { HMMER_ESLREFORMAT as EPANGPP_AFAFORMATQUERY } from '../../modules/nf-c
 include { EPANG as EPANGPP_EPANG                      } from '../../modules/nf-core/modules/epang/main'
 include { GAPPA_EXAMINEGRAFT as EPANGPP_GRAFT         } from '../../modules/nf-core/modules/gappa/examinegraft/main'
 
-workflow EPA_NG_PLACEMENT {
+workflow EPANG_PLACEMENT {
 
     take:
     ch_pp_data
