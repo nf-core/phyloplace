@@ -11,7 +11,11 @@
                 },
                 "epang": {
                     "branch": "master",
-                    "git_sha": "e97d4cd32baf206903b8e15e0ff9b893ae8439d5"
+                    "git_sha": "d90c291f187078aa23fc7b6a709499d4310d9d8d"
+                },
+                "gappa/examinegraft": {
+                    "branch": "master",
+                    "git_sha": "b444b084fa9be7af85adaa9c156a9945f7eccb8d"
                 },
                 "hmmer/eslalimask": {
                     "branch": "master",

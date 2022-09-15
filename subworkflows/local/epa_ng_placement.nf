@@ -9,6 +9,7 @@ include { HMMER_ESLREFORMAT as EPANGPP_UNALIGNREF     } from '../../modules/nf-c
 include { HMMER_ESLREFORMAT as EPANGPP_AFAFORMATREF   } from '../../modules/nf-core/modules/hmmer/eslreformat/main'
 include { HMMER_ESLREFORMAT as EPANGPP_AFAFORMATQUERY } from '../../modules/nf-core/modules/hmmer/eslreformat/main'
 include { EPANG as EPANGPP_EPANG                      } from '../../modules/nf-core/modules/epang/main'
+include { GAPPA_EXAMINEGRAFT as EPANGPP_GRAFT         } from '../../modules/nf-core/modules/gappa/examinegraft/main'
 
 workflow EPA_NG_PLACEMENT {
 
@@ -59,6 +60,10 @@ workflow EPA_NG_PLACEMENT {
         [], [], []
     )
     ch_versions = ch_versions.mix(EPANGPP_EPANG.out.versions)
+
+    // 7. Calculate a tree with the placed sequences
+    EPANGPP_GRAFT ( EPANGPP_EPANG.out.jplace )
+    ch_versions = ch_versions.mix(EPANGPP_GRAFT.out.versions)
 
     emit:
     epang    = EPANGPP_EPANG.out.epang
