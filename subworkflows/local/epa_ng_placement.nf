@@ -49,6 +49,17 @@ workflow EPA_NG_PLACEMENT {
     EPANGPP_AFAFORMATQUERY ( EPANGPP_MASKQUERY.out.maskedaln )
     ch_versions = ch_versions.mix(EPANGPP_AFAFORMATQUERY.out.versions)
 
+    // 6. Do the actual placement
+    EPANGPP_EPANG (
+        EPANGPP_AFAFORMATQUERY.out.seqreformated.map { [ it[0], it[1] ] },
+        EPANGPP_AFAFORMATREF.out.seqreformated.map { it[1] },
+        ch_pp_data.map { it.data.refphylogeny },
+        [], [], []
+    )
+    ch_versions = ch_versions.mix(EPANGPP_EPANG.out.versions)
+
     emit:
+    epang    = EPANGPP_EPANG.out.epang
+    jplace   = EPANGPP_EPANG.out.jplace
     versions = ch_versions
 }
