@@ -23,7 +23,7 @@
                 },
                 "hmmer/hmmalign": {
                     "branch": "master",
-                    "git_sha": "f9d25aad7fd6e9896b35552df3529e184c67ebc2"
+                    "git_sha": "847bebc0abfdf6b9ebff8fe2dfd6abda51d7c04e"
                 },
                 "hmmer/hmmbuild": {
                     "branch": "master",

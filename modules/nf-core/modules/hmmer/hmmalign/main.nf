@@ -19,17 +19,13 @@ process HMMER_HMMALIGN {
     task.ext.when == null || task.ext.when
 
     script:
-    System.err.println("hmm: $hmm")
-    System.err.println("fasta: $fasta")
-    System.err.println("meta: $meta")
-
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
     hmmalign \\
         $args \\
         $hmm \\
-        $fasta | gzip -c > ${meta.id}.sthlm.gz
+        $fasta | gzip -c > ${prefix}.sthlm.gz
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
