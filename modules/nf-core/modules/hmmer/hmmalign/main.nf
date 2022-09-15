@@ -19,6 +19,10 @@ process HMMER_HMMALIGN {
     task.ext.when == null || task.ext.when
 
     script:
+    System.err.println("hmm: $hmm")
+    System.err.println("fasta: $fasta")
+    System.err.println("meta: $meta")
+
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
