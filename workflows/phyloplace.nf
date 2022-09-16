@@ -14,7 +14,35 @@ def checkPathParamList = [ params.input ]
 for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true) } }
 
 // Check mandatory parameters
-if (params.input) { ch_input = Channel.fromPath(params.input) } else { exit 1, 'Input file not specified!' }
+if (params.input) { 
+    //ch_input = Channel.fromPath(params.input) 
+    Channel.fromPath(params.input)
+        .splitCsv(header: true)
+        .map { 
+            [ 
+                meta: [ id: it.sample ], 
+                data: [ 
+                    queryfile:    file(it.queryfile),
+                    refalignment: file(it.refalignment),
+                    refphylogeny: file(it.refphylogeny),
+                    model:        it.model
+                ] 
+            ] 
+        }
+        .set { ch_pp_data }
+} else if ( params.id && params.queryfile && params.refalignment && params.refphylogeny && params.model ) {
+    ch_pp_data = Channel.of([
+        meta: [ id: params.id ],
+        data: [
+            queryfile:    file(params.queryfile),
+            refalignment: file(params.refalignment),
+            refphylogeny: file(params.refphylogeny),
+            model:        params.model
+        ]
+    ])
+} else {
+    exit 1, "You must specify either an input sample  sheet with --input or a full set of --id, --queryfile, --refalignment, --refphylogeny and --model arguments (all have defaults except --model)"
+}
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -62,19 +90,6 @@ workflow PHYLOPLACE {
     ch_versions = Channel.empty()
     
     // Parse the input data into a map channel
-    ch_input.splitCsv(header: true)
-        .map { 
-            [ 
-                meta: [ id: it.sample ], 
-                data: [ 
-                    queryfile:    file(it.queryfile),
-                    refalignment: file(it.refalignment),
-                    refphylogeny: file(it.refphylogeny),
-                    model:        it.model
-                ] 
-            ] 
-        }
-        .set { ch_pp_data }
 
     EPANG_PLACEMENT ( ch_pp_data )
     ch_versions = ch_versions.mix(EPANG_PLACEMENT.out.versions)
