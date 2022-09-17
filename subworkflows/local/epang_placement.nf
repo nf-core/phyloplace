@@ -10,6 +10,7 @@ include { HMMER_ESLREFORMAT as EPANGPP_AFAFORMATREF   } from '../../modules/nf-c
 include { HMMER_ESLREFORMAT as EPANGPP_AFAFORMATQUERY } from '../../modules/nf-core/modules/hmmer/eslreformat/main'
 include { EPANG as EPANGPP_EPANG                      } from '../../modules/nf-core/modules/epang/main'
 include { GAPPA_EXAMINEGRAFT as EPANGPP_GRAFT         } from '../../modules/nf-core/modules/gappa/examinegraft/main'
+include { GAPPA_EXAMINEASSIGN as EPANGPP_ASSIGN       } from '../../modules/erikrikarddaniel/nf-core-modules/gappa/examineassign/main'
 
 workflow EPANG_PLACEMENT {
 
@@ -64,6 +65,10 @@ workflow EPANG_PLACEMENT {
     // 7. Calculate a tree with the placed sequences
     EPANGPP_GRAFT ( EPANGPP_EPANG.out.jplace )
     ch_versions = ch_versions.mix(EPANGPP_GRAFT.out.versions)
+
+    // 8. Classify
+    EPANGPP_ASSIGN ( EPANGPP_EPANG.out.jplace, ch_pp_data.map { it.data.taxonomy } )
+    ch_versions = ch_versions.mix(EPANGPP_ASSIGN.out.versions)
 
     emit:
     epang    = EPANGPP_EPANG.out.epang

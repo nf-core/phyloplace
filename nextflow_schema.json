@@ -59,6 +59,15 @@
                     "description": "Evolutionary model to use for placement, e.g. 'LG'.",
                     "fa_icon": "fas fa-barcode"
                 },
+                "taxonomy": {
+                    "type": "string",
+                    "format": "file-path",
+                    "mimetype": "text/tab-separated-values",
+                    "pattern": "^\\S+\\.tsv$",
+                    "description": "Tab-separated file with taxonomy assignments of reference sequences.",
+                    "help_text": "The first column should consist of names of reference sequences, the second of taxonomy strings, e.g. 'Bacteria;Proteobacteria;Gammaproteobacteria;Enterobacterales;Enterobacteriaceae;Escherichia;Escherichia coli'.",
+                    "fa_icon": "fas fa-file-tsv"
+                },
                 "outdir": {
                     "type": "string",
                     "format": "directory-path",

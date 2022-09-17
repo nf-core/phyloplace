@@ -25,7 +25,8 @@ if (params.input) {
                     queryfile:    file(it.queryfile),
                     refalignment: file(it.refalignment),
                     refphylogeny: file(it.refphylogeny),
-                    model:        it.model
+                    model:        it.model,
+                    taxonomy:     it.taxonomy ? file(it.taxonomy) : []
                 ] 
             ] 
         }
@@ -37,7 +38,8 @@ if (params.input) {
             queryfile:    file(params.queryfile),
             refalignment: file(params.refalignment),
             refphylogeny: file(params.refphylogeny),
-            model:        params.model
+            model:        params.model,
+            taxonomy:     params.taxonomy ? file(params.taxonomy) : []
         ]
     ])
 } else {
