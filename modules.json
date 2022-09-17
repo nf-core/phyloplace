@@ -7,7 +7,7 @@
             "modules": {
                 "gappa/examineassign": {
                     "branch": "gappa-examine-assign",
-                    "git_sha": "e2475d2d5fe7aa9e6cb9f4bc7229be951daff3fe"
+                    "git_sha": "6eeb8983415e759af2b9b9ba8fb5016f40d6407a"
                 }
             }
         },
