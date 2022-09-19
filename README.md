@@ -24,7 +24,7 @@ On release, automated continuous integration tests run the pipeline on a full-si
 
 1. Create an hmm file from the reference alignment ([`hmmbuild`](http://hmmer.org)).
 2. Align both the reference sequences and the query sequences to the hmm ([`hmmalign`](http://hmmer.org)).
-3. Mask and reformat the alignments ([`esl-alimask` and `esl-reformat`](http://hmmer.org)).
+3. Mask and reformat the alignments ([`esl-alimask`](http://hmmer.org) and [`esl-reformat`](http://hmmer.org)).
 4. Place the query sequences in the reference phylogeny ([`epa-ng`](https://github.com/Pbdas/epa-ng)).
 5. Create useful output files, e.g. a phylogeny with all placed query sequences ([`gappa`](https://github.com/lczech/gappa)).
 
