@@ -12,16 +12,23 @@ The directories listed below will be created in the results directory after the 
 
 The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes data using the following steps:
 
-- [FastQC](#fastqc) - Raw read QC
+- [HMMER](#hmmer) - HMM model and alignments
+- [EPA-NG](#epangpp) - Output from phylogenetic placement
+- [GAPPA](#gappa) - Output from GAPPA analyses of placement
 - [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 
-### FastQC
+### HMMER
 
 <details markdown="1">
 <summary>Output files</summary>
 
-- `fastqc/`
+- `hmmer/*.ref.hmm.gz`: HMM model built from reference alignment
+- `hmmer/*.ref.hmmbuild.txt`: Log from HMM model build
+- `hmmer/*.ref.unaligned.afa.gz`: Unaligned reference sequences in fasta format
+- `hmmer/*.ref.hmmalign.sthlm.gz`: Reference sequences aligned to HMM model
+- `hmmer/*.ref.hmmalign.masked.sthlm.gz`: Reference alignment masked to positions in model (`--rf-is-masked`) in Stockholm format
+- `hmmer/*.ref.hmmalign.masked.afa.gz`: Reference alignment masked to positions in model (`--rf-is-masked`) in fasta format
   - `*_fastqc.html`: FastQC report containing quality metrics.
   - `*_fastqc.zip`: Zip archive containing the FastQC report, tab-delimited data file and plot images.
 
