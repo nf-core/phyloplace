@@ -23,6 +23,8 @@ pp0,q0.faa,ref0.alnfaa,ref0.newick,LG
 pp1,q1.faa,ref1.alnfaa,ref1.newick,LG+F+R6
 ```
 
+If you want to classify sequences, add a column called `taxonomy` with files pointing to classification tsv files.
+
 ## Running the pipeline
 
 A typical command for running the pipeline, with parameters on the command line, is as follows:
