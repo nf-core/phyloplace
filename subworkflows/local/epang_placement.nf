@@ -8,7 +8,7 @@ include { HMMER_ESLALIMASK as HMMER_MASKQUERY       } from '../../modules/nf-cor
 include { HMMER_ESLREFORMAT as HMMER_UNALIGNREF     } from '../../modules/nf-core/modules/hmmer/eslreformat/main'
 include { HMMER_ESLREFORMAT as HMMER_AFAFORMATREF   } from '../../modules/nf-core/modules/hmmer/eslreformat/main'
 include { HMMER_ESLREFORMAT as HMMER_AFAFORMATQUERY } from '../../modules/nf-core/modules/hmmer/eslreformat/main'
-include { EPANG as EPANGPP_EPANG                      } from '../../modules/nf-core/modules/epang/main'
+include { EPANG                                     } from '../../modules/nf-core/modules/epang/main'
 include { GAPPA_EXAMINEGRAFT as GAPPA_GRAFT         } from '../../modules/nf-core/modules/gappa/examinegraft/main'
 include { GAPPA_EXAMINEASSIGN as GAPPA_ASSIGN       } from '../../modules/erikrikarddaniel/nf-core-modules/gappa/examineassign/main'
 
@@ -54,24 +54,24 @@ workflow EPANG_PLACEMENT {
     ch_epang_query = ch_pp_data.map { [ it.meta, it.data.model ] }
         .join ( HMMER_AFAFORMATQUERY.out.seqreformated )
         .map { [ [ id:it[0].id, model:it[1] ], it[2] ] }
-    EPANGPP_EPANG (
+    EPANG (
         ch_epang_query,
         HMMER_AFAFORMATREF.out.seqreformated.map { it[1] },
         ch_pp_data.map { it.data.refphylogeny },
         [], [], []
     )
-    ch_versions = ch_versions.mix(EPANGPP_EPANG.out.versions)
+    ch_versions = ch_versions.mix(EPANG.out.versions)
 
     // 7. Calculate a tree with the placed sequences
-    GAPPA_GRAFT ( EPANGPP_EPANG.out.jplace )
+    GAPPA_GRAFT ( EPANG.out.jplace )
     ch_versions = ch_versions.mix(GAPPA_GRAFT.out.versions)
 
     // 8. Classify
-    GAPPA_ASSIGN ( EPANGPP_EPANG.out.jplace, ch_pp_data.map { it.data.taxonomy } )
+    GAPPA_ASSIGN ( EPANG.out.jplace, ch_pp_data.map { it.data.taxonomy } )
     ch_versions = ch_versions.mix(GAPPA_ASSIGN.out.versions)
 
     emit:
-    epang    = EPANGPP_EPANG.out.epang
-    jplace   = EPANGPP_EPANG.out.jplace
+    epang    = EPANG.out.epang
+    jplace   = EPANG.out.jplace
     versions = ch_versions
 }

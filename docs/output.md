@@ -29,20 +29,33 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - `hmmer/*.ref.hmmalign.sthlm.gz`: Reference sequences aligned to HMM model
 - `hmmer/*.ref.hmmalign.masked.sthlm.gz`: Reference alignment masked to positions in model (`--rf-is-masked`) in Stockholm format
 - `hmmer/*.ref.hmmalign.masked.afa.gz`: Reference alignment masked to positions in model (`--rf-is-masked`) in fasta format
-  - `*_fastqc.html`: FastQC report containing quality metrics.
-  - `*_fastqc.zip`: Zip archive containing the FastQC report, tab-delimited data file and plot images.
+- `hmmer/*.query.hmmalign.sthlm.gz`: Query sequences aligned to HMM model
+- `hmmer/*.query.hmmalign.masked.sthlm.gz`: Query alignment masked to positions in model (`--rf-is-masked`) in Stockholm format
+- `hmmer/*.query.hmmalign.masked.afa.gz`: Query alignment masked to positions in model (`--rf-is-masked`) in fasta format
 
 </details>
 
-[FastQC](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/) gives general quality metrics about your sequenced reads. It provides information about the quality score distribution across your reads, per base sequence content (%A/T/G/C), adapter contamination and overrepresented sequences. For further reading and documentation see the [FastQC help pages](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/).
+### EPA-NG
 
-![MultiQC - FastQC sequence counts plot](images/mqc_fastqc_counts.png)
+<details markdown="1">
+<summary>Output files</summary>
 
-![MultiQC - FastQC mean quality scores plot](images/mqc_fastqc_quality.png)
+- `epangpp/*.epa_result.jplace.gz`: EPA-NG placement output in `jplace` format
+- `epangpp/*.epa_info.log`: EPA-NG placement log
 
-![MultiQC - FastQC adapter content plot](images/mqc_fastqc_adapter.png)
+</details>
 
-> **NB:** The FastQC plots displayed in the MultiQC report shows _untrimmed_ reads. They may contain adapter sequence and potentially regions with low quality.
+### GAPPA
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `gappa/*.graft.placement.epa_result.newick`: Query sequences grafted on reference phylogeny
+- `gappa/*.taxonomy.per_query.tsv`: Taxonomic classification of individual query sequences
+- `gappa/*.taxonomy.profile.tsv`: Taxonomic classification profile
+- `gappa/*.taxonomy.labelled_tree.newick`: Taxonomic classification labels on phylogeny
+
+</details>
 
 ### MultiQC
 
