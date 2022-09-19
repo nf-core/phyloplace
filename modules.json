@@ -32,7 +32,7 @@
                 },
                 "hmmer/eslreformat": {
                     "branch": "master",
-                    "git_sha": "885e724e0770331aec51744fdc7359c11389073f"
+                    "git_sha": "b6f18f873324729a138e9a231a8101c560ef7a76"
                 },
                 "hmmer/hmmalign": {
                     "branch": "master",
