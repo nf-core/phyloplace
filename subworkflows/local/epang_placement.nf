@@ -10,7 +10,7 @@ include { HMMER_ESLREFORMAT as HMMER_AFAFORMATREF   } from '../../modules/nf-cor
 include { HMMER_ESLREFORMAT as HMMER_AFAFORMATQUERY } from '../../modules/nf-core/modules/hmmer/eslreformat/main'
 include { EPANG                                     } from '../../modules/nf-core/modules/epang/main'
 include { GAPPA_EXAMINEGRAFT as GAPPA_GRAFT         } from '../../modules/nf-core/modules/gappa/examinegraft/main'
-include { GAPPA_EXAMINEASSIGN as GAPPA_ASSIGN       } from '../../modules/erikrikarddaniel/nf-core-modules/gappa/examineassign/main'
+include { GAPPA_EXAMINEASSIGN as GAPPA_ASSIGN       } from '../../modules/nf-core/modules/gappa/examineassign/main'
 
 workflow EPANG_PLACEMENT {
 

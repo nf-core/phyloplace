@@ -2,15 +2,6 @@
     "name": "nf-core/phyloplace",
     "homePage": "https://github.com/nf-core/phyloplace",
     "repos": {
-        "erikrikarddaniel/nf-core-modules": {
-            "git_url": "https://github.com/erikrikarddaniel/nf-core-modules",
-            "modules": {
-                "gappa/examineassign": {
-                    "branch": "gappa-examine-assign",
-                    "git_sha": "6eeb8983415e759af2b9b9ba8fb5016f40d6407a"
-                }
-            }
-        },
         "nf-core/modules": {
             "git_url": "https://github.com/nf-core/modules.git",
             "modules": {
@@ -21,6 +12,10 @@
                 "epang": {
                     "branch": "master",
                     "git_sha": "b121596ae06e7ea422816ccf6b06a513fc54c262"
+                },
+                "gappa/examineassign": {
+                    "branch": "master",
+                    "git_sha": "46ad627a73f4a10622c7750b34f92002b40e7b0a"
                 },
                 "gappa/examinegraft": {
                     "branch": "master",
