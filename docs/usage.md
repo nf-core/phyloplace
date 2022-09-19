@@ -7,7 +7,7 @@
 ## Introduction
 
 The pipeline can either be run with individual parameters specifying input files and evolutionary model, or from a samplesheet.
-The latter allows you to place more than one set of query sequences and references.
+The latter allows you to place more than one set of query sequences in reference trees.
 
 ## Samplesheet input
 
@@ -30,10 +30,12 @@ If you want to classify sequences, add a column called `taxonomy` with files poi
 A typical command for running the pipeline, with parameters on the command line, is as follows:
 
 ```bash
-nextflow run nf-core/phyloplace --refphylogeny reference.newick --refalignment reference.alnfaa --query query.faa --model LG+F -profile docker
+nextflow run nf-core/phyloplace --refphylogeny reference.newick --refalignment reference.alnfaa --query query.faa --model LG+F --taxonomy taxonomy.tsv -profile docker
 ```
 
 This will launch the pipeline with the `docker` configuration profile. See below for more information about profiles.
+
+The `--taxonomy` argument is not mandatory, whereas all the other parameters starting with double hyphens are.
 
 The corresponding command with a samplesheet, is:
 
