@@ -27,15 +27,15 @@
                 },
                 "hmmer/eslalimask": {
                     "branch": "master",
-                    "git_sha": "b5e3d16d80abfc6aa1c86ffde8c1b507bea80f0d"
+                    "git_sha": "90aef30f432332bdf0ce9f4b9004aa5d5c4960bb"
                 },
                 "hmmer/eslreformat": {
                     "branch": "master",
-                    "git_sha": "b6f18f873324729a138e9a231a8101c560ef7a76"
+                    "git_sha": "90aef30f432332bdf0ce9f4b9004aa5d5c4960bb"
                 },
                 "hmmer/hmmalign": {
                     "branch": "master",
-                    "git_sha": "847bebc0abfdf6b9ebff8fe2dfd6abda51d7c04e"
+                    "git_sha": "90aef30f432332bdf0ce9f4b9004aa5d5c4960bb"
                 },
                 "hmmer/hmmbuild": {
                     "branch": "master",
