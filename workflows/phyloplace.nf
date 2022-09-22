@@ -52,8 +52,9 @@ if (params.input) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-ch_multiqc_config   = params.multiqc_config ? file( params.multiqc_config, checkIfExists: true ) : file("$projectDir/assets/multiqc_config.yml", checkIfExists: true)
-ch_multiqc_logo     = params.multiqc_logo   ? file( params.multiqc_logo, checkIfExists: true )   : []
+ch_multiqc_config        = file("$projectDir/assets/multiqc_config.yml", checkIfExists: true)
+ch_multiqc_custom_config = params.multiqc_config ? Channel.fromPath(params.multiqc_config) : Channel.empty()
+ch_multiqc_logo          = params.multiqc_logo   ? file( params.multiqc_logo, checkIfExists: true )   : []
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -113,6 +114,7 @@ workflow PHYLOPLACE {
     MULTIQC (
         ch_multiqc_files.collect(),
         ch_multiqc_config,
+        ch_multiqc_custom_config,
         ch_multiqc_logo
     )
     multiqc_report = MULTIQC.out.report.toList()
