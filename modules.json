@@ -21,6 +21,10 @@
                     "branch": "master",
                     "git_sha": "b444b084fa9be7af85adaa9c156a9945f7eccb8d"
                 },
+                "gappa/examineheattree": {
+                    "branch": "master",
+                    "git_sha": "0857e6c60f6af2a9862e00370e1bcc72b9878b70"
+                },
                 "hmmer/eslalimask": {
                     "branch": "master",
                     "git_sha": "b5e3d16d80abfc6aa1c86ffde8c1b507bea80f0d"

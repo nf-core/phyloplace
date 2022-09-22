@@ -56,6 +56,11 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - `gappa/*.taxonomy.labelled_tree.newick`: Taxonomic classification labels on phylogeny
 - `gappa/*.taxonomy.krona.profile`: Taxonomic classification as Krona profile
 - `gappa/*.taxonomy.sativa.tsv`: Taxonomic classification as Sativa tsv
+- `gappa/*.heattree.tree.svg`: SVG rendering of the tree with placement mass rendered as a heat map
+- `gappa/*.heattree.tree.nexus`: NEXUS rendering of the tree with placement mass rendered as a heat map
+- `gappa/*.heattree.tree.phyloxml`: phyloxml rendering of the tree with placement mass rendered as a heat map
+- `gappa/*.heattree.tree.colours.txt`: Colours used in heat tree
+- `gappa/*.heattree.tree.log`: Log from `gappa examine heattree` run
 
 </details>
 

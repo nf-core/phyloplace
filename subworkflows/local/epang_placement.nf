@@ -11,6 +11,7 @@ include { HMMER_ESLREFORMAT as HMMER_AFAFORMATQUERY } from '../../modules/nf-cor
 include { EPANG                                     } from '../../modules/nf-core/modules/epang/main'
 include { GAPPA_EXAMINEGRAFT as GAPPA_GRAFT         } from '../../modules/nf-core/modules/gappa/examinegraft/main'
 include { GAPPA_EXAMINEASSIGN as GAPPA_ASSIGN       } from '../../modules/nf-core/modules/gappa/examineassign/main'
+include { GAPPA_EXAMINEHEATTREE as GAPPA_HEATTREE   } from '../../modules/nf-core/modules/gappa/examineheattree/main'
 
 workflow EPANG_PLACEMENT {
 
@@ -69,6 +70,10 @@ workflow EPANG_PLACEMENT {
     // 8. Classify
     GAPPA_ASSIGN ( EPANG.out.jplace, ch_pp_data.map { it.data.taxonomy } )
     ch_versions = ch_versions.mix(GAPPA_ASSIGN.out.versions)
+
+    // 9. Heat tree output
+    GAPPA_HEATTREE ( EPANG.out.jplace )
+    ch_versions = ch_versions.mix(GAPPA_HEATTREE.out.versions)
 
     emit:
     epang    = EPANG.out.epang
