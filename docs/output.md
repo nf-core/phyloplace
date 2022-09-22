@@ -54,6 +54,8 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - `gappa/*.taxonomy.per_query.tsv`: Taxonomic classification of individual query sequences
 - `gappa/*.taxonomy.profile.tsv`: Taxonomic classification profile
 - `gappa/*.taxonomy.labelled_tree.newick`: Taxonomic classification labels on phylogeny
+- `gappa/*.taxonomy.krona.profile`: Taxonomic classification as Krona profile
+- `gappa/*.taxonomy.sativa.tsv`: Taxonomic classification as Sativa tsv
 
 </details>
 
