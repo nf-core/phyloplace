@@ -4,7 +4,8 @@
     nf-core/phyloplace
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     Github : https://github.com/nf-core/phyloplace
-Website: https://nf-co.re/phyloplace
+
+    Website: https://nf-co.re/phyloplace
     Slack  : https://nfcore.slack.com/channels/phyloplace
 ----------------------------------------------------------------------------------------
 */
