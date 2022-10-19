@@ -1,17 +1,17 @@
 nextflow.enable.dsl = 2
 
-include { HMMER_HMMBUILD as HMMER_HMMBUILD          } from '../../modules/nf-core/modules/hmmer/hmmbuild/main'
-include { HMMER_HMMALIGN as HMMER_HMMALIGNREF       } from '../../modules/nf-core/modules/hmmer/hmmalign/main'
-include { HMMER_HMMALIGN as HMMER_HMMALIGNQUERY     } from '../../modules/nf-core/modules/hmmer/hmmalign/main'
-include { HMMER_ESLALIMASK as HMMER_MASKREF         } from '../../modules/nf-core/modules/hmmer/eslalimask/main'
-include { HMMER_ESLALIMASK as HMMER_MASKQUERY       } from '../../modules/nf-core/modules/hmmer/eslalimask/main'
-include { HMMER_ESLREFORMAT as HMMER_UNALIGNREF     } from '../../modules/nf-core/modules/hmmer/eslreformat/main'
-include { HMMER_ESLREFORMAT as HMMER_AFAFORMATREF   } from '../../modules/nf-core/modules/hmmer/eslreformat/main'
-include { HMMER_ESLREFORMAT as HMMER_AFAFORMATQUERY } from '../../modules/nf-core/modules/hmmer/eslreformat/main'
-include { EPANG                                     } from '../../modules/nf-core/modules/epang/main'
-include { GAPPA_EXAMINEGRAFT as GAPPA_GRAFT         } from '../../modules/nf-core/modules/gappa/examinegraft/main'
-include { GAPPA_EXAMINEASSIGN as GAPPA_ASSIGN       } from '../../modules/nf-core/modules/gappa/examineassign/main'
-include { GAPPA_EXAMINEHEATTREE as GAPPA_HEATTREE   } from '../../modules/nf-core/modules/gappa/examineheattree/main'
+include { HMMER_HMMBUILD as HMMER_HMMBUILD          } from '../../modules/nf-core/hmmer/hmmbuild/main'
+include { HMMER_HMMALIGN as HMMER_HMMALIGNREF       } from '../../modules/nf-core/hmmer/hmmalign/main'
+include { HMMER_HMMALIGN as HMMER_HMMALIGNQUERY     } from '../../modules/nf-core/hmmer/hmmalign/main'
+include { HMMER_ESLALIMASK as HMMER_MASKREF         } from '../../modules/nf-core/hmmer/eslalimask/main'
+include { HMMER_ESLALIMASK as HMMER_MASKQUERY       } from '../../modules/nf-core/hmmer/eslalimask/main'
+include { HMMER_ESLREFORMAT as HMMER_UNALIGNREF     } from '../../modules/nf-core/hmmer/eslreformat/main'
+include { HMMER_ESLREFORMAT as HMMER_AFAFORMATREF   } from '../../modules/nf-core/hmmer/eslreformat/main'
+include { HMMER_ESLREFORMAT as HMMER_AFAFORMATQUERY } from '../../modules/nf-core/hmmer/eslreformat/main'
+include { EPANG                                     } from '../../modules/nf-core/epang/main'
+include { GAPPA_EXAMINEGRAFT as GAPPA_GRAFT         } from '../../modules/nf-core/gappa/examinegraft/main'
+include { GAPPA_EXAMINEASSIGN as GAPPA_ASSIGN       } from '../../modules/nf-core/gappa/examineassign/main'
+include { GAPPA_EXAMINEHEATTREE as GAPPA_HEATTREE   } from '../../modules/nf-core/gappa/examineheattree/main'
 
 workflow EPANG_PLACEMENT {
 
