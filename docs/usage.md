@@ -18,7 +18,7 @@ You will need to create a samplesheet with information about the samples you wou
 ```
 
 ```console
-sample,queryfile,refalignment,refphylogeny,model
+sample,queryseqfile,refseqfile,refphylogeny,model
 pp0,q0.faa,ref0.alnfaa,ref0.newick,LG
 pp1,q1.faa,ref1.alnfaa,ref1.newick,LG+F+R6
 ```
@@ -30,7 +30,7 @@ If you want to classify sequences, add a column called `taxonomy` with files poi
 A typical command for running the pipeline, with parameters on the command line, is as follows:
 
 ```bash
-nextflow run nf-core/phyloplace --refphylogeny reference.newick --refalignment reference.alnfaa --query query.faa --model LG+F --taxonomy taxonomy.tsv -profile docker
+nextflow run nf-core/phyloplace --refphylogeny reference.newick --refseqfile reference.alnfaa --query query.faa --model LG+F --taxonomy taxonomy.tsv -profile docker
 ```
 
 This will launch the pipeline with the `docker` configuration profile. See below for more information about profiles.

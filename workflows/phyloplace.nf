@@ -22,8 +22,8 @@ if (params.input) {
             [ 
                 meta: [ id: it.sample ], 
                 data: [ 
-                    queryfile:    file(it.queryfile),
-                    refalignment: file(it.refalignment),
+                    queryseqfile:    file(it.queryseqfile),
+                    refseqfile: file(it.refseqfile),
                     refphylogeny: file(it.refphylogeny),
                     model:        it.model,
                     taxonomy:     it.taxonomy ? file(it.taxonomy) : []
@@ -31,19 +31,19 @@ if (params.input) {
             ] 
         }
         .set { ch_pp_data }
-} else if ( params.id && params.queryfile && params.refalignment && params.refphylogeny && params.model ) {
+} else if ( params.id && params.queryseqfile && params.refseqfile && params.refphylogeny && params.model ) {
     ch_pp_data = Channel.of([
         meta: [ id: params.id ],
         data: [
-            queryfile:    file(params.queryfile),
-            refalignment: file(params.refalignment),
+            queryseqfile:    file(params.queryseqfile),
+            refseqfile: file(params.refseqfile),
             refphylogeny: file(params.refphylogeny),
             model:        params.model,
             taxonomy:     params.taxonomy ? file(params.taxonomy) : []
         ]
     ])
 } else {
-    exit 1, "You must specify either an input sample  sheet with --input or a full set of --id, --queryfile, --refalignment, --refphylogeny and --model arguments (all have defaults except --model)"
+    exit 1, "You must specify either an input sample  sheet with --input or a full set of --id, --queryseqfile, --refseqfile, --refphylogeny and --model arguments (all have defaults except --model)"
 }
 
 /*

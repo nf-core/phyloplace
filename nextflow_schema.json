@@ -28,7 +28,7 @@
                     "default": "placement",
                     "fa_icon": "fas fa-barcode"
                 },
-                "queryfile": {
+                "queryseqfile": {
                     "type": "string",
                     "format": "file-path",
                     "mimetype": "text/plain",
@@ -36,11 +36,12 @@
                     "default": "queries.faa",
                     "fa_icon": "far fa-file-code"
                 },
-                "refalignment": {
+                "refseqfile": {
                     "type": "string",
                     "format": "file-path",
                     "mimetype": "text/plain",
-                    "description": "File with aligned reference sequences. Any format supported by HMMER tools.",
+                    "description": "File with reference sequences. Any format supported by HMMER tools.",
+                    "help_text": "If the sequences are not aligned, you need to provide an alignment option, e.g. --hmmfile.",
                     "default": "reference.alnfaa",
                     "fa_icon": "far fa-file-code"
                 },
