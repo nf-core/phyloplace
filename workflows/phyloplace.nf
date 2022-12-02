@@ -22,8 +22,9 @@ if (params.input) {
             [ 
                 meta: [ id: it.sample ], 
                 data: [ 
-                    queryseqfile:    file(it.queryseqfile),
-                    refseqfile: file(it.refseqfile),
+                    queryseqfile: file(it.queryseqfile),
+                    refseqfile:   file(it.refseqfile),
+                    hmmfile:      it.hmmfile  ? file(it.hmmfile)  : [],
                     refphylogeny: file(it.refphylogeny),
                     model:        it.model,
                     taxonomy:     it.taxonomy ? file(it.taxonomy) : []
@@ -35,8 +36,9 @@ if (params.input) {
     ch_pp_data = Channel.of([
         meta: [ id: params.id ],
         data: [
-            queryseqfile:    file(params.queryseqfile),
-            refseqfile: file(params.refseqfile),
+            queryseqfile: file(params.queryseqfile),
+            refseqfile:   file(params.refseqfile),
+            hmmfile:      params.hmmfile  ? file(params.hmmfile)  : [],
             refphylogeny: file(params.refphylogeny),
             model:        params.model,
             taxonomy:     params.taxonomy ? file(params.taxonomy) : []

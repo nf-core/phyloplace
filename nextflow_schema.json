@@ -45,6 +45,14 @@
                     "default": "reference.alnfaa",
                     "fa_icon": "far fa-file-code"
                 },
+                "hmmfile": {
+                    "type": "string",
+                    "format": "file-path",
+                    "mimetype": "text/plain",
+                    "description": "HMM file. If provided, will be used to align both the reference and query sequences.",
+                    "default": "",
+                    "fa_icon": "far fa-file-code"
+                },
                 "refphylogeny": {
                     "type": "string",
                     "format": "file-path",

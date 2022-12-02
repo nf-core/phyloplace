@@ -21,20 +21,60 @@ workflow EPANG_PLACEMENT {
     main:
     ch_versions = Channel.empty()
 
-    // 1. Build an hmm profile to use for alignment
-    HMMER_HMMBUILD ( ch_pp_data.map { [ it.meta, it.data.refseqfile ] }, [] )
+    // 1 For entries that do not specify an hmm file, build one to use for alignment
+    HMMER_HMMBUILD ( 
+        ch_pp_data
+            .filter { ! it.data.hmmfile }
+            .map { [ it.meta, it.data.refseqfile ] }, 
+        [] 
+    )
+    // This handles mixed input where some samples have hmmfile set, while others don't (sample sheet input)
+    ch_hmm = Channel.empty()
+        .mix(HMMER_HMMBUILD.out.hmm.map { [ it[0], it[1] ] })
+        .mix(
+            ch_pp_data
+                .filter { it.data.hmmfile }
+                .map { [ it.meta, it.data.hmmfile ] }
+        )
+
     ch_versions = ch_versions.mix(HMMER_HMMBUILD.out.versions.first())
 
-    // 2. We need to "unalign" the reference sequences before they can be aligned to the hmm.
-    // (Add ext.args = "--gapsym=- afa" and ext.postprocessing = '| sed "/^>/!s/-//g"' in config file for the process.)
-    HMMER_UNALIGNREF ( ch_pp_data.map { [ it.meta, it.data.refseqfile ] } )
+    // 2. For entries that do not specify an hmm file, "unalign" the reference sequences before they can be aligned to the hmm.
+    HMMER_UNALIGNREF ( 
+        ch_pp_data
+            .filter { ! it.data.hmmfile }
+            .map { [ it.meta, it.data.refseqfile ] } 
+    )
+    ch_unaligned = Channel.empty()
+        .mix(HMMER_UNALIGNREF.out.seqreformated.map { [ it[0], it[1] ] })
+        .mix(
+            ch_pp_data
+                .filter { it.data.hmmfile }
+                .map { [ it.meta, it.data.refseqfile ] }
+        )
+
     ch_versions = ch_versions.mix(HMMER_UNALIGNREF.out.versions)
 
     // 3. Align the reference and query sequences to the profile
-    HMMER_HMMALIGNREF ( HMMER_UNALIGNREF.out.seqreformated, HMMER_HMMBUILD.out.hmm.map { it[1] } )
+    ch_alignref = ch_hmm
+        .mix(ch_unaligned)
+        .groupTuple(size: 2, sort: { a, b -> a =~ /\.hmm/ ? 1 : -1 })
+
+    HMMER_HMMALIGNREF ( 
+        ch_alignref.map { [ it[0], it[1][0] ] },
+        ch_alignref.map { it[1][1] }
+    )
     ch_versions = ch_versions.mix(HMMER_HMMALIGNREF.out.versions)
 
-    HMMER_HMMALIGNQUERY ( ch_pp_data.map { [ it.meta, it.data.queryseqfile ] }, HMMER_HMMBUILD.out.hmm.map { it[1] } )
+    ch_alignquery = Channel.empty()
+        .mix(ch_pp_data.map { [ it.meta, it.data.queryseqfile ] })
+        .mix(ch_hmm)
+        .groupTuple(size: 2, sort: { a, b -> a =~ /\.hmm/ ? 1 : -1 })
+
+    HMMER_HMMALIGNQUERY (
+        ch_alignquery.map { [ it[0], it[1][0] ] },
+        ch_alignquery.map { it[1][1] }
+    )
     ch_versions = ch_versions.mix(HMMER_HMMALIGNQUERY.out.versions)
 
     // 4. Mask the alignments (Add '--rf-is-mask' ext.args in config for the process.)
@@ -51,7 +91,7 @@ workflow EPANG_PLACEMENT {
     HMMER_AFAFORMATQUERY ( HMMER_MASKQUERY.out.maskedaln )
     ch_versions = ch_versions.mix(HMMER_AFAFORMATQUERY.out.versions)
 
-    // 6. Do the actual placement
+    // 6. Do the placement
     ch_epang_query = ch_pp_data.map { [ it.meta, it.data.model ] }
         .join ( HMMER_AFAFORMATQUERY.out.seqreformated )
         .map { [ [ id:it[0].id, model:it[1] ], it[2] ] }
