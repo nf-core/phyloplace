@@ -15,19 +15,19 @@ for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true
 
 // Check mandatory parameters
 if (params.input) { 
-    //ch_input = Channel.fromPath(params.input) 
     Channel.fromPath(params.input)
         .splitCsv(header: true)
         .map { 
             [ 
                 meta: [ id: it.sample ], 
                 data: [ 
+                    alignmethod:  it.alignmethod ? it.alignmethod    : 'hmmer',
                     queryseqfile: file(it.queryseqfile),
                     refseqfile:   file(it.refseqfile),
-                    hmmfile:      it.hmmfile  ? file(it.hmmfile)  : [],
+                    hmmfile:      it.hmmfile     ? file(it.hmmfile)  : [],
                     refphylogeny: file(it.refphylogeny),
                     model:        it.model,
-                    taxonomy:     it.taxonomy ? file(it.taxonomy) : []
+                    taxonomy:     it.taxonomy    ? file(it.taxonomy) : []
                 ] 
             ] 
         }
@@ -36,12 +36,13 @@ if (params.input) {
     ch_pp_data = Channel.of([
         meta: [ id: params.id ],
         data: [
+            alignmethod:  params.alignmethod ? params.alignmethod    : 'hmmer',
             queryseqfile: file(params.queryseqfile),
             refseqfile:   file(params.refseqfile),
-            hmmfile:      params.hmmfile  ? file(params.hmmfile)  : [],
+            hmmfile:      params.hmmfile     ? file(params.hmmfile)  : [],
             refphylogeny: file(params.refphylogeny),
             model:        params.model,
-            taxonomy:     params.taxonomy ? file(params.taxonomy) : []
+            taxonomy:     params.taxonomy    ? file(params.taxonomy) : []
         ]
     ])
 } else {
