@@ -114,17 +114,6 @@ workflow EPANG_PLACEMENT {
     ch_versions = ch_versions.mix(EPANG_SPLIT.out.versions)
 
     // 3. Do the placement
-    //EPANG_SPLIT.out.query.view()
-    /**
-            c = ch_pp_data.map { [ it.meta, it.data.model, it.data.refphylogeny ] }
-            c.view()
-            c = c.join(EPANG_SPLIT.out.query.map { [ it[0], it[1] ] } )
-            c.view()
-            c = c.join(EPANG_SPLIT.out.reference.map { [ it[0], it[1] ] } )
-            c.view()
-            c = c.map { [ [ id:it[0].id, model:it[1] ], it[3], it[4], it[2] ] }
-            c.view()
-    **/
     ch_epang_query = ch_pp_data.map { [ it.meta, it.data.model, it.data.refphylogeny ] }
         .join ( HMMER_AFAFORMATQUERY.out.seqreformated )
         .join ( HMMER_AFAFORMATREF.out.seqreformated )
@@ -134,11 +123,7 @@ workflow EPANG_PLACEMENT {
                 .join(EPANG_SPLIT.out.reference.map { [ it[0], it[1] ] } )
         )
         .map { [ [ id:it[0].id, model:it[1] ], it[3], it[4], it[2] ] }
-    //ch_epang_query.view()
 
-//    ch_epang_query = ch_pp_data.map { [ it.meta, it.data.model ] }
-//        .join ( HMMER_AFAFORMATQUERY.out.seqreformated )
-//        .map { [ [ id:it[0].id, model:it[1] ], it[2] ] }
     EPANG_PLACE (
         ch_epang_query,
         //HMMER_AFAFORMATREF.out.seqreformated.map { it[1] },
@@ -146,7 +131,6 @@ workflow EPANG_PLACEMENT {
         [], []
     )
     ch_versions = ch_versions.mix(EPANG_PLACE.out.versions)
-    //EPANG_PLACE.out.jplace.view()
 
     // 7. Calculate a tree with the placed sequences
     GAPPA_GRAFT ( EPANG_PLACE.out.jplace )
@@ -159,13 +143,12 @@ workflow EPANG_PLACEMENT {
     // 9. Heat tree output
     GAPPA_HEATTREE ( EPANG_PLACE.out.jplace )
     ch_versions = ch_versions.mix(GAPPA_HEATTREE.out.versions)
-    /**
-    **/
 
     emit:
-    /**
-    epang    = EPANG_PLACE.out.epang
-    jplace   = EPANG_PLACE.out.jplace
-    **/
-    versions = ch_versions
+    epang               = EPANG_PLACE.out.epang
+    jplace              = EPANG_PLACE.out.jplace
+    grafted_phylogeny   = GAPPA_GRAFT.out.newick
+    taxonomy_profile    = GAPPA_ASSIGN.out.profile
+    taxonomy_per_query  = GAPPA_ASSIGN.out.per_query
+    versions            = ch_versions
 }
