@@ -71,6 +71,11 @@
                         "branch": "epang-place-one-arg",
                         "git_sha": "ac6d85a8a0779f36ec7c721d0c2f6f70fe6b404a",
                         "installed_by": ["modules"]
+                    },
+                    "gappa/examineassign": {
+                        "branch": "gappa-examineassign-one-arg",
+                        "git_sha": "71d1954eb0968f68dc3bacb3bce33561f908bee3",
+                        "installed_by": ["modules"]
                     }
                 }
             }

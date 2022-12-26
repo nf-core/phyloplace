@@ -13,7 +13,8 @@ include { MAFFT                                     } from '../../modules/nf-cor
 include { EPANG_PLACE                               } from '../../modules/erikrikarddaniel/epang/place/main'
 include { EPANG_SPLIT                               } from '../../modules/nf-core/epang/split/main'
 include { GAPPA_EXAMINEGRAFT as GAPPA_GRAFT         } from '../../modules/nf-core/gappa/examinegraft/main'
-include { GAPPA_EXAMINEASSIGN as GAPPA_ASSIGN       } from '../../modules/nf-core/gappa/examineassign/main'
+//include { GAPPA_EXAMINEASSIGN as GAPPA_ASSIGN       } from '../../modules/nf-core/gappa/examineassign/main'
+include { GAPPA_EXAMINEASSIGN as GAPPA_ASSIGN       } from '../../modules/erikrikarddaniel/gappa/examineassign/main'
 include { GAPPA_EXAMINEHEATTREE as GAPPA_HEATTREE   } from '../../modules/nf-core/gappa/examineheattree/main'
 
 workflow EPANG_PLACEMENT {
@@ -126,8 +127,6 @@ workflow EPANG_PLACEMENT {
 
     EPANG_PLACE (
         ch_epang_query,
-        //HMMER_AFAFORMATREF.out.seqreformated.map { it[1] },
-        //ch_pp_data.map { it.data.refphylogeny },
         [], []
     )
     ch_versions = ch_versions.mix(EPANG_PLACE.out.versions)
@@ -137,7 +136,11 @@ workflow EPANG_PLACEMENT {
     ch_versions = ch_versions.mix(GAPPA_GRAFT.out.versions)
 
     // 8. Classify
-    GAPPA_ASSIGN ( EPANG_PLACE.out.jplace, ch_pp_data.map { it.data.taxonomy } )
+    GAPPA_ASSIGN ( 
+        EPANG_PLACE.out.jplace
+            .map { [ [ id:it[0].id ], it[1] ] }
+            .join( ch_pp_data.map { [ it.meta, it.data.taxonomy ] } )
+    )
     ch_versions = ch_versions.mix(GAPPA_ASSIGN.out.versions)
 
     // 9. Heat tree output
