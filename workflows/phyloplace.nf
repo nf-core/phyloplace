@@ -95,8 +95,6 @@ def multiqc_report = []
 workflow PHYLOPLACE {
 
     ch_versions = Channel.empty()
-    
-    // Parse the input data into a map channel
 
     EPANG_PLACEMENT ( ch_pp_data )
     ch_versions = ch_versions.mix(EPANG_PLACEMENT.out.versions)

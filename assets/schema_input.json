@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://raw.githubusercontent.com/nf-core/pp/master/assets/schema_input.json",
-    "title": "nf-core/pp pipeline - params.input schema",
+    "$id": "https://raw.githubusercontent.com/nf-core/phyloplace/master/assets/schema_input.json",
+    "title": "nf-core/phyloplace pipeline - params.input schema",
     "description": "Schema for the file provided with params.input",
     "type": "array",
     "items": {
@@ -26,8 +26,23 @@
                 "type": "string",
                 "pattern": "^\\S+$",
                 "errorMessage": "Newick formatted file with the reference phylogeny."
+            },
+            "hmmfile": {
+                "type": "string",
+                "pattern": "^\\S+$",
+                "errorMessage": "HMM file to use for alignment, if the reference sequences are not aligned."
+            },
+            "model": {
+                "type": "string",
+                "pattern": "^\\S+$",
+                "errorMessage": "Phylogenetic model to use in placement, see EPA-NG documentation."
+            },
+            "alignmethod": {
+                "type": "string",
+                "pattern": "^\\S+$",
+                "errorMessage": "Method to use for aligning: 'hmmer' or 'mafft'."
             }
         },
-        "required": ["sample", "queryfile", "refalignment", "refphylogeny"]
+        "required": ["sample", "queryfile", "refalignment", "refphylogeny", "model"]
     }
 }

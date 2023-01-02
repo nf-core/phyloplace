@@ -6,61 +6,36 @@ This document describes the output produced by the pipeline. Most of the plots a
 
 The directories listed below will be created in the results directory after the pipeline has finished. All paths are relative to the top-level results directory.
 
+<!-- TODO nf-core: Write this documentation describing your workflow's output -->
+
 ## Pipeline overview
 
 The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes data using the following steps:
 
-- [HMMER](#hmmer) - HMM model and alignments
-- [EPA-NG](#epa-ng) - Output from phylogenetic placement
-- [GAPPA](#gappa) - Output from GAPPA analyses of placement
+- [FastQC](#fastqc) - Raw read QC
 - [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 
-### HMMER
+### FastQC
 
 <details markdown="1">
 <summary>Output files</summary>
 
-- `hmmer/*.ref.hmm.gz`: HMM model built from reference alignment
-- `hmmer/*.ref.hmmbuild.txt`: Log from HMM model build
-- `hmmer/*.ref.unaligned.afa.gz`: Unaligned reference sequences in fasta format
-- `hmmer/*.ref.hmmalign.sthlm.gz`: Reference sequences aligned to HMM model
-- `hmmer/*.ref.hmmalign.masked.sthlm.gz`: Reference alignment masked to positions in model (`--rf-is-masked`) in Stockholm format
-- `hmmer/*.ref.hmmalign.masked.afa.gz`: Reference alignment masked to positions in model (`--rf-is-masked`) in fasta format
-- `hmmer/*.query.hmmalign.sthlm.gz`: Query sequences aligned to HMM model
-- `hmmer/*.query.hmmalign.masked.sthlm.gz`: Query alignment masked to positions in model (`--rf-is-masked`) in Stockholm format
-- `hmmer/*.query.hmmalign.masked.afa.gz`: Query alignment masked to positions in model (`--rf-is-masked`) in fasta format
+- `fastqc/`
+  - `*_fastqc.html`: FastQC report containing quality metrics.
+  - `*_fastqc.zip`: Zip archive containing the FastQC report, tab-delimited data file and plot images.
 
 </details>
 
-### EPA-NG
+[FastQC](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/) gives general quality metrics about your sequenced reads. It provides information about the quality score distribution across your reads, per base sequence content (%A/T/G/C), adapter contamination and overrepresented sequences. For further reading and documentation see the [FastQC help pages](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/).
 
-<details markdown="1">
-<summary>Output files</summary>
+![MultiQC - FastQC sequence counts plot](images/mqc_fastqc_counts.png)
 
-- `epangpp/*.epa_result.jplace.gz`: EPA-NG placement output in `jplace` format
-- `epangpp/*.epa_info.log`: EPA-NG placement log
+![MultiQC - FastQC mean quality scores plot](images/mqc_fastqc_quality.png)
 
-</details>
+![MultiQC - FastQC adapter content plot](images/mqc_fastqc_adapter.png)
 
-### GAPPA
-
-<details markdown="1">
-<summary>Output files</summary>
-
-- `gappa/*.graft.placement.epa_result.newick`: Query sequences grafted on reference phylogeny
-- `gappa/*.taxonomy.per_query.tsv`: Taxonomic classification of individual query sequences
-- `gappa/*.taxonomy.profile.tsv`: Taxonomic classification profile
-- `gappa/*.taxonomy.labelled_tree.newick`: Taxonomic classification labels on phylogeny
-- `gappa/*.taxonomy.krona.profile`: Taxonomic classification as Krona profile
-- `gappa/*.taxonomy.sativa.tsv`: Taxonomic classification as Sativa tsv
-- `gappa/*.heattree.tree.svg`: SVG rendering of the tree with placement mass rendered as a heat map
-- `gappa/*.heattree.tree.nexus`: NEXUS rendering of the tree with placement mass rendered as a heat map
-- `gappa/*.heattree.tree.phyloxml`: phyloxml rendering of the tree with placement mass rendered as a heat map
-- `gappa/*.heattree.tree.colours.txt`: Colours used in heat tree
-- `gappa/*.heattree.tree.log`: Log from `gappa examine heattree` run
-
-</details>
+> **NB:** The FastQC plots displayed in the MultiQC report shows _untrimmed_ reads. They may contain adapter sequence and potentially regions with low quality.
 
 ### MultiQC
 
