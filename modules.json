@@ -7,12 +7,12 @@
                 "nf-core": {
                     "custom/dumpsoftwareversions": {
                         "branch": "master",
-                        "git_sha": "8022c68e7403eecbd8ba9c49496f69f8c49d50f0",
+                        "git_sha": "c8e35eb2055c099720a75538d1b8adb3fb5a464c",
                         "installed_by": ["modules"]
                     },
                     "epang/place": {
                         "branch": "master",
-                        "git_sha": "cccada6ac2e0fb78842b4edabd3202555238bf7f",
+                        "git_sha": "bad0e44f98ed41da7b251ca20c55cca34569e0b4",
                         "installed_by": ["modules"]
                     },
                     "epang/split": {
@@ -22,37 +22,37 @@
                     },
                     "gappa/examineassign": {
                         "branch": "master",
-                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905",
+                        "git_sha": "f5b3c3e07b8d139cad0927d4eb1b25951c47112b",
                         "installed_by": ["modules"]
                     },
                     "gappa/examinegraft": {
                         "branch": "master",
-                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905",
+                        "git_sha": "c8e35eb2055c099720a75538d1b8adb3fb5a464c",
                         "installed_by": ["modules"]
                     },
                     "gappa/examineheattree": {
                         "branch": "master",
-                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905",
+                        "git_sha": "c8e35eb2055c099720a75538d1b8adb3fb5a464c",
                         "installed_by": ["modules"]
                     },
                     "hmmer/eslalimask": {
                         "branch": "master",
-                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905",
+                        "git_sha": "c8e35eb2055c099720a75538d1b8adb3fb5a464c",
                         "installed_by": ["modules"]
                     },
                     "hmmer/eslreformat": {
                         "branch": "master",
-                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905",
+                        "git_sha": "c8e35eb2055c099720a75538d1b8adb3fb5a464c",
                         "installed_by": ["modules"]
                     },
                     "hmmer/hmmalign": {
                         "branch": "master",
-                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905",
+                        "git_sha": "c8e35eb2055c099720a75538d1b8adb3fb5a464c",
                         "installed_by": ["modules"]
                     },
                     "hmmer/hmmbuild": {
                         "branch": "master",
-                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905",
+                        "git_sha": "c8e35eb2055c099720a75538d1b8adb3fb5a464c",
                         "installed_by": ["modules"]
                     },
                     "mafft": {
@@ -62,19 +62,7 @@
                     },
                     "multiqc": {
                         "branch": "master",
-                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905",
-                        "installed_by": ["modules"]
-                    }
-                },
-                "erikrikarddaniel": {
-                    "epang/place": {
-                        "branch": "epang-place-one-arg",
-                        "git_sha": "ac6d85a8a0779f36ec7c721d0c2f6f70fe6b404a",
-                        "installed_by": ["modules"]
-                    },
-                    "gappa/examineassign": {
-                        "branch": "gappa-examineassign-one-arg",
-                        "git_sha": "71d1954eb0968f68dc3bacb3bce33561f908bee3",
+                        "git_sha": "c8e35eb2055c099720a75538d1b8adb3fb5a464c",
                         "installed_by": ["modules"]
                     }
                 }

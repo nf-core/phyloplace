@@ -9,12 +9,10 @@ include { HMMER_ESLREFORMAT as HMMER_UNALIGNREF     } from '../../modules/nf-cor
 include { HMMER_ESLREFORMAT as HMMER_AFAFORMATREF   } from '../../modules/nf-core/hmmer/eslreformat/main'
 include { HMMER_ESLREFORMAT as HMMER_AFAFORMATQUERY } from '../../modules/nf-core/hmmer/eslreformat/main'
 include { MAFFT                                     } from '../../modules/nf-core/mafft/main'
-//include { EPANG_PLACE                               } from '../../modules/nf-core/epang/place/main'
-include { EPANG_PLACE                               } from '../../modules/erikrikarddaniel/epang/place/main'
+include { EPANG_PLACE                               } from '../../modules/nf-core/epang/place/main'
 include { EPANG_SPLIT                               } from '../../modules/nf-core/epang/split/main'
 include { GAPPA_EXAMINEGRAFT as GAPPA_GRAFT         } from '../../modules/nf-core/gappa/examinegraft/main'
-//include { GAPPA_EXAMINEASSIGN as GAPPA_ASSIGN       } from '../../modules/nf-core/gappa/examineassign/main'
-include { GAPPA_EXAMINEASSIGN as GAPPA_ASSIGN       } from '../../modules/erikrikarddaniel/gappa/examineassign/main'
+include { GAPPA_EXAMINEASSIGN as GAPPA_ASSIGN       } from '../../modules/nf-core/gappa/examineassign/main'
 include { GAPPA_EXAMINEHEATTREE as GAPPA_HEATTREE   } from '../../modules/nf-core/gappa/examineheattree/main'
 
 workflow EPANG_PLACEMENT {
@@ -28,7 +26,6 @@ workflow EPANG_PLACEMENT {
     // Divide the input channel into two: One for hmmer and one for mafft alignment
     ch_hmmer_data = ch_pp_data.filter { it.data.alignmethod == 'hmmer' }
     ch_mafft_data = ch_pp_data.filter { it.data.alignmethod == 'mafft' }
-    //ch_hmmer_data.view()
 
     // 1.a.1 HMMER alignment: For entries that do not specify an hmm file, build one to use for alignment
     HMMER_HMMBUILD ( 
