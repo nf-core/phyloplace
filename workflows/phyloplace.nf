@@ -9,42 +9,13 @@ def summary_params = NfcoreSchema.paramsSummaryMap(workflow, params)
 // Validate input parameters
 WorkflowPhyloplace.initialise(params, log)
 
+// TODO nf-core: Add all file path parameters for the pipeline to the list below
 // Check input path parameters to see if they exist
-def checkPathParamList = [ params.input ]
+def checkPathParamList = [ params.input, params.multiqc_config, params.fasta ]
 for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true) } }
 
 // Check mandatory parameters
-if (params.input) { 
-    //ch_input = Channel.fromPath(params.input) 
-    Channel.fromPath(params.input)
-        .splitCsv(header: true)
-        .map { 
-            [ 
-                meta: [ id: it.sample ], 
-                data: [ 
-                    queryfile:    file(it.queryfile),
-                    refalignment: file(it.refalignment),
-                    refphylogeny: file(it.refphylogeny),
-                    model:        it.model,
-                    taxonomy:     it.taxonomy ? file(it.taxonomy) : []
-                ] 
-            ] 
-        }
-        .set { ch_pp_data }
-} else if ( params.id && params.queryfile && params.refalignment && params.refphylogeny && params.model ) {
-    ch_pp_data = Channel.of([
-        meta: [ id: params.id ],
-        data: [
-            queryfile:    file(params.queryfile),
-            refalignment: file(params.refalignment),
-            refphylogeny: file(params.refphylogeny),
-            model:        params.model,
-            taxonomy:     params.taxonomy ? file(params.taxonomy) : []
-        ]
-    ])
-} else {
-    exit 1, "You must specify either an input sample  sheet with --input or a full set of --id, --queryfile, --refalignment, --refphylogeny and --model arguments (all have defaults except --model)"
-}
+if (params.input) { ch_input = file(params.input) } else { exit 1, 'Input samplesheet not specified!' }
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -66,7 +37,7 @@ ch_multiqc_custom_methods_description = params.multiqc_methods_description ? fil
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
-include { EPANG_PLACEMENT } from '../subworkflows/local/epang_placement'
+include { INPUT_CHECK } from '../subworkflows/local/input_check'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -77,6 +48,7 @@ include { EPANG_PLACEMENT } from '../subworkflows/local/epang_placement'
 //
 // MODULE: Installed directly from nf-core/modules
 //
+include { FASTQC                      } from '../modules/nf-core/fastqc/main'
 include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'
 
@@ -92,11 +64,22 @@ def multiqc_report = []
 workflow PHYLOPLACE {
 
     ch_versions = Channel.empty()
-    
-    // Parse the input data into a map channel
 
-    EPANG_PLACEMENT ( ch_pp_data )
-    ch_versions = ch_versions.mix(EPANG_PLACEMENT.out.versions)
+    //
+    // SUBWORKFLOW: Read in samplesheet, validate and stage input files
+    //
+    INPUT_CHECK (
+        ch_input
+    )
+    ch_versions = ch_versions.mix(INPUT_CHECK.out.versions)
+
+    //
+    // MODULE: Run FastQC
+    //
+    FASTQC (
+        INPUT_CHECK.out.reads
+    )
+    ch_versions = ch_versions.mix(FASTQC.out.versions.first())
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')
@@ -115,15 +98,15 @@ workflow PHYLOPLACE {
     ch_multiqc_files = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
     ch_multiqc_files = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml'))
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
+    ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
 
     MULTIQC (
         ch_multiqc_files.collect(),
-        ch_multiqc_config.collect().ifEmpty([]),
-        ch_multiqc_custom_config.collect().ifEmpty([]),
-        ch_multiqc_logo.collect().ifEmpty([])
+        ch_multiqc_config.toList(),
+        ch_multiqc_custom_config.toList(),
+        ch_multiqc_logo.toList()
     )
     multiqc_report = MULTIQC.out.report.toList()
-    ch_versions    = ch_versions.mix(MULTIQC.out.versions)
 }
 
 /*
@@ -138,7 +121,7 @@ workflow.onComplete {
     }
     NfcoreTemplate.summary(workflow, params, log)
     if (params.hook_url) {
-        NfcoreTemplate.adaptivecard(workflow, params, summary_params, projectDir, log)
+        NfcoreTemplate.IM_notification(workflow, params, summary_params, projectDir, log)
     }
 }
 

@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://raw.githubusercontent.com/nf-core/pp/master/assets/schema_input.json",
-    "title": "nf-core/pp pipeline - params.input schema",
+    "$id": "https://raw.githubusercontent.com/nf-core/phyloplace/master/assets/schema_input.json",
+    "title": "nf-core/phyloplace pipeline - params.input schema",
     "description": "Schema for the file provided with params.input",
     "type": "array",
     "items": {
@@ -12,22 +12,25 @@
                 "pattern": "^\\S+$",
                 "errorMessage": "Sample name must be provided and cannot contain spaces"
             },
-            "queryfile": {
+            "fastq_1": {
                 "type": "string",
-                "pattern": "^\\S+$",
-                "errorMessage": "File with query sequences to place in phylogeny. Any format supported by hmmaling in HMMER (e.g. fasta, clustal, phylip, stockholm)."
+                "pattern": "^\\S+\\.f(ast)?q\\.gz$",
+                "errorMessage": "FastQ file for reads 1 must be provided, cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'"
             },
-            "refalignment": {
-                "type": "string",
-                "pattern": "^\\S+$",
-                "errorMessage": "Multiple sequence alignment of reference sequences. Any format suppored by hmmbuild in HMMER (see queryfile for examples)."
-            },
-            "refphylogeny": {
-                "type": "string",
-                "pattern": "^\\S+$",
-                "errorMessage": "Newick formatted file with the reference phylogeny."
+            "fastq_2": {
+                "errorMessage": "FastQ file for reads 2 cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'",
+                "anyOf": [
+                    {
+                        "type": "string",
+                        "pattern": "^\\S+\\.f(ast)?q\\.gz$"
+                    },
+                    {
+                        "type": "string",
+                        "maxLength": 0
+                    }
+                ]
             }
         },
-        "required": ["sample", "queryfile", "refalignment", "refphylogeny"]
+        "required": ["sample", "fastq_1"]
     }
 }
