@@ -17,7 +17,7 @@
                     },
                     "epang/split": {
                         "branch": "master",
-                        "git_sha": "2dc35f08674ddf323bc604819e51ac0705349b68",
+                        "git_sha": "86f035a4483bf3f60acc27ad4953ae7dd710b523",
                         "installed_by": ["modules"]
                     },
                     "gappa/examineassign": {
