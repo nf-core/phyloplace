@@ -53,6 +53,7 @@ Since the resulting alignment contains both query and reference sequences it nee
 <summary>Output files</summary>
 
 - `mafft/`
+
   - `*.fas`: Full alignment, containing both reference and query sequences.
 
 - `epang/`
