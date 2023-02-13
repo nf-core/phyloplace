@@ -66,16 +66,13 @@ ch_multiqc_custom_methods_description = params.multiqc_methods_description ? fil
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-//
-// SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
-//
-include { EPANG_PLACEMENT } from '../subworkflows/local/epang_placement'
-
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     IMPORT NF-CORE MODULES/SUBWORKFLOWS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
+
+include { FASTA_NEWICK_EPANG_GAPPA    } from '../subworkflows/nf-core/fasta_newick_epang_gappa/main'
 
 //
 // MODULE: Installed directly from nf-core/modules
@@ -96,8 +93,8 @@ workflow PHYLOPLACE {
 
     ch_versions = Channel.empty()
 
-    EPANG_PLACEMENT ( ch_pp_data )
-    ch_versions = ch_versions.mix(EPANG_PLACEMENT.out.versions)
+    FASTA_NEWICK_EPANG_GAPPA ( ch_pp_data )
+    ch_versions = ch_versions.mix(FASTA_NEWICK_EPANG_GAPPA.out.versions)
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')
