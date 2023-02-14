@@ -24,7 +24,6 @@ At minimum, four parameters are required:
 3. `--refphylogeny`: Reference phylogeny.
 4. `--model`: Evolutionary model used when estimating the phylogeny, e.g. "LG+F+R6".
 
-
 ## Samplesheet input
 
 Each of the four parameters mentioned above can be specified as columns in a comma separated sample sheet instead.
