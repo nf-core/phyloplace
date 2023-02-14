@@ -18,7 +18,17 @@ At minimum, four parameters are required: A fasta file with query sequences, a f
 
 ## Parameter input
 
+If not using a sample sheet, at a minimum, four input parameters need to be specified:
+
+1. `--queryseqfile`: A fasta formatted file with sequences to place.
+2. `--refseqfile`: Reference sequences. Unless when specifying an `--hmmfile`, this needs to be aligned.
+3. `--refphylogeny`: Reference phylogeny.
+4. `--model`: Evolutionary model used when estimating phylogeny, e.g. "LG+F+R6".
+
 ## Samplesheet input
+
+Each of the four parameters mentioned above can be specified as columns in a comma separated sample sheet instead.
+In addition, a `sample` column needs to be present.
 
 ```bash
 --input '[path to samplesheet file]'
