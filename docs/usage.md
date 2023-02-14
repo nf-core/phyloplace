@@ -13,8 +13,8 @@ One of the outputs from the pipeline is nevertheless a full phylogeny containing
 
 Placement is performed with the [EPA-NG](https://github.com/Pbdas/epa-ng/blob/master/README.md) program after query sequences have been aligned to the reference alignment.
 
-At minimum, four parameters are required: A fasta file with query sequences, a file with a reference alignment (several popular formats supported), a reference phylogeny and a phylogenetic model.
 The pipeline can either take parameters on the command line (or in a `params.yaml` file, see below) to perform a single placement, or a sample `csv` file that can accomodate parameters for several placements.
+At minimum, four parameters are required: A fasta file with query sequences, a file with a reference alignment (several popular formats supported), a reference phylogeny and a phylogenetic model.
 
 ## Parameter input
 
