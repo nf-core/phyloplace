@@ -54,7 +54,6 @@ Since the resulting alignment contains both query and reference sequences it nee
 
 - `mafft/`
   - `*.fas`: Full alignment, containing both reference and query sequences.
-
 - `epang/`
   - `*.query.fasta.gz`: Aligned query sequences in Fasta format.
   - `*.reference.fasta.gz`: Aligned query sequences in Fasta format.
