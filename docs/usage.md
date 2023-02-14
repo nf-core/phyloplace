@@ -7,7 +7,7 @@
 ## Introduction
 
 <p align="center">
-    <img src="images/phyloplace_workflow.png" alt="nf-core/phyloplace workflow overview" width="100%">
+    <img src="images/phyloplace_workflow.png" alt="nf-core/phyloplace workflow overview" width="60%">
 </p>
 
 This pipeline performs "phylogenetic placement" of query sequences on to a reference phylogeny.
