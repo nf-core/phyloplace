@@ -24,7 +24,7 @@ if (params.input) {
                     alignmethod:  it.alignmethod ? it.alignmethod    : 'hmmer',
                     queryseqfile: file(it.queryseqfile),
                     refseqfile:   file(it.refseqfile),
-                    hmmfile:      it.hmmfile     ? file(it.hmmfile)  : [],
+                    hmmfile:      it.hmmfile     ? file(it.hmmfile, checkIfExists: true)  : [],
                     refphylogeny: file(it.refphylogeny),
                     model:        it.model,
                     taxonomy:     it.taxonomy    ? file(it.taxonomy) : []
