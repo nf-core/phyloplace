@@ -6,6 +6,10 @@
 
 ## Introduction
 
+<p align="center">
+    <img src="images/phyloplace_workflow.png" alt="nf-core/phyloplace workflow overview" width="100%">
+</p>
+
 This pipeline performs "phylogenetic placement" of query sequences on to a reference phylogeny.
 With this method, the likelihoods of placing query sequences in the reference phylogeny are calculated on a one-by-one basis.
 This means that a full phylogeny is not estimated, which is perfect e.g. when sequences come from PCR amplicons or are fragments from metagenomes, but also when the number of query sequences is very large.
