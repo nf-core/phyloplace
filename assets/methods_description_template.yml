@@ -1,0 +1,32 @@
+id: "nf-core-phyloplace-methods-description"
+description: "Suggested text and references to use when describing pipeline usage within the methods section of a publication."
+section_name: "nf-core/phyloplace Methods Description"
+section_href: "https://github.com/nf-core/phyloplace"
+plot_type: "html"
+data: |
+  <h4>Methods</h4>
+  <p>Data was processed using nf-core/phyloplace v${workflow.manifest.version} ${doi_text} of the nf-core collection of workflows (<a href="https://doi.org/10.1038/s41587-020-0439-x">Ewels <em>et al.</em>, 2020</a>).
+  Briefly, the workflow aligns a number of query sequences to a reference alignment using either HMMER (<a href="http://dx.doi.org/10.1371/journal.pcbi.1002195">Eddy 2011</a>) or MAFFT (<a href="https://doi.org/10.1093/nar/gkf436">Katoh <em>et al.</em> 2002) and then places the query sequences in a reference tree using EPA-NG (<a href="https://doi.org/10.1093/sysbio/syy054">Barbera <em>et al.</em> 2019</a>).
+  Subsequently, Gappa (<a href="https://doi.org/10.1093/bioinformatics/btaa070">Czech <em>et al.</em> 2020) is used to produce a newick file with query sequences grafted on to the reference tree.
+  </p>
+  <p>The pipeline was executed with Nextflow v${workflow.nextflow.version} (<a href="https://doi.org/10.1038/nbt.3820">Di Tommaso <em>et al.</em>, 2017</a>) with the following command:</p>
+  <pre><code>${workflow.commandLine}</code></pre>
+  <h4>References</h4>
+  <ul>
+    <li>Barbera, P., Kozlov, A.M., Czech, L., Morel, B., Darriba, D., Flouri, T., & Stamatakis, A. 2019). EPA-ng: Massively Parallel Evolutionary Placement of Genetic Sequences. Systematic Biology 68, 365–69.  <a href="https://doi.org/10.1093/sysbio/syy054">https://doi.org/10.1093/sysbio/syy054</a></li>.
+    <li>Czech, L., Barbera, P., & Stamatakis, A. (2020). Genesis and Gappa: processing, analyzing and visualizing phylogenetic (placement) data. Bioinformatics 36, 3263–65. <a href="https://doi.org/10.1093/bioinformatics/btaa070">https://doi.org/10.1093/bioinformatics/btaa070</a></li>.
+
+    <li>Di Tommaso, P., Chatzou, M., Floden, E. W., Barja, P. P., Palumbo, E., & Notredame, C. (2017). Nextflow enables reproducible computational workflows. Nature Biotechnology, 35(4), 316-319. <a href="https://doi.org/10.1038/nbt.3820">https://doi.org/10.1038/nbt.3820</a></li>
+    <li>Eddy, Sean, R. (2011). Accelerated Profile HMM Searches. PLoS Comput Biol 7. <a href="https://doi.org/10.1371/journal.pcbi.1002195">https://doi.org/10.1371/journal.pcbi.1002195.</a></li>
+    <li>Ewels, P. A., Peltzer, A., Fillinger, S., Patel, H., Alneberg, J., Wilm, A., Garcia, M. U., Di Tommaso, P., & Nahnsen, S. (2020). The nf-core framework for community-curated bioinformatics pipelines. Nature Biotechnology, 38(3), 276-278. <a href="https://doi.org/10.1038/s41587-020-0439-x">https://doi.org/10.1038/s41587-020-0439-x</a></li>
+    <li>Katoh, K., Misawa, K., Kuma, K., & Miyata, T. (2002). MAFFT: a novel method for rapid multiple sequence alignment based on fast Fourier transform. Nucleic Acids Research 30, 3059–66. <a href="https://doi.org/10.1093/nar/gkf436">https://doi.org/10.1093/nar/gkf436</a>.</li>
+    .
+  </ul>
+  <div class="alert alert-info">
+    <h5>Notes:</h5>
+    <ul>
+      ${nodoi_text}
+      <li>The command above does not include parameters contained in any configs or profiles that may have been used. Ensure the config file is also uploaded with your publication!</li>
+      <li>You should also cite all software used within this run. Check the "Software Versions" of this report to get version information.</li>
+    </ul>
+  </div>

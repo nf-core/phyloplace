@@ -10,17 +10,21 @@
 
 ## Pipeline tools
 
-- [HMMER](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
+- [HMMER](https://pubmed.ncbi.nlm.nih.gov/22039361/)
 
-  > Eddy, Sean R. 2011. “Accelerated Profile HMM Searches.” PLoS Comput Biol 7 (10): e1002195. https://doi.org/10.1371/journal.pcbi.1002195.
+  > Eddy, Sean R. “Accelerated Profile HMM Searches.” PLoS Comput Biol 7, no. 10 (October 20, 2011): e1002195. https://doi.org/10.1371/journal.pcbi.1002195.
 
-- [EPA-NG](https://github.com/Pbdas/epa-ng)
+- [MAFFT](https://pubmed.ncbi.nlm.nih.gov/12136088/)
 
-  > Barbera, Pierre, Alexey M Kozlov, Lucas Czech, Benoit Morel, Diego Darriba, Tomáš Flouri, and Alexandros Stamatakis. 2019. “EPA-Ng: Massively Parallel Evolutionary Placement of Genetic Sequences.” Systematic Biology 68 (2): 365–69. https://doi.org/10.1093/sysbio/syy054.
+  > Katoh, Kazutaka, Kazuharu Misawa, Kei‐ichi Kuma, and Takashi Miyata. “MAFFT: A Novel Method for Rapid Multiple Sequence Alignment Based on Fast Fourier Transform.” Nucleic Acids Research 30, no. 14 (July 15, 2002): 3059–66. https://doi.org/10.1093/nar/gkf436.
 
-- [gappa](https://github.com/lczech/gappa)
+- [EPA-NG](https://pubmed.ncbi.nlm.nih.gov/30165689/)
 
-  > Czech, Lucas, Pierre Barbera, and Alexandros Stamatakis. 2020. “Genesis and Gappa: Processing, Analyzing and Visualizing Phylogenetic (Placement) Data.” Bioinformatics 36 (10): 3263–65. https://doi.org/10.1093/bioinformatics/btaa070.
+  > Barbera, Pierre, Alexey M Kozlov, Lucas Czech, Benoit Morel, Diego Darriba, Tomáš Flouri, and Alexandros Stamatakis. “EPA-Ng: Massively Parallel Evolutionary Placement of Genetic Sequences.” Systematic Biology 68, no. 2 (March 1, 2019): 365–69. https://doi.org/10.1093/sysbio/syy054.
+
+- [Gappa](https://pubmed.ncbi.nlm.nih.gov/32016344/)
+
+  > Czech, Lucas, Pierre Barbera, and Alexandros Stamatakis. “Genesis and Gappa: Processing, Analyzing and Visualizing Phylogenetic (Placement) Data.” Bioinformatics 36, no. 10 (May 1, 2020): 3263–65. https://doi.org/10.1093/bioinformatics/btaa070.
 
 - [MultiQC](https://pubmed.ncbi.nlm.nih.gov/27312411/)
   > Ewels P, Magnusson M, Lundin S, Käller M. MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics. 2016 Oct 1;32(19):3047-8. doi: 10.1093/bioinformatics/btw354. Epub 2016 Jun 16. PubMed PMID: 27312411; PubMed Central PMCID: PMC5039924.
