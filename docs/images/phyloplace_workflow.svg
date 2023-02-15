@@ -15,19 +15,19 @@
    xmlns:svg="http://www.w3.org/2000/svg">
   <sodipodi:namedview
      id="namedview180"
-     pagecolor="#ffffff"
+     pagecolor="#e6e6e6"
      bordercolor="#666666"
      borderopacity="1.0"
      inkscape:pageshadow="2"
-     inkscape:pageopacity="0.0"
+     inkscape:pageopacity="1"
      inkscape:pagecheckerboard="0"
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="0.35355339"
-     inkscape:cx="657.60931"
-     inkscape:cy="603.86919"
+     inkscape:cx="350.72496"
+     inkscape:cy="602.45498"
      inkscape:window-width="1920"
-     inkscape:window-height="1031"
+     inkscape:window-height="1032"
      inkscape:window-x="0"
      inkscape:window-y="25"
      inkscape:window-maximized="1"
@@ -1002,9 +1002,9 @@
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect91125);fill:#000000;fill-opacity:1;stroke:none"><tspan
          x="610.61719"
          y="484.46875"
-         id="tspan6772"><tspan
+         id="tspan1247"><tspan
            style="font-size:13.3333px"
-           id="tspan6770">mask</tspan></tspan></text>
+           id="tspan1245">mask</tspan></tspan></text>
     <path
        style="fill:none;stroke:#24b064;stroke-width:2.6;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 230.99186,103.30258 V 80.37574"
@@ -1023,9 +1023,9 @@
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect95133);fill:#000000;fill-opacity:1;stroke:none"><tspan
          x="610.61719"
          y="484.46875"
-         id="tspan6776"><tspan
+         id="tspan1251"><tspan
            style="font-size:13.3333px"
-           id="tspan6774">hmmalign</tspan></tspan></text>
+           id="tspan1249">hmmalign</tspan></tspan></text>
     <circle
        style="fill:#000000;stroke:#000000;stroke-width:2.64583;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke markers fill;stop-color:#000000"
        id="circle95239"
@@ -1039,9 +1039,9 @@
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect95245);fill:#000000;fill-opacity:1;stroke:none"><tspan
          x="610.61719"
          y="484.46875"
-         id="tspan6780"><tspan
+         id="tspan1255"><tspan
            style="font-size:13.3333px"
-           id="tspan6778">hmmbuild</tspan></tspan></text>
+           id="tspan1253">hmmbuild</tspan></tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,52.198391,113.54368)"
@@ -1049,9 +1049,9 @@
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect302);fill:#000000;fill-opacity:1;stroke:none"><tspan
          x="610.61719"
          y="484.46875"
-         id="tspan6784"><tspan
+         id="tspan1259"><tspan
            style="font-size:13.3333px"
-           id="tspan6782">MAFFT</tspan></tspan></text>
+           id="tspan1257">MAFFT</tspan></tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,42.247259,83.630939)"
@@ -1059,9 +1059,9 @@
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect1686);fill:#000000;fill-opacity:1;stroke:none"><tspan
          x="610.61719"
          y="484.46875"
-         id="tspan6788"><tspan
+         id="tspan1263"><tspan
            style="font-size:13.3333px"
-           id="tspan6786">EPA-NG split</tspan></tspan></text>
+           id="tspan1261">EPA-NG split</tspan></tspan></text>
     <text
        transform="matrix(0.99999851,0.00173357,-0.00171381,0.99999851,0,0)"
        inkscape:export-ydpi="90"
