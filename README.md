@@ -29,6 +29,10 @@ This ensures that the pipeline runs on AWS, has sensible resource allocation def
 3. Graft query sequences onto the reference phylogeny with [`GAPPA`](https://github.com/lczech/gappa).
 4. If provided with a classification of the reference sequences, classify query sequences with [`GAPPA`](https://github.com/lczech/gappa).
 
+<p align="center">
+    <img src="docs/images/phyloplace_workflow.png" alt="nf-core/phyloplace workflow overview" width="60%">
+</p>
+
 ## Quick Start
 
 1. Install [`Nextflow`](https://www.nextflow.io/docs/latest/getstarted.html#installation) (`>=22.10.1`)
