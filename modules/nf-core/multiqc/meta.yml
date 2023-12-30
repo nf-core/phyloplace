@@ -1,4 +1,5 @@
-name: MultiQC
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/modules/meta-schema.json
+name: multiqc
 description: Aggregate results from bioinformatics analyses across many samples into a single report
 keywords:
   - QC
@@ -17,13 +18,25 @@ input:
       type: file
       description: |
         List of reports / files recognised by MultiQC, for example the html and zip output of FastQC
+  - multiqc_config:
+      type: file
+      description: Optional config yml for MultiQC
+      pattern: "*.{yml,yaml}"
+  - extra_multiqc_config:
+      type: file
+      description: Second optional config yml for MultiQC. Will override common sections in multiqc_config.
+      pattern: "*.{yml,yaml}"
+  - multiqc_logo:
+      type: file
+      description: Optional logo file for MultiQC
+      pattern: "*.{png}"
 output:
   - report:
       type: file
       description: MultiQC report file
       pattern: "multiqc_report.html"
   - data:
-      type: dir
+      type: directory
       description: MultiQC data dir
       pattern: "multiqc_data"
   - plots:
@@ -38,3 +51,9 @@ authors:
   - "@abhi18av"
   - "@bunop"
   - "@drpatelh"
+  - "@jfy133"
+maintainers:
+  - "@abhi18av"
+  - "@bunop"
+  - "@drpatelh"
+  - "@jfy133"
