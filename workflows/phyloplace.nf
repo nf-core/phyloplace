@@ -79,6 +79,7 @@ ch_multiqc_custom_methods_description = params.multiqc_methods_description ? fil
 */
 
 include { FASTA_NEWICK_EPANG_GAPPA    } from '../subworkflows/nf-core/fasta_newick_epang_gappa/main'
+include { multiqcTsvFromList          } from '../../subworkflows/local/utils_nfcore_phyloplace_pipeline'
 
 //
 // MODULE: Installed directly from nf-core/modules
