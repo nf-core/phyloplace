@@ -52,7 +52,7 @@
                     },
                     "mafft": {
                         "branch": "master",
-                        "git_sha": "c0a22acfb0accdf8ab3ea4f755a4865d538dc53f",
+                        "git_sha": "faf557ba56156ac0e5de76a25c1e3df11c944f59",
                         "installed_by": ["fasta_newick_epang_gappa", "modules"]
                     },
                     "multiqc": {
