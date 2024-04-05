@@ -11,31 +11,22 @@ on:
     types: [published]
 
 jobs:
-  EditorConfig:
+  pre-commit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
 
-      - uses: actions/setup-node@v4
+      - name: Set up Python 3.11
+        uses: actions/setup-python@0a5c61591373683505ea898e09a3ea4f39ef2b9c # v5
+        with:
+          python-version: 3.11
+          cache: "pip"
 
-      - name: Install editorconfig-checker
-        run: npm install -g editorconfig-checker
+      - name: Install pre-commit
+        run: pip install pre-commit
 
-      - name: Run ECLint check
-        run: editorconfig-checker -exclude README.md $(find .* -type f | grep -v '.git\|.py\|.md\|json\|yml\|yaml\|html\|css\|work\|.nextflow\|build\|nf_core.egg-info\|log.txt\|Makefile')
-
-  Prettier:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-
-      - name: Install Prettier
-        run: npm install -g prettier
-
-      - name: Run Prettier --check
-        run: prettier --check ${GITHUB_WORKSPACE}
+      - name: Run pre-commit
+        run: pre-commit run --all-files
 
   PythonBlack:
     runs-on: ubuntu-latest
@@ -71,12 +62,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out pipeline code
-        uses: actions/checkout@v4
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
 
       - name: Install Nextflow
         uses: nf-core/setup-nextflow@v1
 
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@0a5c61591373683505ea898e09a3ea4f39ef2b9c # v5
         with:
           python-version: "3.11"
           architecture: "x64"
@@ -99,7 +90,7 @@ jobs:
 
       - name: Upload linting log file artifact
         if: ${{ always() }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # v4
         with:
           name: linting-logs
           path: |

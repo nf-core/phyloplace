@@ -10,17 +10,18 @@
             "sample": {
                 "type": "string",
                 "pattern": "^\\S+$",
-                "errorMessage": "Sample name must be provided and cannot contain spaces"
+                "errorMessage": "Sample name must be provided and cannot contain spaces",
+                "meta": ["id"]
             },
-            "queryfile": {
+            "queryseqfile": {
                 "type": "string",
                 "pattern": "^\\S+$",
-                "errorMessage": "File with query sequences to place in phylogeny. Any format supported by hmmaling in HMMER (e.g. fasta, clustal, phylip, stockholm)."
+                "errorMessage": "File with query sequences to place in phylogeny. Any format supported by hmmaline in HMMER (e.g. fasta, clustal, phylip, stockholm) or MAFFT."
             },
-            "refalignment": {
+            "refseqfile": {
                 "type": "string",
                 "pattern": "^\\S+$",
-                "errorMessage": "Multiple sequence alignment of reference sequences. Any format suppored by hmmbuild in HMMER (see queryfile for examples)."
+                "errorMessage": "Multiple sequence alignment of reference sequences. Any format suppored by hmmbuild in HMMER (see queryfile for examples) or MAFFT."
             },
             "refphylogeny": {
                 "type": "string",
@@ -43,6 +44,6 @@
                 "errorMessage": "Method to use for aligning: 'hmmer' or 'mafft'."
             }
         },
-        "required": ["sample", "queryfile", "refalignment", "refphylogeny", "model"]
+        "required": ["sample", "queryseqfile", "refseqfile", "refphylogeny", "model"]
     }
 }
