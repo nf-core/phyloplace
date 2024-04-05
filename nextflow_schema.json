@@ -42,7 +42,6 @@
                     "format": "file-path",
                     "mimetype": "text/plain",
                     "description": "Fasta file with query sequences",
-                    "default": "queries.faa",
                     "fa_icon": "far fa-file-code"
                 },
                 "refseqfile": {
@@ -51,7 +50,6 @@
                     "mimetype": "text/plain",
                     "description": "File with reference sequences. Any format supported by HMMER tools.",
                     "help_text": "If the sequences are not aligned, you need to provide an alignment option, e.g. --hmmfile.",
-                    "default": "reference.alnfaa",
                     "fa_icon": "far fa-file-code"
                 },
                 "hmmfile": {
@@ -66,7 +64,6 @@
                     "format": "file-path",
                     "mimetype": "text/plain",
                     "description": "Newick file with aligned reference sequences.",
-                    "default": "reference.newick",
                     "fa_icon": "far fa-file-code"
                 },
                 "model": {
