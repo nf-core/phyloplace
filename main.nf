@@ -73,13 +73,13 @@ workflow {
 
     // Check mandatory parameters and construct the input channel for the pipeline
     // (I'm not sure this belongs here after the 2.13 upgrade. I moved it from workflows/phyloplace.nf.)
-    if (params.input) { 
+    if (params.input) {
         Channel.fromPath(params.input)
             .splitCsv(header: true)
-            .map { 
-                [ 
-                    meta: [ id: it.sample ], 
-                    data: [ 
+            .map {
+                [
+                    meta: [ id: it.sample ],
+                    data: [
                         alignmethod:  it.alignmethod ? it.alignmethod    : 'hmmer',
                         queryseqfile: file(it.queryseqfile),
                         refseqfile:   file(it.refseqfile),
@@ -87,8 +87,8 @@ workflow {
                         refphylogeny: file(it.refphylogeny),
                         model:        it.model,
                         taxonomy:     it.taxonomy    ? file(it.taxonomy, checkIfExists: true) : []
-                    ] 
-                ] 
+                    ]
+                ]
             }
             .set { ch_pp_data }
     } else if ( params.id && params.queryseqfile && params.refseqfile && params.refphylogeny && params.model ) {

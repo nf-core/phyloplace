@@ -6,28 +6,28 @@
 
 /*** REMOVED DURING TEMPLATE UPDATE ***/
 //  include { paramsSummaryLog; paramsSummaryMap } from 'plugin/nf-validation'
-//  
+//
 //  def logo = NfcoreTemplate.logo(workflow, params.monochrome_logs)
 //  def citation = '\n' + WorkflowMain.citation(workflow) + '\n'
 //  def summary_params = paramsSummaryMap(workflow)
-//  
+//
 //  // Print parameter summary log to screen
 //  log.info logo + paramsSummaryLog(workflow) + citation
-//  
+//
 //  WorkflowPhyloplace.initialise(params, log)
-//  
+//
 //  // Check input path parameters to see if they exist
 //  def checkPathParamList = [ params.input ]
 //  for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true) } }
-//  
+//
 //  // Check mandatory parameters
-//  if (params.input) { 
+//  if (params.input) {
 //      Channel.fromPath(params.input)
 //          .splitCsv(header: true)
-//          .map { 
-//              [ 
-//                  meta: [ id: it.sample ], 
-//                  data: [ 
+//          .map {
+//              [
+//                  meta: [ id: it.sample ],
+//                  data: [
 //                      alignmethod:  it.alignmethod ? it.alignmethod    : 'hmmer',
 //                      queryseqfile: file(it.queryseqfile),
 //                      refseqfile:   file(it.refseqfile),
@@ -35,8 +35,8 @@
 //                      refphylogeny: file(it.refphylogeny),
 //                      model:        it.model,
 //                      taxonomy:     it.taxonomy    ? file(it.taxonomy, checkIfExists: true) : []
-//                  ] 
-//              ] 
+//                  ]
+//              ]
 //          }
 //          .set { ch_pp_data }
 //  } else if ( params.id && params.queryseqfile && params.refseqfile && params.refphylogeny && params.model ) {
