@@ -24,16 +24,19 @@ jobs:
     strategy:
       matrix:
         NXF_VER:
-          - "22.10.1"
+          - "23.04.0"
           - "latest-everything"
     steps:
       - name: Check out pipeline code
-        uses: actions/checkout@v3
+        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4
 
       - name: Install Nextflow
-        uses: nf-core/setup-nextflow@v1
+        uses: nf-core/setup-nextflow@v2
         with:
           version: "${{ matrix.NXF_VER }}"
+
+      - name: Disk space cleanup
+        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be # v1.3.1
 
       - name: Run pipeline with test data
         run: |
@@ -47,7 +50,7 @@ jobs:
     strategy:
       matrix:
         # Run remaining test profiles with minimum nextflow version
-        profile: [test_hmmfile, test_mafft, test_samplesheet]
+        profile: [test, test_hmmfile, test_mafft, test_samplesheet]
     steps:
       - name: Check out pipeline code
         uses: actions/checkout@v2
@@ -56,7 +59,6 @@ jobs:
         run: |
           wget -qO- get.nextflow.io | bash
           sudo mv nextflow /usr/local/bin/
-
       - name: Run pipeline with ${{ matrix.profile }} test profile
         run: |
           nextflow run ${GITHUB_WORKSPACE} -profile ${{ matrix.profile }},docker --outdir ./results

@@ -1,5 +1,2 @@
 repository_type: pipeline
-
-lint:
-  files_exist:
-    - conf/igenomes.config
+nf_core_version: "2.14.1"
