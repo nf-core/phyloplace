@@ -20,4 +20,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Initial release of nf-core/phyloplace, created with the [nf-core](https://nf-co.re/) template.
 
 The pipeline performs phylogenetic placement of nucleotide or amino acid sequences in a reference phylogeny.
-
