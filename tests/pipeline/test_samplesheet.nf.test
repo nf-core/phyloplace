@@ -1,0 +1,37 @@
+nextflow_pipeline {
+
+    name "Test Workflow main.nf"
+    script "main.nf"
+    tag "test"
+    tag "pipeline"
+
+    test("Samplesheet input") {
+        when {
+            params {
+                outdir          = "$outputDir"
+                input           = 'https://raw.githubusercontent.com/nf-core/test-datasets/phyloplace/testdata/samples.csv'
+                max_cpus        = 2
+                max_memory      = '6.GB'
+                max_time        = '6.h'
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert new File("$outputDir/pipeline_info/software_versions.yml").exists() },
+                { assert new File("$outputDir/epang/nuc_hmmer.epa_result.jplace.gz").exists() },
+                { assert new File("$outputDir/epang/nuc_mafft.epa_result.jplace.gz").exists() },
+                { assert new File("$outputDir/epang/PF14720mafft.epa_result.jplace.gz").exists() },
+                { assert new File("$outputDir/epang/PF14720wo.epa_result.jplace.gz").exists() },
+                { assert new File("$outputDir/epang/PF14720wt.epa_result.jplace.gz").exists() },
+                { assert new File("$outputDir/gappa/nuc_hmmer.graft.nuc_hmmer.epa_result.newick").exists() },
+                { assert new File("$outputDir/gappa/nuc_mafft.graft.nuc_mafft.epa_result.newick").exists() },
+                { assert new File("$outputDir/gappa/PF14720mafft.graft.PF14720mafft.epa_result.newick").exists() },
+                { assert new File("$outputDir/gappa/PF14720wo.graft.PF14720wo.epa_result.newick").exists() },
+                { assert new File("$outputDir/gappa/PF14720wt.graft.PF14720wt.epa_result.newick").exists() },
+                { assert new File("$outputDir/multiqc/multiqc_report.html").exists() },
+            )
+        }
+    }
+}
