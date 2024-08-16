@@ -9,12 +9,12 @@ nextflow_pipeline {
         when {
             params {
                 outdir          = "$outputDir"
-                queryseqfile = "https://github.com/nf-core/test-datasets/raw/phyloplace/testdata/PF14720_3_sequences.faa"
-                refseqfile   = "https://github.com/nf-core/test-datasets/raw/phyloplace/testdata/PF14720_seed.faa"
-                hmmfile      = "https://github.com/nf-core/test-datasets/raw/phyloplace/testdata/PF14720.hmm"
-                refphylogeny = "https://github.com/nf-core/test-datasets/raw/phyloplace/testdata/PF14720_seed.ft.LGCAT.newick"
-                model        = "LG"
-                taxonomy     = "https://github.com/nf-core/test-datasets/raw/modules/data/delete_me/gappa/gappa_taxonomy.tsv"
+                queryseqfile    = "https://github.com/nf-core/test-datasets/raw/phyloplace/testdata/PF14720_3_sequences.faa"
+                refseqfile      = "https://github.com/nf-core/test-datasets/raw/phyloplace/testdata/PF14720_seed.faa"
+                hmmfile         = "https://github.com/nf-core/test-datasets/raw/phyloplace/testdata/PF14720.hmm"
+                refphylogeny    = "https://github.com/nf-core/test-datasets/raw/phyloplace/testdata/PF14720_seed.ft.LGCAT.newick"
+                model           = "LG"
+                taxonomy        = "https://github.com/nf-core/test-datasets/raw/modules/data/delete_me/gappa/gappa_taxonomy.tsv"
                 max_cpus        = 2
                 max_memory      = '6.GB'
                 max_time        = '6.h'
