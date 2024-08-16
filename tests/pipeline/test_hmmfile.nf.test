@@ -2,7 +2,7 @@ nextflow_pipeline {
 
     name "Test Workflow main.nf"
     script "main.nf"
-    tag "test"
+    tag "test_hmmfile"
     tag "pipeline"
 
     test("HMM file align command line params") {
