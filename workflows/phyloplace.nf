@@ -10,12 +10,14 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { FASTA_NEWICK_EPANG_GAPPA } from '../subworkflows/nf-core/fasta_newick_epang_gappa/main'
-include { MULTIQC                  } from '../modules/nf-core/multiqc/main'
-include { paramsSummaryMap         } from 'plugin/nf-validation'
-include { paramsSummaryMultiqc     } from '../subworkflows/nf-core/utils_nfcore_pipeline'
-include { softwareVersionsToYAML   } from '../subworkflows/nf-core/utils_nfcore_pipeline'
-include { methodsDescriptionText   } from '../subworkflows/local/utils_nfcore_phyloplace_pipeline'
+// TODO: change path
+include { FASTA_HMMSEARCH_RANK_FASTAS } from '/home/daluab/dev/nf-core-modules/subworkflows/nf-core/fasta_hmmsearch_rank_fastas/main'
+include { FASTA_NEWICK_EPANG_GAPPA    } from '../subworkflows/nf-core/fasta_newick_epang_gappa/main'
+include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
+include { paramsSummaryMap            } from 'plugin/nf-validation'
+include { paramsSummaryMultiqc        } from '../subworkflows/nf-core/utils_nfcore_pipeline'
+include { softwareVersionsToYAML      } from '../subworkflows/nf-core/utils_nfcore_pipeline'
+include { methodsDescriptionText      } from '../subworkflows/local/utils_nfcore_phyloplace_pipeline'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -26,7 +28,9 @@ include { methodsDescriptionText   } from '../subworkflows/local/utils_nfcore_ph
 workflow PHYLOPLACE {
 
     take:
-    ch_pp_data // channel: data parsed from --input file or cli params
+    ch_phyloplace_data  // channel: [ meta: [], data: [ alignmethod: string, queryseqfile: fasta, refseqfile: fasta, refphylogeny: newick, hmmfile: hmm, model: string, taxonomy: tsv ] ]
+    ch_phylosearch_data // channel: [ meta: [], data: [ alignmethod: string, hmm: file, extract_hmm: file, min_bitscore: int, refseqfile: fasta, refphylogeny: newick, model: string, taxonomy: tsv ] ]
+    ch_sequence_fasta   // channel: sequences to search
 
     main:
 
@@ -36,7 +40,7 @@ workflow PHYLOPLACE {
     //
     // SUBWORKFLOW: Run phylogenetic placement
     //
-    FASTA_NEWICK_EPANG_GAPPA ( ch_pp_data )
+    FASTA_NEWICK_EPANG_GAPPA ( ch_phyloplace_data )
     ch_versions = ch_versions.mix(FASTA_NEWICK_EPANG_GAPPA.out.versions)
 
     //

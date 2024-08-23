@@ -80,6 +80,14 @@
                     "help_text": "The first column should consist of names of reference sequences, the second of taxonomy strings, e.g. 'Bacteria;Proteobacteria;Gammaproteobacteria;Enterobacterales;Enterobacteriaceae;Escherichia;Escherichia coli'.",
                     "fa_icon": "fas fa-file-tsv"
                 },
+                "search_fasta": {
+                    "type": "string",
+                    "format": "file-path",
+                    "mimetype": "text/plain",
+                    "description": "Fasta file with sequences to be searched with HMM profiles.",
+                    "help_text": "Sequences from this file matching an HMM profile, will be placed in the reference phylogeny corresponding to the HMM profile.",
+                    "fa_icon": "fas fa-file-tsv"
+                },
                 "outdir": {
                     "type": "string",
                     "format": "directory-path",

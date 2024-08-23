@@ -34,7 +34,9 @@ include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_phyl
 workflow NFCORE_PHYLOPLACE {
 
     take:
-    pp_data // channel: phyloplace data parsed from --input file or cli params
+    phyloplace_data
+    phylosearch_data
+    sequence_fasta
 
     main:
 
@@ -42,7 +44,9 @@ workflow NFCORE_PHYLOPLACE {
     // WORKFLOW: Run pipeline
     //
     PHYLOPLACE (
-        pp_data
+        phyloplace_data,
+        phylosearch_data,
+        sequence_fasta
     )
 
     emit:
@@ -73,24 +77,31 @@ workflow {
 
     // Check mandatory parameters and construct the input channel for the pipeline
     // (I'm not sure this belongs here after the 2.13 upgrade. I moved it from workflows/phyloplace.nf.)
-    if (params.input) {
+    ch_phylosearch_data = Channel.empty()
+    ch_sequence_fasta   = Channel.empty()
+    ch_phyloplace_data  = Channel.empty()
+
+    if ( params.input && params.search_fasta ) {
         Channel.fromPath(params.input)
             .splitCsv(header: true)
             .map {
                 [
-                    meta: [ id: it.sample ],
+                    meta: [ id: it.target ],
                     data: [
-                        alignmethod:  it.alignmethod ? it.alignmethod    : 'hmmer',
-                        queryseqfile: file(it.queryseqfile),
-                        refseqfile:   file(it.refseqfile),
-                        hmmfile:      it.hmmfile     ? file(it.hmmfile,  checkIfExists: true) : [],
-                        refphylogeny: file(it.refphylogeny),
-                        model:        it.model,
-                        taxonomy:     it.taxonomy    ? file(it.taxonomy, checkIfExists: true) : []
+                        alignmethod:    it.alignmethod  ? it.alignmethod                             : 'hmmer',
+                        hmm:            file(it.hmm,  checkIfExists: true),
+                        extract_hmm:    it.extract_hmm,
+                        min_bitscore:   it.min_bitscore,
+                        refseqfile:     it.refseqfile   ? file(it.refseqfile,   checkIfExists: true) : [],
+                        refphylogeny:   it.refphylogeny ? file(it.refphylogeny, checkIfExists: true) : [],
+                        model:          it.model,
+                        taxonomy:       it.taxonomy     ? file(it.taxonomy,     checkIfExists: true) : []
                     ]
                 ]
             }
-            .set { ch_pp_data }
+            .set { ch_phylosearch_data }
+        Channel.fromPath(params.search_fasta)
+            .set { ch_sequence_fasta }
     } else if ( params.id && params.queryseqfile && params.refseqfile && params.refphylogeny && params.model ) {
         Channel.of([
             meta: [ id: params.id ],
@@ -98,22 +109,26 @@ workflow {
                 alignmethod:  params.alignmethod ? params.alignmethod    : 'hmmer',
                 queryseqfile: file(params.queryseqfile),
                 refseqfile:   file(params.refseqfile),
-                hmmfile:      params.hmmfile     ? file(params.hmmfile)  : [],
                 refphylogeny: file(params.refphylogeny),
+                hmmfile:      params.hmmfile     ? file(params.hmmfile)  : [],
                 model:        params.model,
                 taxonomy:     params.taxonomy    ? file(params.taxonomy) : []
             ]
         ])
-            .set { ch_pp_data }
+            .set { ch_phyloplace_data }
+    } else if ( params.input || params.fasta ) {
+        exit 1, "For phylosearch mode, you need to provide an input sample sheet with --input *and* a fasta file with --search_data"
     } else {
-        exit 1, "You must specify either an input sample  sheet with --input or a full set of --id, --queryseqfile, --refseqfile, --refphylogeny and --model arguments (all have defaults except --model)"
+        exit 1, "For phyloplace mode, you can only specify parameters via command line parameters"
     }
 
     //
     // WORKFLOW: Run main workflow
     //
     NFCORE_PHYLOPLACE (
-        ch_pp_data
+        ch_phyloplace_data,
+        ch_phylosearch_data,
+        ch_sequence_fasta
     )
 
     //
