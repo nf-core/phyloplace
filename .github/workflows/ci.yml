@@ -42,7 +42,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        NXF_VER: ${{ fromJson(needs.define_nxf_versions.outputs.matrix) }}
+        NXF_VER:
+          - "23.04.0"
+          - "latest-everything"
         tags:
           - "test"
           - "test_hmmfile"
