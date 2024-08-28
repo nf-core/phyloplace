@@ -1,0 +1,49 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/nf-core/phyloplace/master/assets/schema_input.json",
+    "title": "nf-core/phyloplace pipeline - params.input schema",
+    "description": "Schema for the file provided with params.input",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "sample": {
+                "type": "string",
+                "pattern": "^\\S+$",
+                "errorMessage": "Sample name must be provided and cannot contain spaces",
+                "meta": ["id"]
+            },
+            "queryseqfile": {
+                "type": "string",
+                "pattern": "^\\S+$",
+                "errorMessage": "File with query sequences to place in phylogeny. Any format supported by hmmaline in HMMER (e.g. fasta, clustal, phylip, stockholm) or MAFFT."
+            },
+            "refseqfile": {
+                "type": "string",
+                "pattern": "^\\S+$",
+                "errorMessage": "Multiple sequence alignment of reference sequences. Any format suppored by hmmbuild in HMMER (see queryfile for examples) or MAFFT."
+            },
+            "refphylogeny": {
+                "type": "string",
+                "pattern": "^\\S+$",
+                "errorMessage": "Newick formatted file with the reference phylogeny."
+            },
+            "hmmfile": {
+                "type": "string",
+                "pattern": "^\\S+$",
+                "errorMessage": "HMM file to use for alignment, if the reference sequences are not aligned."
+            },
+            "model": {
+                "type": "string",
+                "pattern": "^\\S+$",
+                "errorMessage": "Phylogenetic model to use in placement, see EPA-NG documentation."
+            },
+            "alignmethod": {
+                "type": "string",
+                "pattern": "^\\S+$",
+                "errorMessage": "Method to use for aligning: 'hmmer' or 'mafft'."
+            }
+        },
+        "required": ["sample", "queryseqfile", "refseqfile", "refphylogeny", "model"]
+    }
+}

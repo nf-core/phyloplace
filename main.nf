@@ -81,8 +81,8 @@ workflow {
     ch_sequence_fasta   = Channel.empty()
     ch_phyloplace_data  = Channel.empty()
 
-    if ( params.input && params.search_fasta ) {
-        Channel.fromPath(params.input)
+    if ( params.phylosearch_input && params.search_fasta ) {
+        Channel.fromPath(params.phylosearch_input)
             .splitCsv(header: true)
             .map {
                 [
@@ -104,6 +104,24 @@ workflow {
             .set { ch_phylosearch_data }
         Channel.fromPath(params.search_fasta)
             .set { ch_sequence_fasta }
+    } else if ( params.phyloplace_input ) {
+        Channel.fromPath(params.phyloplace_input)
+            .splitCsv(header: true)
+            .map {
+                [
+                    meta: [ id: it.sample ],
+                    data: [
+                        alignmethod:  it.alignmethod ? it.alignmethod    : 'hmmer',
+                        queryseqfile: file(it.queryseqfile),
+                        refseqfile:   file(it.refseqfile),
+                        hmmfile:      it.hmmfile     ? file(it.hmmfile,  checkIfExists: true) : [],
+                        refphylogeny: file(it.refphylogeny),
+                        model:        it.model,
+                        taxonomy:     it.taxonomy    ? file(it.taxonomy, checkIfExists: true) : []
+                    ]
+                ]
+            }
+            .set { ch_phyloplace_data }
     } else if ( params.id && params.queryseqfile && params.refseqfile && params.refphylogeny && params.model ) {
         Channel.of([
             meta: [ id: params.id ],
@@ -118,10 +136,10 @@ workflow {
             ]
         ])
             .set { ch_phyloplace_data }
-    } else if ( params.input || params.fasta ) {
-        exit 1, "For phylosearch mode, you need to provide an input sample sheet with --input *and* a fasta file with --search_data"
+    } else if ( params.phylosearch_input || params.fasta ) {
+        exit 1, "For phylosearch mode, you need to provide an input sample sheet with --phylosearch_input *and* a fasta file with --search_data"
     } else {
-        exit 1, "For phyloplace mode, you can only specify parameters via command line parameters"
+        exit 1, "For phyloplace mode, you need to provide an input sample sheet with --phyloplace_input or the corresponding info with individual parameters"
     }
 
     //

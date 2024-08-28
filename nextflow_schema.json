@@ -12,16 +12,35 @@
             "description": "Define where the pipeline should find input data and save output data.",
             "required": ["outdir"],
             "properties": {
-                "input": {
+                "phyloplace_input": {
                     "type": "string",
                     "format": "file-path",
                     "exists": true,
-                    "schema": "assets/schema_input.json",
+                    "schema": "assets/schema_phyloplace_input.json",
                     "mimetype": "text/csv",
                     "pattern": "^\\S+\\.csv$",
-                    "description": "Path to comma-separated file containing information about the samples in the experiment.",
-                    "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with at least five columns, and a header row. See [usage docs](https://nf-co.re/phyloplace/usage#samplesheet-input).",
+                    "description": "Path to comma-separated file containing information about phylogenetic placements to perform.",
+                    "help_text": "This specifies parameters for direct phylogenetic placement of query sequences onto a reference phylogeny, in contrast to when a HMMER search is first performed, see `--phylosearch_input`. It has to be a comma-separated file with at least five columns, and a header row ('sample', 'queryseqfile', 'refseqfile', 'refphylogeny' and 'model'). See [usage docs](https://nf-co.re/phyloplace/usage#samplesheet-input).",
                     "fa_icon": "fas fa-file-csv"
+                },
+                "phylosearch_input": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "schema": "assets/schema_phylosearch_input.json",
+                    "mimetype": "text/csv",
+                    "pattern": "^\\S+\\.csv$",
+                    "description": "Path to comma-separated file containing information about phylogenetic searches to perform.",
+                    "help_text": "This specifies parameters for phylogenetic placement of unknown sequences onto reference phylogeny after first using HMMER to search through a collection of uknown sequences (see `--search_fasta`) in contrast to when only placing known query sequences, see `--phyloplace_input`. It has to be a comma-separated file with at least two columns that specifies search HMM profiles ('target' and 'hmm') and at least three columns specifying the reference phylogenies ('refseqfile', 'refphylogeny' and 'model') for placement of search results. (Decoy profiles, i.e. profiles only used for searches, not placements, are allowed.) See [usage docs](https://nf-co.re/phyloplace/usage#samplesheet-input).",
+                    "fa_icon": "fas fa-file-csv"
+                },
+                "search_fasta": {
+                    "type": "string",
+                    "format": "file-path",
+                    "mimetype": "text/plain",
+                    "description": "Fasta file with sequences to be searched with HMM profiles.",
+                    "help_text": "Sequences from this file matching an HMM profile, will be placed in the reference phylogeny corresponding to the HMM profile.",
+                    "fa_icon": "fas fa-file-tsv"
                 },
                 "id": {
                     "type": "string",
@@ -78,14 +97,6 @@
                     "pattern": "^\\S+\\.tsv$",
                     "description": "Tab-separated file with taxonomy assignments of reference sequences.",
                     "help_text": "The first column should consist of names of reference sequences, the second of taxonomy strings, e.g. 'Bacteria;Proteobacteria;Gammaproteobacteria;Enterobacterales;Enterobacteriaceae;Escherichia;Escherichia coli'.",
-                    "fa_icon": "fas fa-file-tsv"
-                },
-                "search_fasta": {
-                    "type": "string",
-                    "format": "file-path",
-                    "mimetype": "text/plain",
-                    "description": "Fasta file with sequences to be searched with HMM profiles.",
-                    "help_text": "Sequences from this file matching an HMM profile, will be placed in the reference phylogeny corresponding to the HMM profile.",
                     "fa_icon": "fas fa-file-tsv"
                 },
                 "outdir": {
