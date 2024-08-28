@@ -1,0 +1,72 @@
+{
+    "placement.heattree.tree.phyloxml": {
+        "content": [
+            "placement.heattree.tree.phyloxml:md5,ea35b07e4fd8d174fd6b2f204629cc4e"
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-16T14:29:33.741877602"
+    },
+    "placement.heattree.colours.txt": {
+        "content": [
+            "placement.heattree.colours.txt:md5,7704cd341c8693981253ba6d740c1061"
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-16T14:29:33.722273598"
+    },
+    "placement.heattree.tree.nexus": {
+        "content": [
+            "placement.heattree.tree.nexus:md5,e1cfdcb63f3a751677d0e78fb6b9230a"
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-16T14:29:33.731210728"
+    },
+    "placement.ref.hmmalign.masked.afa.gz": {
+        "content": [
+            "placement.ref.hmmalign.masked.afa.gz:md5,3452f0d4646209116c3b60f1c77d5ba3"
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-16T14:42:12.278891552"
+    },
+    "placement.query.hmmalign.masked.afa.gz": {
+        "content": [
+            "placement.query.hmmalign.masked.afa.gz:md5,69b6d82789587f368da4d808ce20744a"
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-16T14:42:12.273226377"
+    },
+    "placement.graft.placement.epa_result.newick": {
+        "content": [
+            "placement.graft.placement.epa_result.newick:md5,1b9415cffdc5b744e7339be64436932e"
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-16T14:24:48.007690367"
+    },
+    "placement.taxonomy.labelled_tree.newick": {
+        "content": [
+            "placement.taxonomy.labelled_tree.newick:md5,39de8a46303ea757f6eb94478db1ffe0"
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-16T14:29:33.776703652"
+    }
+}
