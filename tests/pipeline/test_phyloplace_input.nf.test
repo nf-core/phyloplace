@@ -2,17 +2,17 @@ nextflow_pipeline {
 
     name "Test Workflow main.nf"
     script "main.nf"
-    tag "test_samplesheet"
+    tag "test_phyloplace_input"
     tag "pipeline"
 
-    test("Samplesheet input") {
+    test("phyloplace input csv") {
         when {
             params {
-                outdir          = "$outputDir"
-                input           = 'https://raw.githubusercontent.com/nf-core/test-datasets/phyloplace/testdata/samples.csv'
-                max_cpus        = 2
-                max_memory      = '6.GB'
-                max_time        = '6.h'
+                outdir           = "$outputDir"
+                phyloplace_input = 'https://raw.githubusercontent.com/nf-core/test-datasets/phyloplace/testdata/phyloplace_input.csv'
+                max_cpus         = 2
+                max_memory       = '6.GB'
+                max_time         = '6.h'
             }
         }
 

@@ -1,0 +1,30 @@
+nextflow_pipeline {
+
+    name "Test Workflow main.nf"
+    script "main.nf"
+    tag "test_phylosearch_input"
+    tag "pipeline"
+
+    test("phylosearch input csv") {
+        when {
+            params {
+                outdir            = "$outputDir"
+                phylosearch_input = 'https://raw.githubusercontent.com/nf-core/test-datasets/phyloplace/testdata/phylosearch_input.csv'
+                search_fasta      = 'https://raw.githubusercontent.com/nf-core/test-datasets/phyloplace/testdata/domain_16s.fna'
+                max_cpus          = 2
+                max_memory        = '6.GB'
+                max_time          = '6.h'
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert new File("$outputDir/epang/arc.epa_result.jplace.gz").exists() },
+                { assert new File("$outputDir/gappa/arc.graft.arc.epa_result.newick").exists() },
+                { assert new File("$outputDir/pipeline_info/software_versions.yml").exists() },
+                { assert new File("$outputDir/multiqc/multiqc_report.html").exists() },
+            )
+        }
+    }
+}
