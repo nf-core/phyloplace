@@ -49,7 +49,7 @@
             },
             "taxonomy": {
                 "type": "string",
-                "pattern": "^\\S+.tsv$",
+                "pattern": "^\\S+$",
                 "errorMessage": "Tab separated file with taxonomy assignments of reference sequences."
             }
         },

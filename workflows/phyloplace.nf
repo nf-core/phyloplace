@@ -11,13 +11,14 @@
 */
 
 // TODO: change path
-include { FASTA_HMMSEARCH_RANK_FASTAS } from '/home/daluab/dev/nf-core-modules/subworkflows/nf-core/fasta_hmmsearch_rank_fastas/main'
-include { FASTA_NEWICK_EPANG_GAPPA    } from '../subworkflows/nf-core/fasta_newick_epang_gappa/main'
-include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
-include { paramsSummaryMap            } from 'plugin/nf-validation'
-include { paramsSummaryMultiqc        } from '../subworkflows/nf-core/utils_nfcore_pipeline'
-include { softwareVersionsToYAML      } from '../subworkflows/nf-core/utils_nfcore_pipeline'
-include { methodsDescriptionText      } from '../subworkflows/local/utils_nfcore_phyloplace_pipeline'
+include { HMMER_HMMEXTRACT              } from '../modules/local/hmmer/hmmextract'
+include { FASTA_HMMSEARCH_RANK_FASTAS   } from '/home/daluab/dev/nf-core-modules/subworkflows/nf-core/fasta_hmmsearch_rank_fastas/main'
+include { FASTA_NEWICK_EPANG_GAPPA      } from '../subworkflows/nf-core/fasta_newick_epang_gappa/main'
+include { MULTIQC                       } from '../modules/nf-core/multiqc/main'
+include { paramsSummaryMap              } from 'plugin/nf-validation'
+include { paramsSummaryMultiqc          } from '../subworkflows/nf-core/utils_nfcore_pipeline'
+include { softwareVersionsToYAML        } from '../subworkflows/nf-core/utils_nfcore_pipeline'
+include { methodsDescriptionText        } from '../subworkflows/local/utils_nfcore_phyloplace_pipeline'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -28,8 +29,8 @@ include { methodsDescriptionText      } from '../subworkflows/local/utils_nfcore
 workflow PHYLOPLACE {
 
     take:
-    ch_phyloplace_data  // channel: [ meta: [], data: [ alignmethod: string, queryseqfile: fasta, refseqfile: fasta, refphylogeny: newick, hmmfile: hmm, model: string, taxonomy: tsv ] ]
-    ch_phylosearch_data // channel: [ meta: [], data: [ alignmethod: string, hmm: file, extract_hmm: file, min_bitscore: int, refseqfile: fasta, refphylogeny: newick, model: string, taxonomy: tsv ] ]
+    ch_phyloplace_data  // channel: [ meta: [ id: string ], data: [ alignmethod: string, queryseqfile: fasta, refseqfile: fasta, refphylogeny: newick, hmmfile: hmm, model: string, taxonomy: tsv ] ]
+    ch_phylosearch_data // channel: [ meta: [ id: string, min_bitscore: int ], data: [ alignmethod: string, hmm: file, extract_hmm: file, refseqfile: fasta, refphylogeny: newick, model: string, taxonomy: tsv ] ]
     ch_sequence_fasta   // channel: sequences to search
 
     main:
@@ -37,10 +38,55 @@ workflow PHYLOPLACE {
     ch_versions = Channel.empty()
     ch_multiqc_files = Channel.empty()
 
+    // 1. Deal with entries in the ch_phylosearch_data channel, i.e. search, then add to the ch_phyloplace_data channel
+
+    // For search entries with a named hmm to extract, call extraction
+    ch_phylosearch_data
+        .filter { it.data.extract_hmm }
+        .map { [ it.meta, it.data.hmm, it.data.extract_hmm ] }
+        .set { ch_hmmextract }
+
+    HMMER_HMMEXTRACT(ch_hmmextract)
+    ch_versions = ch_versions.mix(HMMER_HMMEXTRACT.out.versions)
+
+    // Create an input channel for FASTA_HMMSEARCH_RANK_FASTAS by adding the non-keyed entries from the original channel to the output of the extracted
+    HMMER_HMMEXTRACT.out.hmm
+        .mix(
+            ch_phylosearch_data
+                .filter { ! it.data.extract_hmm }
+                .map { [ it.meta, it.data.hmm ] }
+        )
+        .set { ch_search_profiles }
+
+    FASTA_HMMSEARCH_RANK_FASTAS(ch_search_profiles, ch_sequence_fasta)
+    ch_versions = ch_versions.mix(FASTA_HMMSEARCH_RANK_FASTAS.out.versions)
+
+    FASTA_HMMSEARCH_RANK_FASTAS.out.seqfastas
+        .merge(
+            ch_phylosearch_data
+                .filter { it.data.alignmethod && it.data.refseqfile && it.data.refphylogeny }
+                .map { [ [ id: it.meta.id ], it ] }
+        )
+        .map { [
+            meta: it[3].meta,
+            data: [
+                alignmethod: it[3].data.alignmethod,
+                queryseqfile: it[1],
+                refseqfile: it[3].data.refseqfile,
+                refphylogeny: it[3].data.refphylogeny,
+                model: it[3].data.model,
+                taxonomy: it[3].data.taxonomy
+            ]
+        ] }
+        .mix(ch_phyloplace_data)
+        .set { ch_phyloplace_data }
+
+    ch_phyloplace_data.view()
+
     //
     // SUBWORKFLOW: Run phylogenetic placement
     //
-    FASTA_NEWICK_EPANG_GAPPA ( ch_phyloplace_data )
+    FASTA_NEWICK_EPANG_GAPPA(ch_phyloplace_data)
     ch_versions = ch_versions.mix(FASTA_NEWICK_EPANG_GAPPA.out.versions)
 
     //
@@ -64,7 +110,7 @@ workflow PHYLOPLACE {
     ch_multiqc_files                      = ch_multiqc_files.mix(ch_collated_versions)
     ch_multiqc_files                      = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml', sort: false))
 
-    MULTIQC (
+    MULTIQC(
         ch_multiqc_files.collect(),
         ch_multiqc_config.toList(),
         ch_multiqc_custom_config.toList(),

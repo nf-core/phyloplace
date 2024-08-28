@@ -1,4 +1,6 @@
-process HMMER_HMMFETCH {
+// This is a modified version of nf-core/hmmer/hmmfetch that only extracts, but
+// does so from a single input channel to keep things synchronized.
+process HMMER_HMMEXTRACT {
     tag "$meta.id"
     label 'process_single'
 
@@ -7,18 +9,11 @@ process HMMER_HMMFETCH {
         'https://depot.galaxyproject.org/singularity/hmmer:3.3.2--h87f3376_2':
         'biocontainers/hmmer:3.3.2--h87f3376_2' }"
 
-    // The module can be called with either a key, a file containing keys or neither.
-    // In the latter case, the hmm database will be indexed and an index but no output
-    // hmm will be produced.
     input:
-    tuple val(meta), path(hmm)
-    val   key
-    path  keyfile
-    path  index         // Only used to stage the index from a previous run
+    tuple val(meta), path(hmm), val(key)
 
     output:
-    tuple val(meta), path("*.hmm"), emit: hmm,   optional: true
-    tuple val(meta), path("*.ssi"), emit: index, optional: true
+    tuple val(meta), path("*.hmm"), emit: hmm
     path "versions.yml"           , emit: versions
 
     when:
@@ -27,19 +22,22 @@ process HMMER_HMMFETCH {
     script:
     def args    = task.ext.args ?: ''
     def prefix  = task.ext.prefix ?: "${meta.id}"
-    def keyarg  = key ?: ''
-    def kfopt   = keyfile ? '-f' : ''
-    def index   = ! key && ! keyfile ? '--index' : ''
     def outfile = ! key && ! keyfile ? '' : "> ${prefix}.hmm"
 
+    // Avoid accidentally overwriting the input hmm
+    def move    = ""
+    if ( "${prefix}.hmm" == "${hmm}" ) {
+        move    = "mv ${hmm} ${prefix}.in.hmm"
+        hmm     = "${prefix}.in.hmm"
+    }
+
     """
+    $move
+
     hmmfetch \\
-        $kfopt \\
-        $index \\
         $args \\
         $hmm \\
-        $keyarg \\
-        $keyfile \\
+        $key \\
         $outfile
 
     cat <<-END_VERSIONS > versions.yml

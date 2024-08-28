@@ -50,6 +50,11 @@
                         "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
                         "installed_by": ["fasta_newick_epang_gappa", "modules"]
                     },
+                    "hmmer/hmmfetch": {
+                        "branch": "master",
+                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "installed_by": ["modules"]
+                    },
                     "mafft": {
                         "branch": "master",
                         "git_sha": "faf557ba56156ac0e5de76a25c1e3df11c944f59",
