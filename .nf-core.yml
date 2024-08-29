@@ -1,2 +1,7 @@
 repository_type: pipeline
+lint:
+  files_exist:
+    - conf/igenomes.config
+  nextflow_config:
+    - params.input
 nf_core_version: "2.14.1"
