@@ -148,7 +148,7 @@ def validateInputSamplesheet(input) {
 // Check and validate pipeline parameters
 //
 def validateInputParameters() {
-    if ( ! params.input && ! ( params.id && params.queryseqfile && params.refseqfile && params.refphylogeny && params.model ) ) {
+    if ( ! params.phyloplace_input && ! ( params.phylosearch_input && params.search_fasta ) && ! ( params.id && params.queryseqfile && params.refseqfile && params.refphylogeny && params.model ) ) {
         error("Please provide either --input sample.csv or separatate parameters for input, see documentation or --help")
     }
 }
