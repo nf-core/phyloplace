@@ -11,8 +11,7 @@
 */
 
 include { HMMER_HMMEXTRACT              } from '../modules/local/hmmer/hmmextract'
-// TODO: change path
-include { FASTA_HMMSEARCH_RANK_FASTAS   } from '/home/daluab/dev/nf-core-modules/subworkflows/nf-core/fasta_hmmsearch_rank_fastas/main'
+include { FASTA_HMMSEARCH_RANK_FASTAS   } from '../subworkflows/nf-core/fasta_hmmsearch_rank_fastas/main'
 include { FASTA_NEWICK_EPANG_GAPPA      } from '../subworkflows/nf-core/fasta_newick_epang_gappa/main'
 include { MULTIQC                       } from '../modules/nf-core/multiqc/main'
 include { paramsSummaryMap              } from 'plugin/nf-validation'

@@ -50,6 +50,16 @@
                         "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
                         "installed_by": ["fasta_newick_epang_gappa", "modules"]
                     },
+                    "hmmer/hmmrank": {
+                        "branch": "master",
+                        "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
+                        "installed_by": ["fasta_hmmsearch_rank_fastas"]
+                    },
+                    "hmmer/hmmsearch": {
+                        "branch": "master",
+                        "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
+                        "installed_by": ["fasta_hmmsearch_rank_fastas"]
+                    },
                     "mafft": {
                         "branch": "master",
                         "git_sha": "64770369d851c45c364e410e052ef9a6c3a7d2bb",
@@ -59,11 +69,21 @@
                         "branch": "master",
                         "git_sha": "19ca321db5d8bd48923262c2eca6422359633491",
                         "installed_by": ["modules"]
+                    },
+                    "seqtk/subseq": {
+                        "branch": "master",
+                        "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
+                        "installed_by": ["fasta_hmmsearch_rank_fastas"]
                     }
                 }
             },
             "subworkflows": {
                 "nf-core": {
+                    "fasta_hmmsearch_rank_fastas": {
+                        "branch": "master",
+                        "git_sha": "15086c852c860f785a3654cba03f0ee00533cd08",
+                        "installed_by": ["subworkflows"]
+                    },
                     "fasta_newick_epang_gappa": {
                         "branch": "master",
                         "git_sha": "0fdd34a8a62a644fd58bb4949bc324fc47534473",
