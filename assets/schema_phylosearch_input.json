@@ -30,7 +30,8 @@
             },
             "min_bitscore": {
                 "type": "integer",
-                "errorMessage": "Minimum bitscore for hits to this HMM."
+                "errorMessage": "Minimum bitscore for hits to this HMM.",
+                "meta": ["min_bitscore"]
             },
             "refseqfile": {
                 "type": "string",
