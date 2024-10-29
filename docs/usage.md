@@ -14,7 +14,7 @@ One of the outputs from the pipeline is nevertheless a full phylogeny containing
 Placement is performed with the [EPA-NG](https://github.com/Pbdas/epa-ng/blob/master/README.md) program after query sequences have been aligned to the reference alignment.
 
 The pipeline can either take parameters on the command line (or in a `params.yaml` file, see below) to perform a single placement, or a sample `csv` file that can accomodate parameters for several placements.
-There are two different types of sample `csv` files, one for direct phylogenetic placement (`--phyloplace_input`), the other for search followed by phylogenetic placement (`--phylosearch_input`.
+There are two different types of sample `csv` files, one for direct phylogenetic placement (`--phyloplace_input`), the other for search followed by phylogenetic placement (`--phylosearch_input`).
 
 ## Parameter input
 
@@ -45,11 +45,15 @@ pp1,q1.faa,ref1.alnfaa,ref1.newick,LG+F+R6
 This mode of the pipeline starts by searching a fasta file with a set of HMMER `hmm` files.
 The results are then passed to phylogenetic placement.
 The samplesheet for this mode hence needs to contain paths to `hmm` files plus the phylogenetic placement information.
-(_Note_: If an `hmm` file is not accompanied by a reference tree, plus the associated information, this will be used to search, but not placed, and the sequences will appear in a result table.
+(_Note_: If an `hmm` file is not accompanied by a reference tree, plus the associated information, this will be used to search, but not phylogenetic placement, and the sequences will appear in a result table.
 In the below example, the `rnr` entry will only be used for searching, while the other two will be both searched for and placed.)
 The rest of the sample sheet is like the one for phylogenetic placement only.
 
-In addition to the sample sheet, this mode requires that a fasta file to search is provide via the `--search_fasta` parameter.
+In addition to the sample sheet, this mode requires that a fasta file to search is provided via the `--search_fasta` parameter.
+
+```bash
+--phylosearch_input '[path to samplesheet file]' --search_fasta '[path to fasta file]'
+```
 
 ```csv title="phylosearch_sheet.csv"
 target,hmm,refseqfile,refphylogeny,model,taxonomy
