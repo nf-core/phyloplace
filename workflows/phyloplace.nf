@@ -60,25 +60,24 @@ workflow PHYLOPLACE {
     FASTA_HMMSEARCH_RANK_FASTAS(ch_search_profiles, ch_sequence_fasta)
     ch_versions = ch_versions.mix(FASTA_HMMSEARCH_RANK_FASTAS.out.versions)
 
-    FASTA_HMMSEARCH_RANK_FASTAS.out.seqfastas
-        .merge(
+    ch_phyloplace_data = FASTA_HMMSEARCH_RANK_FASTAS.out.seqfastas
+        .join(
             ch_phylosearch_data
                 .filter { it.data.alignmethod && it.data.refseqfile && it.data.refphylogeny }
                 .map { [ [ id: it.meta.id ], it ] }
         )
         .map { [
-            meta: it[3].meta,
+            meta: it[2].meta,
             data: [
-                alignmethod: it[3].data.alignmethod,
+                alignmethod: it[2].data.alignmethod,
                 queryseqfile: it[1],
-                refseqfile: it[3].data.refseqfile,
-                refphylogeny: it[3].data.refphylogeny,
-                model: it[3].data.model,
-                taxonomy: it[3].data.taxonomy
+                refseqfile: it[2].data.refseqfile,
+                refphylogeny: it[2].data.refphylogeny,
+                model: it[2].data.model,
+                taxonomy: it[2].data.taxonomy
             ]
         ] }
         .mix(ch_phyloplace_data)
-        .set { ch_phyloplace_data }
 
     //
     // SUBWORKFLOW: Run phylogenetic placement
