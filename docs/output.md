@@ -10,6 +10,7 @@ The directories listed below will be created in the results directory after the 
 
 The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes data using the following steps:
 
+- [HMMER](#hmmer) - If the pipeline is run in "search and place" mode, an initial HMMER search is performed to identify query sequences for placement
 - [Alignment](#alignment) - Align query sequences to the reference alignment
 - [Placement](#placement) - Place query sequences in the reference phylogeny
 - [Summary](#summary) - Summarise placement with a grafted tree, a classification and a heattree
@@ -21,6 +22,8 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 Alignment of query sequences is done either with [HMMER](http://hmmer.org/) or [MAFFT](https://mafft.cbrc.jp/alignment/software/).
 
 #### HMMER
+
+In the "search and place" mode of the pipeline, `hmmsearch` output files as well as a `*.hmmrank.tsv.gz` summarising the search is output.
 
 When using HMMER as the alignment program, a profile is first built, which is then used to align _both_ the query and reference sequences, hence the presence of alignment files for the reference sequences in the output.
 The realignment of the reference sequences is done because an alignment will likely result in a profile that doesn't exactly reflect the structure of the alignment in all parts.
@@ -41,6 +44,9 @@ The MAFFT alignment strategy keeps the structure of the original reference align
   - `*.ref.hmmbuild.txt`: Log from HMM profile build.
   - `*.ref.hmm.gz`: HMM profile made from the reference alignment, if not provided using the `hmmfile` parameter.
   - `*.ref.unaligned.afa.gz`: "Unaligned", i.e. without gap characters, reference sequences in Fasta format.
+  - `*.tbl.gz`: Table format (`-tblout`) results for individual `hmmsearch` runs in "search and place" mode
+  - `*.tbl.gz`: Standard, human-readable, format results for individual `hmmsearch` runs in "search and place" mode
+  - `*.hmmrank.tsv.gz`: Summarised `hmmsearch` results
 
 </details>
 
