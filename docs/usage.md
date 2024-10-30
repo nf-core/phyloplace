@@ -6,7 +6,7 @@
 
 ## Introduction
 
-This pipeline performs "phylogenetic placement" of query sequences on to a reference phylogeny.
+This pipeline performs "phylogenetic placement" of query sequences on to a reference phylogeny, or sequence search followed by phylogenetic placement.
 With this method, the likelihoods of placing query sequences in the reference phylogeny are calculated on a one-by-one basis.
 This means that a full phylogeny is not estimated, which is perfect e.g. when sequences come from PCR amplicons or are fragments from metagenomes, but also when the number of query sequences is very large.
 One of the outputs from the pipeline is nevertheless a full phylogeny containing both query and reference sequences, but this is produced by grafting the query sequences on to the reference phylogeny in their most likely positions.
@@ -14,6 +14,7 @@ One of the outputs from the pipeline is nevertheless a full phylogeny containing
 Placement is performed with the [EPA-NG](https://github.com/Pbdas/epa-ng/blob/master/README.md) program after query sequences have been aligned to the reference alignment.
 
 The pipeline can either take parameters on the command line (or in a `params.yaml` file, see below) to perform a single placement, or a sample `csv` file that can accomodate parameters for several placements.
+There are two different types of sample `csv` files, one for direct phylogenetic placement (`--phyloplace_input`), the other for search followed by phylogenetic placement (`--phylosearch_input`).
 
 ## Parameter input
 
@@ -24,27 +25,61 @@ At minimum, four parameters are required:
 3. `--refphylogeny`: Reference phylogeny.
 4. `--model`: Evolutionary model used when estimating the phylogeny, e.g. "LG+F+R6".
 
-## Samplesheet input
+## Samplesheet input for phylogenetic placement
 
 Each of the four parameters mentioned above can be specified as columns in a comma separated sample sheet instead.
 In addition, a `sample` column needs to be present.
 
 ```bash
---input '[path to samplesheet file]'
+--phyloplace_input '[path to samplesheet file]'
 ```
 
-```csv title="samplesheet.csv"
+```csv title="phyloplace_sheet.csv"
 sample,queryseqfile,refseqfile,refphylogeny,model
 pp0,q0.faa,ref0.alnfaa,ref0.newick,LG
 pp1,q1.faa,ref1.alnfaa,ref1.newick,LG+F+R6
 ```
 
+## Samplesheet input for search followed by phylogenetic placement
+
+This mode of the pipeline starts by searching a fasta file with a set of HMMER `hmm` files.
+The results are then passed to phylogenetic placement.
+The samplesheet for this mode hence needs to contain paths to `hmm` files plus the phylogenetic placement information.
+(_Note_: If an `hmm` file is not accompanied by a reference tree, plus the associated information, this will be used to search, but not phylogenetic placement, and the sequences will appear in a result table.
+In the below example, the `rnr` entry will only be used for searching, while the other two will be both searched for and placed.)
+The rest of the sample sheet is like the one for phylogenetic placement only.
+
+In addition to the sample sheet, this mode requires that a fasta file to search is provided via the `--search_fasta` parameter.
+
+```bash
+--phylosearch_input '[path to samplesheet file]' --search_fasta '[path to fasta file]'
+```
+
+```csv title="phylosearch_sheet.csv"
+target,hmm,refseqfile,refphylogeny,model,taxonomy
+ring-hydrox,PF00848.hmm,PF00848.alnfaa,PF00848.newick,LG+F+I,PF00848.taxonomy.tsv
+meth-dehydr,PF00389.hmm,PF00389.alnfaa,PF00389.newick,LG+F+I,PF00848.taxonomy.tsv
+rnr,PF00788.hmm,,,,
+```
+
 ## Running the pipeline
 
-The typical command for running the pipeline is as follows:
+Run the pipeline with command line parameters specifying the placement parameters as follows:
 
 ```bash
 nextflow run nf-core/phyloplace --refphylogeny reference.newick --refseqfile reference.alnfaa --query query.faa --model LG+F --taxonomy taxonomy.tsv -profile docker
+```
+
+With a placement samplesheet as follows:
+
+```bash
+nextflow run nf-core/phyloplace --phyloplace_input phyloplace_sheet.csv -profile docker
+```
+
+Or in search and place mode as follows:
+
+```bash
+nextflow run nf-core/phyloplace --phylosearch_input phylosearch_sheet.csv --search_fasta unknowns.faa -profile docker
 ```
 
 This will launch the pipeline with the `docker` configuration profile. See below for more information about profiles.
@@ -75,9 +110,9 @@ nextflow run nf-core/phyloplace -profile docker -params-file params.yaml
 with `params.yaml` containing:
 
 ```yaml
-input: './samplesheet.csv'
+phyloplace_input: './phylosearch_sheet.csv'
 outdir: './results/'
-genome: 'GRCh37'
+search_fasta: './unknowns.faa'
 <...>
 ```
 
