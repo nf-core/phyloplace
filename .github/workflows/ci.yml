@@ -49,7 +49,8 @@ jobs:
           - "test"
           - "test_hmmfile"
           - "test_mafft"
-          - "test_samplesheet"
+          - "test_phyloplace_input"
+          - "test_phylosearch_input"
         profile:
           - "docker"
 
