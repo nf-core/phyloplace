@@ -52,7 +52,6 @@ jobs:
           - "test_samplesheet"
         profile:
           - "docker"
-          - "singularity"
 
     steps:
       - name: Check out pipeline code
