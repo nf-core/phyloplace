@@ -141,7 +141,7 @@ workflow PIPELINE_INITIALISATION {
         ])
             .set { ch_phyloplace_data }
     } else if ( params.phylosearch_input || params.fasta ) {
-        exit 1, "For phylosearch mode, you need to provide an input sample sheet with --phylosearch_input *and* a fasta file with --search_data"
+        exit 1, "For phylosearch mode, you need to provide an input sample sheet with --phylosearch_input *and* a fasta file with --search_fasta"
     } else {
         exit 1, "For phyloplace mode, you need to provide an input sample sheet with --phyloplace_input or the corresponding info with individual parameters"
     }
