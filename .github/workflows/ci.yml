@@ -48,6 +48,7 @@ jobs:
         tags:
           - "test"
           - "test_hmmfile"
+          - "test_clustalo"
           - "test_mafft"
           - "test_phyloplace_input"
           - "test_phylosearch_input"
