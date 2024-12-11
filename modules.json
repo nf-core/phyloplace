@@ -5,6 +5,11 @@
         "https://github.com/nf-core/modules.git": {
             "modules": {
                 "nf-core": {
+                    "clustalo/align": {
+                        "branch": "master",
+                        "git_sha": "2a8530b890878747f5063a894bad9fb2abd5c071",
+                        "installed_by": ["fasta_newick_epang_gappa"]
+                    },
                     "epang/place": {
                         "branch": "master",
                         "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
@@ -12,7 +17,7 @@
                     },
                     "epang/split": {
                         "branch": "master",
-                        "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
+                        "git_sha": "868cb0d7fc4862991fb7c2b4cd7289806cd53f81",
                         "installed_by": ["fasta_newick_epang_gappa", "modules"]
                     },
                     "gappa/examineassign": {
@@ -63,7 +68,12 @@
                     "mafft": {
                         "branch": "master",
                         "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
-                        "installed_by": ["fasta_newick_epang_gappa", "modules"]
+                        "installed_by": ["modules"]
+                    },
+                    "mafft/align": {
+                        "branch": "master",
+                        "git_sha": "868cb0d7fc4862991fb7c2b4cd7289806cd53f81",
+                        "installed_by": ["fasta_newick_epang_gappa"]
                     },
                     "multiqc": {
                         "branch": "master",
@@ -86,7 +96,7 @@
                     },
                     "fasta_newick_epang_gappa": {
                         "branch": "master",
-                        "git_sha": "03a9f356a1a333923c1177c2912fa7bc61bb46f3",
+                        "git_sha": "725f406d25254b40a4bf436159ab841d43c43a17",
                         "installed_by": ["subworkflows"]
                     },
                     "utils_nextflow_pipeline": {
