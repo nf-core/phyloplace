@@ -7,7 +7,7 @@
                 "nf-core": {
                     "clustalo/align": {
                         "branch": "master",
-                        "git_sha": "2a8530b890878747f5063a894bad9fb2abd5c071",
+                        "git_sha": "7b32b09fe7787c0fc6924e7b6f223a0b1daf0d2f",
                         "installed_by": ["fasta_newick_epang_gappa"]
                     },
                     "epang/place": {
