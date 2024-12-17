@@ -6,10 +6,10 @@
 </h1>
 
 [![GitHub Actions CI Status](https://github.com/nf-core/phyloplace/actions/workflows/ci.yml/badge.svg)](https://github.com/nf-core/phyloplace/actions/workflows/ci.yml)
-[![GitHub Actions Linting Status](https://github.com/nf-core/phyloplace/actions/workflows/linting.yml/badge.svg)](https://github.com/nf-core/phyloplace/actions/workflows/linting.yml)[![AWS CI](https://img.shields.io/badge/CI%20tests-full%20size-FF9900?labelColor=000000&logo=Amazon%20AWS)](https://nf-co.re/phyloplace/results)[![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.XXXXXXX-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.XXXXXXX)
+[![GitHub Actions Linting Status](https://github.com/nf-core/phyloplace/actions/workflows/linting.yml/badge.svg)](https://github.com/nf-core/phyloplace/actions/workflows/linting.yml)[![AWS CI](https://img.shields.io/badge/CI%20tests-full%20size-FF9900?labelColor=000000&logo=Amazon%20AWS)](https://nf-co.re/phyloplace/results)[![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.7643941-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.7643941)
 [![nf-test](https://img.shields.io/badge/unit_tests-nf--test-337ab7.svg)](https://www.nf-test.com)
 
-[![Nextflow](https://img.shields.io/badge/nextflow%20DSL2-%E2%89%A523.04.0-23aa62.svg)](https://www.nextflow.io/)
+[![Nextflow](https://img.shields.io/badge/nextflow%20DSL2-%E2%89%A524.04.2-23aa62.svg)](https://www.nextflow.io/)
 [![run with conda](http://img.shields.io/badge/run%20with-conda-3EB049?labelColor=000000&logo=anaconda)](https://docs.conda.io/en/latest/)
 [![run with docker](https://img.shields.io/badge/run%20with-docker-0db7ed?labelColor=000000&logo=docker)](https://www.docker.com/)
 [![run with singularity](https://img.shields.io/badge/run%20with-singularity-1d355c.svg?labelColor=000000)](https://sylabs.io/docs/)
@@ -31,10 +31,11 @@ This ensures that the pipeline runs on AWS, has sensible resource allocation def
 
 ## Pipeline summary
 
-1. Align query sequences to the reference alignment using either [`HMMER`](http://hmmer.org/) or [`MAFFT`](https://mafft.cbrc.jp/alignment/software/).
-2. Place query sequences in reference phylogeny with [`EPA-NG`](https://github.com/Pbdas/epa-ng).
-3. Graft query sequences onto the reference phylogeny with [`GAPPA`](https://github.com/lczech/gappa).
-4. If provided with a classification of the reference sequences, classify query sequences with [`GAPPA`](https://github.com/lczech/gappa).
+1. Optionally: Search a fasta file with a set of [`HMMER`](http://hmmer.org/) profiles. Best hits for each profile will be passed to the steps below.
+2. Align query sequences to the reference alignment using either [`HMMER`](http://hmmer.org/) or [`MAFFT`](https://mafft.cbrc.jp/alignment/software/).
+3. Place query sequences in reference phylogeny with [`EPA-NG`](https://github.com/Pbdas/epa-ng).
+4. Graft query sequences onto the reference phylogeny with [`GAPPA`](https://github.com/lczech/gappa).
+5. If provided with a classification of the reference sequences, classify query sequences with [`GAPPA`](https://github.com/lczech/gappa).
 
 <p align="center">
     <img src="docs/images/phyloplace_workflow.png" alt="nf-core/phyloplace workflow overview" width="60%">
@@ -50,7 +51,16 @@ Now, you can run the pipeline using:
 ```bash
 nextflow run nf-core/phyloplace \
    -profile <docker/singularity/.../institute> \
-   --input samplesheet.csv \
+   --phyloplace_input samplesheet.csv \
+   --outdir <OUTDIR>
+```
+
+Or:
+
+```bash
+nextflow run nf-core/phyloplace \
+   -profile <docker/singularity/.../institute> \
+   --phylosearch_input search_params.csv \
    --outdir <OUTDIR>
 ```
 

@@ -1,0 +1,44 @@
+nextflow_pipeline {
+
+    name "Test Workflow main.nf"
+    script "main.nf"
+    tag "test_clustalo"
+    tag "pipeline"
+
+    test("Use Clustal Omega to align") {
+        when {
+            params {
+                outdir          = "$outputDir"
+                queryseqfile    = "https://github.com/nf-core/test-datasets/raw/phyloplace/testdata/PF14720_3_sequences.faa"
+                refseqfile      = "https://github.com/nf-core/test-datasets/raw/phyloplace/testdata/PF14720_seed.alnfaa"
+                refphylogeny    = "https://github.com/nf-core/test-datasets/raw/phyloplace/testdata/PF14720_seed.ft.LGCAT.newick"
+                alignmethod     = 'clustalo'
+                model           = "LG"
+                taxonomy        = "https://github.com/nf-core/test-datasets/raw/modules/data/delete_me/gappa/gappa_taxonomy.tsv"
+                max_cpus        = 2
+                max_memory      = '6.GB'
+                max_time        = '6.h'
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert new File("$outputDir/pipeline_info/software_versions.yml").exists() },
+                { assert new File("$outputDir/epang/placement.epa_result.jplace.gz").exists() },
+                { assert snapshot(path("$outputDir/gappa/placement.graft.placement.epa_result.newick")).match("placement.graft.placement.epa_result.newick") },
+                { assert snapshot(path("$outputDir/gappa/placement.heattree.colours.txt")).match("placement.heattree.colours.txt") },
+                { assert snapshot(path("$outputDir/gappa/placement.heattree.tree.nexus")).match("placement.heattree.tree.nexus") },
+                { assert snapshot(path("$outputDir/gappa/placement.heattree.tree.phyloxml")).match("placement.heattree.tree.phyloxml") },
+                { assert new File("$outputDir/gappa/placement.heattree.tree.svg").exists() },
+                { assert new File("$outputDir/gappa/placement.taxonomy.krona.profile").exists() },
+                { assert snapshot(path("$outputDir/gappa/placement.taxonomy.labelled_tree.newick")).match("placement.taxonomy.labelled_tree.newick") },
+                { assert new File("$outputDir/gappa/placement.taxonomy.per_query.tsv").exists() },
+                { assert new File("$outputDir/gappa/placement.taxonomy.profile.tsv").exists() },
+                { assert new File("$outputDir/gappa/placement.taxonomy.sativa.tsv").exists() },
+                { assert snapshot(path("$outputDir/clustalo/placement.aln")).match("placement.aln") },
+                { assert new File("$outputDir/multiqc/multiqc_report.html").exists() },
+            )
+        }
+    }
+}

@@ -43,13 +43,15 @@ jobs:
       fail-fast: false
       matrix:
         NXF_VER:
-          - "23.04.0"
+          - "24.04.2"
           - "latest-everything"
         tags:
           - "test"
           - "test_hmmfile"
+          - "test_clustalo"
           - "test_mafft"
-          - "test_samplesheet"
+          - "test_phyloplace_input"
+          - "test_phylosearch_input"
         profile:
           - "docker"
 

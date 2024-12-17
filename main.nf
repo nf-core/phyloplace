@@ -34,7 +34,9 @@ include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_phyl
 workflow NFCORE_PHYLOPLACE {
 
     take:
-    pp_data // channel: phyloplace data parsed from --input file or cli params
+    phyloplace_data
+    phylosearch_data
+    sequence_fasta
 
     main:
 
@@ -42,7 +44,9 @@ workflow NFCORE_PHYLOPLACE {
     // WORKFLOW: Run pipeline
     //
     PHYLOPLACE (
-        pp_data
+        phyloplace_data,
+        phylosearch_data,
+        sequence_fasta
     )
 
     emit:
@@ -68,52 +72,19 @@ workflow {
         params.validate_params,
         params.monochrome_logs,
         args,
-        params.outdir
+        params.outdir,
+        params.phyloplace_input,
+        params.phylosearch_input
     )
 
-    // Check mandatory parameters and construct the input channel for the pipeline
-    // (I'm not sure this belongs here after the 2.13 upgrade. I moved it from workflows/phyloplace.nf.)
-    if (params.input) {
-        Channel.fromPath(params.input)
-            .splitCsv(header: true)
-            .map {
-                [
-                    meta: [ id: it.sample ],
-                    data: [
-                        alignmethod:  it.alignmethod ? it.alignmethod    : 'hmmer',
-                        queryseqfile: file(it.queryseqfile),
-                        refseqfile:   file(it.refseqfile),
-                        hmmfile:      it.hmmfile     ? file(it.hmmfile,  checkIfExists: true) : [],
-                        refphylogeny: file(it.refphylogeny),
-                        model:        it.model,
-                        taxonomy:     it.taxonomy    ? file(it.taxonomy, checkIfExists: true) : []
-                    ]
-                ]
-            }
-            .set { ch_pp_data }
-    } else if ( params.id && params.queryseqfile && params.refseqfile && params.refphylogeny && params.model ) {
-        Channel.of([
-            meta: [ id: params.id ],
-            data: [
-                alignmethod:  params.alignmethod ? params.alignmethod    : 'hmmer',
-                queryseqfile: file(params.queryseqfile),
-                refseqfile:   file(params.refseqfile),
-                hmmfile:      params.hmmfile     ? file(params.hmmfile)  : [],
-                refphylogeny: file(params.refphylogeny),
-                model:        params.model,
-                taxonomy:     params.taxonomy    ? file(params.taxonomy) : []
-            ]
-        ])
-            .set { ch_pp_data }
-    } else {
-        exit 1, "You must specify either an input sample  sheet with --input or a full set of --id, --queryseqfile, --refseqfile, --refphylogeny and --model arguments (all have defaults except --model)"
-    }
 
     //
     // WORKFLOW: Run main workflow
     //
     NFCORE_PHYLOPLACE (
-        ch_pp_data
+        PIPELINE_INITIALISATION.out.phyloplace_data,
+        PIPELINE_INITIALISATION.out.phylosearch_data,
+        PIPELINE_INITIALISATION.out.sequence_fasta
     )
 
     //

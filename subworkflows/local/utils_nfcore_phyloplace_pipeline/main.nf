@@ -35,7 +35,8 @@ workflow PIPELINE_INITIALISATION {
     monochrome_logs   // boolean: Do not use coloured log outputs
     nextflow_cli_args //   array: List of positional nextflow CLI args
     outdir            //  string: The output directory where the results will be saved
-    input             //  string: Path to input samplesheet
+    phyloplace_input  //  string: Path to phyloplace input samplesheet
+    phylosearch_input //  string: Path to phylosearch input samplesheet
 
     main:
 
@@ -56,7 +57,7 @@ workflow PIPELINE_INITIALISATION {
     //
     pre_help_text = nfCoreLogo(monochrome_logs)
     post_help_text = '\n' + workflowCitation() + '\n' + dashedLine(monochrome_logs)
-    def String workflow_command = "nextflow run ${workflow.manifest.name} -profile <docker/singularity/.../institute> --input samplesheet.csv --outdir <OUTDIR>"
+    def String workflow_command = "nextflow run ${workflow.manifest.name} -profile <docker/singularity/.../institute> <--phyloplace_input phyloplace.csv/--phylosearch_input phylosearch.csv> --outdir <OUTDIR>"
     UTILS_NFVALIDATION_PLUGIN (
         help,
         workflow_command,
@@ -78,31 +79,78 @@ workflow PIPELINE_INITIALISATION {
     validateInputParameters()
 
     //
-    // Create channel from input file provided through params.input
+    // If provided, create channel from either of the two types of input file provided through params.phyloplace_input or params.phylosearch_input
     //
-    Channel
-        .fromSamplesheet("input")
-        .map {
-            meta, fastq_1, fastq_2 ->
-                if (!fastq_2) {
-                    return [ meta.id, meta + [ single_end:true ], [ fastq_1 ] ]
-                } else {
-                    return [ meta.id, meta + [ single_end:false ], [ fastq_1, fastq_2 ] ]
-                }
-        }
-        .groupTuple()
-        .map {
-            validateInputSamplesheet(it)
-        }
-        .map {
-            meta, fastqs ->
-                return [ meta, fastqs.flatten() ]
-        }
-        .set { ch_samplesheet }
+
+    // Check mandatory parameters and construct the input channel for the pipeline
+    ch_phylosearch_data = Channel.empty()
+    ch_sequence_fasta   = Channel.empty()
+    ch_phyloplace_data  = Channel.empty()
+
+    if ( params.phylosearch_input && params.search_fasta ) {
+        ch_phylosearch_data = Channel.fromPath(params.phylosearch_input)
+            .splitCsv(header: true)
+            .map {
+                [
+                    meta: [
+                        id: it.target,
+                        min_bitscore: it.min_bitscore
+                    ],
+                    data: [
+                        alignmethod:    it.alignmethod  ? it.alignmethod                             : 'hmmer',
+                        hmm:            file(it.hmm,  checkIfExists: true),
+                        extract_hmm:    it.extract_hmm,
+                        refseqfile:     it.refseqfile   ? file(it.refseqfile,   checkIfExists: true) : [],
+                        refphylogeny:   it.refphylogeny ? file(it.refphylogeny, checkIfExists: true) : [],
+                        model:          it.model,
+                        taxonomy:       it.taxonomy     ? file(it.taxonomy,     checkIfExists: true) : []
+                    ]
+                ]
+            }
+        Channel.fromPath(params.search_fasta)
+            .set { ch_sequence_fasta }
+    } else if ( params.phyloplace_input ) {
+        ch_phyloplace_data = Channel.fromPath(params.phyloplace_input)
+            .splitCsv(header: true)
+            .map {
+                [
+                    meta: [ id: it.sample ],
+                    data: [
+                        alignmethod:  it.alignmethod ? it.alignmethod    : 'hmmer',
+                        queryseqfile: file(it.queryseqfile),
+                        refseqfile:   file(it.refseqfile),
+                        hmmfile:      it.hmmfile     ? file(it.hmmfile,  checkIfExists: true) : [],
+                        refphylogeny: file(it.refphylogeny),
+                        model:        it.model,
+                        taxonomy:     it.taxonomy    ? file(it.taxonomy, checkIfExists: true) : []
+                    ]
+                ]
+            }
+    } else if ( params.id && params.queryseqfile && params.refseqfile && params.refphylogeny && params.model ) {
+        Channel.of([
+            meta: [ id: params.id ],
+            data: [
+                alignmethod:  params.alignmethod ? params.alignmethod    : 'hmmer',
+                queryseqfile: file(params.queryseqfile),
+                refseqfile:   file(params.refseqfile),
+                refphylogeny: file(params.refphylogeny),
+                hmmfile:      params.hmmfile     ? file(params.hmmfile)  : [],
+                model:        params.model,
+                taxonomy:     params.taxonomy    ? file(params.taxonomy) : []
+            ]
+        ])
+            .set { ch_phyloplace_data }
+    } else if ( params.phylosearch_input || params.fasta ) {
+        exit 1, "For phylosearch mode, you need to provide an input sample sheet with --phylosearch_input *and* a fasta file with --search_fasta"
+    } else {
+        exit 1, "For phyloplace mode, you need to provide an input sample sheet with --phyloplace_input or the corresponding info with individual parameters"
+    }
 
     emit:
-    samplesheet = ch_samplesheet
-    versions    = ch_versions
+    phyloplace_data  = ch_phyloplace_data
+    phylosearch_data = ch_phylosearch_data
+    sequence_fasta   = ch_sequence_fasta
+    versions         = ch_versions
 }
 
 /*
@@ -131,7 +179,15 @@ workflow PIPELINE_COMPLETION {
     //
     workflow.onComplete {
         if (email || email_on_fail) {
-            completionEmail(summary_params, email, email_on_fail, plaintext_email, outdir, monochrome_logs, multiqc_report.toList())
+            completionEmail(
+                summary_params,
+                email,
+                email_on_fail,
+                plaintext_email,
+                outdir,
+                monochrome_logs,
+                multiqc_report.toList()
+            )
         }
 
         completionSummary(monochrome_logs)
@@ -202,12 +258,14 @@ def genomeExistsError() {
 // Generate methods description for MultiQC
 //
 def toolCitationText() {
-    // TODO nf-core: Optionally add in-text citation tools to this list.
     // Can use ternary operators to dynamically construct based conditions, e.g. params["run_xyz"] ? "Tool (Foo et al. 2023)" : "",
     // Uncomment function in methodsDescriptionText to render in MultiQC report
     def citation_text = [
             "Tools used in the workflow included:",
-            "FastQC (Andrews 2010),",
+            "HMMER (Eddy 2011)",
+            "MAFFT (Katoh et al. 2002)",
+            "EPA-NG (Barbera et al. 2019)",
+            "Gappa (Czech et al. 2020)",
             "MultiQC (Ewels et al. 2016)",
             "."
         ].join(' ').trim()
@@ -216,11 +274,13 @@ def toolCitationText() {
 }
 
 def toolBibliographyText() {
-    // TODO nf-core: Optionally add bibliographic entries to this list.
     // Can use ternary operators to dynamically construct based conditions, e.g. params["run_xyz"] ? "<li>Author (2023) Pub name, Journal, DOI</li>" : "",
     // Uncomment function in methodsDescriptionText to render in MultiQC report
     def reference_text = [
-            "<li>Andrews S, (2010) FastQC, URL: https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).</li>",
+            "<li>Eddy, Sean R. “Accelerated Profile HMM Searches.” PLoS Comput Biol 7, no. 10 (October 20, 2011): e1002195. https://doi.org/10.1371/journal.pcbi.1002195.</li>",
+            "<li>Katoh, Kazutaka, Kazuharu Misawa, Kei‐ichi Kuma, and Takashi Miyata. “MAFFT: A Novel Method for Rapid Multiple Sequence Alignment Based on Fast Fourier Transform.” Nucleic Acids Research 30, no. 14 (July 15, 2002): 3059–66. https://doi.org/10.1093/nar/gkf436.</li>",
+            "<li>Barbera, Pierre, Alexey M Kozlov, Lucas Czech, Benoit Morel, Diego Darriba, Tomáš Flouri, and Alexandros Stamatakis. “EPA-Ng: Massively Parallel Evolutionary Placement of Genetic Sequences.” Systematic Biology 68, no. 2 (March 1, 2019): 365–69. https://doi.org/10.1093/sysbio/syy054.</li>",
+            "<li>Czech, Lucas, Pierre Barbera, and Alexandros Stamatakis. “Genesis and Gappa: Processing, Analyzing and Visualizing Phylogenetic (Placement) Data.” Bioinformatics 36, no. 10 (May 1, 2020): 3263–65. https://doi.org/10.1093/bioinformatics/btaa070.</li>",
             "<li>Ewels, P., Magnusson, M., Lundin, S., & Käller, M. (2016). MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics , 32(19), 3047–3048. doi: /10.1093/bioinformatics/btw354</li>"
         ].join(' ').trim()
 
@@ -249,9 +309,8 @@ def methodsDescriptionText(mqc_methods_yaml) {
     meta["tool_citations"] = ""
     meta["tool_bibliography"] = ""
 
-    // TODO nf-core: Only uncomment below if logic in toolCitationText/toolBibliographyText has been filled!
-    // meta["tool_citations"] = toolCitationText().replaceAll(", \\.", ".").replaceAll("\\. \\.", ".").replaceAll(", \\.", ".")
-    // meta["tool_bibliography"] = toolBibliographyText()
+    meta["tool_citations"] = toolCitationText().replaceAll(", \\.", ".").replaceAll("\\. \\.", ".").replaceAll(", \\.", ".")
+    meta["tool_bibliography"] = toolBibliographyText()
 
 
     def methods_text = mqc_methods_yaml.text

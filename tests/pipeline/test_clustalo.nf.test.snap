@@ -1,0 +1,62 @@
+{
+    "placement.heattree.tree.phyloxml": {
+        "content": [
+            "placement.heattree.tree.phyloxml:md5,833b243c7a98cf572918783145fd9a6d"
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.10.2"
+        },
+        "timestamp": "2024-12-11T11:32:57.036019936"
+    },
+    "placement.heattree.colours.txt": {
+        "content": [
+            "placement.heattree.colours.txt:md5,7704cd341c8693981253ba6d740c1061"
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.10.2"
+        },
+        "timestamp": "2024-12-11T11:32:57.023942104"
+    },
+    "placement.heattree.tree.nexus": {
+        "content": [
+            "placement.heattree.tree.nexus:md5,c8458771fbd3e264a8f106120af2cac8"
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.10.2"
+        },
+        "timestamp": "2024-12-11T11:32:57.028872524"
+    },
+    "placement.aln": {
+        "content": [
+            "placement.aln:md5,bc500eae88f3858f0f27800f8cd69698"
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.10.2"
+        },
+        "timestamp": "2024-12-11T11:39:26.719101324"
+    },
+    "placement.graft.placement.epa_result.newick": {
+        "content": [
+            "placement.graft.placement.epa_result.newick:md5,2d4debd842ddde6cb17c167ec21ad704"
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.10.2"
+        },
+        "timestamp": "2024-12-11T11:32:57.013354599"
+    },
+    "placement.taxonomy.labelled_tree.newick": {
+        "content": [
+            "placement.taxonomy.labelled_tree.newick:md5,39de8a46303ea757f6eb94478db1ffe0"
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.10.2"
+        },
+        "timestamp": "2024-12-11T11:32:57.044014933"
+    }
+}
