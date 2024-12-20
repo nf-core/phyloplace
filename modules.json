@@ -65,11 +65,6 @@
                         "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
                         "installed_by": ["fasta_hmmsearch_rank_fastas"]
                     },
-                    "mafft": {
-                        "branch": "master",
-                        "git_sha": "968b494e20f439a9ed3d23c89274e6a4a625eb92",
-                        "installed_by": ["modules"]
-                    },
                     "mafft/align": {
                         "branch": "master",
                         "git_sha": "868cb0d7fc4862991fb7c2b4cd7289806cd53f81",
