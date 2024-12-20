@@ -20,7 +20,7 @@ nextflow_pipeline {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert new File("$outputDir/pipeline_info/nf_core_pipeline_software_mqc_versions.yml").exists() },
+                { assert new File("$outputDir/pipeline_info/nf_core_phyloplace_software_mqc_versions.yml").exists() },
                 { assert new File("$outputDir/epang/nuc_hmmer.epa_result.jplace.gz").exists() },
                 { assert new File("$outputDir/epang/nuc_mafft.epa_result.jplace.gz").exists() },
                 { assert new File("$outputDir/epang/PF14720mafft.epa_result.jplace.gz").exists() },
