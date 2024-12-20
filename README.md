@@ -30,7 +30,7 @@ This ensures that the pipeline runs on AWS, has sensible resource allocation def
 ## Pipeline summary
 
 1. Optionally: Search a fasta file with a set of [`HMMER`](http://hmmer.org/) profiles. Best hits for each profile will be passed to the steps below.
-2. Align query sequences to the reference alignment using either [`HMMER`](http://hmmer.org/) or [`MAFFT`](https://mafft.cbrc.jp/alignment/software/).
+2. Align query sequences to the reference alignment using either [`HMMER`](http://hmmer.org/), [`clustalo`](http://www.clustal.org/omega/) or [`MAFFT`](https://mafft.cbrc.jp/alignment/software/).
 3. Place query sequences in reference phylogeny with [`EPA-NG`](https://github.com/Pbdas/epa-ng).
 4. Graft query sequences onto the reference phylogeny with [`GAPPA`](https://github.com/lczech/gappa).
 5. If provided with a classification of the reference sequences, classify query sequences with [`GAPPA`](https://github.com/lczech/gappa).
@@ -59,6 +59,7 @@ Or:
 nextflow run nf-core/phyloplace \
    -profile <docker/singularity/.../institute> \
    --phylosearch_input search_params.csv \
+   --search_fasta sequences.faa \
    --outdir <OUTDIR>
 ```
 
