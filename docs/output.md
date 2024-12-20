@@ -19,7 +19,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 
 ### Alignment
 
-Alignment of query sequences is done either with [HMMER](http://hmmer.org/) or [MAFFT](https://mafft.cbrc.jp/alignment/software/).
+Alignment of query sequences is done either with [HMMER](http://hmmer.org/), [Clustal Omega](http://www.clustal.org/omega/) or [MAFFT](https://mafft.cbrc.jp/alignment/software/).
 
 #### HMMER
 
@@ -47,6 +47,16 @@ The MAFFT alignment strategy keeps the structure of the original reference align
   - `*.tbl.gz`: Table format (`-tblout`) results for individual `hmmsearch` runs in "search and place" mode
   - `*.tbl.gz`: Standard, human-readable, format results for individual `hmmsearch` runs in "search and place" mode
   - `*.hmmrank.tsv.gz`: Summarised `hmmsearch` results
+
+</details>
+
+#### Clustal Omega
+
+<details markdwon="1">
+<summary>Output files</summary>
+
+- `clustalo/`
+  - `*.aln`: Full alignment, containing both reference and query sequences.
 
 </details>
 
