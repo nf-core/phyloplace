@@ -1,11 +1,9 @@
-bump_version: null
 lint:
   files_exist:
     - conf/igenomes.config
   nextflow_config:
     - params.input
-nf_core_version: 3.0.2
-org_path: null
+nf_core_version: 3.1.1
 repository_type: pipeline
 template:
   author: Daniel Lundin
@@ -15,6 +13,4 @@ template:
   name: phyloplace
   org: nf-core
   outdir: .
-  skip_features: null
   version: 1.1.0dev
-update: null
