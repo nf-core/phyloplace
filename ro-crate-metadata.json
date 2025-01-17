@@ -152,7 +152,7 @@
             ],
             "maintainer": [
                 {
-                    "@id": "#erik.rikard.daniel@gmail.com"
+                    "@id": "https://orcid.org/my-orcid?orcid=0000-0002-8779-6464"
                 }
             ],
             "name": [
@@ -332,9 +332,9 @@
             "url": "https://nf-co.re/"
         },
         {
-            "@id": "#erik.rikard.daniel@gmail.com",
+            "@id": "https://orcid.org/my-orcid?orcid=0000-0002-8779-6464",
             "@type": "Person",
-            "email": "erik.rikard.daniel@gmail.com",
+            "email": "matricaria.suaveolens@gmail.com",
             "name": "Daniel Lundin"
         }
     ]
