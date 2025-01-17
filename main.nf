@@ -10,8 +10,6 @@
 ----------------------------------------------------------------------------------------
 */
 
-nextflow.enable.dsl = 2
-
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     IMPORT FUNCTIONS / MODULES / SUBWORKFLOWS / WORKFLOWS
@@ -48,10 +46,8 @@ workflow NFCORE_PHYLOPLACE {
         phylosearch_data,
         sequence_fasta
     )
-
     emit:
     multiqc_report = PHYLOPLACE.out.multiqc_report // channel: /path/to/multiqc_report.html
-
 }
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -62,13 +58,11 @@ workflow NFCORE_PHYLOPLACE {
 workflow {
 
     main:
-
     //
     // SUBWORKFLOW: Run initialisation tasks
     //
     PIPELINE_INITIALISATION (
         params.version,
-        params.help,
         params.validate_params,
         params.monochrome_logs,
         args,
@@ -86,7 +80,6 @@ workflow {
         PIPELINE_INITIALISATION.out.phylosearch_data,
         PIPELINE_INITIALISATION.out.sequence_fasta
     )
-
     //
     // SUBWORKFLOW: Run completion tasks
     //

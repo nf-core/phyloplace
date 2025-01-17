@@ -14,6 +14,10 @@
 
   > Eddy, Sean R. “Accelerated Profile HMM Searches.” PLoS Comput Biol 7, no. 10 (October 20, 2011): e1002195. https://doi.org/10.1371/journal.pcbi.1002195.
 
+- [Clustal Omega](https://pubmed.ncbi.nlm.nih.gov/21988835/)
+
+  > Sievers, F., A. Wilm, D. Dineen, T. J. Gibson, K. Karplus, W. Li, R. Lopez, et al. 2011. “Fast, Scalable Generation of High-Quality Protein Multiple Sequence Alignments Using Clustal Omega.” Molecular Systems Biology 7 (1): 539–539. https://doi.org/10.1038/msb.2011.75.
+
 - [MAFFT](https://pubmed.ncbi.nlm.nih.gov/12136088/)
 
   > Katoh, Kazutaka, Kazuharu Misawa, Kei‐ichi Kuma, and Takashi Miyata. “MAFFT: A Novel Method for Rapid Multiple Sequence Alignment Based on Fast Fourier Transform.” Nucleic Acids Research 30, no. 14 (July 15, 2002): 3059–66. https://doi.org/10.1093/nar/gkf436.
@@ -28,7 +32,7 @@
 
 - [MultiQC](https://pubmed.ncbi.nlm.nih.gov/27312411/)
 
-  > Ewels P, Magnusson M, Lundin S, Käller M. MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics. 2016 Oct 1;32(19):3047-8. doi: 10.1093/bioinformatics/btw354. Epub 2016 Jun 16. PubMed PMID: 27312411; PubMed Central PMCID: PMC5039924.
+> Ewels P, Magnusson M, Lundin S, Käller M. MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics. 2016 Oct 1;32(19):3047-8. doi: 10.1093/bioinformatics/btw354. Epub 2016 Jun 16. PubMed PMID: 27312411; PubMed Central PMCID: PMC5039924.
 
 ## Software packaging/containerisation tools
 

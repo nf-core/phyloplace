@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
+    - [#29](https://github.com/nf-core/phyloplace/pull/29) - Template update for nf-core/tools version 3.1.1
     - [#21](https://github.com/nf-core/phyloplace/pull/21) - Template update for nf-core/tools version 2.12, 2.13 and 2.14
 
 ### `Dependencies`

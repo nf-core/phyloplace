@@ -1,7 +1,16 @@
-repository_type: pipeline
 lint:
   files_exist:
     - conf/igenomes.config
   nextflow_config:
     - params.input
-nf_core_version: "2.14.1"
+nf_core_version: 3.1.1
+repository_type: pipeline
+template:
+  author: Daniel Lundin
+  description: Performs phylogenetic placement with EPA-NG
+  force: false
+  is_nfcore: true
+  name: phyloplace
+  org: nf-core
+  outdir: .
+  version: 1.1.0dev

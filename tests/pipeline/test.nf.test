@@ -6,6 +6,7 @@ nextflow_pipeline {
     tag "pipeline"
 
     test("Simple command line params") {
+        config "./nextflow.config"
         when {
             params {
                 outdir          = "$outputDir"
@@ -23,7 +24,7 @@ nextflow_pipeline {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert new File("$outputDir/pipeline_info/software_versions.yml").exists() },
+                { assert new File("$outputDir/pipeline_info/nf_core_phyloplace_software_mqc_versions.yml").exists() },
                 { assert new File("$outputDir/epang/placement.epa_result.jplace.gz").exists() },
                 { assert snapshot(path("$outputDir/gappa/placement.graft.placement.epa_result.newick")).match("placement.graft.placement.epa_result.newick") },
                 { assert snapshot(path("$outputDir/gappa/placement.heattree.colours.txt")).match("placement.heattree.colours.txt") },

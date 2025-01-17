@@ -3,9 +3,7 @@
     <source media="(prefers-color-scheme: dark)" srcset="docs/images/nf-core-phyloplace_logo_dark.png">
     <img alt="nf-core/phyloplace" src="docs/images/nf-core-phyloplace_logo_light.png">
   </picture>
-</h1>
-
-[![GitHub Actions CI Status](https://github.com/nf-core/phyloplace/actions/workflows/ci.yml/badge.svg)](https://github.com/nf-core/phyloplace/actions/workflows/ci.yml)
+</h1>[![GitHub Actions CI Status](https://github.com/nf-core/phyloplace/actions/workflows/ci.yml/badge.svg)](https://github.com/nf-core/phyloplace/actions/workflows/ci.yml)
 [![GitHub Actions Linting Status](https://github.com/nf-core/phyloplace/actions/workflows/linting.yml/badge.svg)](https://github.com/nf-core/phyloplace/actions/workflows/linting.yml)[![AWS CI](https://img.shields.io/badge/CI%20tests-full%20size-FF9900?labelColor=000000&logo=Amazon%20AWS)](https://nf-co.re/phyloplace/results)[![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.7643941-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.7643941)
 [![nf-test](https://img.shields.io/badge/unit_tests-nf--test-337ab7.svg)](https://www.nf-test.com)
 
@@ -32,7 +30,7 @@ This ensures that the pipeline runs on AWS, has sensible resource allocation def
 ## Pipeline summary
 
 1. Optionally: Search a fasta file with a set of [`HMMER`](http://hmmer.org/) profiles. Best hits for each profile will be passed to the steps below.
-2. Align query sequences to the reference alignment using either [`HMMER`](http://hmmer.org/) or [`MAFFT`](https://mafft.cbrc.jp/alignment/software/).
+2. Align query sequences to the reference alignment using either [`HMMER`](http://hmmer.org/), [`clustalo`](http://www.clustal.org/omega/) or [`MAFFT`](https://mafft.cbrc.jp/alignment/software/).
 3. Place query sequences in reference phylogeny with [`EPA-NG`](https://github.com/Pbdas/epa-ng).
 4. Graft query sequences onto the reference phylogeny with [`GAPPA`](https://github.com/lczech/gappa).
 5. If provided with a classification of the reference sequences, classify query sequences with [`GAPPA`](https://github.com/lczech/gappa).
@@ -44,7 +42,7 @@ This ensures that the pipeline runs on AWS, has sensible resource allocation def
 ## Usage
 
 > [!NOTE]
-> If you are new to Nextflow and nf-core, please refer to [this page](https://nf-co.re/docs/usage/installation) on how to set-up Nextflow. Make sure to [test your setup](https://nf-co.re/docs/usage/introduction#how-to-run-a-pipeline) with `-profile test` before running the workflow on actual data.
+> If you are new to Nextflow and nf-core, please refer to [this page](https://nf-co.re/docs/usage/installation) on how to set-up Nextflow.Make sure to [test your setup](https://nf-co.re/docs/usage/introduction#how-to-run-a-pipeline) with `-profile test` before running the workflow on actual data.
 
 Now, you can run the pipeline using:
 
@@ -61,12 +59,12 @@ Or:
 nextflow run nf-core/phyloplace \
    -profile <docker/singularity/.../institute> \
    --phylosearch_input search_params.csv \
+   --search_fasta sequences.faa \
    --outdir <OUTDIR>
 ```
 
 > [!WARNING]
-> Please provide pipeline parameters via the CLI or Nextflow `-params-file` option. Custom config files including those provided by the `-c` Nextflow option can be used to provide any configuration _**except for parameters**_;
-> see [docs](https://nf-co.re/usage/configuration#custom-configuration-files).
+> Please provide pipeline parameters via the CLI or Nextflow `-params-file` option. Custom config files including those provided by the `-c` Nextflow option can be used to provide any configuration _**except for parameters**_; see [docs](https://nf-co.re/docs/usage/getting_started/configuration#custom-configuration-files).
 
 For more details and further functionality, please refer to the [usage documentation](https://nf-co.re/phyloplace/usage) and the [parameter documentation](https://nf-co.re/phyloplace/parameters).
 
