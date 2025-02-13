@@ -3,8 +3,10 @@
     <source media="(prefers-color-scheme: dark)" srcset="docs/images/nf-core-phyloplace_logo_dark.png">
     <img alt="nf-core/phyloplace" src="docs/images/nf-core-phyloplace_logo_light.png">
   </picture>
-</h1>[![GitHub Actions CI Status](https://github.com/nf-core/phyloplace/actions/workflows/ci.yml/badge.svg)](https://github.com/nf-core/phyloplace/actions/workflows/ci.yml)
-[![GitHub Actions Linting Status](https://github.com/nf-core/phyloplace/actions/workflows/linting.yml/badge.svg)](https://github.com/nf-core/phyloplace/actions/workflows/linting.yml)[![AWS CI](https://img.shields.io/badge/CI%20tests-full%20size-FF9900?labelColor=000000&logo=Amazon%20AWS)](https://nf-co.re/phyloplace/results)[![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.7643941-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.7643941)
+</h1>
+
+[![GitHub Actions CI Status](https://github.com/nf-core/phyloplace/actions/workflows/ci.yml/badge.svg)](https://github.com/nf-core/phyloplace/actions/workflows/ci.yml)
+[![GitHub Actions Linting Status](https://github.com/nf-core/phyloplace/actions/workflows/linting.yml/badge.svg)](https://github.com/nf-core/phyloplace/actions/workflows/linting.yml)[![AWS CI](https://img.shields.io/badge/CI%20tests-full%20size-FF9900?labelColor=000000&logo=Amazon%20AWS)](https://nf-co.re/phyloplace/results)[![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.XXXXXXX-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.XXXXXXX)
 [![nf-test](https://img.shields.io/badge/unit_tests-nf--test-337ab7.svg)](https://www.nf-test.com)
 
 [![Nextflow](https://img.shields.io/badge/nextflow%20DSL2-%E2%89%A524.04.2-23aa62.svg)](https://www.nextflow.io/)
@@ -42,7 +44,7 @@ This ensures that the pipeline runs on AWS, has sensible resource allocation def
 ## Usage
 
 > [!NOTE]
-> If you are new to Nextflow and nf-core, please refer to [this page](https://nf-co.re/docs/usage/installation) on how to set-up Nextflow.Make sure to [test your setup](https://nf-co.re/docs/usage/introduction#how-to-run-a-pipeline) with `-profile test` before running the workflow on actual data.
+> If you are new to Nextflow and nf-core, please refer to [this page](https://nf-co.re/docs/usage/installation) on how to set-up Nextflow. Make sure to [test your setup](https://nf-co.re/docs/usage/introduction#how-to-run-a-pipeline) with `-profile test` before running the workflow on actual data.
 
 Now, you can run the pipeline using:
 
