@@ -1,0 +1,52 @@
+{
+    "arc.graft.newick": {
+        "content": [
+            "arc.graft.arc.epa_result.newick:md5,856b750cce92b19c0a469862717915a2"
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.10.2"
+        },
+        "timestamp": "2024-12-11T19:10:28.064875241"
+    },
+    "bac16s.graft.newick": {
+        "content": [
+            "bac16s.graft.bac16s.epa_result.newick:md5,d2a349ff8796149635c164ca4f9fa376"
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.10.2"
+        },
+        "timestamp": "2024-12-11T19:12:13.343567827"
+    },
+    "arc.aln": {
+        "content": [
+            "arc.aln:md5,48e87b305ac10ecc0036ba7ab1c84c86"
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.10.2"
+        },
+        "timestamp": "2024-12-11T19:05:04.206028125"
+    },
+    "rank.hmmrank.tsv.gz": {
+        "content": [
+            "rank.hmmrank.tsv.gz:md5,2befde6dc561a046938737b94c0a3a6e"
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.10.2"
+        },
+        "timestamp": "2024-12-11T19:08:50.587132125"
+    },
+    "bac16s.aln": {
+        "content": [
+            "bac16s.aln:md5,188fcf5c9096295c04d88619f1f3c7da"
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.10.2"
+        },
+        "timestamp": "2024-12-11T19:08:50.611653261"
+    }
+}

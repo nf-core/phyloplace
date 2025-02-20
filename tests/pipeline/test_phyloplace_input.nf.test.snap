@@ -1,0 +1,52 @@
+{
+    "PF14720wt.graft.PF14720wt.epa_result.newick": {
+        "content": [
+            "PF14720wt.graft.PF14720wt.epa_result.newick:md5,1b9415cffdc5b744e7339be64436932e"
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-16T15:20:58.003255648"
+    },
+    "nuc_mafft.graft.nuc_mafft.epa_result.newick": {
+        "content": [
+            "nuc_mafft.graft.nuc_mafft.epa_result.newick:md5,bc977f0d29d1ba9596554a72ba3ac150"
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-16T15:20:57.975292641"
+    },
+    "nuc_hmmer.graft.nuc_hmmer.epa_result.newick": {
+        "content": [
+            "nuc_hmmer.graft.nuc_hmmer.epa_result.newick:md5,e9d83a3df2176c78018cf3fc3367e388"
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-16T15:20:57.958287198"
+    },
+    "PF14720mafft.graft.PF14720mafft.epa_result.newick": {
+        "content": [
+            "PF14720mafft.graft.PF14720mafft.epa_result.newick:md5,42eef418b47da35dd648b1b137030664"
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-16T15:20:57.983957339"
+    },
+    "PF14720wo.graft.PF14720wo.epa_result.newick": {
+        "content": [
+            "PF14720wo.graft.PF14720wo.epa_result.newick:md5,1b9415cffdc5b744e7339be64436932e"
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2024-08-16T15:20:57.99303004"
+    }
+}
