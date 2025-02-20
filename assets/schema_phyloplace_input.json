@@ -41,7 +41,8 @@
             "alignmethod": {
                 "type": "string",
                 "pattern": "^\\S+$",
-                "errorMessage": "Method to use for aligning: 'hmmer' or 'mafft'."
+                "enum": ["hmmer", "clustalo", "mafft"],
+                "errorMessage": "Method to use for aligning: 'hmmer', 'clustalo' or 'mafft'."
             }
         },
         "required": ["sample", "queryseqfile", "refseqfile", "refphylogeny", "model"]

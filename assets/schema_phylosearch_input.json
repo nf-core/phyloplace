@@ -16,6 +16,7 @@
             "alignmethod": {
                 "type": "string",
                 "pattern": "^\\S+$",
+                "enum": ["hmmer", "clustalo", "mafft"],
                 "errorMessage": "Method to use for aligning: 'hmmer' or 'mafft'."
             },
             "hmm": {
@@ -31,6 +32,7 @@
             "min_bitscore": {
                 "type": "integer",
                 "errorMessage": "Minimum bitscore for hits to this HMM.",
+                "minimum": 0,
                 "meta": ["min_bitscore"]
             },
             "refseqfile": {
