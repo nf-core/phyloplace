@@ -5,6 +5,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## v2.0.0 - [2025-02-13]
 
+This release add phylogenetic search to the pipeline.
+Use `--phyloplace_input file.csv` to use the original mode, and `--phylosearch_input file.csv` to use the new phylosearch mode, see the documentation.
+
 ### `Added`
 
     - [#23](https://github.com/nf-core/phyloplace/pull/23) - Add search and phylogenetic classification to the pipeline (by @erikrikarddaniel)
