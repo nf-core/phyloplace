@@ -50,7 +50,7 @@ The samplesheet for this mode hence needs to contain paths to `hmm` files plus t
 If an `hmm` file is not accompanied by a reference tree, plus the associated information, this will be used to search, but not phylogenetic placement, and the sequences will appear in a result table.
 In the below example, the `rnr` entry will only be used for searching, while the other two will be both searched for and placed.)
 :::
-see https://nf-co.re/docs/contributing/website/markdown for the syntax
+
 The rest of the sample sheet is like the one for phylogenetic placement only.
 
 In addition to the sample sheet, this mode requires that a fasta file to search is provided via the `--search_fasta` parameter.
