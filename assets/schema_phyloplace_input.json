@@ -45,6 +45,6 @@
                 "errorMessage": "Method to use for aligning: 'hmmer', 'clustalo' or 'mafft'."
             }
         },
-        "required": ["sample", "queryseqfile", "refseqfile", "refphylogeny", "model"]
+        "required": ["sample", "queryseqfile", "refseqfile", "refphylogeny", "hmmfile", "model", "alignmethod"]
     }
 }
