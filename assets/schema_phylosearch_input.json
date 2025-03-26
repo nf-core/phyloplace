@@ -56,16 +56,6 @@
                 "errorMessage": "Tab separated file with taxonomy assignments of reference sequences."
             }
         },
-        "required": [
-            "target",
-            "alignmethod",
-            "hmm",
-            "extract_hmm",
-            "min_bitscore",
-            "refseqfile",
-            "refphylogeny",
-            "model",
-            "taxonomy"
-        ]
+        "required": ["target", "hmm"]
     }
 }
