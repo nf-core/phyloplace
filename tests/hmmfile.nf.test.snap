@@ -73,19 +73,8 @@
                 "pipeline_info/nf_core_phyloplace_software_mqc_versions.yml"
             ],
             [
-                "placement.epa_info.log:md5,854284c50ec8eddab7e6f185a84d32ee",
-                "placement.epa_result.jplace.gz:md5,3e8541a433db808fb32d5f907ddce07d",
-                "placement.graft.placement.epa_result.newick:md5,1b9415cffdc5b744e7339be64436932e",
                 "placement.heattree.colours.txt:md5,7704cd341c8693981253ba6d740c1061",
-                "placement.heattree.log:md5,40f76aef081fb8e055a0d5827e1075ef",
-                "placement.heattree.tree.nexus:md5,e1cfdcb63f3a751677d0e78fb6b9230a",
-                "placement.heattree.tree.phyloxml:md5,ea35b07e4fd8d174fd6b2f204629cc4e",
-                "placement.heattree.tree.svg:md5,7a54e9f68bf7432c210021147279a35e",
-                "placement.taxonomy.krona.profile:md5,08a8af3fee94d72ab7511aea391d4f0c",
                 "placement.taxonomy.labelled_tree.newick:md5,39de8a46303ea757f6eb94478db1ffe0",
-                "placement.taxonomy.per_query.tsv:md5,42496d709f64f0b3b481286200246ac2",
-                "placement.taxonomy.profile.tsv:md5,22d78f945a47a714df1fd35db230060c",
-                "placement.taxonomy.sativa.tsv:md5,19f64cd71d8462d4ac81d1557a5c47fd",
                 "placement.query.hmmalign.masked.afa.gz:md5,69b6d82789587f368da4d808ce20744a",
                 "placement.query.hmmalign.masked.sthlm.gz:md5,56a12b2dca9c8374665db99d9af500f3",
                 "placement.query.hmmalign.sto.gz:md5,3ec5592a7fd7188a8d14176d894feea5",
@@ -95,7 +84,7 @@
                 "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f"
             ]
         ],
-        "timestamp": "2026-06-01T11:55:16.903997677",
+        "timestamp": "2026-06-01T12:48:36.514304521",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
