@@ -4,13 +4,13 @@
             {
                 "CLUSTALO_ALIGN": {
                     "clustalo": "1.2.4",
-                    "pigz": "2.8)"
+                    "pigz": 2.8
                 },
                 "EPANG_PLACE": {
-                    "epang": "0.3.8"
+                    "epa-ng": "0.3.8"
                 },
                 "EPANG_SPLIT_CLUSTALO": {
-                    "epang": "0.3.8"
+                    "epa-ng": "0.3.8"
                 },
                 "GAPPA_ASSIGN": {
                     "gappa": "0.8.0"
@@ -22,11 +22,11 @@
                     "gappa": "0.8.0"
                 },
                 "HMMER_HMMEXTRACT": {
-                    "hmmer": "3.3.2"
+                    "hmmsearch": "3.3.2"
                 },
                 "HMMER_HMMRANK": {
-                    "R": "4.2.3",
-                    "tidyverse": "2.0.0"
+                    "r-base": "4.2.3",
+                    "r-tidyverse": "2.0.0"
                 },
                 "HMMER_HMMSEARCH": {
                     "hmmer": 3.4
@@ -135,7 +135,7 @@
             54,
             11
         ],
-        "timestamp": "2026-06-01T13:36:46.676887818",
+        "timestamp": "2026-06-01T18:42:00.368353223",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
