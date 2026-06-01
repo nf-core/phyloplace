@@ -26,22 +26,22 @@ process MAFFT_ALIGN {
     script:
     def args         = task.ext.args   ?: ''
     def prefix       = task.ext.prefix ?: "${meta.id}"
-    def add          = add             ? "--add <(unpigz -cdf ${add})"                   : ''
-    def addfragments = addfragments    ? "--addfragments <(unpigz -cdf ${addfragments})" : ''
-    def addfull      = addfull         ? "--addfull <(unpigz -cdf ${addfull})"           : ''
-    def addprofile   = addprofile      ? "--addprofile <(unpigz -cdf ${addprofile})"     : ''
-    def addlong      = addlong         ? "--addlong <(unpigz -cdf ${addlong})"           : ''
+    def add_arg          = add             ? "--add <(unpigz -cdf ${add})"                   : ''
+    def addfragments_arg = addfragments    ? "--addfragments <(unpigz -cdf ${addfragments})" : ''
+    def addfull_arg      = addfull         ? "--addfull <(unpigz -cdf ${addfull})"           : ''
+    def addprofile_arg   = addprofile      ? "--addprofile <(unpigz -cdf ${addprofile})"     : ''
+    def addlong_arg      = addlong         ? "--addlong <(unpigz -cdf ${addlong})"           : ''
     def write_output = compress ? " | pigz -cp ${task.cpus} > ${prefix}.fas.gz" : "> ${prefix}.fas"
     // this will not preserve MAFFTs return value, but mafft crashes when it receives a process substitution
     if ("$fasta" == "${prefix}.fas" ) error "Input and output names are the same, set prefix in module configuration to disambiguate!"
     """
     mafft \\
         --thread ${task.cpus} \\
-        ${add} \\
-        ${addfragments} \\
-        ${addfull} \\
-        ${addprofile} \\
-        ${addlong} \\
+        ${add_arg} \\
+        ${addfragments_arg} \\
+        ${addfull_arg} \\
+        ${addprofile_arg} \\
+        ${addlong_arg} \\
         ${args} \\
         ${fasta} \\
         ${write_output}
@@ -56,11 +56,11 @@ process MAFFT_ALIGN {
     stub:
     def args         = task.ext.args   ?: ''
     def prefix       = task.ext.prefix ?: "${meta.id}"
-    def add          = add             ? "--add ${add}"                   : ''
-    def addfragments = addfragments    ? "--addfragments ${addfragments}" : ''
-    def addfull      = addfull         ? "--addfull ${addfull}"           : ''
-    def addprofile   = addprofile      ? "--addprofile ${addprofile}"     : ''
-    def addlong      = addlong         ? "--addlong ${addlong}"           : ''
+    def add_arg          = add             ? "--add ${add}"                   : ''
+    def addfragments_arg = addfragments    ? "--addfragments ${addfragments}" : ''
+    def addfull_arg      = addfull         ? "--addfull ${addfull}"           : ''
+    def addprofile_arg   = addprofile      ? "--addprofile ${addprofile}"     : ''
+    def addlong_arg      = addlong         ? "--addlong ${addlong}"           : ''
     if ("$fasta" == "${prefix}.fas" )  error "Input and output names are the same, set prefix in module configuration to disambiguate!"
     """
     touch ${prefix}.fas${compress ? '.gz' : ''}
