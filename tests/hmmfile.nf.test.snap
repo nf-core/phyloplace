@@ -1,72 +1,104 @@
 {
-    "placement.heattree.tree.phyloxml": {
+    "-profile test_hmmfile": {
         "content": [
-            "placement.heattree.tree.phyloxml:md5,ea35b07e4fd8d174fd6b2f204629cc4e"
+            {
+                "EPANG_PLACE": {
+                    "epang": "0.3.8"
+                },
+                "GAPPA_ASSIGN": {
+                    "gappa": "0.8.0"
+                },
+                "GAPPA_GRAFT": {
+                    "gappa": "0.8.0"
+                },
+                "GAPPA_HEATTREE": {
+                    "gappa": "0.8.0"
+                },
+                "HMMER_AFAFORMATQUERY": {
+                    "hmmer/easel": 0.48
+                },
+                "HMMER_AFAFORMATREF": {
+                    "hmmer/easel": 0.48
+                },
+                "HMMER_HMMALIGNQUERY": {
+                    "hmmer": 3.4
+                },
+                "HMMER_HMMALIGNREF": {
+                    "hmmer": 3.4
+                },
+                "HMMER_MASKQUERY": {
+                    "hmmer/easel": 0.48
+                },
+                "HMMER_MASKREF": {
+                    "hmmer/easel": 0.48
+                },
+                "Workflow": {
+                    "nf-core/phyloplace": "v2.1.0dev"
+                }
+            },
+            [
+                "epang",
+                "epang/placement.epa_info.log",
+                "epang/placement.epa_result.jplace.gz",
+                "gappa",
+                "gappa/placement.graft.placement.epa_result.newick",
+                "gappa/placement.heattree.colours.txt",
+                "gappa/placement.heattree.log",
+                "gappa/placement.heattree.tree.nexus",
+                "gappa/placement.heattree.tree.phyloxml",
+                "gappa/placement.heattree.tree.svg",
+                "gappa/placement.taxonomy.krona.profile",
+                "gappa/placement.taxonomy.labelled_tree.newick",
+                "gappa/placement.taxonomy.per_query.tsv",
+                "gappa/placement.taxonomy.profile.tsv",
+                "gappa/placement.taxonomy.sativa.tsv",
+                "hmmer",
+                "hmmer/placement.query.hmmalign.masked.afa.gz",
+                "hmmer/placement.query.hmmalign.masked.sthlm.gz",
+                "hmmer/placement.query.hmmalign.sto.gz",
+                "hmmer/placement.ref.hmmalign.masked.afa.gz",
+                "hmmer/placement.ref.hmmalign.masked.sthlm.gz",
+                "hmmer/placement.ref.hmmalign.sto.gz",
+                "multiqc",
+                "multiqc/multiqc_data",
+                "multiqc/multiqc_data/llms-full.txt",
+                "multiqc/multiqc_data/multiqc.log",
+                "multiqc/multiqc_data/multiqc.parquet",
+                "multiqc/multiqc_data/multiqc_citations.txt",
+                "multiqc/multiqc_data/multiqc_data.json",
+                "multiqc/multiqc_data/multiqc_software_versions.txt",
+                "multiqc/multiqc_data/multiqc_sources.txt",
+                "multiqc/multiqc_report.html",
+                "pipeline_info",
+                "pipeline_info/nf_core_phyloplace_software_mqc_versions.yml"
+            ],
+            [
+                "placement.epa_info.log:md5,854284c50ec8eddab7e6f185a84d32ee",
+                "placement.epa_result.jplace.gz:md5,3e8541a433db808fb32d5f907ddce07d",
+                "placement.graft.placement.epa_result.newick:md5,1b9415cffdc5b744e7339be64436932e",
+                "placement.heattree.colours.txt:md5,7704cd341c8693981253ba6d740c1061",
+                "placement.heattree.log:md5,40f76aef081fb8e055a0d5827e1075ef",
+                "placement.heattree.tree.nexus:md5,e1cfdcb63f3a751677d0e78fb6b9230a",
+                "placement.heattree.tree.phyloxml:md5,ea35b07e4fd8d174fd6b2f204629cc4e",
+                "placement.heattree.tree.svg:md5,7a54e9f68bf7432c210021147279a35e",
+                "placement.taxonomy.krona.profile:md5,08a8af3fee94d72ab7511aea391d4f0c",
+                "placement.taxonomy.labelled_tree.newick:md5,39de8a46303ea757f6eb94478db1ffe0",
+                "placement.taxonomy.per_query.tsv:md5,42496d709f64f0b3b481286200246ac2",
+                "placement.taxonomy.profile.tsv:md5,22d78f945a47a714df1fd35db230060c",
+                "placement.taxonomy.sativa.tsv:md5,19f64cd71d8462d4ac81d1557a5c47fd",
+                "placement.query.hmmalign.masked.afa.gz:md5,69b6d82789587f368da4d808ce20744a",
+                "placement.query.hmmalign.masked.sthlm.gz:md5,56a12b2dca9c8374665db99d9af500f3",
+                "placement.query.hmmalign.sto.gz:md5,3ec5592a7fd7188a8d14176d894feea5",
+                "placement.ref.hmmalign.masked.afa.gz:md5,3452f0d4646209116c3b60f1c77d5ba3",
+                "placement.ref.hmmalign.masked.sthlm.gz:md5,b470181ddc1af95e3b2b5118d1d7a99d",
+                "placement.ref.hmmalign.sto.gz:md5,bf7853d45ac93f47f1722ee2af7ca0dc",
+                "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f"
+            ]
         ],
+        "timestamp": "2026-06-01T11:55:16.903997677",
         "meta": {
-            "nf-test": "0.9.0",
-            "nextflow": "24.04.4"
-        },
-        "timestamp": "2024-08-16T14:52:12.135664245"
-    },
-    "placement.heattree.colours.txt": {
-        "content": [
-            "placement.heattree.colours.txt:md5,7704cd341c8693981253ba6d740c1061"
-        ],
-        "meta": {
-            "nf-test": "0.9.0",
-            "nextflow": "24.04.4"
-        },
-        "timestamp": "2024-08-16T14:52:12.118678241"
-    },
-    "placement.heattree.tree.nexus": {
-        "content": [
-            "placement.heattree.tree.nexus:md5,e1cfdcb63f3a751677d0e78fb6b9230a"
-        ],
-        "meta": {
-            "nf-test": "0.9.0",
-            "nextflow": "24.04.4"
-        },
-        "timestamp": "2024-08-16T14:52:12.126685402"
-    },
-    "placement.ref.hmmalign.masked.afa.gz": {
-        "content": [
-            "placement.ref.hmmalign.masked.afa.gz:md5,3452f0d4646209116c3b60f1c77d5ba3"
-        ],
-        "meta": {
-            "nf-test": "0.9.0",
-            "nextflow": "24.04.4"
-        },
-        "timestamp": "2024-08-16T14:52:12.177027699"
-    },
-    "placement.query.hmmalign.masked.afa.gz": {
-        "content": [
-            "placement.query.hmmalign.masked.afa.gz:md5,69b6d82789587f368da4d808ce20744a"
-        ],
-        "meta": {
-            "nf-test": "0.9.0",
-            "nextflow": "24.04.4"
-        },
-        "timestamp": "2024-08-16T14:52:12.165540396"
-    },
-    "placement.graft.placement.epa_result.newick": {
-        "content": [
-            "placement.graft.placement.epa_result.newick:md5,1b9415cffdc5b744e7339be64436932e"
-        ],
-        "meta": {
-            "nf-test": "0.9.0",
-            "nextflow": "24.04.4"
-        },
-        "timestamp": "2024-08-16T14:52:12.104259806"
-    },
-    "placement.taxonomy.labelled_tree.newick": {
-        "content": [
-            "placement.taxonomy.labelled_tree.newick:md5,39de8a46303ea757f6eb94478db1ffe0"
-        ],
-        "meta": {
-            "nf-test": "0.9.0",
-            "nextflow": "24.04.4"
-        },
-        "timestamp": "2024-08-16T14:52:12.150397494"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
+        }
     }
 }

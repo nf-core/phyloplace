@@ -1,47 +1,33 @@
 nextflow_pipeline {
 
-    name "Test Workflow main.nf"
-    script "main.nf"
-    tag "test_phylosearch_input"
+    name "Test pipeline"
+    script "../main.nf"
     tag "pipeline"
     profile "test_phylosearch_input"
 
-    test("phylosearch input csv") {
-        config "./nextflow.config"
+    test("-profile test_phylosearch_input") {
+
         when {
             params {
-                outdir            = "$outputDir"
-                phylosearch_input = 'https://raw.githubusercontent.com/nf-core/test-datasets/phyloplace/testdata/phylosearch_input.csv'
-                search_fasta      = 'https://raw.githubusercontent.com/nf-core/test-datasets/phyloplace/testdata/domain_16s.fna'
-                max_cpus          = 2
-                max_memory        = '6.GB'
-                max_time          = '6.h'
+                outdir = "$outputDir"
             }
         }
 
         then {
+            // stable_path: All files + folders in ${params.outdir}/ with a stable path (including file name)
+            def stable_path = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
+            // stable_content: All files in ${params.outdir}/ with stable content
+            def stable_content = getAllFilesFromDir(params.outdir, ignoreFile: 'tests/.nftignore')
+            assert workflow.success
             assertAll(
-                { assert workflow.success },
-                { assert new File("$outputDir/hmmer/rank.hmmrank.tsv.gz").exists() },
-                { assert snapshot("$outputDir/hmmer/rank.hmmrank.tsv.gz").match('rank.hmmrank.tsv.gz') },
-                { assert new File("$outputDir/epang/arc.epa_result.jplace.gz").exists() },
-                { assert new File("$outputDir/epang/arc.query.fasta.gz").exists() },
-                { assert new File("$outputDir/epang/arc.reference.fasta.gz").exists() },
-                { assert new File("$outputDir/gappa/arc.graft.arc.epa_result.newick").exists() },
-                { assert snapshot("$outputDir/gappa/arc.graft.arc.epa_result.newick").match('arc.graft.newick') },
-                { assert new File("$outputDir/gappa/arc.taxonomy.per_query.tsv").exists() },
-                { assert new File("$outputDir/clustalo/arc.aln").exists() },
-                { assert snapshot("$outputDir/clustalo/arc.aln").match('arc.aln') },
-                { assert new File("$outputDir/epang/bac16s.epa_result.jplace.gz").exists() },
-                { assert new File("$outputDir/epang/bac16s.query.fasta.gz").exists() },
-                { assert new File("$outputDir/epang/bac16s.reference.fasta.gz").exists() },
-                { assert new File("$outputDir/gappa/bac16s.graft.bac16s.epa_result.newick").exists() },
-                { assert snapshot("$outputDir/gappa/bac16s.graft.bac16s.epa_result.newick").match('bac16s.graft.newick') },
-                { assert new File("$outputDir/gappa/bac16s.taxonomy.per_query.tsv").exists() },
-                { assert new File("$outputDir/clustalo/bac16s.aln").exists() },
-                { assert snapshot("$outputDir/clustalo/bac16s.aln").match('bac16s.aln') },
-                { assert new File("$outputDir/pipeline_info/nf_core_phyloplace_software_mqc_versions.yml").exists() },
-                { assert new File("$outputDir/multiqc/multiqc_report.html").exists() },
+                { assert snapshot(
+                    // pipeline versions.yml file for multiqc from which Nextflow version is removed because we test pipelines on multiple Nextflow versions
+                    removeNextflowVersion("$outputDir/pipeline_info/nf_core_phyloplace_software_mqc_versions.yml"),
+                    // All stable path name, with a relative path
+                    stable_path,
+                    // All files with stable contents
+                    stable_content
+                ).match() }
             )
         }
     }

@@ -1,38 +1,33 @@
 nextflow_pipeline {
 
-    name "Test Workflow main.nf"
-    script "main.nf"
-    tag "test_phyloplace_input"
+    name "Test pipeline"
+    script "../main.nf"
     tag "pipeline"
     profile "test_phyloplace_input"
 
-    test("phyloplace input csv") {
-        config "./nextflow.config"
+    test("-profile test_phyloplace_input") {
+
         when {
             params {
-                outdir           = "$outputDir"
-                phyloplace_input = 'https://raw.githubusercontent.com/nf-core/test-datasets/phyloplace/testdata/phyloplace_input.csv'
-                max_cpus         = 2
-                max_memory       = '6.GB'
-                max_time         = '6.h'
+                outdir = "$outputDir"
             }
         }
 
         then {
+            // stable_path: All files + folders in ${params.outdir}/ with a stable path (including file name)
+            def stable_path = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
+            // stable_content: All files in ${params.outdir}/ with stable content
+            def stable_content = getAllFilesFromDir(params.outdir, ignoreFile: 'tests/.nftignore')
+            assert workflow.success
             assertAll(
-                { assert workflow.success },
-                { assert new File("$outputDir/pipeline_info/nf_core_phyloplace_software_mqc_versions.yml").exists() },
-                { assert new File("$outputDir/epang/nuc_hmmer.epa_result.jplace.gz").exists() },
-                { assert new File("$outputDir/epang/nuc_mafft.epa_result.jplace.gz").exists() },
-                { assert new File("$outputDir/epang/PF14720mafft.epa_result.jplace.gz").exists() },
-                { assert new File("$outputDir/epang/PF14720wo.epa_result.jplace.gz").exists() },
-                { assert new File("$outputDir/epang/PF14720wt.epa_result.jplace.gz").exists() },
-                { assert new File("$outputDir/gappa/nuc_hmmer.graft.nuc_hmmer.epa_result.newick").exists() },
-                { assert new File("$outputDir/gappa/nuc_mafft.graft.nuc_mafft.epa_result.newick").exists() },
-                { assert new File("$outputDir/gappa/PF14720mafft.graft.PF14720mafft.epa_result.newick").exists() },
-                { assert new File("$outputDir/gappa/PF14720wo.graft.PF14720wo.epa_result.newick").exists() },
-                { assert new File("$outputDir/gappa/PF14720wt.graft.PF14720wt.epa_result.newick").exists() },
-                { assert new File("$outputDir/multiqc/multiqc_report.html").exists() },
+                { assert snapshot(
+                    // pipeline versions.yml file for multiqc from which Nextflow version is removed because we test pipelines on multiple Nextflow versions
+                    removeNextflowVersion("$outputDir/pipeline_info/nf_core_phyloplace_software_mqc_versions.yml"),
+                    // All stable path name, with a relative path
+                    stable_path,
+                    // All files with stable contents
+                    stable_content
+                ).match() }
             )
         }
     }
