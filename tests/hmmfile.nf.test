@@ -4,6 +4,7 @@ nextflow_pipeline {
     script "main.nf"
     tag "test_hmmfile"
     tag "pipeline"
+    profile "test_hmmfile"
 
     test("HMM file align command line params") {
         config "./nextflow.config"
