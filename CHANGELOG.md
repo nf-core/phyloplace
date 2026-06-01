@@ -20,7 +20,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | nextflow    | >=24.04.2  | >=25.10.4 |
 | hmmer/easel | 0.48       | 0.49      |
 
-
 ### `Deprecated`
 
 ## v2.0.0 - [2025-02-21]
