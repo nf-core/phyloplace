@@ -65,9 +65,12 @@
                 "placement.taxonomy.labelled_tree.newick:md5,39de8a46303ea757f6eb94478db1ffe0",
                 "placement.fas:md5,30090ede37d92efe6000c5d1436f6b26",
                 "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f"
-            ]
+            ],
+            6,
+            5,
+            2
         ],
-        "timestamp": "2026-06-01T12:48:58.652105417",
+        "timestamp": "2026-06-01T13:15:01.216986887",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"

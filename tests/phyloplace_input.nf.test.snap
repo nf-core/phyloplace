@@ -186,9 +186,15 @@
                 "PF14720mafft.fas:md5,30090ede37d92efe6000c5d1436f6b26",
                 "nuc_mafft.fas:md5,6c36484acde5e80b9f1bbe4a4bc132e6",
                 "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f"
-            ]
+            ],
+            6,
+            5,
+            2,
+            6,
+            5,
+            2
         ],
-        "timestamp": "2026-06-01T12:50:11.226456046",
+        "timestamp": "2026-06-01T13:36:03.216137998",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"

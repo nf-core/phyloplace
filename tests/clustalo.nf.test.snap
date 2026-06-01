@@ -65,9 +65,12 @@
                 "placement.heattree.colours.txt:md5,7704cd341c8693981253ba6d740c1061",
                 "placement.taxonomy.labelled_tree.newick:md5,39de8a46303ea757f6eb94478db1ffe0",
                 "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f"
-            ]
+            ],
+            6,
+            5,
+            2
         ],
-        "timestamp": "2026-06-01T12:47:49.176807267",
+        "timestamp": "2026-06-01T13:09:56.341693996",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"

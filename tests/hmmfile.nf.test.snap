@@ -82,9 +82,12 @@
                 "placement.ref.hmmalign.masked.sthlm.gz:md5,b470181ddc1af95e3b2b5118d1d7a99d",
                 "placement.ref.hmmalign.sto.gz:md5,bf7853d45ac93f47f1722ee2af7ca0dc",
                 "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f"
-            ]
+            ],
+            6,
+            5,
+            2
         ],
-        "timestamp": "2026-06-01T12:48:36.514304521",
+        "timestamp": "2026-06-01T13:14:38.659851508",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"

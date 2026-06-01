@@ -26,7 +26,10 @@ nextflow_pipeline {
                     // All stable path name, with a relative path
                     stable_path,
                     // All files with stable contents
-                    stable_content
+                    stable_content,
+                    path("${params.outdir}/gappa/placement.taxonomy.per_query.tsv").csv(sep: '\t', header: true).rowCount,
+                    path("${params.outdir}/gappa/placement.taxonomy.profile.tsv").csv(sep: '\t', header: true).rowCount,
+                    path("${params.outdir}/gappa/placement.taxonomy.sativa.tsv").csv(sep: '\t', header: true).rowCount,
                 ).match() }
             )
         }
