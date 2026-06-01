@@ -1,6 +1,12 @@
 lint:
   files_exist:
     - conf/igenomes.config
+  files_unchanged:
+    - .gitattributes
+    - assets/nf-core-phyloplace_logo_light.png
+    - assets/nf-core-phyloplace_logo_dark.png
+    - docs/images/nf-core-phyloplace_logo_light.png
+    - docs/images/nf-core-phyloplace_logo_dark.png
   nextflow_config:
     - params.input
 nf_core_version: 4.0.2
