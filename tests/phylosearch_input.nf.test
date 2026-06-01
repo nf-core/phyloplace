@@ -4,6 +4,7 @@ nextflow_pipeline {
     script "main.nf"
     tag "test_phylosearch_input"
     tag "pipeline"
+    profile "test_phylosearch_input"
 
     test("phylosearch input csv") {
         config "./nextflow.config"
