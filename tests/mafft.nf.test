@@ -4,6 +4,7 @@ nextflow_pipeline {
     script "main.nf"
     tag "test_mafft"
     tag "pipeline"
+    profile "test_mafft"
 
     test("Use MAFFT to align") {
         config "./nextflow.config"
