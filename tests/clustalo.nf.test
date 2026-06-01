@@ -4,6 +4,7 @@ nextflow_pipeline {
     script "main.nf"
     tag "test_clustalo"
     tag "pipeline"
+    profile "test_clustalo"
 
     test("Use Clustal Omega to align") {
         config "./nextflow.config"
