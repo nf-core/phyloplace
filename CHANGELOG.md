@@ -9,7 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
+    - [#52](https://github.com/nf-core/phyloplace/pull/52) - Template update for nf-core/tools version 4.0.2 (by @erikrikarddaniel)
+
 ### `Dependencies`
+
+    - [#52](https://github.com/nf-core/phyloplace/pull/52) - Update some software versions (by @erikrikarddaniel)
+
+| software    | previously | now       |
+| ----------- | ---------- | --------- |
+| nextflow    | >=24.04.2  | >=25.10.4 |
+| hmmer/easel | 0.48       | 0.49      |
 
 ### `Deprecated`
 

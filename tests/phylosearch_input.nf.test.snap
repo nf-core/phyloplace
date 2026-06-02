@@ -1,0 +1,144 @@
+{
+    "-profile test_phylosearch_input": {
+        "content": [
+            {
+                "CLUSTALO_ALIGN": {
+                    "clustalo": "1.2.4",
+                    "pigz": 2.8
+                },
+                "EPANG_PLACE": {
+                    "epa-ng": "0.3.8"
+                },
+                "EPANG_SPLIT_CLUSTALO": {
+                    "epa-ng": "0.3.8"
+                },
+                "GAPPA_ASSIGN": {
+                    "gappa": "0.8.0"
+                },
+                "GAPPA_GRAFT": {
+                    "gappa": "0.8.0"
+                },
+                "GAPPA_HEATTREE": {
+                    "gappa": "0.8.0"
+                },
+                "HMMER_HMMEXTRACT": {
+                    "hmmsearch": "3.3.2"
+                },
+                "HMMER_HMMRANK": {
+                    "r-base": "4.2.3",
+                    "r-tidyverse": "2.0.0"
+                },
+                "HMMER_HMMSEARCH": {
+                    "hmmer": 3.4
+                },
+                "SEQTK_SUBSEQ": {
+                    "seqtk": "1.4-r122"
+                },
+                "Workflow": {
+                    "nf-core/phyloplace": "v2.1.0dev"
+                }
+            },
+            [
+                "clustalo",
+                "clustalo/arc.aln",
+                "clustalo/bac16s.aln",
+                "epang",
+                "epang/arc.epa_info.log",
+                "epang/arc.epa_result.jplace.gz",
+                "epang/arc.query.fasta.gz",
+                "epang/arc.reference.fasta.gz",
+                "epang/bac16s.epa_info.log",
+                "epang/bac16s.epa_result.jplace.gz",
+                "epang/bac16s.query.fasta.gz",
+                "epang/bac16s.reference.fasta.gz",
+                "gappa",
+                "gappa/arc.graft.arc.epa_result.newick",
+                "gappa/arc.heattree.colours.txt",
+                "gappa/arc.heattree.log",
+                "gappa/arc.heattree.tree.nexus",
+                "gappa/arc.heattree.tree.phyloxml",
+                "gappa/arc.heattree.tree.svg",
+                "gappa/arc.taxonomy.krona.profile",
+                "gappa/arc.taxonomy.labelled_tree.newick",
+                "gappa/arc.taxonomy.per_query.tsv",
+                "gappa/arc.taxonomy.profile.tsv",
+                "gappa/arc.taxonomy.sativa.tsv",
+                "gappa/bac16s.graft.bac16s.epa_result.newick",
+                "gappa/bac16s.heattree.colours.txt",
+                "gappa/bac16s.heattree.log",
+                "gappa/bac16s.heattree.tree.nexus",
+                "gappa/bac16s.heattree.tree.phyloxml",
+                "gappa/bac16s.heattree.tree.svg",
+                "gappa/bac16s.taxonomy.krona.profile",
+                "gappa/bac16s.taxonomy.labelled_tree.newick",
+                "gappa/bac16s.taxonomy.per_query.tsv",
+                "gappa/bac16s.taxonomy.profile.tsv",
+                "gappa/bac16s.taxonomy.sativa.tsv",
+                "hmmer",
+                "hmmer/arc.in.hmm",
+                "hmmer/arc.tbl.gz",
+                "hmmer/arc.txt.gz",
+                "hmmer/bac16s.hmm",
+                "hmmer/bac16s.tbl.gz",
+                "hmmer/bac16s.txt.gz",
+                "hmmer/euk18s.hmm",
+                "hmmer/euk18s.tbl.gz",
+                "hmmer/euk18s.txt.gz",
+                "hmmer/euk28s.hmm",
+                "hmmer/euk28s.tbl.gz",
+                "hmmer/euk28s.txt.gz",
+                "hmmer/mito16s.tbl.gz",
+                "hmmer/mito16s.txt.gz",
+                "hmmer/rank.hmmrank.tsv.gz",
+                "multiqc",
+                "multiqc/multiqc_data",
+                "multiqc/multiqc_data/llms-full.txt",
+                "multiqc/multiqc_data/multiqc.log",
+                "multiqc/multiqc_data/multiqc.parquet",
+                "multiqc/multiqc_data/multiqc_citations.txt",
+                "multiqc/multiqc_data/multiqc_data.json",
+                "multiqc/multiqc_data/multiqc_software_versions.txt",
+                "multiqc/multiqc_data/multiqc_sources.txt",
+                "multiqc/multiqc_report.html",
+                "pipeline_info",
+                "pipeline_info/nf_core_phyloplace_software_mqc_versions.yml",
+                "seqtk",
+                "seqtk/domain_16s.fnaarc.fa.gz",
+                "seqtk/domain_16s.fnabac16s.fa.gz",
+                "seqtk/domain_16s.fnaeuk18s.fa.gz"
+            ],
+            [
+                "arc.aln:md5,48e87b305ac10ecc0036ba7ab1c84c86",
+                "bac16s.aln:md5,188fcf5c9096295c04d88619f1f3c7da",
+                "arc.query.fasta.gz:md5,6d8f9fff0368b47c327314945ba5365b",
+                "arc.reference.fasta.gz:md5,3202c886132ef01bab8508076c8734c0",
+                "bac16s.query.fasta.gz:md5,a60427f34274cbaf4ac6516d7b9a125e",
+                "bac16s.reference.fasta.gz:md5,c5ee2a6bf9658a76cbfd1500563dedae",
+                "arc.heattree.colours.txt:md5,adceb5cf88545cc4b47afa64da5bd5ec",
+                "arc.taxonomy.labelled_tree.newick:md5,88aad266c8ecd72275dcd8e1620520bc",
+                "bac16s.heattree.colours.txt:md5,02d6f8d81aff45fde65c684c6775bcdc",
+                "bac16s.taxonomy.labelled_tree.newick:md5,c0c614157f253b670b016966fa5f866e",
+                "arc.in.hmm:md5,c1b16c9c572f58b686b58e77329c639b",
+                "bac16s.hmm:md5,bd8a25bb2718397b758af3246bdac3fc",
+                "euk18s.hmm:md5,29118206ef205e611afb0d2bdd504536",
+                "euk28s.hmm:md5,4060dd239d3fb23f8f608b2c631661a9",
+                "rank.hmmrank.tsv.gz:md5,2befde6dc561a046938737b94c0a3a6e",
+                "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
+                "domain_16s.fnaarc.fa.gz:md5,8c00033483c62c0e64b8fc4f958eb117",
+                "domain_16s.fnabac16s.fa.gz:md5,3e2e39f8d78a5e3965f0c4dc804dd977",
+                "domain_16s.fnaeuk18s.fa.gz:md5,c0117af2379df85b13890efde1bcdda4"
+            ],
+            88,
+            50,
+            8,
+            106,
+            54,
+            11
+        ],
+        "timestamp": "2026-06-01T18:42:00.368353223",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
+        }
+    }
+}

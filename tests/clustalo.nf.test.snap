@@ -1,0 +1,79 @@
+{
+    "-profile test_clustalo": {
+        "content": [
+            {
+                "CLUSTALO_ALIGN": {
+                    "clustalo": "1.2.4",
+                    "pigz": 2.8
+                },
+                "EPANG_PLACE": {
+                    "epa-ng": "0.3.8"
+                },
+                "EPANG_SPLIT_CLUSTALO": {
+                    "epa-ng": "0.3.8"
+                },
+                "GAPPA_ASSIGN": {
+                    "gappa": "0.8.0"
+                },
+                "GAPPA_GRAFT": {
+                    "gappa": "0.8.0"
+                },
+                "GAPPA_HEATTREE": {
+                    "gappa": "0.8.0"
+                },
+                "Workflow": {
+                    "nf-core/phyloplace": "v2.1.0dev"
+                }
+            },
+            [
+                "clustalo",
+                "clustalo/placement.aln",
+                "epang",
+                "epang/placement.epa_info.log",
+                "epang/placement.epa_result.jplace.gz",
+                "epang/placement.query.fasta.gz",
+                "epang/placement.reference.fasta.gz",
+                "gappa",
+                "gappa/placement.graft.placement.epa_result.newick",
+                "gappa/placement.heattree.colours.txt",
+                "gappa/placement.heattree.log",
+                "gappa/placement.heattree.tree.nexus",
+                "gappa/placement.heattree.tree.phyloxml",
+                "gappa/placement.heattree.tree.svg",
+                "gappa/placement.taxonomy.krona.profile",
+                "gappa/placement.taxonomy.labelled_tree.newick",
+                "gappa/placement.taxonomy.per_query.tsv",
+                "gappa/placement.taxonomy.profile.tsv",
+                "gappa/placement.taxonomy.sativa.tsv",
+                "multiqc",
+                "multiqc/multiqc_data",
+                "multiqc/multiqc_data/llms-full.txt",
+                "multiqc/multiqc_data/multiqc.log",
+                "multiqc/multiqc_data/multiqc.parquet",
+                "multiqc/multiqc_data/multiqc_citations.txt",
+                "multiqc/multiqc_data/multiqc_data.json",
+                "multiqc/multiqc_data/multiqc_software_versions.txt",
+                "multiqc/multiqc_data/multiqc_sources.txt",
+                "multiqc/multiqc_report.html",
+                "pipeline_info",
+                "pipeline_info/nf_core_phyloplace_software_mqc_versions.yml"
+            ],
+            [
+                "placement.aln:md5,bc500eae88f3858f0f27800f8cd69698",
+                "placement.query.fasta.gz:md5,ab8a614cf0b53987f6854c22b80fed9c",
+                "placement.reference.fasta.gz:md5,7b7b77930cdb15033625d129df3201d4",
+                "placement.heattree.colours.txt:md5,7704cd341c8693981253ba6d740c1061",
+                "placement.taxonomy.labelled_tree.newick:md5,39de8a46303ea757f6eb94478db1ffe0",
+                "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f"
+            ],
+            6,
+            5,
+            2
+        ],
+        "timestamp": "2026-06-01T17:24:19.030869399",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
+        }
+    }
+}

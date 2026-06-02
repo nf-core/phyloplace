@@ -1,0 +1,40 @@
+nextflow_pipeline {
+
+    name "Test pipeline"
+    script "../main.nf"
+    tag "pipeline"
+    profile "test_phyloplace_input"
+
+    test("-profile test_phyloplace_input") {
+
+        when {
+            params {
+                outdir = "$outputDir"
+            }
+        }
+
+        then {
+            // stable_path: All files + folders in ${params.outdir}/ with a stable path (including file name)
+            def stable_path = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
+            // stable_content: All files in ${params.outdir}/ with stable content
+            def stable_content = getAllFilesFromDir(params.outdir, ignoreFile: 'tests/.nftignore')
+            assert workflow.success
+            assertAll(
+                { assert snapshot(
+                    // pipeline versions.yml file for multiqc from which Nextflow version is removed because we test pipelines on multiple Nextflow versions
+                    removeNextflowVersion("$outputDir/pipeline_info/nf_core_phyloplace_software_mqc_versions.yml"),
+                    // All stable path name, with a relative path
+                    stable_path,
+                    // All files with stable contents
+                    stable_content,
+                    path("${params.outdir}/gappa/PF14720mafft.taxonomy.per_query.tsv").csv(sep: '\t', header: true).rowCount,
+                    path("${params.outdir}/gappa/PF14720mafft.taxonomy.profile.tsv").csv(sep: '\t', header: true).rowCount,
+                    path("${params.outdir}/gappa/PF14720mafft.taxonomy.sativa.tsv").csv(sep: '\t', header: true).rowCount,
+                    path("${params.outdir}/gappa/PF14720wt.taxonomy.per_query.tsv").csv(sep: '\t', header: true).rowCount,
+                    path("${params.outdir}/gappa/PF14720wt.taxonomy.profile.tsv").csv(sep: '\t', header: true).rowCount,
+                    path("${params.outdir}/gappa/PF14720wt.taxonomy.sativa.tsv").csv(sep: '\t', header: true).rowCount,
+                ).match() }
+            )
+        }
+    }
+}

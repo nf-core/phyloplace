@@ -14,7 +14,7 @@ process HMMER_HMMEXTRACT {
 
     output:
     tuple val(meta), path("*.hmm"), emit: hmm
-    path "versions.yml"           , emit: versions
+    tuple val("${task.process}"), val('hmmsearch'), eval("hmmsearch -h | grep -o '^# HMMER [0-9.]*' | sed 's/^# HMMER *//'"), emit: versions_hmmsearch, topic: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -22,7 +22,7 @@ process HMMER_HMMEXTRACT {
     script:
     def args    = task.ext.args ?: ''
     def prefix  = task.ext.prefix ?: "${meta.id}"
-    def outfile = ! key && ! keyfile ? '' : "> ${prefix}.hmm"
+    def outfile = ! key ? '' : "> ${prefix}.hmm"
 
     // Avoid accidentally overwriting the input hmm
     def move    = ""
@@ -39,11 +39,6 @@ process HMMER_HMMEXTRACT {
         $hmm \\
         $key \\
         $outfile
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        hmmer: \$(hmmsearch -h | grep -o '^# HMMER [0-9.]*' | sed 's/^# HMMER *//')
-    END_VERSIONS
     """
 
     stub:
@@ -52,10 +47,5 @@ process HMMER_HMMEXTRACT {
 
     """
     touch ${prefix}.hmm
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        hmmer: \$(hmmsearch -h | grep -o '^# HMMER [0-9.]*' | sed 's/^# HMMER *//')
-    END_VERSIONS
     """
 }
