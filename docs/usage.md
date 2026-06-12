@@ -25,19 +25,21 @@ At minimum, four parameters are required:
 3. `--refphylogeny`: Reference phylogeny.
 4. `--model`: Evolutionary model used when estimating the phylogeny, e.g. "LG+F+R6".
 
+A few more parameters can be used to control execution, see the [parameter documentation](https://nf-co.re/phyloplace/parameters).
+
 ## Samplesheet input for phylogenetic placement
 
 Each of the four parameters mentioned above can be specified as columns in a comma separated sample sheet instead.
-In addition, a `sample` column needs to be present.
+In addition, a `sample` column needs to be present and the columns `taxonomy`, `alignmethod` and `hmmfile` refering to the parameters with the same names can be included.
 
 ```bash
 --phyloplace_input '[path to samplesheet file]'
 ```
 
 ```csv title="phyloplace_sheet.csv"
-sample,queryseqfile,refseqfile,refphylogeny,model
-pp0,q0.faa,ref0.alnfaa,ref0.newick,LG
-pp1,q1.faa,ref1.alnfaa,ref1.newick,LG+F+R6
+sample,queryseqfile,refseqfile,refphylogeny,model,taxonomy,alignmethod
+pp0,q0.faa,ref0.alnfaa,ref0.newick,LG,ref0.taxonomy,clustal0
+pp1,q1.faa,ref1.alnfaa,ref1.newick,LG+F+R6,ref1.taxonomy,clustal0
 ```
 
 ## Samplesheet input for search followed by phylogenetic placement
