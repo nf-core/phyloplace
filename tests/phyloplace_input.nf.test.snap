@@ -51,7 +51,7 @@
                     "pigz": 2.8
                 },
                 "Workflow": {
-                    "nf-core/phyloplace": "v2.0.1dev"
+                    "nf-core/phyloplace": "v2.0.1"
                 }
             },
             [
@@ -199,7 +199,7 @@
             5,
             2
         ],
-        "timestamp": "2026-06-12T12:15:00.899431336",
+        "timestamp": "2026-06-12T12:41:01.843649785",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
