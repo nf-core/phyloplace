@@ -39,8 +39,8 @@ workflow PHYLOPLACE {
 
     // For search entries with a named hmm to extract, call extraction
     ch_phylosearch_data
-        .filter { it.data.extract_hmm }
-        .map { [ it.meta, it.data.hmm, it.data.extract_hmm ] }
+        .filter { it -> it.data.extract_hmm }
+        .map { it -> [ it.meta, it.data.hmm, it.data.extract_hmm ] }
         .set { ch_hmmextract }
 
     HMMER_HMMEXTRACT(ch_hmmextract)
@@ -49,8 +49,8 @@ workflow PHYLOPLACE {
     HMMER_HMMEXTRACT.out.hmm
         .mix(
             ch_phylosearch_data
-                .filter { ! it.data.extract_hmm }
-                .map { [ it.meta, it.data.hmm ] }
+                .filter { it -> ! it.data.extract_hmm }
+                .map { it -> [ it.meta, it.data.hmm ] }
         )
         .set { ch_search_profiles }
 
@@ -59,10 +59,10 @@ workflow PHYLOPLACE {
     ch_phyloplace_data = FASTA_HMMSEARCH_RANK_FASTAS.out.seqfastas
         .join(
             ch_phylosearch_data
-                .filter { it.data.alignmethod && it.data.refseqfile && it.data.refphylogeny }
-                .map { [ [ id: it.meta.id ], it ] }
+                .filter { it -> it.data.alignmethod && it.data.refseqfile && it.data.refphylogeny }
+                .map { it -> [ [ id: it.meta.id ], it ] }
         )
-        .map { [
+        .map { it -> [
             meta: it[2].meta,
             data: [
                 alignmethod: it[2].data.alignmethod,
