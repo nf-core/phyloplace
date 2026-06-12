@@ -22,7 +22,7 @@
                     "gappa": "0.8.0"
                 },
                 "HMMER_HMMEXTRACT": {
-                    "hmmsearch": "3.3.2"
+                    "hmmsearch": 3.4
                 },
                 "HMMER_HMMRANK": {
                     "r-base": "4.2.3",
@@ -119,9 +119,9 @@
                 "bac16s.heattree.colours.txt:md5,02d6f8d81aff45fde65c684c6775bcdc",
                 "bac16s.taxonomy.labelled_tree.newick:md5,c0c614157f253b670b016966fa5f866e",
                 "arc.in.hmm:md5,c1b16c9c572f58b686b58e77329c639b",
-                "bac16s.hmm:md5,bd8a25bb2718397b758af3246bdac3fc",
-                "euk18s.hmm:md5,29118206ef205e611afb0d2bdd504536",
-                "euk28s.hmm:md5,4060dd239d3fb23f8f608b2c631661a9",
+                "bac16s.hmm:md5,a4dcd05876712b7bacddcdfb4662f6df",
+                "euk18s.hmm:md5,7257b503fc0eabe7cefef4e31cd6d8c4",
+                "euk28s.hmm:md5,5686ecd69ead0cabfefb74320d1207fb",
                 "rank.hmmrank.tsv.gz:md5,2befde6dc561a046938737b94c0a3a6e",
                 "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
                 "domain_16s.fnaarc.fa.gz:md5,8c00033483c62c0e64b8fc4f958eb117",
@@ -135,7 +135,7 @@
             54,
             11
         ],
-        "timestamp": "2026-06-12T12:45:28.792178347",
+        "timestamp": "2026-06-12T17:11:44.526317814",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"

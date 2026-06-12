@@ -5,9 +5,9 @@ process HMMER_HMMEXTRACT {
     label 'process_single'
 
     conda "${moduleDir}/environment.yml"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/hmmer:3.3.2--h87f3376_2':
-        'biocontainers/hmmer:3.3.2--h87f3376_2' }"
+    container "${ workflow.containerEngine in ['singularity', 'apptainer'] && !task.ext.singularity_pull_docker_container ?
+        'https://depot.galaxyproject.org/singularity/hmmer:3.4--hb6cb901_4' :
+        'quay.io/biocontainers/hmmer:3.4--hb6cb901_4' }"
 
     input:
     tuple val(meta), path(hmm), val(key)
