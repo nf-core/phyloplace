@@ -52,7 +52,7 @@
                 "type": "string",
                 "format": "file-path",
                 "pattern": "^\\S+$",
-                "errorMessage": "Tab separated file with taxonomy assignments of reference sequences."
+                "errorMessage": "Optional TSV file with taxonomy information."
             }
         },
         "required": ["sample", "queryseqfile", "refseqfile", "refphylogeny", "model"]

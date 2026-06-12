@@ -115,41 +115,36 @@ workflow PIPELINE_INITIALISATION {
     ch_phyloplace_data  = channel.empty()
 
     if ( params.phylosearch_input && params.search_fasta ) {
-        ch_phylosearch_data = channel.fromPath(params.phylosearch_input)
-            .splitCsv(header: true)
-            .map {
+        ch_phylosearch_data = channel.fromList(samplesheetToList(params.phylosearch_input, "${projectDir}/assets/schema_phylosearch_input.json"))
+            .map { meta, hmm, extract_hmm, refseqfile, refphylogeny, model, alignmethod, taxonomy ->
                 [
-                    meta: [
-                        id: it.target,
-                        min_bitscore: it.min_bitscore
-                    ],
+                    meta: meta,
                     data: [
-                        alignmethod:    it.alignmethod  ? it.alignmethod                             : 'hmmer',
-                        hmm:            file(it.hmm,  checkIfExists: true),
-                        extract_hmm:    it.extract_hmm,
-                        refseqfile:     it.refseqfile   ? file(it.refseqfile,   checkIfExists: true) : [],
-                        refphylogeny:   it.refphylogeny ? file(it.refphylogeny, checkIfExists: true) : [],
-                        model:          it.model,
-                        taxonomy:       it.taxonomy     ? file(it.taxonomy,     checkIfExists: true) : []
+                        alignmethod:  alignmethod  ?: 'hmmer',
+                        hmm:          hmm,
+                        extract_hmm:  extract_hmm,
+                        refseqfile:   refseqfile,
+                        refphylogeny: refphylogeny,
+                        model:        model,
+                        taxonomy:     taxonomy
                     ]
                 ]
             }
         channel.fromPath(params.search_fasta)
             .set { ch_sequence_fasta }
     } else if ( params.phyloplace_input ) {
-        ch_phyloplace_data = channel.fromPath(params.phyloplace_input)
-            .splitCsv(header: true)
-            .map {
+        ch_phyloplace_data = channel.fromList(samplesheetToList(params.phyloplace_input, "${projectDir}/assets/schema_phyloplace_input.json"))
+            .map { meta, queryseqfile, refseqfile, refphylogeny, hmmfile, model, alignmethod, taxonomy ->
                 [
-                    meta: [ id: it.sample ],
+                    meta: meta,
                     data: [
-                        alignmethod:  it.alignmethod ? it.alignmethod    : 'hmmer',
-                        queryseqfile: file(it.queryseqfile),
-                        refseqfile:   file(it.refseqfile),
-                        hmmfile:      it.hmmfile     ? file(it.hmmfile,  checkIfExists: true) : [],
-                        refphylogeny: file(it.refphylogeny),
-                        model:        it.model,
-                        taxonomy:     it.taxonomy    ? file(it.taxonomy, checkIfExists: true) : []
+                        alignmethod:  alignmethod  ?: 'hmmer',
+                        queryseqfile: queryseqfile,
+                        refseqfile:   refseqfile,
+                        hmmfile:      hmmfile,
+                        refphylogeny: refphylogeny,
+                        model:        model,
+                        taxonomy:     taxonomy
                     ]
                 ]
             }
