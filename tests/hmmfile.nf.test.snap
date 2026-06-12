@@ -37,7 +37,7 @@
                     "hmmer": 3.4
                 },
                 "Workflow": {
-                    "nf-core/phyloplace": "v2.0.1dev"
+                    "nf-core/phyloplace": "v2.0.1"
                 }
             },
             [
@@ -91,7 +91,7 @@
             5,
             2
         ],
-        "timestamp": "2026-06-12T12:13:21.867186496",
+        "timestamp": "2026-06-12T12:39:24.683285238",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
