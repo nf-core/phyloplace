@@ -15,21 +15,25 @@
             },
             "queryseqfile": {
                 "type": "string",
+                "format": "file-path",
                 "pattern": "^\\S+$",
                 "errorMessage": "File with query sequences to place in phylogeny. Any format supported by hmmaline in HMMER (e.g. fasta, clustal, phylip, stockholm) or MAFFT."
             },
             "refseqfile": {
                 "type": "string",
+                "format": "file-path",
                 "pattern": "^\\S+$",
                 "errorMessage": "Multiple sequence alignment of reference sequences. Any format suppored by hmmbuild in HMMER (see queryfile for examples) or MAFFT."
             },
             "refphylogeny": {
                 "type": "string",
+                "format": "file-path",
                 "pattern": "^\\S+$",
                 "errorMessage": "Newick formatted file with the reference phylogeny."
             },
             "hmmfile": {
                 "type": "string",
+                "format": "file-path",
                 "pattern": "^\\S+$",
                 "errorMessage": "HMM file to use for alignment, if the reference sequences are not aligned."
             },
@@ -43,6 +47,12 @@
                 "pattern": "^\\S+$",
                 "enum": ["hmmer", "clustalo", "mafft"],
                 "errorMessage": "Method to use for aligning: 'hmmer', 'clustalo' or 'mafft'."
+            },
+            "taxonomy": {
+                "type": "string",
+                "format": "file-path",
+                "pattern": "^\\S+$",
+                "errorMessage": "Tab separated file with taxonomy assignments of reference sequences."
             }
         },
         "required": ["sample", "queryseqfile", "refseqfile", "refphylogeny", "model"]
