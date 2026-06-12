@@ -51,7 +51,7 @@
                 "type": "string",
                 "pattern": "^\\S+$",
                 "enum": ["hmmer", "clustalo", "mafft"],
-                "errorMessage": "Method to use for aligning: 'hmmer' or 'mafft'."
+                "errorMessage": "Method to use for aligning: 'hmmer', 'mafft' or 'clustalo'."
             },
             "taxonomy": {
                 "type": "string",
