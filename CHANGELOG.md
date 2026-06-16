@@ -3,6 +3,30 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v2.0.1 - [2026-06-12]
+
+### `Added`
+
+### `Fixed`
+
+    - [#53](https://github.com/nf-core/phyloplace/pull/53) - Improve documentation of columns in input sheets [addresses #41](https://github.com/nf-core/phyloplace/issues/41) (by @erikrikarddaniel)
+    - [#53](https://github.com/nf-core/phyloplace/pull/53) - Fix broken documentation links for parameters [addresses #49](https://github.com/nf-core/phyloplace/issues/49) (by @erikrikarddaniel)
+    - [#53](https://github.com/nf-core/phyloplace/pull/53) - Improve adherence to Nextflow code standards [addresses #48](https://github.com/nf-core/phyloplace/issues/48) (by @erikrikarddaniel)
+    - [#52](https://github.com/nf-core/phyloplace/pull/52) - Template update for nf-core/tools version 4.0.2 (by @erikrikarddaniel)
+
+### `Dependencies`
+
+    - [#52](https://github.com/nf-core/phyloplace/pull/52) - Update some software versions (by @erikrikarddaniel)
+
+| software    | previously | now       |
+| ----------- | ---------- | --------- |
+| nextflow    | >=24.04.2  | >=25.10.4 |
+| hmmer/easel | 0.48       | 0.49      |
+| hmmer       | 3.3.2      | 3.4       |
+| MultiQC     | 1.27       | 1.35      |
+
+### `Deprecated`
+
 ## v2.0.0 - [2025-02-21]
 
 This release add phylogenetic search to the pipeline.

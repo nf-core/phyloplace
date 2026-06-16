@@ -5,16 +5,16 @@ process HMMER_HMMEXTRACT {
     label 'process_single'
 
     conda "${moduleDir}/environment.yml"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/hmmer:3.3.2--h87f3376_2':
-        'biocontainers/hmmer:3.3.2--h87f3376_2' }"
+    container "${ workflow.containerEngine in ['singularity', 'apptainer'] && !task.ext.singularity_pull_docker_container ?
+        'https://depot.galaxyproject.org/singularity/hmmer:3.4--hb6cb901_4' :
+        'quay.io/biocontainers/hmmer:3.4--hb6cb901_4' }"
 
     input:
     tuple val(meta), path(hmm), val(key)
 
     output:
     tuple val(meta), path("*.hmm"), emit: hmm
-    path "versions.yml"           , emit: versions
+    tuple val("${task.process}"), val('hmmsearch'), eval("hmmsearch -h | grep -o '^# HMMER [0-9.]*' | sed 's/^# HMMER *//'"), emit: versions_hmmsearch, topic: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -22,7 +22,7 @@ process HMMER_HMMEXTRACT {
     script:
     def args    = task.ext.args ?: ''
     def prefix  = task.ext.prefix ?: "${meta.id}"
-    def outfile = ! key && ! keyfile ? '' : "> ${prefix}.hmm"
+    def outfile = ! key ? '' : "> ${prefix}.hmm"
 
     // Avoid accidentally overwriting the input hmm
     def move    = ""
@@ -39,23 +39,12 @@ process HMMER_HMMEXTRACT {
         $hmm \\
         $key \\
         $outfile
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        hmmer: \$(hmmsearch -h | grep -o '^# HMMER [0-9.]*' | sed 's/^# HMMER *//')
-    END_VERSIONS
     """
 
     stub:
-    def args = task.ext.args ?: ''
     def prefix  = task.ext.prefix ?: "${meta.id}"
 
     """
     touch ${prefix}.hmm
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        hmmer: \$(hmmsearch -h | grep -o '^# HMMER [0-9.]*' | sed 's/^# HMMER *//')
-    END_VERSIONS
     """
 }

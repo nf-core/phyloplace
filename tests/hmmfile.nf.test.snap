@@ -1,0 +1,100 @@
+{
+    "-profile test_hmmfile": {
+        "content": [
+            {
+                "EPANG_PLACE": {
+                    "epa-ng": "0.3.8"
+                },
+                "GAPPA_ASSIGN": {
+                    "gappa": "0.8.0"
+                },
+                "GAPPA_GRAFT": {
+                    "gappa": "0.8.0"
+                },
+                "GAPPA_HEATTREE": {
+                    "gappa": "0.8.0"
+                },
+                "HMMER_AFAFORMATQUERY": {
+                    "easel": 0.49,
+                    "hmmer": 3.4
+                },
+                "HMMER_AFAFORMATREF": {
+                    "easel": 0.49,
+                    "hmmer": 3.4
+                },
+                "HMMER_HMMALIGNQUERY": {
+                    "hmmer": 3.4
+                },
+                "HMMER_HMMALIGNREF": {
+                    "hmmer": 3.4
+                },
+                "HMMER_MASKQUERY": {
+                    "easel": 0.49,
+                    "hmmer": 3.4
+                },
+                "HMMER_MASKREF": {
+                    "easel": 0.49,
+                    "hmmer": 3.4
+                },
+                "Workflow": {
+                    "nf-core/phyloplace": "v2.0.1"
+                }
+            },
+            [
+                "epang",
+                "epang/placement.epa_info.log",
+                "epang/placement.epa_result.jplace.gz",
+                "gappa",
+                "gappa/placement.graft.placement.epa_result.newick",
+                "gappa/placement.heattree.colours.txt",
+                "gappa/placement.heattree.log",
+                "gappa/placement.heattree.tree.nexus",
+                "gappa/placement.heattree.tree.phyloxml",
+                "gappa/placement.heattree.tree.svg",
+                "gappa/placement.taxonomy.krona.profile",
+                "gappa/placement.taxonomy.labelled_tree.newick",
+                "gappa/placement.taxonomy.per_query.tsv",
+                "gappa/placement.taxonomy.profile.tsv",
+                "gappa/placement.taxonomy.sativa.tsv",
+                "hmmer",
+                "hmmer/placement.query.hmmalign.masked.afa.gz",
+                "hmmer/placement.query.hmmalign.masked.sthlm.gz",
+                "hmmer/placement.query.hmmalign.sto.gz",
+                "hmmer/placement.ref.hmmalign.masked.afa.gz",
+                "hmmer/placement.ref.hmmalign.masked.sthlm.gz",
+                "hmmer/placement.ref.hmmalign.sto.gz",
+                "multiqc",
+                "multiqc/multiqc_data",
+                "multiqc/multiqc_data/llms-full.txt",
+                "multiqc/multiqc_data/multiqc.log",
+                "multiqc/multiqc_data/multiqc.parquet",
+                "multiqc/multiqc_data/multiqc_citations.txt",
+                "multiqc/multiqc_data/multiqc_data.json",
+                "multiqc/multiqc_data/multiqc_software_versions.txt",
+                "multiqc/multiqc_data/multiqc_sources.txt",
+                "multiqc/multiqc_report.html",
+                "pipeline_info",
+                "pipeline_info/nf_core_phyloplace_software_mqc_versions.yml"
+            ],
+            [
+                "placement.heattree.colours.txt:md5,7704cd341c8693981253ba6d740c1061",
+                "placement.taxonomy.labelled_tree.newick:md5,39de8a46303ea757f6eb94478db1ffe0",
+                "placement.query.hmmalign.masked.afa.gz:md5,69b6d82789587f368da4d808ce20744a",
+                "placement.query.hmmalign.masked.sthlm.gz:md5,56a12b2dca9c8374665db99d9af500f3",
+                "placement.query.hmmalign.sto.gz:md5,3ec5592a7fd7188a8d14176d894feea5",
+                "placement.ref.hmmalign.masked.afa.gz:md5,3452f0d4646209116c3b60f1c77d5ba3",
+                "placement.ref.hmmalign.masked.sthlm.gz:md5,b470181ddc1af95e3b2b5118d1d7a99d",
+                "placement.ref.hmmalign.sto.gz:md5,bf7853d45ac93f47f1722ee2af7ca0dc",
+                "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f"
+            ],
+            6,
+            5,
+            2
+        ],
+        "timestamp": "2026-06-12T12:39:24.683285238",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
+        }
+    }
+}

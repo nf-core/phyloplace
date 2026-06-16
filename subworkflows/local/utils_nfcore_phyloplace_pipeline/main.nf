@@ -11,9 +11,9 @@
 include { UTILS_NFSCHEMA_PLUGIN     } from '../../nf-core/utils_nfschema_plugin'
 include { paramsSummaryMap          } from 'plugin/nf-schema'
 include { samplesheetToList         } from 'plugin/nf-schema'
+include { paramsHelp                } from 'plugin/nf-schema'
 include { completionEmail           } from '../../nf-core/utils_nfcore_pipeline'
 include { completionSummary         } from '../../nf-core/utils_nfcore_pipeline'
-include { imNotification            } from '../../nf-core/utils_nfcore_pipeline'
 include { UTILS_NFCORE_PIPELINE     } from '../../nf-core/utils_nfcore_pipeline'
 include { UTILS_NEXTFLOW_PIPELINE   } from '../../nf-core/utils_nextflow_pipeline'
 
@@ -31,12 +31,25 @@ workflow PIPELINE_INITIALISATION {
     monochrome_logs   // boolean: Do not use coloured log outputs
     nextflow_cli_args //   array: List of positional nextflow CLI args
     outdir            //  string: The output directory where the results will be saved
+    id                //  string: From params.id
+    queryseqfile      //  string: From params.queryseqfile
+    refseqfile        //  string: From params.refseqfile
+    refphylogeny      //  string: From params.refphylogeny
+    model             //  string: From params.model
+    taxonomy          //  string: From params.taxonomy
+    hmmfile           //  string: From params.hmmfile
+    alignmethod       //  string: From params.alignmethod
+    fasta             //  string: From params.fasta
     phyloplace_input  //  string: Path to phyloplace input samplesheet
     phylosearch_input //  string: Path to phylosearch input samplesheet
+    search_fasta      //  string: From params.search_fasta
+    help              // boolean: Display help message and exit
+    help_full         // boolean: Show the full help message
+    show_hidden       // boolean: Show hidden parameters in the help message
 
     main:
 
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     //
     // Print version and exit if required and dump pipeline parameters to JSON file
@@ -51,9 +64,42 @@ workflow PIPELINE_INITIALISATION {
     //
     // Validate parameters and generate parameter summary to stdout
     //
+
+    def before_text = ""
+    def after_text = ""
+    before_text = """
+-\033[2m----------------------------------------------------\033[0m-
+                                        \033[0;32m,--.\033[0;30m/\033[0;32m,-.\033[0m
+\033[0;34m        ___     __   __   __   ___     \033[0;32m/,-._.--~\'\033[0m
+\033[0;34m  |\\ | |__  __ /  ` /  \\ |__) |__         \033[0;33m}  {\033[0m
+\033[0;34m  | \\| |       \\__, \\__/ |  \\ |___     \033[0;32m\\`-._,-`-,\033[0m
+                                        \033[0;32m`._,._,\'\033[0m
+\033[0;35m  nf-core/phyloplace ${workflow.manifest.version}\033[0m
+-\033[2m----------------------------------------------------\033[0m-
+"""
+    after_text = """${workflow.manifest.doi ? "\n* The pipeline\n" : ""}${workflow.manifest.doi.tokenize(",").collect { doi -> "    https://doi.org/${doi.trim().replace('https://doi.org/','')}"}.join("\n")}${workflow.manifest.doi ? "\n" : ""}
+* The nf-core framework
+    https://doi.org/10.1038/s41587-020-0439-x
+
+* Software dependencies
+    https://github.com/nf-core/phyloplace/blob/master/CITATIONS.md
+"""
+    if (monochrome_logs) {
+        before_text = before_text.replaceAll(/\033\[[0-9;]*m/, '')
+    }
+
+    command = "nextflow run ${workflow.manifest.name} -profile <docker/singularity/.../institute> --input samplesheet.csv --outdir <OUTDIR>"
+
     UTILS_NFSCHEMA_PLUGIN (
         workflow,
         validate_params,
+        null,
+        help,
+        help_full,
+        show_hidden,
+        before_text,
+        after_text,
+        command,
         null
     )
 
@@ -70,68 +116,63 @@ workflow PIPELINE_INITIALISATION {
     validateInputParameters()
 
     //
-    // If provided, create channel from either of the two types of input file provided through params.phyloplace_input or params.phylosearch_input
+    // If provided, create channel from either of the two types of input file provided through phyloplace_input or phylosearch_input
     //
 
     // Check mandatory parameters and construct the input channel for the pipeline
-    ch_phylosearch_data = Channel.empty()
-    ch_sequence_fasta   = Channel.empty()
-    ch_phyloplace_data  = Channel.empty()
+    ch_phylosearch_data = channel.empty()
+    ch_sequence_fasta   = channel.empty()
+    ch_phyloplace_data  = channel.empty()
 
-    if ( params.phylosearch_input && params.search_fasta ) {
-        ch_phylosearch_data = Channel.fromPath(params.phylosearch_input)
-            .splitCsv(header: true)
-            .map {
+    if ( phylosearch_input && search_fasta ) {
+        ch_phylosearch_data = channel.fromList(samplesheetToList(phylosearch_input, "${projectDir}/assets/schema_phylosearch_input.json"))
+            .map { vmeta, vhmm, vextract_hmm, vrefseqfile, vrefphylogeny, vmodel, valignmethod, vtaxonomy ->
                 [
-                    meta: [
-                        id: it.target,
-                        min_bitscore: it.min_bitscore
-                    ],
+                    meta: vmeta,
                     data: [
-                        alignmethod:    it.alignmethod  ? it.alignmethod                             : 'hmmer',
-                        hmm:            file(it.hmm,  checkIfExists: true),
-                        extract_hmm:    it.extract_hmm,
-                        refseqfile:     it.refseqfile   ? file(it.refseqfile,   checkIfExists: true) : [],
-                        refphylogeny:   it.refphylogeny ? file(it.refphylogeny, checkIfExists: true) : [],
-                        model:          it.model,
-                        taxonomy:       it.taxonomy     ? file(it.taxonomy,     checkIfExists: true) : []
+                        alignmethod:  valignmethod  ?: 'hmmer',
+                        hmm:          vhmm,
+                        extract_hmm:  vextract_hmm,
+                        refseqfile:   vrefseqfile,
+                        refphylogeny: vrefphylogeny,
+                        model:        vmodel,
+                        taxonomy:     vtaxonomy
                     ]
                 ]
             }
-        Channel.fromPath(params.search_fasta)
+        channel.fromPath(search_fasta)
             .set { ch_sequence_fasta }
-    } else if ( params.phyloplace_input ) {
-        ch_phyloplace_data = Channel.fromPath(params.phyloplace_input)
-            .splitCsv(header: true)
-            .map {
+    } else if ( phyloplace_input ) {
+        ch_phyloplace_data = channel.fromList(samplesheetToList(phyloplace_input, "${projectDir}/assets/schema_phyloplace_input.json"))
+            .map { vmeta, vqueryseqfile, vrefseqfile, vrefphylogeny, vhmmfile, vmodel, valignmethod, vtaxonomy ->
                 [
-                    meta: [ id: it.sample ],
+                    meta: vmeta,
                     data: [
-                        alignmethod:  it.alignmethod ? it.alignmethod    : 'hmmer',
-                        queryseqfile: file(it.queryseqfile),
-                        refseqfile:   file(it.refseqfile),
-                        hmmfile:      it.hmmfile     ? file(it.hmmfile,  checkIfExists: true) : [],
-                        refphylogeny: file(it.refphylogeny),
-                        model:        it.model,
-                        taxonomy:     it.taxonomy    ? file(it.taxonomy, checkIfExists: true) : []
+                        alignmethod:  valignmethod  ?: 'hmmer',
+                        queryseqfile: vqueryseqfile,
+                        refseqfile:   vrefseqfile,
+                        hmmfile:      vhmmfile,
+                        refphylogeny: vrefphylogeny,
+                        model:        vmodel,
+                        taxonomy:     vtaxonomy
                     ]
                 ]
             }
-    } else if ( params.id && params.queryseqfile && params.refseqfile && params.refphylogeny && params.model ) {
-        Channel.of([
-            meta: [ id: params.id ],
+    } else if ( id && queryseqfile && refseqfile && refphylogeny && model ) {
+        channel.of([
+            meta: [ id: id ],
             data: [
-                alignmethod:  params.alignmethod ? params.alignmethod    : 'hmmer',
-                queryseqfile: file(params.queryseqfile),
-                refseqfile:   file(params.refseqfile),
-                refphylogeny: file(params.refphylogeny),
-                hmmfile:      params.hmmfile     ? file(params.hmmfile)  : [],
-                model:        params.model,
-                taxonomy:     params.taxonomy    ? file(params.taxonomy) : []
+                alignmethod:  alignmethod ? alignmethod    : 'hmmer',
+                queryseqfile: file(queryseqfile),
+                refseqfile:   file(refseqfile),
+                refphylogeny: file(refphylogeny),
+                hmmfile:      hmmfile     ? file(hmmfile)  : [],
+                model:        model,
+                taxonomy:     taxonomy    ? file(taxonomy) : []
             ]
         ])
             .set { ch_phyloplace_data }
-    } else if ( params.phylosearch_input || params.fasta ) {
+    } else if ( phylosearch_input || fasta ) {
         exit 1, "For phylosearch mode, you need to provide an input sample sheet with --phylosearch_input *and* a fasta file with --search_fasta"
     } else {
         exit 1, "For phyloplace mode, you need to provide an input sample sheet with --phyloplace_input or the corresponding info with individual parameters"
@@ -158,7 +199,6 @@ workflow PIPELINE_COMPLETION {
     plaintext_email // boolean: Send plain-text email instead of HTML
     outdir          //    path: Path to output directory where results will be published
     monochrome_logs // boolean: Disable ANSI colour codes in log output
-    hook_url        //  string: hook URL for notifications
     multiqc_report  //  string: Path to MultiQC report
 
     main:
@@ -182,13 +222,11 @@ workflow PIPELINE_COMPLETION {
         }
 
         completionSummary(monochrome_logs)
-        if (hook_url) {
-            imNotification(summary_params, hook_url)
-        }
+
     }
 
     workflow.onError {
-        log.error "Pipeline failed. Please refer to troubleshooting docs: https://nf-co.re/docs/usage/troubleshooting"
+        log.error "Pipeline failed. Please refer to troubleshooting docs for common issues: https://nf-co.re/docs/running/troubleshooting"
     }
 }
 
@@ -201,21 +239,6 @@ workflow PIPELINE_COMPLETION {
 // Check and validate pipeline parameters
 //
 def validateInputParameters() {
-}
-
-//
-// Validate channels from input samplesheet
-//
-def validateInputSamplesheet(input) {
-    def (metas, fastqs) = input[1..2]
-
-    // Check that multiple runs of the same sample are of the same datatype i.e. single-end / paired-end
-    def endedness_ok = metas.collect{ meta -> meta.single_end }.unique().size == 1
-    if (!endedness_ok) {
-        error("Please check input samplesheet -> Multiple runs of a sample must be of the same datatype i.e. single-end or paired-end: ${metas[0].id}")
-    }
-
-    return [ metas[0], fastqs ]
 }
 
 //
@@ -286,4 +309,3 @@ def methodsDescriptionText(mqc_methods_yaml) {
 
     return description_html.toString()
 }
-
