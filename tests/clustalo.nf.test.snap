@@ -22,7 +22,7 @@
                     "gappa": "0.8.0"
                 },
                 "Workflow": {
-                    "nf-core/phyloplace": "v2.0.1"
+                    "nf-core/phyloplace": "v2.1.0dev"
                 }
             },
             [
@@ -70,7 +70,7 @@
             5,
             2
         ],
-        "timestamp": "2026-06-12T12:38:32.923471454",
+        "timestamp": "2026-06-16T10:49:42.550813932",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"

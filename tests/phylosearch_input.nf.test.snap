@@ -35,7 +35,7 @@
                     "seqtk": "1.4-r122"
                 },
                 "Workflow": {
-                    "nf-core/phyloplace": "v2.0.1"
+                    "nf-core/phyloplace": "v2.1.0dev"
                 }
             },
             [
@@ -135,7 +135,7 @@
             54,
             11
         ],
-        "timestamp": "2026-06-12T17:11:44.526317814",
+        "timestamp": "2026-06-16T10:53:19.7571168",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
