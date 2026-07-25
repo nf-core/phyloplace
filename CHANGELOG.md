@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Changed`
 
-    - [#NN](https://github.com/nf-core/phyloplace/pull/NN) - Template update to 4.0.3 and software updates (by @erikrikarddaniel)
+    - [#62](https://github.com/nf-core/phyloplace/pull/62) - Template update to 4.0.3 and software updates (by @erikrikarddaniel)
 
 ### `Dependencies`
 
