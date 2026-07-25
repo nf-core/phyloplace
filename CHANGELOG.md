@@ -9,7 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
+### `Changed`
+
     - [#NN](https://github.com/nf-core/phyloplace/pull/NN) - Template update for nf-core/tools version 4.0.3, retire legacy `ci.yml`/`linting_comment.yml` in favour of the template's `nf-test.yml`/`pr-comment.yml` CI (by @erikrikarddaniel)
+    - [#NN](https://github.com/nf-core/phyloplace/pull/NN) - Update `hmmer/hmmsearch` and `mafft/align` modules and the `utils_nextflow_pipeline` subworkflow; drop the now-redundant `mafft/align` patch since upstream fixed the same variable-shadowing bug independently (by @erikrikarddaniel)
 
 ### `Dependencies`
 
