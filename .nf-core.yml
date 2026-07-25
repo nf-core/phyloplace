@@ -1,6 +1,7 @@
 lint:
   files_exist:
     - conf/igenomes.config
+    - conf/igenomes_ignored.config
   files_unchanged:
     - .gitattributes
     - assets/nf-core-phyloplace_logo_light.png
