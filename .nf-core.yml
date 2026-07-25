@@ -9,7 +9,7 @@ lint:
     - docs/images/nf-core-phyloplace_logo_dark.png
   nextflow_config:
     - params.input
-nf_core_version: 4.0.2
+nf_core_version: 4.0.3
 repository_type: pipeline
 template:
   author: Daniel Lundin

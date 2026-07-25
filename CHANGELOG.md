@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
+    - [#NN](https://github.com/nf-core/phyloplace/pull/NN) - Template update for nf-core/tools version 4.0.3, retire legacy `ci.yml`/`linting_comment.yml` in favour of the template's `nf-test.yml`/`pr-comment.yml` CI (by @erikrikarddaniel)
+
 ### `Dependencies`
 
 | software | previously | now |
