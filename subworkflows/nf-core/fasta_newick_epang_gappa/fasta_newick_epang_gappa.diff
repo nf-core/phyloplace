@@ -1,0 +1,21 @@
+Changes in component 'nf-core/fasta_newick_epang_gappa'
+'subworkflows/nf-core/fasta_newick_epang_gappa/meta.yml' is unchanged
+Changes in 'fasta_newick_epang_gappa/main.nf':
+--- subworkflows/nf-core/fasta_newick_epang_gappa/main.nf
++++ subworkflows/nf-core/fasta_newick_epang_gappa/main.nf
+@@ -165,8 +165,10 @@
+     emit:
+     epang               = EPANG_PLACE.out.epang
+     jplace              = EPANG_PLACE.out.jplace
++    epang_log           = EPANG_PLACE.out.log
+     grafted_phylogeny   = GAPPA_GRAFT.out.newick
+     taxonomy_profile    = GAPPA_ASSIGN.out.profile
+     taxonomy_per_query  = GAPPA_ASSIGN.out.per_query
+     heattree            = GAPPA_HEATTREE.out.svg
++    hmmbuild_log        = HMMER_HMMBUILD.out.hmmbuildout
+ }
+
+'subworkflows/nf-core/fasta_newick_epang_gappa/tests/nextflow.config' is unchanged
+'subworkflows/nf-core/fasta_newick_epang_gappa/tests/main.nf.test.snap' is unchanged
+'subworkflows/nf-core/fasta_newick_epang_gappa/tests/main.nf.test' is unchanged
+************************************************************

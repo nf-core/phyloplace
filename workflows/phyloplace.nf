@@ -15,6 +15,22 @@ include { methodsDescriptionText        } from '../subworkflows/local/utils_nfco
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    FUNCTIONS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+
+//
+// Re-indent every line of a block of text, for embedding as a YAML block literal (`data: |`)
+// in a MultiQC custom content file: every content line must be indented at least as much as
+// the block's first line, which raw multi-line tool log/SVG content won't be on its own.
+//
+def indentBlock(text, indent) {
+    def pad = ' ' * indent
+    text.readLines().collect { pad + it }.join('\n')
+}
+
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     RUN MAIN WORKFLOW
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
@@ -112,7 +128,64 @@ workflow PHYLOPLACE {
     //
     // MODULE: MultiQC
     //
+    // hmmbuild's and EPA-NG's own logs are plain text starting with '#'/free-text lines that
+    // MultiQC's custom content module would otherwise try (and fail) to parse as a YAML header,
+    // so wrap each in a small self-describing custom content yaml instead.
+    def ch_hmmbuild_mqc = FASTA_NEWICK_EPANG_GAPPA.out.hmmbuild_log
+        .collectFile { log_file ->
+            def id = log_file.baseName - '.hmmbuild'
+            def escaped = log_file.text.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
+            [
+                "${id}.hmmbuild_mqc.yaml",
+                """id: 'hmmbuild_${id}'
+section_name: 'HMMER hmmbuild: ${id}'
+description: 'Profile HMM construction log from hmmbuild, run when no --hmmfile is provided for the hmmer alignment method.'
+plot_type: 'html'
+data: |
+${indentBlock("<pre>${escaped}</pre>", 2)}
+"""
+            ]
+        }
+    def ch_epang_mqc = FASTA_NEWICK_EPANG_GAPPA.out.epang_log
+        .collectFile { log_file ->
+            def id = log_file.baseName - '.epa_info'
+            def escaped = log_file.text.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
+            [
+                "${id}.epang_mqc.yaml",
+                """id: 'epang_${id}'
+section_name: 'EPA-NG placement: ${id}'
+description: 'Phylogenetic placement run log from EPA-NG.'
+plot_type: 'html'
+data: |
+${indentBlock("<pre>${escaped}</pre>", 2)}
+"""
+            ]
+        }
+    // Reference trees with many tips can produce very large heat tree SVGs; skip embedding
+    // (rather than bloating the report) above this size and just point at the real output file.
+    def max_heattree_svg_bytes = 1_048_576
+    def ch_heattree_mqc = FASTA_NEWICK_EPANG_GAPPA.out.heattree
+        .collectFile { meta, svg_file ->
+            def size = svg_file.size()
+            def content = size <= max_heattree_svg_bytes
+                ? indentBlock(svg_file.text.replaceFirst(/^<\?xml[^>]*\?>\s*/, ''), 2)
+                : "  <p>Heat tree too large to embed (${(size / (1024 * 1024)).round(1)} MiB) &mdash; see <code>gappa/${svg_file.name}</code> in the pipeline output.</p>"
+            [
+                "${meta.id}.heattree_mqc.yaml",
+                """id: 'heattree_${meta.id}'
+section_name: 'GAPPA heat tree: ${meta.id}'
+description: 'Placement density heat tree, showing where in the reference phylogeny most query sequences were placed.'
+plot_type: 'html'
+data: |
+${content}
+"""
+            ]
+        }
+
     ch_multiqc_files = ch_multiqc_files.mix(ch_collated_versions)
+    ch_multiqc_files = ch_multiqc_files.mix(ch_hmmbuild_mqc)
+    ch_multiqc_files = ch_multiqc_files.mix(ch_epang_mqc)
+    ch_multiqc_files = ch_multiqc_files.mix(ch_heattree_mqc)
     def ch_summary_params = paramsSummaryMap(workflow, parameters_schema: "nextflow_schema.json")
     def ch_workflow_summary = channel.value(paramsSummaryMultiqc(ch_summary_params))
     ch_multiqc_files = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
