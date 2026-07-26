@@ -62,14 +62,13 @@
                     },
                     "hmmer/hmmsearch": {
                         "branch": "master",
-                        "git_sha": "f2bed902e13076698e7d59d1fedf5c083f6f17c0",
+                        "git_sha": "3a42d4fbb69436f53e0f06d2fe65b48f9d0085cc",
                         "installed_by": ["fasta_hmmsearch_rank_fastas"]
                     },
                     "mafft/align": {
                         "branch": "master",
-                        "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
-                        "installed_by": ["fasta_newick_epang_gappa"],
-                        "patch": "modules/nf-core/mafft/align/mafft-align.diff"
+                        "git_sha": "f0fc064c76250bf362d1900bbf8b62092f9f2a1b",
+                        "installed_by": ["fasta_newick_epang_gappa"]
                     },
                     "multiqc": {
                         "branch": "master",
