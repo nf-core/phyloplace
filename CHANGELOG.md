@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
-    - [#NN](https://github.com/nf-core/phyloplace/pull/NN) - Report hmmbuild, EPA-NG and GAPPA heat tree logs/output in MultiQC ([#3](https://github.com/nf-core/phyloplace/issues/3)) (by @erikrikarddaniel)
+    - [#63](https://github.com/nf-core/phyloplace/pull/63) - Report hmmbuild, EPA-NG and GAPPA heat tree logs/output in MultiQC ([#3](https://github.com/nf-core/phyloplace/issues/3)) (by @erikrikarddaniel)
 
 ### `Fixed`
 
