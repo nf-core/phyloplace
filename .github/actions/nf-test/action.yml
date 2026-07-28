@@ -39,6 +39,15 @@ runs:
       if: contains(inputs.profile, 'singularity')
       uses: eWaterCycle/setup-apptainer@4bb22c52d4f63406c49e94c804632975787312b3 # v2.0.0
 
+    # Ubuntu 24.04 restricts unprivileged user namespace creation via AppArmor by default,
+    # which breaks Apptainer/Singularity's unprivileged execution mode with
+    # "Failed to create user namespace: Permission denied" regardless of Nextflow version.
+    # https://github.com/apptainer/apptainer/issues/2027
+    - name: Work around Ubuntu 24.04 AppArmor unprivileged user namespace restriction
+      if: contains(inputs.profile, 'singularity')
+      shell: bash
+      run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+
     - name: Set up Singularity
       if: contains(inputs.profile, 'singularity')
       shell: bash
