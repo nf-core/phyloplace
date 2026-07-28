@@ -22,7 +22,7 @@
                     "gappa": "0.8.0"
                 },
                 "Workflow": {
-                    "nf-core/phyloplace": "v2.1.0dev"
+                    "nf-core/phyloplace": "v2.1.0"
                 }
             },
             [
