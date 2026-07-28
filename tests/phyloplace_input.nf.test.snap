@@ -51,7 +51,7 @@
                     "pigz": 2.8
                 },
                 "Workflow": {
-                    "nf-core/phyloplace": "v2.1.0dev"
+                    "nf-core/phyloplace": "v2.1.0"
                 }
             },
             [
