@@ -2,12 +2,15 @@ lint:
   files_exist:
     - conf/igenomes.config
     - conf/igenomes_ignored.config
+    - .github/workflows/linting_comment.yml
   files_unchanged:
     - .gitattributes
     - assets/nf-core-phyloplace_logo_light.png
     - assets/nf-core-phyloplace_logo_dark.png
     - docs/images/nf-core-phyloplace_logo_light.png
     - docs/images/nf-core-phyloplace_logo_dark.png
+    - .github/workflows/branch.yml
+    - .github/workflows/linting.yml
   nextflow_config:
     - params.input
 nf_core_version: 4.0.3
