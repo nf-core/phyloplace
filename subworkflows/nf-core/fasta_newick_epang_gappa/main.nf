@@ -165,8 +165,10 @@ workflow FASTA_NEWICK_EPANG_GAPPA {
     emit:
     epang               = EPANG_PLACE.out.epang
     jplace              = EPANG_PLACE.out.jplace
+    epang_log           = EPANG_PLACE.out.log
     grafted_phylogeny   = GAPPA_GRAFT.out.newick
     taxonomy_profile    = GAPPA_ASSIGN.out.profile
     taxonomy_per_query  = GAPPA_ASSIGN.out.per_query
     heattree            = GAPPA_HEATTREE.out.svg
+    hmmbuild_log        = HMMER_HMMBUILD.out.hmmbuildout
 }

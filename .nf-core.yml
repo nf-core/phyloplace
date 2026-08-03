@@ -1,6 +1,7 @@
 lint:
   files_exist:
     - conf/igenomes.config
+    - conf/igenomes_ignored.config
     - .github/workflows/linting_comment.yml
   files_unchanged:
     - .gitattributes
@@ -12,7 +13,7 @@ lint:
     - .github/workflows/linting.yml
   nextflow_config:
     - params.input
-nf_core_version: 4.0.2
+nf_core_version: 4.0.3
 repository_type: pipeline
 template:
   author: Daniel Lundin
@@ -24,4 +25,4 @@ template:
   outdir: .
   skip_features:
     - igenomes
-  version: 2.0.1
+  version: 2.1.0

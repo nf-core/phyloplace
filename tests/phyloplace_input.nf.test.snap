@@ -47,11 +47,11 @@
                     "hmmer": 3.4
                 },
                 "MAFFT_ALIGN": {
-                    "mafft": "v7.520 (2023/Mar/22)",
+                    "mafft": 7.52,
                     "pigz": 2.8
                 },
                 "Workflow": {
-                    "nf-core/phyloplace": "v2.0.1"
+                    "nf-core/phyloplace": "v2.1.0"
                 }
             },
             [
@@ -199,7 +199,7 @@
             5,
             2
         ],
-        "timestamp": "2026-06-12T12:41:01.843649785",
+        "timestamp": "2026-06-16T10:52:25.095165799",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"

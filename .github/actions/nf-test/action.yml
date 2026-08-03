@@ -35,6 +35,8 @@ runs:
         version: "${{ env.NFT_VER }}"
         install-pdiff: true
 
+    # Pinned to the pre-4.0.3 digest: the digest nf-core/tools 4.0.3 bumped this to is faulty
+    # and causes "Failed to create user namespace: Permission denied" in some pipelines.
     - name: Setup apptainer
       if: contains(inputs.profile, 'singularity')
       uses: eWaterCycle/setup-apptainer@3f706d898c9db585b1d741b4692e66755f3a1b40 # v2
