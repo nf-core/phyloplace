@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Changed`
 
+    - [#81](https://github.com/nf-core/phyloplace/pull/81) - Update `gappa/examineassign`, `gappa/examinegraft` and `gappa/examineheattree` to gappa 0.9.0, so every gappa step runs the same version and container ([nf-core/modules#12858](https://github.com/nf-core/modules/pull/12858)) (by @erikrikarddaniel)
     - [#79](https://github.com/nf-core/phyloplace/pull/79) - Publish grafted trees as `<id>.graft.newick` instead of `<id>.graft.<id>.epa_result.newick`, dropping a repetition of the name and matching the new joint outputs (by @erikrikarddaniel)
     - [#77](https://github.com/nf-core/phyloplace/pull/77) - Adopt typed `params` blocks for pipeline-specific parameters, fixing boolean options (e.g. `--save_domtblout false`) that couldn't be turned off from the command line ([#74](https://github.com/nf-core/phyloplace/issues/74)) (by @erikrikarddaniel). Raises the minimum required Nextflow version to `26.04.0`.
     - [#73](https://github.com/nf-core/phyloplace/pull/73) - Update `seqtk/subseq` and `fasta_hmmsearch_rank_fastas` to fix output filenames glomming the input sequence filename onto the prefix ([nf-core/modules#12779](https://github.com/nf-core/modules/issues/12779)) (by @erikrikarddaniel)
@@ -27,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | software  | previously | now       |
 | --------- | ---------- | --------- |
+| gappa     | 0.8.0      | 0.9.0     |
 | Nextflow  | >=25.10.4  | >=26.04.0 |
 | nf-schema | 2.7.2      | 2.8.0     |
 

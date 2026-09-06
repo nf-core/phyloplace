@@ -12,25 +12,25 @@
                     "epa-ng": "0.3.8"
                 },
                 "GAPPA_ASSIGN": {
-                    "gappa": "0.8.0"
+                    "gappa": "0.9.0"
                 },
                 "GAPPA_EDITMERGE": {
                     "gappa": "0.9.0"
                 },
                 "GAPPA_GRAFT": {
-                    "gappa": "0.8.0"
+                    "gappa": "0.9.0"
                 },
                 "GAPPA_HEATTREE": {
-                    "gappa": "0.8.0"
+                    "gappa": "0.9.0"
                 },
                 "GAPPA_JOINTASSIGN": {
-                    "gappa": "0.8.0"
+                    "gappa": "0.9.0"
                 },
                 "GAPPA_JOINTGRAFT": {
-                    "gappa": "0.8.0"
+                    "gappa": "0.9.0"
                 },
                 "GAPPA_JOINTHEATTREE": {
-                    "gappa": "0.8.0"
+                    "gappa": "0.9.0"
                 },
                 "HMMER_AFAFORMATQUERY": {
                     "easel": 0.49,

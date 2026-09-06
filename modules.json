@@ -32,17 +32,17 @@
                     },
                     "gappa/examineassign": {
                         "branch": "master",
-                        "git_sha": "9359d5e7ded9180d28a82ba1881b8ec5a6a96467",
+                        "git_sha": "7e678ba56e91b8b61b01ad8e94a6987db443f7e4",
                         "installed_by": ["fasta_newick_epang_gappa"]
                     },
                     "gappa/examinegraft": {
                         "branch": "master",
-                        "git_sha": "9359d5e7ded9180d28a82ba1881b8ec5a6a96467",
+                        "git_sha": "7e678ba56e91b8b61b01ad8e94a6987db443f7e4",
                         "installed_by": ["fasta_newick_epang_gappa"]
                     },
                     "gappa/examineheattree": {
                         "branch": "master",
-                        "git_sha": "9359d5e7ded9180d28a82ba1881b8ec5a6a96467",
+                        "git_sha": "7e678ba56e91b8b61b01ad8e94a6987db443f7e4",
                         "installed_by": ["fasta_newick_epang_gappa"]
                     },
                     "hmmer/eslalimask": {

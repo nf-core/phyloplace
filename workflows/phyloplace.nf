@@ -31,7 +31,7 @@ include { methodsDescriptionText        } from '../subworkflows/local/utils_nfco
 //
 def indentBlock(text, indent) {
     def pad = ' ' * indent
-    text.readLines().collect { pad + it }.join('\n')
+    text.readLines().collect { line -> pad + line }.join('\n')
 }
 
 //
