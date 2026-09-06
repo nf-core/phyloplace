@@ -116,17 +116,12 @@ workflow PHYLOPLACE {
                 .filter { it -> it.data.alignmethod && it.data.refseqfile && it.data.refphylogeny }
                 .map { it -> [ [ id: it.meta.id ], it ] }
         )
-        .map { it -> [
-            meta: it[2].meta,
-            data: [
-                alignmethod: it[2].data.alignmethod,
-                queryseqfile: it[1],
-                refseqfile: it[2].data.refseqfile,
-                refphylogeny: it[2].data.refphylogeny,
-                model: it[2].data.model,
-                taxonomy: it[2].data.taxonomy,
-                reftreename: it[2].data.reftreename
-            ]
+        // Carry the search row over wholesale, overriding only the query sequences the search
+        // produced. Listing the fields out instead silently drops any column added to the sample
+        // sheet later, since nothing checks that the two lists agree.
+        .map { _id, queryseqfile, row -> [
+            meta: row.meta,
+            data: row.data + [ queryseqfile: queryseqfile ]
         ] }
         .mix(ch_phyloplace_data)
 
