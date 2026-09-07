@@ -20,7 +20,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 
 ### Taxonomy
 
-When `--refseqfile` is FASTA and `--taxonomy` is not given, taxonomy is instead derived from each reference sequence's own header (see [the usage documentation](https://nf-co.re/phyloplace/usage#deriving-taxonomy-from-fasta-headers)).
+When `--refseqfile` is FASTA and `--taxonomy` is not given, taxonomy is instead derived from each reference sequence's own header (see [the usage documentation](usage.md#deriving-taxonomy-from-fasta-headers)).
 Headers are stripped down to a bare id in the process, regardless of whether taxonomy came from a header or an explicit `--taxonomy` file.
 
 <details markdown="1">
@@ -133,7 +133,7 @@ Third, if a classification of the reference sequences is available (see [Taxonom
 
 </details>
 
-When rows of the sample sheet share a `reftreename` (see [Summarising several profiles on one reference tree](https://nf-co.re/phyloplace/usage#summarising-several-profiles-on-one-reference-tree)), the same three summaries are also produced once for the group as a whole, on top of the per-row ones above.
+When rows of the sample sheet share a `reftreename` (see [Summarising several profiles on one reference tree](usage.md#summarising-several-profiles-on-one-reference-tree)), the same three summaries are also produced once for the group as a whole, on top of the per-row ones above.
 The group's placements are first merged into a single jplace file, since `gappa examine graft` summarises each jplace file it is given separately, and then grafted, classified and heat-treed from that.
 
 <details markdown="1">
