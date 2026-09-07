@@ -34,20 +34,14 @@ def indentBlock(text, indent) {
     text.readLines().collect { line -> pad + line }.join('\n')
 }
 
-//
-// Whether a reference sequence file is FASTA -- only FASTA headers have room for embedded
-// taxonomy text (GTDB-style `>id taxonomy;string`), so this gates whether
-// CUSTOM_RESOLVETAXONOMY is worth invoking on a given row at all.
-//
+// Only FASTA headers can carry embedded taxonomy text (GTDB-style `>id taxonomy;string`),
+// so this gates whether CUSTOM_RESOLVETAXONOMY runs on a row at all.
 def isFastaFile(path) {
     path.withReader { reader -> reader.readLine()?.trim()?.startsWith('>') } ?: false
 }
 
-//
-// Wrap a GAPPA heat tree SVG in a MultiQC custom content file. Reference trees with many
-// tips can produce very large SVGs; skip embedding (rather than bloating the report) above
-// this size and just point at the real output file.
-//
+// Wrap a GAPPA heat tree SVG in a MultiQC custom content file, skipping embedding above
+// max_svg_bytes (linking to the real file instead) to avoid bloating the report.
 def heattreeMqc(name, svg_file, section, description) {
     def max_svg_bytes = 1_048_576
     def size = svg_file.size()
@@ -116,29 +110,24 @@ workflow PHYLOPLACE {
                 .filter { it -> it.data.alignmethod && it.data.refseqfile && it.data.refphylogeny }
                 .map { it -> [ [ id: it.meta.id ], it ] }
         )
-        // Carry the search row over wholesale, overriding only the query sequences the search
-        // produced. Listing the fields out instead silently drops any column added to the sample
-        // sheet later, since nothing checks that the two lists agree.
+        // Carry the row over wholesale, overriding only queryseqfile -- listing fields out
+        // instead silently drops any column added to the sample sheet later.
         .map { _id, queryseqfile, row -> [
             meta: row.meta,
             data: row.data + [ queryseqfile: queryseqfile ]
         ] }
         .mix(ch_phyloplace_data)
 
-    // Compare what the sample sheet declared, not what CUSTOM_RESOLVETAXONOMY resolves: rows
-    // deriving taxonomy from identical reference sequences each get their own resolved file,
-    // equal in content but not in path, and the group check below would reject them.
+    // Compare the *declared* taxonomy, not the resolved file path -- rows deriving taxonomy
+    // from identical refseqfiles get distinct resolved paths, which would wrongly fail the
+    // group check below.
     def ch_declared_taxonomy = ch_phyloplace_data
         .map { row -> [ row.meta.id, row.data.taxonomy ? row.data.taxonomy.toString() : '' ] }
 
     //
-    // MODULE: Derive taxonomy from refseqfile's own FASTA headers (GTDB-style
-    // `>id taxonomy;string`) when no --taxonomy file was given, instead of just
-    // proceeding without any taxonomic classification. Only applies when refseqfile
-    // is itself FASTA -- other HMMER-supported formats have no room for embedded
-    // taxonomy text and are passed through unchanged. Headers are stripped down to a
-    // bare id regardless, since some downstream tools (EPA-NG, GAPPA) keep the whole
-    // header line as the leaf name rather than just the first token.
+    // MODULE: Derive taxonomy from refseqfile's own FASTA headers when no --taxonomy was
+    // given (see isFastaFile above). Headers are stripped to a bare id either way, since
+    // EPA-NG/GAPPA otherwise use the whole header line as the leaf name.
     //
     ch_phyloplace_data
         .branch { row ->
@@ -151,10 +140,8 @@ workflow PHYLOPLACE {
         ch_pp_by_format.fasta.map { row -> [ row.meta, row.data.taxonomy ?: [], row.data.refseqfile, false ] }
     )
 
-    // --taxonomy is fully optional, so an empty resolved file (no embedded text
-    // found anywhere, same as no --taxonomy given at all) means "no taxonomy" --
-    // reset it to `[]` to keep GAPPA_ASSIGN's own ext.when skip working, rather than
-    // handing it a real-but-empty file it would otherwise try (and fail) to use.
+    // An empty resolved file means "no taxonomy found" -- reset to `[]` so GAPPA_ASSIGN's
+    // ext.when skip still works, instead of handing it a real-but-empty file it would fail on.
     CUSTOM_RESOLVETAXONOMY.out.warnings.subscribe { _meta, warnings_file ->
         def text = warnings_file.text.trim()
         if (text) log.warn(text)
@@ -180,10 +167,10 @@ workflow PHYLOPLACE {
     FASTA_NEWICK_EPANG_GAPPA(ch_phyloplace_data)
 
     //
-    // MODULES: Summarise placements per reference tree, on top of the per-row summaries
-    // above. `gappa examine assign` and `heat-tree` merge several jplace files themselves,
-    // but `graft` does not, so the group is merged first and all three run off the merged
-    // file. Single-row groups are dropped; their joint output would only repeat the per-row one.
+    // MODULES: Summarise placements per reference tree too. `graft` can't merge several
+    // jplace files itself (unlike assign/heat-tree), so the group is merged first and all
+    // three run off that; single-row groups are dropped since their joint output would just
+    // repeat the per-row one.
     //
     def ch_reftree_groups = ch_phyloplace_data
         .filter { row -> row.data.reftreename }
@@ -197,9 +184,8 @@ workflow PHYLOPLACE {
         .groupTuple()
         .filter { _reftreename, rows -> rows.size() > 1 }
         .map { reftreename, rows ->
-            // `gappa examine assign` takes a single --taxon-file, so the group has to agree
-            // on one. Stop rather than pick: classifying the whole group by whichever row
-            // came first is a wrong answer, not a smaller problem.
+            // `gappa examine assign` takes one --taxon-file, so the group must agree on one --
+            // stop rather than silently classifying by whichever row came first.
             if (rows.collect { r -> r.declared_taxonomy }.unique().size() > 1) {
                 error(
                     "Rows grouped under reftreename '${reftreename}' declare different taxonomy files, " +
