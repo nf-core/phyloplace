@@ -50,7 +50,6 @@ params {
     help_full:                    Boolean = false
     show_hidden:                  Boolean = false
     version:                      Boolean = false
-    pipelines_testdata_base_path:  String = 'https://raw.githubusercontent.com/nf-core/test-datasets/'
 
     // Config options
     config_profile_name:          String? = null
