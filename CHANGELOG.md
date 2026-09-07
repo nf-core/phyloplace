@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
+    - [#84](https://github.com/nf-core/phyloplace/pull/84) - Use relative links between our own docs pages again, now that a website fix means they resolve correctly, instead of absolute links that silently pointed to the released docs ([#83](https://github.com/nf-core/phyloplace/issues/83)) (by @erikrikarddaniel)
     - [#71](https://github.com/nf-core/phyloplace/pull/71) - Correct the `hmmsearch` output files listed in the output documentation, where the human-readable table was listed as `*.tbl.gz` instead of `*.txt.gz` (by @erikrikarddaniel)
 
 ### `Changed`

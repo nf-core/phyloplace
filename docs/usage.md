@@ -129,7 +129,7 @@ Add `--save_domtblout` to also write the per-domain table, as one gzipped `*.dom
 ```
 
 The per-domain table is the only output that carries alignment coordinates, so it is what you need to work out how much of a profile a hit covers, or to find a gene split over several adjacent ORFs where no single ORF covers enough of the profile to be classified on its own.
-Setting the flag also adds coordinate and length columns to the ranked summary in `*.hmmrank.tsv.gz`, which is usually the easier place to read them off; see the [output documentation](https://nf-co.re/phyloplace/output) for what each column means.
+Setting the flag also adds coordinate and length columns to the ranked summary in `*.hmmrank.tsv.gz`, which is usually the easier place to read them off; see the [output documentation](output.md) for what each column means.
 
 ## Running the pipeline
 
