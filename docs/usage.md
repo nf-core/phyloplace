@@ -104,7 +104,7 @@ A few things worth knowing about this:
 ## Deriving taxonomy from FASTA headers
 
 `--taxonomy` is optional.
-If it's omitted and `--refseqfile` is FASTA, taxonomy is instead derived from each reference sequence's own header, following [GTDB](https://gtdb.ecogenomic.org/)'s own single-file convention: the id followed by a taxonomy string, space-separated.
+If it's omitted and `--refseqfile` is FASTA, taxonomy is instead derived from each reference sequence's own header, following [GTDB](https://gtdb.ecogenomic.org/)'s own single-file convention: the id followed by a space, and the taxonomy string (taxonomic ranks separated by ";")
 
 ```fasta title="refseqfile.fasta"
 >ref_seq_1 Bacteria;Proteobacteria;Gammaproteobacteria;Enterobacterales;Enterobacteriaceae;Escherichia;Escherichia coli
