@@ -93,7 +93,7 @@ A few things worth knowing about this:
   `gappa` will not merge placements made on different trees, and the run fails with `Input jplace files have differing reference trees.` if they were.
   They do not have to share an `alignmethod` though -- rows aligned with `hmmer` and with `mafft` merge fine, as long as the reference phylogeny is the same.
 - Grouped rows also have to agree on `taxonomy`, since one joint classification can only use one taxonomy file.
-  The pipeline stops before running anything, naming the rows and what each declared, if they disagree.
+  If they disagree, the pipeline fails validation before running anything, naming the rows and what each declared.
   Rows that derive taxonomy from their reference sequences' own FASTA headers count as agreeing, since they take it from the same place.
 - A group needs at least two rows.
   A `reftreename` used by a single row produces no joint output, since it would only duplicate that row's own.

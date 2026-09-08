@@ -27,7 +27,7 @@ Headers are stripped down to a bare id in the process, regardless of whether tax
 <summary>Output files</summary>
 
 - `resolvetaxonomy/`
-  - `*.resolved.tax`: Resolved taxonomy, tab-separated (`id<TAB>taxonomy;string`).
+  - `*.resolved.tax`: Resolved taxonomy: two tab-separated columns, `id` and `taxonomy` (the taxonomy string itself, `;`-separated ranks).
   - `*.resolved.*`: Reference sequences, same format as `--refseqfile`, headers stripped to a bare id.
   - `*.warnings.txt`: One line per warning (e.g. records with no taxonomy from either source); empty if none.
 
