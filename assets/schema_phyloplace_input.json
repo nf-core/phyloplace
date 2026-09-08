@@ -46,6 +46,7 @@
                 "type": "string",
                 "pattern": "^\\S+$",
                 "enum": ["hmmer", "clustalo", "mafft"],
+                "default": "clustalo",
                 "errorMessage": "Method to use for aligning: 'hmmer', 'clustalo' or 'mafft'."
             },
             "taxonomy": {

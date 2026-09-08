@@ -58,7 +58,7 @@
                     "type": "string",
                     "description": "Method used to align query sequences with.",
                     "help_text": "Query sequences will be aligned to the reference alignment using either HMMER, Clustal Omega or MAFFT, except when an hmm profile is provided (--hmmfile; implies that --alignmethod is set to 'hmmer'), in which case both the reference and query sequences will be aligned with the profile (reference sequences must not be aligned, i.e. must not contain '-' characters).",
-                    "default": "hmmer",
+                    "default": "clustalo",
                     "fa_icon": "far fa-file-code",
                     "enum": ["hmmer", "clustalo", "mafft"]
                 },

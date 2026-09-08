@@ -2,10 +2,17 @@
     "-profile test": {
         "content": [
             {
+                "CLUSTALO_ALIGN": {
+                    "clustalo": "1.2.4",
+                    "pigz": 2.8
+                },
                 "CUSTOM_RESOLVETAXONOMY": {
                     "biopython": 1.84
                 },
                 "EPANG_PLACE": {
+                    "epa-ng": "0.3.8"
+                },
+                "EPANG_SPLIT_CLUSTALO": {
                     "epa-ng": "0.3.8"
                 },
                 "GAPPA_ASSIGN": {
@@ -17,43 +24,18 @@
                 "GAPPA_HEATTREE": {
                     "gappa": "0.9.0"
                 },
-                "HMMER_AFAFORMATQUERY": {
-                    "easel": 0.49,
-                    "hmmer": 3.4
-                },
-                "HMMER_AFAFORMATREF": {
-                    "easel": 0.49,
-                    "hmmer": 3.4
-                },
-                "HMMER_HMMALIGNQUERY": {
-                    "hmmer": 3.4
-                },
-                "HMMER_HMMALIGNREF": {
-                    "hmmer": 3.4
-                },
-                "HMMER_HMMBUILD": {
-                    "hmmer": 3.4
-                },
-                "HMMER_MASKQUERY": {
-                    "easel": 0.49,
-                    "hmmer": 3.4
-                },
-                "HMMER_MASKREF": {
-                    "easel": 0.49,
-                    "hmmer": 3.4
-                },
-                "HMMER_UNALIGNREF": {
-                    "easel": 0.49,
-                    "hmmer": 3.4
-                },
                 "Workflow": {
                     "nf-core/phyloplace": "v2.2.0"
                 }
             },
             [
+                "clustalo",
+                "clustalo/placement.aln",
                 "epang",
                 "epang/placement.epa_info.log",
                 "epang/placement.epa_result.jplace.gz",
+                "epang/placement.query.fasta.gz",
+                "epang/placement.reference.fasta.gz",
                 "gappa",
                 "gappa/placement.graft.newick",
                 "gappa/placement.heattree.colours.txt",
@@ -66,16 +48,6 @@
                 "gappa/placement.taxonomy.per_query.tsv",
                 "gappa/placement.taxonomy.profile.tsv",
                 "gappa/placement.taxonomy.sativa.tsv",
-                "hmmer",
-                "hmmer/placement.query.hmmalign.masked.afa.gz",
-                "hmmer/placement.query.hmmalign.masked.sthlm.gz",
-                "hmmer/placement.query.hmmalign.sto.gz",
-                "hmmer/placement.ref.hmm.gz",
-                "hmmer/placement.ref.hmmalign.masked.afa.gz",
-                "hmmer/placement.ref.hmmalign.masked.sthlm.gz",
-                "hmmer/placement.ref.hmmalign.sto.gz",
-                "hmmer/placement.ref.hmmbuild.txt",
-                "hmmer/placement.ref.unaligned.afa.gz",
                 "multiqc",
                 "multiqc/multiqc_data",
                 "multiqc/multiqc_data/llms-full.txt",
@@ -94,15 +66,11 @@
                 "resolvetaxonomy/placement.warnings.txt"
             ],
             [
+                "placement.aln:md5,bc500eae88f3858f0f27800f8cd69698",
+                "placement.query.fasta.gz:md5,ab8a614cf0b53987f6854c22b80fed9c",
+                "placement.reference.fasta.gz:md5,7b7b77930cdb15033625d129df3201d4",
                 "placement.heattree.colours.txt:md5,7704cd341c8693981253ba6d740c1061",
                 "placement.taxonomy.labelled_tree.newick:md5,39de8a46303ea757f6eb94478db1ffe0",
-                "placement.query.hmmalign.masked.afa.gz:md5,69b6d82789587f368da4d808ce20744a",
-                "placement.query.hmmalign.masked.sthlm.gz:md5,56a12b2dca9c8374665db99d9af500f3",
-                "placement.query.hmmalign.sto.gz:md5,3ec5592a7fd7188a8d14176d894feea5",
-                "placement.ref.hmmalign.masked.afa.gz:md5,3452f0d4646209116c3b60f1c77d5ba3",
-                "placement.ref.hmmalign.masked.sthlm.gz:md5,b470181ddc1af95e3b2b5118d1d7a99d",
-                "placement.ref.hmmalign.sto.gz:md5,bf7853d45ac93f47f1722ee2af7ca0dc",
-                "placement.ref.unaligned.afa.gz:md5,157926898092d435beb308f8880a3910",
                 "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
                 "placement.resolved.alnfaa:md5,6a8a43da1544439c127bf52ac5167b41",
                 "placement.resolved.tax:md5,9fb30dd6893e5a968f4403ad3c035bd2",
@@ -112,7 +80,7 @@
             5,
             2
         ],
-        "timestamp": "2026-08-31T20:39:53.641274398",
+        "timestamp": "2026-09-08T14:04:38.831973751",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"

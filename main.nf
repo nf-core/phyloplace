@@ -25,7 +25,7 @@ params {
     phyloplace_input:             String? = null
     phylosearch_input:            String? = null
     id:                            String = 'placement'
-    alignmethod:                   String = 'hmmer'
+    alignmethod:                   String = 'clustalo'
     queryseqfile:                 String? = null
     refseqfile:                   String? = null
     hmmfile:                      String? = null

@@ -130,7 +130,7 @@ workflow PIPELINE_INITIALISATION {
                 [
                     meta: vmeta,
                     data: [
-                        alignmethod:  valignmethod  ?: 'hmmer',
+                        alignmethod:  valignmethod,
                         hmm:          vhmm,
                         extract_hmm:  vextract_hmm,
                         refseqfile:   vrefseqfile,
@@ -149,7 +149,7 @@ workflow PIPELINE_INITIALISATION {
                 [
                     meta: vmeta,
                     data: [
-                        alignmethod:  valignmethod  ?: 'hmmer',
+                        alignmethod:  valignmethod,
                         queryseqfile: vqueryseqfile,
                         refseqfile:   vrefseqfile,
                         hmmfile:      vhmmfile,
@@ -164,7 +164,7 @@ workflow PIPELINE_INITIALISATION {
         channel.of([
             meta: [ id: id ],
             data: [
-                alignmethod:  alignmethod ? alignmethod    : 'hmmer',
+                alignmethod:  alignmethod ? alignmethod    : 'clustalo',
                 queryseqfile: file(queryseqfile),
                 refseqfile:   file(refseqfile),
                 refphylogeny: file(refphylogeny),

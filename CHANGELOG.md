@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Changed`
 
+    - [#88](https://github.com/nf-core/phyloplace/pull/88) - Change the default `--alignmethod` from `hmmer` to `clustalo`, correcting an unintended side effect of adopting typed params in #77 (by @erikrikarddaniel)
     - [#81](https://github.com/nf-core/phyloplace/pull/81) - Update `gappa/examineassign`, `gappa/examinegraft` and `gappa/examineheattree` to gappa 0.9.0, so every gappa step runs the same version and container ([nf-core/modules#12858](https://github.com/nf-core/modules/pull/12858)) (by @erikrikarddaniel)
     - [#79](https://github.com/nf-core/phyloplace/pull/79) - Publish grafted trees as `<id>.graft.newick` instead of `<id>.graft.<id>.epa_result.newick`, dropping a repetition of the name and matching the new joint outputs (by @erikrikarddaniel)
     - [#77](https://github.com/nf-core/phyloplace/pull/77) - Adopt typed `params` blocks for pipeline-specific parameters, fixing boolean options (e.g. `--save_domtblout false`) that couldn't be turned off from the command line ([#74](https://github.com/nf-core/phyloplace/issues/74)) (by @erikrikarddaniel). Raises the minimum required Nextflow version to `26.04.0`.
