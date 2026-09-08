@@ -65,15 +65,8 @@ The MAFFT alignment strategy keeps the structure of the original reference align
     Unlike the per-sequence table, this one carries alignment coordinates for each domain, which are needed to work out profile coverage or to find genes split over several ORFs.
   - `*.txt.gz`: Standard, human-readable, format results for individual `hmmsearch` runs in "search and place" mode
   - `*.hmmrank.tsv.gz`: Summarised `hmmsearch` results, one row per sequence and profile, ranking the profiles that matched each sequence.
-    When `--save_domtblout` is set, each row also carries the lengths of the sequence (`tlen`) and the profile (`qlen`), plus four columns for each of the three coordinate sets HMMER reports: `hmm` (position in the profile), `ali` (the aligned part of the sequence) and `env` (the wider region the alignment is likely to lie within).
-    For a set `x`, `x_from` and `x_to` are the outer bounds of the match, while `x_len` is how much of that span the sequence's domains actually cover, so a hit whose domains are scattered has an `x_len` well below `x_to - x_from`.
-    `x_n_islands` counts the separate stretches that coverage falls into: 1 for a single continuous match, more when the domains are broken up.
-    The two lengths are the denominators for coverage, each belonging to a different coordinate set: `hmm` positions are in the profile, so `hmm_len / qlen` is the proportion of the profile a hit covers, while `ali` and `env` positions are in the sequence, so `ali_len / tlen` is the proportion of the sequence the alignment takes up (`env_len / tlen` for the looser envelope).
-    Mixing them, say `hmm_len / tlen`, compares a profile position against a sequence length and means nothing.
-    For the profile, `hmm_from - 1` and `qlen - hmm_to` also tell you how much is missing from each of its ends.
-    Coverage counts every domain HMMER reported, however weak on its own; which sequences are reported at all is still decided by the full-sequence scores, exactly as when the coordinates are not requested.
-    A sequence is reported at all on the per-sequence threshold, whereas a domain has to clear the per-domain one, so a hit can be ranked here with no domain records behind it at all.
-    Those rows carry `NA` in every column above, which is deliberate: an empty value is the clearest signal that `hmmsearch` reported no domains for the hit, and it keeps such rows distinguishable from ones whose coordinates were genuinely computed.
+    When `--save_domtblout` is set, each row also carries the sequence and profile lengths (`tlen`, `qlen`) and, for each of the `hmm`, `ali` and `env` coordinate sets, the match bounds (`x_from`, `x_to`), the covered length (`x_len`) and the number of separate stretches it falls into (`x_n_islands`) -- e.g. profile coverage is `hmm_len / qlen`.
+    Rows whose hit cleared the per-sequence threshold but has no domain records of its own (possible, since `--domtblout` uses a stricter per-domain threshold) carry `NA` in all of these columns instead.
 
 </details>
 
