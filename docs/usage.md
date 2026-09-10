@@ -30,7 +30,7 @@ A few more parameters can be used to control execution, see the [parameter docum
 ## Samplesheet input for phylogenetic placement
 
 Each of the four parameters mentioned above can be specified as columns in a comma separated sample sheet instead.
-In addition, a `sample` column needs to be present and the columns `taxonomy`, `alignmethod` and `hmmfile` refering to the parameters with the same names can be included.
+In addition, a `sample` column needs to be present and the columns `taxonomy`, `alignmethod`, `hmmfile` and `reftreename` refering to the parameters with the same names can be included.
 
 ```bash
 --phyloplace_input '[path to samplesheet file]'
@@ -38,8 +38,8 @@ In addition, a `sample` column needs to be present and the columns `taxonomy`, `
 
 ```csv title="phyloplace_sheet.csv"
 sample,queryseqfile,refseqfile,refphylogeny,model,taxonomy,alignmethod
-pp0,q0.faa,ref0.alnfaa,ref0.newick,LG,ref0.taxonomy,clustal0
-pp1,q1.faa,ref1.alnfaa,ref1.newick,LG+F+R6,ref1.taxonomy,clustal0
+pp0,q0.faa,ref0.alnfaa,ref0.newick,LG,ref0.taxonomy,clustalo
+pp1,q1.faa,ref1.alnfaa,ref1.newick,LG+F+R6,ref1.taxonomy,clustalo
 ```
 
 ## Samplesheet input for search followed by phylogenetic placement
@@ -119,7 +119,7 @@ A few things worth knowing about this:
 - The samplesheet formats above support multiple rows, each with its own `refseqfile`/`taxonomy` pair -- this applies per row, not once globally.
 - If neither a `--taxonomy` file nor embedded header text is available, the pipeline proceeds without taxonomic classification, same as before -- this is not an error.
 
-### Saving the per-domain hit table
+## Saving the per-domain hit table
 
 By default the pipeline keeps `hmmsearch`'s per-sequence hit table (`--tblout`) but not its per-domain one.
 Add `--save_domtblout` to also write the per-domain table, as one gzipped `*.domtbl.gz` file per profile in the `hmmer` output directory.

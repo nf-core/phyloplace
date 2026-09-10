@@ -37,7 +37,7 @@ This ensures that the pipeline runs on AWS, has sensible resource allocation def
 2. Align query sequences to the reference alignment using either [`HMMER`](http://hmmer.org/), [`clustalo`](http://www.clustal.org/omega/) or [`MAFFT`](https://mafft.cbrc.jp/alignment/software/).
 3. Place query sequences in reference phylogeny with [`EPA-NG`](https://github.com/Pbdas/epa-ng).
 4. Graft query sequences onto the reference phylogeny with [`GAPPA`](https://github.com/lczech/gappa).
-5. If provided with a classification of the reference sequences, classify query sequences with [`GAPPA`](https://github.com/lczech/gappa).
+5. If a classification of the reference sequences is provided, or can be derived from `--refseqfile`'s own FASTA headers, classify query sequences with [`GAPPA`](https://github.com/lczech/gappa).
 
 <p align="center">
     <img src="docs/images/phyloplace_workflow.png" alt="nf-core/phyloplace workflow overview" width="60%">

@@ -72,7 +72,7 @@ The MAFFT alignment strategy keeps the structure of the original reference align
 
 #### Clustal Omega
 
-<details markdwon="1">
+<details markdown="1">
 <summary>Output files</summary>
 
 - `clustalo/`

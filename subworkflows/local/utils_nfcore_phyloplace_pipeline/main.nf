@@ -39,7 +39,6 @@ workflow PIPELINE_INITIALISATION {
     taxonomy          //  string: From params.taxonomy
     hmmfile           //  string: From params.hmmfile
     alignmethod       //  string: From params.alignmethod
-    fasta             //  string: From params.fasta
     phyloplace_input  //  string: Path to phyloplace input samplesheet
     phylosearch_input //  string: Path to phylosearch input samplesheet
     search_fasta      //  string: From params.search_fasta
@@ -130,7 +129,7 @@ workflow PIPELINE_INITIALISATION {
                 [
                     meta: vmeta,
                     data: [
-                        alignmethod:  valignmethod,
+                        alignmethod:  valignmethod ?: 'clustalo',
                         hmm:          vhmm,
                         extract_hmm:  vextract_hmm,
                         refseqfile:   vrefseqfile,
@@ -149,7 +148,7 @@ workflow PIPELINE_INITIALISATION {
                 [
                     meta: vmeta,
                     data: [
-                        alignmethod:  valignmethod,
+                        alignmethod:  vhmmfile ? 'hmmer' : (valignmethod ?: 'clustalo'),
                         queryseqfile: vqueryseqfile,
                         refseqfile:   vrefseqfile,
                         hmmfile:      vhmmfile,
@@ -164,7 +163,7 @@ workflow PIPELINE_INITIALISATION {
         channel.of([
             meta: [ id: id ],
             data: [
-                alignmethod:  alignmethod ? alignmethod    : 'clustalo',
+                alignmethod:  hmmfile ? 'hmmer' : alignmethod,
                 queryseqfile: file(queryseqfile),
                 refseqfile:   file(refseqfile),
                 refphylogeny: file(refphylogeny),
@@ -175,7 +174,7 @@ workflow PIPELINE_INITIALISATION {
             ]
         ])
             .set { ch_phyloplace_data }
-    } else if ( phylosearch_input || fasta ) {
+    } else if ( phylosearch_input ) {
         exit 1, "For phylosearch mode, you need to provide an input sample sheet with --phylosearch_input *and* a fasta file with --search_fasta"
     } else {
         exit 1, "For phyloplace mode, you need to provide an input sample sheet with --phyloplace_input or the corresponding info with individual parameters"

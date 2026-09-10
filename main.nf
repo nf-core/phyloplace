@@ -131,7 +131,6 @@ workflow {
         params.taxonomy,
         params.hmmfile,
         params.alignmethod,
-        params.fasta,
         params.phyloplace_input,
         params.phylosearch_input,
         params.search_fasta,

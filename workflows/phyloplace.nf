@@ -140,8 +140,6 @@ workflow PHYLOPLACE {
         ch_pp_by_format.fasta.map { row -> [ row.meta, row.data.taxonomy ?: [], row.data.refseqfile, false ] }
     )
 
-    // An empty resolved file means "no taxonomy found" -- reset to `[]` so GAPPA_ASSIGN's
-    // ext.when skip still works, instead of handing it a real-but-empty file it would fail on.
     CUSTOM_RESOLVETAXONOMY.out.warnings.subscribe { _meta, warnings_file ->
         def text = warnings_file.text.trim()
         if (text) log.warn(text)
@@ -155,6 +153,9 @@ workflow PHYLOPLACE {
             meta: row.meta,
             data: row.data + [
                 refseqfile: seq,
+                // An empty resolved file means "no taxonomy found" -- reset to `[]` so
+                // GAPPA_ASSIGN's ext.when skip still works, instead of handing it a
+                // real-but-empty file it would fail on.
                 taxonomy: tax.isEmpty() ? [] : tax,
             ]
         ] }
