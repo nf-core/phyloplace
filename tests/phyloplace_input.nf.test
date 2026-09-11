@@ -33,7 +33,22 @@ nextflow_pipeline {
                     path("${params.outdir}/gappa/PF14720wt.taxonomy.per_query.tsv").csv(sep: '\t', header: true).rowCount,
                     path("${params.outdir}/gappa/PF14720wt.taxonomy.profile.tsv").csv(sep: '\t', header: true).rowCount,
                     path("${params.outdir}/gappa/PF14720wt.taxonomy.sativa.tsv").csv(sep: '\t', header: true).rowCount,
-                ).match() }
+                    path("${params.outdir}/gappa/PF14720.joint.taxonomy.per_query.tsv").csv(sep: '\t', header: true).rowCount,
+                    path("${params.outdir}/gappa/PF14720.joint.taxonomy.profile.tsv").csv(sep: '\t', header: true).rowCount,
+                    path("${params.outdir}/gappa/PF14720.joint.taxonomy.sativa.tsv").csv(sep: '\t', header: true).rowCount,
+                ).match() },
+                // Which joint outputs exist is covered by the snapshot's path list: `cyanos16s`
+                // declares no taxonomy and so gets no joint classification, `PF14720wo` no
+                // `reftreename` and so no joint anything.
+
+                // A joint output holding only one row's queries would still look plausible on
+                // its own, so assert it covers both.
+                { assert path("${params.outdir}/gappa/PF14720.joint.taxonomy.per_query.tsv").csv(sep: '\t', header: true).rowCount ==
+                    path("${params.outdir}/gappa/PF14720wt.taxonomy.per_query.tsv").csv(sep: '\t', header: true).rowCount +
+                    path("${params.outdir}/gappa/PF14720mafft.taxonomy.per_query.tsv").csv(sep: '\t', header: true).rowCount },
+                // Same for the grafted tree: both rows place the same three queries, so each
+                // is a leaf twice.
+                { assert new File("${params.outdir}/gappa/PF14720.joint.graft.newick").text.count('B4F2Z1_PROMH') == 2 }
             )
         }
     }

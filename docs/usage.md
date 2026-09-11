@@ -30,7 +30,7 @@ A few more parameters can be used to control execution, see the [parameter docum
 ## Samplesheet input for phylogenetic placement
 
 Each of the four parameters mentioned above can be specified as columns in a comma separated sample sheet instead.
-In addition, a `sample` column needs to be present and the columns `taxonomy`, `alignmethod` and `hmmfile` refering to the parameters with the same names can be included.
+In addition, a `sample` column needs to be present and the columns `taxonomy`, `alignmethod`, `hmmfile` and `reftreename` refering to the parameters with the same names can be included.
 
 ```bash
 --phyloplace_input '[path to samplesheet file]'
@@ -38,8 +38,8 @@ In addition, a `sample` column needs to be present and the columns `taxonomy`, `
 
 ```csv title="phyloplace_sheet.csv"
 sample,queryseqfile,refseqfile,refphylogeny,model,taxonomy,alignmethod
-pp0,q0.faa,ref0.alnfaa,ref0.newick,LG,ref0.taxonomy,clustal0
-pp1,q1.faa,ref1.alnfaa,ref1.newick,LG+F+R6,ref1.taxonomy,clustal0
+pp0,q0.faa,ref0.alnfaa,ref0.newick,LG,ref0.taxonomy,clustalo
+pp1,q1.faa,ref1.alnfaa,ref1.newick,LG+F+R6,ref1.taxonomy,clustalo
 ```
 
 ## Samplesheet input for search followed by phylogenetic placement
@@ -67,6 +67,69 @@ ring-hydrox,PF00848.hmm,PF00848.alnfaa,PF00848.newick,LG+F+I,PF00848.taxonomy.ts
 meth-dehydr,PF00389.hmm,PF00389.alnfaa,PF00389.newick,LG+F+I,PF00848.taxonomy.tsv
 rnr,PF00788.hmm,,,,
 ```
+
+## Summarising several profiles on one reference tree
+
+Several rows can deliberately place onto one and the same reference phylogeny.
+Hierarchical HMM profiles are the usual reason: a class-level profile, plus the subclass profiles that exist to keep sequences from being misclassified at class level, all place onto the class-level reference tree.
+On its own that gives one grafted tree, one classification and one heat tree per profile, for hits that conceptually belong on a single tree.
+
+An optional `reftreename` column groups such rows.
+Rows sharing a value are summarised jointly **in addition to** individually: their placements are merged into one jplace file, which is then grafted, classified and heat-treed once, giving `<reftreename>.joint.*` outputs alongside the per-row ones.
+
+```csv title="phylosearch_sheet.csv"
+target,hmm,refseqfile,refphylogeny,model,taxonomy,reftreename
+NrdA,NrdA.hmm,NrdA.alnfaa,NrdA.newick,LG+F+I,NrdA.taxonomy.tsv,NrdA
+NrdAe,NrdAe.hmm,NrdA.alnfaa,NrdA.newick,LG+F+I,NrdA.taxonomy.tsv,NrdA
+NrdAr,NrdAr.hmm,NrdA.alnfaa,NrdA.newick,LG+F+I,NrdA.taxonomy.tsv,NrdA
+NrdJ,NrdJ.hmm,NrdJ.alnfaa,NrdJ.newick,LG+F+I,NrdJ.taxonomy.tsv,
+```
+
+The column works the same way in both sample sheet formats.
+
+A few things worth knowing about this:
+
+- Grouped rows have to place onto the same reference phylogeny.
+  `gappa` will not merge placements made on different trees, and the run fails with `Input jplace files have differing reference trees.` if they were.
+  They do not have to share an `alignmethod` though -- rows aligned with `hmmer` and with `mafft` merge fine, as long as the reference phylogeny is the same.
+- Grouped rows also have to agree on `taxonomy`, since one joint classification can only use one taxonomy file.
+  If they disagree, the pipeline fails validation before running anything, naming the rows and what each declared.
+  Rows that derive taxonomy from their reference sequences' own FASTA headers count as agreeing, since they take it from the same place.
+- A group needs at least two rows.
+  A `reftreename` used by a single row produces no joint output, since it would only duplicate that row's own.
+- Rows that leave `reftreename` empty keep their per-row outputs only, so adding the column to an existing sample sheet changes nothing until it is filled in.
+- One sequence can be hit by more than one profile in a group.
+  It is then placed once per profile and appears once per placement in the joint outputs, under the same name each time.
+
+## Deriving taxonomy from FASTA headers
+
+`--taxonomy` is optional.
+If it's omitted and `--refseqfile` is FASTA, taxonomy is instead derived from each reference sequence's own header, following [GTDB](https://gtdb.ecogenomic.org/)'s own single-file convention: the id followed by a space, and the taxonomy string (taxonomic ranks separated by ";")
+
+```fasta title="refseqfile.fasta"
+>ref_seq_1 Bacteria;Proteobacteria;Gammaproteobacteria;Enterobacterales;Enterobacteriaceae;Escherichia;Escherichia coli
+ACGT...
+```
+
+A few things worth knowing about this:
+
+- If both `--taxonomy` and embedded header text are present (through `--refseqfile`), the taxonomy file wins -- a warning is logged though.
+- Reference sequence headers are stripped down to a bare id afterwards, regardless of which source was used, since some downstream tools keep the whole header line as the sequence/leaf name rather than just the first token.
+- This only applies when `--refseqfile` is FASTA -- other formats HMMER tools accept (e.g. aligned Phylip) have no room for embedded taxonomy text and keep needing a separate `--taxonomy` file.
+- The samplesheet formats above support multiple rows, each with its own `refseqfile`/`taxonomy` pair -- this applies per row, not once globally.
+- If neither a `--taxonomy` file nor embedded header text is available, the pipeline proceeds without taxonomic classification, same as before -- this is not an error.
+
+## Saving the per-domain hit table
+
+By default the pipeline keeps `hmmsearch`'s per-sequence hit table (`--tblout`) but not its per-domain one.
+Add `--save_domtblout` to also write the per-domain table, as one gzipped `*.domtbl.gz` file per profile in the `hmmer` output directory.
+
+```bash
+--phylosearch_input '[path to samplesheet file]' --search_fasta '[path to fasta file]' --save_domtblout
+```
+
+The per-domain table is the only output that carries alignment coordinates, so it is what you need to work out how much of a profile a hit covers, or to find a gene split over several adjacent ORFs where no single ORF covers enough of the profile to be classified on its own.
+Setting the flag also adds coordinate and length columns to the ranked summary in `*.hmmrank.tsv.gz`, which is usually the easier place to read them off; see the [output documentation](output.md) for what each column means.
 
 ## Running the pipeline
 
@@ -181,7 +244,7 @@ If `-profile` is not specified, the pipeline will run locally and expect all sof
 - `apptainer`
   - A generic configuration profile to be used with [Apptainer](https://apptainer.org/)
 - `wave`
-  - A generic configuration profile to enable [Wave](https://seqera.io/wave/) containers. Use together with one of the above (requires Nextflow ` 24.03.0-edge` or later).
+  - A generic configuration profile to enable [Wave](https://seqera.io/wave/) containers. Use together with one of the above (requires Nextflow `24.03.0-edge` or later).
 - `conda`
   - A generic configuration profile to be used with [Conda](https://conda.io/docs/). Please only use Conda as a last resort i.e. when it's not possible to run the pipeline with Docker, Singularity, Podman, Shifter, Charliecloud, or Apptainer.
 

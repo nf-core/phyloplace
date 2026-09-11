@@ -53,6 +53,11 @@
                 "format": "file-path",
                 "pattern": "^\\S+$",
                 "errorMessage": "Optional TSV file with taxonomy information."
+            },
+            "reftreename": {
+                "type": "string",
+                "pattern": "^\\S+$",
+                "errorMessage": "Optional name of the reference tree this row places onto. Rows sharing a name are summarised jointly, in addition to individually, and must share the same reference phylogeny."
             }
         },
         "required": ["sample", "queryseqfile", "refseqfile", "refphylogeny", "model"]

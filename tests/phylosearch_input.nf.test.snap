@@ -6,6 +6,9 @@
                     "clustalo": "1.2.4",
                     "pigz": 2.8
                 },
+                "CUSTOM_RESOLVETAXONOMY": {
+                    "biopython": 1.84
+                },
                 "EPANG_PLACE": {
                     "epa-ng": "0.3.8"
                 },
@@ -13,13 +16,13 @@
                     "epa-ng": "0.3.8"
                 },
                 "GAPPA_ASSIGN": {
-                    "gappa": "0.8.0"
+                    "gappa": "0.9.0"
                 },
                 "GAPPA_GRAFT": {
-                    "gappa": "0.8.0"
+                    "gappa": "0.9.0"
                 },
                 "GAPPA_HEATTREE": {
-                    "gappa": "0.8.0"
+                    "gappa": "0.9.0"
                 },
                 "HMMER_HMMEXTRACT": {
                     "hmmsearch": 3.4
@@ -35,7 +38,7 @@
                     "seqtk": "1.4-r122"
                 },
                 "Workflow": {
-                    "nf-core/phyloplace": "v2.1.0"
+                    "nf-core/phyloplace": "v2.2.0"
                 }
             },
             [
@@ -52,7 +55,7 @@
                 "epang/bac16s.query.fasta.gz",
                 "epang/bac16s.reference.fasta.gz",
                 "gappa",
-                "gappa/arc.graft.arc.epa_result.newick",
+                "gappa/arc.graft.newick",
                 "gappa/arc.heattree.colours.txt",
                 "gappa/arc.heattree.log",
                 "gappa/arc.heattree.tree.nexus",
@@ -63,7 +66,7 @@
                 "gappa/arc.taxonomy.per_query.tsv",
                 "gappa/arc.taxonomy.profile.tsv",
                 "gappa/arc.taxonomy.sativa.tsv",
-                "gappa/bac16s.graft.bac16s.epa_result.newick",
+                "gappa/bac16s.graft.newick",
                 "gappa/bac16s.heattree.colours.txt",
                 "gappa/bac16s.heattree.log",
                 "gappa/bac16s.heattree.tree.nexus",
@@ -75,18 +78,23 @@
                 "gappa/bac16s.taxonomy.profile.tsv",
                 "gappa/bac16s.taxonomy.sativa.tsv",
                 "hmmer",
+                "hmmer/arc.domtbl.gz",
                 "hmmer/arc.in.hmm",
                 "hmmer/arc.tbl.gz",
                 "hmmer/arc.txt.gz",
+                "hmmer/bac16s.domtbl.gz",
                 "hmmer/bac16s.hmm",
                 "hmmer/bac16s.tbl.gz",
                 "hmmer/bac16s.txt.gz",
+                "hmmer/euk18s.domtbl.gz",
                 "hmmer/euk18s.hmm",
                 "hmmer/euk18s.tbl.gz",
                 "hmmer/euk18s.txt.gz",
+                "hmmer/euk28s.domtbl.gz",
                 "hmmer/euk28s.hmm",
                 "hmmer/euk28s.tbl.gz",
                 "hmmer/euk28s.txt.gz",
+                "hmmer/mito16s.domtbl.gz",
                 "hmmer/mito16s.tbl.gz",
                 "hmmer/mito16s.txt.gz",
                 "hmmer/rank.hmmrank.tsv.gz",
@@ -102,10 +110,17 @@
                 "multiqc/multiqc_report.html",
                 "pipeline_info",
                 "pipeline_info/nf_core_phyloplace_software_mqc_versions.yml",
+                "resolvetaxonomy",
+                "resolvetaxonomy/arc.resolved.fasta",
+                "resolvetaxonomy/arc.resolved.tax",
+                "resolvetaxonomy/arc.warnings.txt",
+                "resolvetaxonomy/bac16s.resolved.alnfna",
+                "resolvetaxonomy/bac16s.resolved.tax",
+                "resolvetaxonomy/bac16s.warnings.txt",
                 "seqtk",
-                "seqtk/domain_16s.fnaarc.fa.gz",
-                "seqtk/domain_16s.fnabac16s.fa.gz",
-                "seqtk/domain_16s.fnaeuk18s.fa.gz"
+                "seqtk/arc.fa.gz",
+                "seqtk/bac16s.fa.gz",
+                "seqtk/euk18s.fa.gz"
             ],
             [
                 "arc.aln:md5,48e87b305ac10ecc0036ba7ab1c84c86",
@@ -122,11 +137,17 @@
                 "bac16s.hmm:md5,a4dcd05876712b7bacddcdfb4662f6df",
                 "euk18s.hmm:md5,7257b503fc0eabe7cefef4e31cd6d8c4",
                 "euk28s.hmm:md5,5686ecd69ead0cabfefb74320d1207fb",
-                "rank.hmmrank.tsv.gz:md5,2befde6dc561a046938737b94c0a3a6e",
+                "rank.hmmrank.tsv.gz:md5,c5634dcd5d13efb396e01cd8fd8324eb",
                 "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
-                "domain_16s.fnaarc.fa.gz:md5,8c00033483c62c0e64b8fc4f958eb117",
-                "domain_16s.fnabac16s.fa.gz:md5,3e2e39f8d78a5e3965f0c4dc804dd977",
-                "domain_16s.fnaeuk18s.fa.gz:md5,c0117af2379df85b13890efde1bcdda4"
+                "arc.resolved.fasta:md5,5b5e525bdf70c97f1c9abf61e7c9457e",
+                "arc.resolved.tax:md5,1983c36e63cdb0706ce82788c3aa6e2c",
+                "arc.warnings.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "bac16s.resolved.alnfna:md5,7b07e92c64d33f5cd47f0771ebb35593",
+                "bac16s.resolved.tax:md5,2e5ad67e642b8cfd13f1a1198f593fe1",
+                "bac16s.warnings.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "arc.fa.gz:md5,8c00033483c62c0e64b8fc4f958eb117",
+                "bac16s.fa.gz:md5,3e2e39f8d78a5e3965f0c4dc804dd977",
+                "euk18s.fa.gz:md5,c0117af2379df85b13890efde1bcdda4"
             ],
             88,
             50,
@@ -135,10 +156,10 @@
             54,
             11
         ],
-        "timestamp": "2026-06-16T10:53:19.7571168",
+        "timestamp": "2026-08-31T20:42:33.540952934",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.3"
+            "nextflow": "26.04.6"
         }
     }
 }

@@ -12,6 +12,57 @@
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    PARAMS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Typed declarations for every param only ever read from within a script (this file,
+    workflows/, subworkflows/local/). Params read directly inside nextflow.config itself --
+    at config-parse time, before this file exists -- can't use this syntax and stay declared
+    there instead (see the comment above that params block, and #74).
+*/
+
+params {
+    // Input options
+    phyloplace_input:             String? = null
+    phylosearch_input:            String? = null
+    id:                            String = 'placement'
+    alignmethod:                   String = 'clustalo'
+    queryseqfile:                 String? = null
+    refseqfile:                   String? = null
+    hmmfile:                      String? = null
+    refphylogeny:                 String? = null
+    model:                        String? = null
+    taxonomy:                     String? = null
+    search_fasta:                 String? = null
+    save_domtblout:               Boolean = false
+
+    // MultiQC options
+    multiqc_config:               String? = null
+    multiqc_title:                String? = null
+    multiqc_logo:                 String? = null
+    max_multiqc_email_size:        String = '25.MB'
+    multiqc_methods_description:  String? = null
+
+    // Boilerplate options
+    email:                        String? = null
+    email_on_fail:                String? = null
+    plaintext_email:              Boolean = false
+    monochrome_logs:              Boolean = false
+    help_full:                    Boolean = false
+    show_hidden:                  Boolean = false
+    version:                      Boolean = false
+
+    // Config options
+    config_profile_name:          String? = null
+    config_profile_description:   String? = null
+    config_profile_contact:       String? = null
+    config_profile_url:           String? = null
+
+    // Schema validation default options
+    validate_params:              Boolean = true
+}
+
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     IMPORT FUNCTIONS / MODULES / SUBWORKFLOWS / WORKFLOWS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
@@ -45,6 +96,7 @@ workflow NFCORE_PHYLOPLACE {
         phyloplace_data,
         phylosearch_data,
         sequence_fasta,
+        params.save_domtblout,
         params.multiqc_config,
         params.multiqc_logo,
         params.multiqc_methods_description,
@@ -79,7 +131,6 @@ workflow {
         params.taxonomy,
         params.hmmfile,
         params.alignmethod,
-        params.fasta,
         params.phyloplace_input,
         params.phylosearch_input,
         params.search_fasta,

@@ -1,0 +1,171 @@
+{
+    "-profile test_phylosearch_reftree": {
+        "content": [
+            {
+                "CLUSTALO_ALIGN": {
+                    "clustalo": "1.2.4",
+                    "pigz": 2.8
+                },
+                "CUSTOM_RESOLVETAXONOMY": {
+                    "biopython": 1.84
+                },
+                "EPANG_PLACE": {
+                    "epa-ng": "0.3.8"
+                },
+                "EPANG_SPLIT_CLUSTALO": {
+                    "epa-ng": "0.3.8"
+                },
+                "GAPPA_ASSIGN": {
+                    "gappa": "0.9.0"
+                },
+                "GAPPA_EDITMERGE": {
+                    "gappa": "0.9.0"
+                },
+                "GAPPA_GRAFT": {
+                    "gappa": "0.9.0"
+                },
+                "GAPPA_HEATTREE": {
+                    "gappa": "0.9.0"
+                },
+                "GAPPA_JOINTASSIGN": {
+                    "gappa": "0.9.0"
+                },
+                "GAPPA_JOINTGRAFT": {
+                    "gappa": "0.9.0"
+                },
+                "GAPPA_JOINTHEATTREE": {
+                    "gappa": "0.9.0"
+                },
+                "HMMER_HMMEXTRACT": {
+                    "hmmsearch": 3.4
+                },
+                "HMMER_HMMRANK": {
+                    "r-base": "4.2.3",
+                    "r-tidyverse": "2.0.0"
+                },
+                "HMMER_HMMSEARCH": {
+                    "hmmer": 3.4
+                },
+                "SEQTK_SUBSEQ": {
+                    "seqtk": "1.4-r122"
+                },
+                "Workflow": {
+                    "nf-core/phyloplace": "v2.2.0"
+                }
+            },
+            [
+                "clustalo",
+                "clustalo/arc16s.aln",
+                "clustalo/bac16s.aln",
+                "epang",
+                "epang/arc16s.epa_info.log",
+                "epang/arc16s.epa_result.jplace.gz",
+                "epang/arc16s.query.fasta.gz",
+                "epang/arc16s.reference.fasta.gz",
+                "epang/bac16s.epa_info.log",
+                "epang/bac16s.epa_result.jplace.gz",
+                "epang/bac16s.query.fasta.gz",
+                "epang/bac16s.reference.fasta.gz",
+                "gappa",
+                "gappa/arc16s.graft.newick",
+                "gappa/arc16s.heattree.colours.txt",
+                "gappa/arc16s.heattree.log",
+                "gappa/arc16s.heattree.tree.nexus",
+                "gappa/arc16s.heattree.tree.phyloxml",
+                "gappa/arc16s.heattree.tree.svg",
+                "gappa/arc16s.joint.graft.newick",
+                "gappa/arc16s.joint.heattree.colours.txt",
+                "gappa/arc16s.joint.heattree.log",
+                "gappa/arc16s.joint.heattree.tree.nexus",
+                "gappa/arc16s.joint.heattree.tree.phyloxml",
+                "gappa/arc16s.joint.heattree.tree.svg",
+                "gappa/arc16s.joint.merge.jplace.gz",
+                "gappa/arc16s.joint.taxonomy.krona.profile",
+                "gappa/arc16s.joint.taxonomy.labelled_tree.newick",
+                "gappa/arc16s.joint.taxonomy.per_query.tsv",
+                "gappa/arc16s.joint.taxonomy.profile.tsv",
+                "gappa/arc16s.joint.taxonomy.sativa.tsv",
+                "gappa/arc16s.taxonomy.krona.profile",
+                "gappa/arc16s.taxonomy.labelled_tree.newick",
+                "gappa/arc16s.taxonomy.per_query.tsv",
+                "gappa/arc16s.taxonomy.profile.tsv",
+                "gappa/arc16s.taxonomy.sativa.tsv",
+                "gappa/bac16s.graft.newick",
+                "gappa/bac16s.heattree.colours.txt",
+                "gappa/bac16s.heattree.log",
+                "gappa/bac16s.heattree.tree.nexus",
+                "gappa/bac16s.heattree.tree.phyloxml",
+                "gappa/bac16s.heattree.tree.svg",
+                "gappa/bac16s.taxonomy.krona.profile",
+                "gappa/bac16s.taxonomy.labelled_tree.newick",
+                "gappa/bac16s.taxonomy.per_query.tsv",
+                "gappa/bac16s.taxonomy.profile.tsv",
+                "gappa/bac16s.taxonomy.sativa.tsv",
+                "hmmer",
+                "hmmer/arc16s.hmm",
+                "hmmer/arc16s.tbl.gz",
+                "hmmer/arc16s.txt.gz",
+                "hmmer/bac16s.hmm",
+                "hmmer/bac16s.tbl.gz",
+                "hmmer/bac16s.txt.gz",
+                "hmmer/rank.hmmrank.tsv.gz",
+                "multiqc",
+                "multiqc/multiqc_data",
+                "multiqc/multiqc_data/llms-full.txt",
+                "multiqc/multiqc_data/multiqc.log",
+                "multiqc/multiqc_data/multiqc.parquet",
+                "multiqc/multiqc_data/multiqc_citations.txt",
+                "multiqc/multiqc_data/multiqc_data.json",
+                "multiqc/multiqc_data/multiqc_software_versions.txt",
+                "multiqc/multiqc_data/multiqc_sources.txt",
+                "multiqc/multiqc_report.html",
+                "pipeline_info",
+                "pipeline_info/nf_core_phyloplace_software_mqc_versions.yml",
+                "resolvetaxonomy",
+                "resolvetaxonomy/arc16s.resolved.fasta",
+                "resolvetaxonomy/arc16s.resolved.tax",
+                "resolvetaxonomy/arc16s.warnings.txt",
+                "resolvetaxonomy/bac16s.resolved.fasta",
+                "resolvetaxonomy/bac16s.resolved.tax",
+                "resolvetaxonomy/bac16s.warnings.txt",
+                "seqtk",
+                "seqtk/arc16s.fa.gz",
+                "seqtk/bac16s.fa.gz"
+            ],
+            [
+                "arc16s.aln:md5,ddf6ca1b7f4484bbe45126e6d00f03b6",
+                "bac16s.aln:md5,a75c1b85f66dd2ed8a06ba1c586e0b97",
+                "arc16s.query.fasta.gz:md5,422bbb9834338b72bd9d8b4054027057",
+                "arc16s.reference.fasta.gz:md5,04c8ed3903b8ff3edb50eb1da619a66b",
+                "bac16s.query.fasta.gz:md5,d14126ef257890870b1faa9c9534a6eb",
+                "bac16s.reference.fasta.gz:md5,2464274bdbc4e37477880cbd8b047ab2",
+                "arc16s.heattree.colours.txt:md5,7e695b7c9b6d467ca44341fc1db251b0",
+                "arc16s.joint.heattree.colours.txt:md5,0889f4707d83550bba9203ea19d928d7",
+                "arc16s.joint.taxonomy.labelled_tree.newick:md5,88aad266c8ecd72275dcd8e1620520bc",
+                "arc16s.taxonomy.labelled_tree.newick:md5,88aad266c8ecd72275dcd8e1620520bc",
+                "bac16s.heattree.colours.txt:md5,0889f4707d83550bba9203ea19d928d7",
+                "bac16s.taxonomy.labelled_tree.newick:md5,88aad266c8ecd72275dcd8e1620520bc",
+                "arc16s.hmm:md5,3688ae1a1599ec90fa2ea0e0f82ad174",
+                "bac16s.hmm:md5,a4dcd05876712b7bacddcdfb4662f6df",
+                "rank.hmmrank.tsv.gz:md5,ee4e777c815c37727358ab4ebda276b3",
+                "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
+                "arc16s.resolved.fasta:md5,5b5e525bdf70c97f1c9abf61e7c9457e",
+                "arc16s.resolved.tax:md5,1983c36e63cdb0706ce82788c3aa6e2c",
+                "arc16s.warnings.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "bac16s.resolved.fasta:md5,5b5e525bdf70c97f1c9abf61e7c9457e",
+                "bac16s.resolved.tax:md5,1983c36e63cdb0706ce82788c3aa6e2c",
+                "bac16s.warnings.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "arc16s.fa.gz:md5,383114e1f0f12a6c3b3e34cfaab59d16",
+                "bac16s.fa.gz:md5,3e2e39f8d78a5e3965f0c4dc804dd977"
+            ],
+            105,
+            82,
+            187
+        ],
+        "timestamp": "2026-08-31T20:43:16.596694667",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
+        }
+    }
+}

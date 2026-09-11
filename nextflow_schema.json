@@ -42,6 +42,12 @@
                     "help_text": "Sequences from this file matching an HMM profile, will be placed in the reference phylogeny corresponding to the HMM profile.",
                     "fa_icon": "fas fa-file-tsv"
                 },
+                "save_domtblout": {
+                    "type": "boolean",
+                    "description": "Save the per-domain hit table (`--domtblout`) from hmmsearch.",
+                    "help_text": "In \"search and place\" mode, also write hmmsearch's per-domain hit table, one gzipped `*.domtbl.gz` file per profile, to the `hmmer` output directory. Unlike the per-sequence table, this one carries alignment coordinates for each domain, which are needed to work out profile coverage or to find genes split over several ORFs.",
+                    "fa_icon": "fas fa-table"
+                },
                 "id": {
                     "type": "string",
                     "description": "Name of analysis",
@@ -52,7 +58,7 @@
                     "type": "string",
                     "description": "Method used to align query sequences with.",
                     "help_text": "Query sequences will be aligned to the reference alignment using either HMMER, Clustal Omega or MAFFT, except when an hmm profile is provided (--hmmfile; implies that --alignmethod is set to 'hmmer'), in which case both the reference and query sequences will be aligned with the profile (reference sequences must not be aligned, i.e. must not contain '-' characters).",
-                    "default": "hmmer",
+                    "default": "clustalo",
                     "fa_icon": "far fa-file-code",
                     "enum": ["hmmer", "clustalo", "mafft"]
                 },
@@ -68,7 +74,7 @@
                     "format": "file-path",
                     "mimetype": "text/plain",
                     "description": "File with reference sequences. Any format supported by HMMER tools.",
-                    "help_text": "If the sequences are not aligned, you need to provide an alignment option, e.g. --hmmfile.",
+                    "help_text": "If the sequences are not aligned, you need to provide an alignment option, e.g. --hmmfile. When refseqfile is FASTA and --taxonomy is not given, taxonomy is instead derived from each record's own header, GTDB-style ('>id taxonomy;string').",
                     "fa_icon": "far fa-file-code"
                 },
                 "hmmfile": {
@@ -96,7 +102,7 @@
                     "mimetype": "text/tab-separated-values",
                     "pattern": "^\\S+\\.tsv$",
                     "description": "Tab-separated file with taxonomy assignments of reference sequences.",
-                    "help_text": "The first column should consist of names of reference sequences, the second of taxonomy strings, e.g. 'Bacteria;Proteobacteria;Gammaproteobacteria;Enterobacterales;Enterobacteriaceae;Escherichia;Escherichia coli'.",
+                    "help_text": "The first column should consist of names of reference sequences, the second of taxonomy strings, e.g. 'Bacteria;Proteobacteria;Gammaproteobacteria;Enterobacterales;Enterobacteriaceae;Escherichia;Escherichia coli'. If omitted and refseqfile is FASTA, taxonomy is instead derived from each record's own header. If both are given, this file wins (a warning is logged if the headers also carry embedded taxonomy text).",
                     "fa_icon": "fas fa-file-tsv"
                 },
                 "outdir": {
@@ -247,6 +253,13 @@
                     "fa_icon": "far fa-check-circle",
                     "description": "Base URL or local path to location of pipeline test dataset files",
                     "default": "https://raw.githubusercontent.com/nf-core/test-datasets/",
+                    "hidden": true
+                },
+                "modules_testdata_base_path": {
+                    "type": "string",
+                    "fa_icon": "far fa-check-circle",
+                    "description": "Base URL or local path to location of shared module test dataset files",
+                    "default": "https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/",
                     "hidden": true
                 },
                 "trace_report_suffix": {

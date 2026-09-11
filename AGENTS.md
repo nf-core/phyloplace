@@ -92,9 +92,9 @@ additional entries for `ch_phyloplace_data`, which is finally passed into
 `FASTA_NEWICK_EPANG_GAPPA`.
 
 **`subworkflows/nf-core/fasta_hmmsearch_rank_fastas`**: runs `HMMER_HMMSEARCH` per
-profile/fasta pair, ranks hits across all profiles with `HMMER_HMMRANK` (this pipeline's own
-module — resolves cases where a sequence would match multiple profiles), keeps only rank-1
-hits per profile, and extracts those sequences per-profile with `SEQTK_SUBSEQ`.
+profile/fasta pair, ranks hits across all profiles with `HMMER_HMMRANK` (vendored from
+nf-core/modules — resolves cases where a sequence would match multiple profiles), keeps only
+rank-1 hits per profile, and extracts those sequences per-profile with `SEQTK_SUBSEQ`.
 
 **`subworkflows/nf-core/fasta_newick_epang_gappa`** is the core placement subworkflow and the
 most complex part of the pipeline. It branches the incoming channel three ways by
@@ -120,12 +120,18 @@ All three branches converge into one `ch_epang_query` channel keyed by
 file was supplied — joined back in from the original data channel), and
 `GAPPA_EXAMINEHEATTREE` (SVG heat tree).
 
-**Local vs nf-core modules/subworkflows**: `modules/local/hmmer/hmmextract` and both
-subworkflows under `subworkflows/nf-core/` (`fasta_hmmsearch_rank_fastas`,
-`fasta_newick_epang_gappa`) are pipeline-specific despite one pair living under the
-`nf-core/` subworkflow directory name — everything else under `modules/nf-core/` and
-`subworkflows/nf-core/utils_*` is vendored, unmodified nf-core community code and should be
-updated via `nf-core modules update` / `nf-core subworkflows update`, not edited by hand.
+**Local vs nf-core modules/subworkflows**: the only pipeline-local components are
+`modules/local/hmmer/hmmextract` and `subworkflows/local/utils_nfcore_phyloplace_pipeline`.
+Everything under `modules/nf-core/` and `subworkflows/nf-core/` is vendored nf-core community
+code, tracked in `modules.json`, and must be changed upstream in nf-core/modules and pulled in
+with `nf-core modules update` / `nf-core subworkflows update` rather than edited by hand.
+
+That includes `fasta_hmmsearch_rank_fastas`, `fasta_newick_epang_gappa` and `hmmer/hmmrank`,
+which are easy to mistake for local code: they originated here and are still maintained by
+this pipeline's author, but they live in nf-core/modules like any other vendored component.
+`hmmer/hmmrank` and `fasta_hmmsearch_rank_fastas` are also vendored by nf-core/ampliseq, so
+changes to them have to stay backwards compatible — new inputs need to be optional, and the
+existing output columns cannot be renamed or reordered.
 
 ## Template syncs and module updates
 

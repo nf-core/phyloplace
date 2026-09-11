@@ -11,11 +11,27 @@ The directories listed below will be created in the results directory after the 
 The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes data using the following steps:
 
 - [HMMER](#hmmer) - If the pipeline is run in "search and place" mode, an initial HMMER search is performed to identify query sequences for placement
+- [Taxonomy](#taxonomy) - If `--refseqfile` is FASTA and no `--taxonomy` file is given, taxonomy is derived from the reference sequences' own headers
 - [Alignment](#alignment) - Align query sequences to the reference alignment
 - [Placement](#placement) - Place query sequences in the reference phylogeny
 - [Summary](#summary) - Summarise placement with a grafted tree, a classification and a heattree
 - [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
+
+### Taxonomy
+
+When `--refseqfile` is FASTA and `--taxonomy` is not given, taxonomy is instead derived from each reference sequence's own header (see [the usage documentation](usage.md#deriving-taxonomy-from-fasta-headers)).
+Headers are stripped down to a bare id in the process, regardless of whether taxonomy came from a header or an explicit `--taxonomy` file.
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `resolvetaxonomy/`
+  - `*.resolved.tax`: Resolved taxonomy: two tab-separated columns, `id` and `taxonomy` (the taxonomy string itself, `;`-separated ranks).
+  - `*.resolved.*`: Reference sequences, same format as `--refseqfile`, headers stripped to a bare id.
+  - `*.warnings.txt`: One line per warning (e.g. records with no taxonomy from either source); empty if none.
+
+</details>
 
 ### Alignment
 
@@ -44,15 +60,19 @@ The MAFFT alignment strategy keeps the structure of the original reference align
   - `*.ref.hmmbuild.txt`: Log from HMM profile build.
   - `*.ref.hmm.gz`: HMM profile made from the reference alignment, if not provided using the `hmmfile` parameter.
   - `*.ref.unaligned.afa.gz`: "Unaligned", i.e. without gap characters, reference sequences in Fasta format.
-  - `*.tbl.gz`: Table format (`-tblout`) results for individual `hmmsearch` runs in "search and place" mode
-  - `*.tbl.gz`: Standard, human-readable, format results for individual `hmmsearch` runs in "search and place" mode
-  - `*.hmmrank.tsv.gz`: Summarised `hmmsearch` results
+  - `*.tbl.gz`: Per-sequence hit table (`--tblout`) for individual `hmmsearch` runs in "search and place" mode
+  - `*.domtbl.gz`: Per-domain hit table (`--domtblout`) for individual `hmmsearch` runs in "search and place" mode, only written when `--save_domtblout` is set.
+    Unlike the per-sequence table, this one carries alignment coordinates for each domain, which are needed to work out profile coverage or to find genes split over several ORFs.
+  - `*.txt.gz`: Standard, human-readable, format results for individual `hmmsearch` runs in "search and place" mode
+  - `*.hmmrank.tsv.gz`: Summarised `hmmsearch` results, one row per sequence and profile, ranking the profiles that matched each sequence.
+    When `--save_domtblout` is set, each row also carries the sequence and profile lengths (`tlen`, `qlen`) and, for each of the `hmm`, `ali` and `env` coordinate sets, the match bounds (`x_from`, `x_to`), the covered length (`x_len`) and the number of separate stretches it falls into (`x_n_islands`) -- e.g. profile coverage is `hmm_len / qlen`.
+    Rows whose hit cleared the per-sequence threshold but has no domain records of its own (possible, since `--domtblout` uses a stricter per-domain threshold) carry `NA` in all of these columns instead.
 
 </details>
 
 #### Clustal Omega
 
-<details markdwon="1">
+<details markdown="1">
 <summary>Output files</summary>
 
 - `clustalo/`
@@ -94,17 +114,33 @@ Phylogenetic placement of query sequences is performed with [EPA-NG](https://git
 A number of summary operations are performed with [Gappa](https://github.com/lczech/gappa) after placement.
 First, the query sequences are grafted on to the reference tree to produce a comprehensive tree containing all sequences.
 Second, the "heattree" function is called which produces phylogenies in different formats with branches coloured to indicate the number of placed sequences in various parts of the tree.
-Third, if the user provides a classification of the reference sequences, a classification of query sequences is performed.
+Third, if a classification of the reference sequences is available (see [Taxonomy](#taxonomy)), a classification of query sequences is performed.
 
 <details markdown="1">
 <summary>Output files</summary>
 
 - `gappa/`
-  - `*.graft.*.newick`: Full phylogeny with query sequences grafted on to the reference phylogeny.
+  - `*.graft.newick`: Full phylogeny with query sequences grafted on to the reference phylogeny.
   - `*.heattree.*`: Files from calling `gappa examine heattree`, see [Gappa documentation](https://github.com/Pbdas/epa-ng/blob/master/README.md) for details.
   - `*.taxonomy.*`: Classification files from calling `gappa examine examinassign`, see [Gappa documentation](https://github.com/Pbdas/epa-ng/blob/master/README.md) for details.
 
 </details>
+
+When rows of the sample sheet share a `reftreename` (see [Summarising several profiles on one reference tree](usage.md#summarising-several-profiles-on-one-reference-tree)), the same three summaries are also produced once for the group as a whole, on top of the per-row ones above.
+The group's placements are first merged into a single jplace file, since `gappa examine graft` summarises each jplace file it is given separately, and then grafted, classified and heat-treed from that.
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `gappa/`
+  - `*.joint.merge.jplace.gz`: The group's placements merged into one jplace file, one per `reftreename`.
+  - `*.joint.graft.newick`: Full phylogeny with the query sequences of every profile in the group grafted on to the shared reference phylogeny.
+  - `*.joint.heattree.*`: As `*.heattree.*`, but counting the placements of the whole group.
+  - `*.joint.taxonomy.*`: As `*.taxonomy.*`, but classifying the whole group's query sequences at once. Only produced when the group has a taxonomy.
+
+</details>
+
+A sequence hit by more than one profile in the group is placed once per profile, so it appears once per placement in these files, under the same name each time.
 
 ### MultiQC
 
@@ -135,4 +171,4 @@ Results generated by MultiQC collate pipeline QC from supported tools e.g. FastQ
 
 </details>
 
-[Nextflow](https://www.nextflow.io/docs/latest/tracing.html) provides excellent functionality for generating various reports relevant to the running and execution of the pipeline. This will allow you to troubleshoot errors with the running of the pipeline, and also provide you with other information such as launch commands, run times and resource usage.
+[Nextflow](https://docs.seqera.io/platform-cloud/reports/overview) provides excellent functionality for generating various reports relevant to the running and execution of the pipeline. This will allow you to troubleshoot errors with the running of the pipeline, and also provide you with other information such as launch commands, run times and resource usage.

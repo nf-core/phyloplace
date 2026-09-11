@@ -2,6 +2,9 @@
     "-profile test_phyloplace_input": {
         "content": [
             {
+                "CUSTOM_RESOLVETAXONOMY": {
+                    "biopython": 1.84
+                },
                 "EPANG_PLACE": {
                     "epa-ng": "0.3.8"
                 },
@@ -9,13 +12,25 @@
                     "epa-ng": "0.3.8"
                 },
                 "GAPPA_ASSIGN": {
-                    "gappa": "0.8.0"
+                    "gappa": "0.9.0"
+                },
+                "GAPPA_EDITMERGE": {
+                    "gappa": "0.9.0"
                 },
                 "GAPPA_GRAFT": {
-                    "gappa": "0.8.0"
+                    "gappa": "0.9.0"
                 },
                 "GAPPA_HEATTREE": {
-                    "gappa": "0.8.0"
+                    "gappa": "0.9.0"
+                },
+                "GAPPA_JOINTASSIGN": {
+                    "gappa": "0.9.0"
+                },
+                "GAPPA_JOINTGRAFT": {
+                    "gappa": "0.9.0"
+                },
+                "GAPPA_JOINTHEATTREE": {
+                    "gappa": "0.9.0"
                 },
                 "HMMER_AFAFORMATQUERY": {
                     "easel": 0.49,
@@ -51,7 +66,7 @@
                     "pigz": 2.8
                 },
                 "Workflow": {
-                    "nf-core/phyloplace": "v2.1.0"
+                    "nf-core/phyloplace": "v2.2.0"
                 }
             },
             [
@@ -71,7 +86,19 @@
                 "epang/nuc_mafft.query.fasta.gz",
                 "epang/nuc_mafft.reference.fasta.gz",
                 "gappa",
-                "gappa/PF14720mafft.graft.PF14720mafft.epa_result.newick",
+                "gappa/PF14720.joint.graft.newick",
+                "gappa/PF14720.joint.heattree.colours.txt",
+                "gappa/PF14720.joint.heattree.log",
+                "gappa/PF14720.joint.heattree.tree.nexus",
+                "gappa/PF14720.joint.heattree.tree.phyloxml",
+                "gappa/PF14720.joint.heattree.tree.svg",
+                "gappa/PF14720.joint.merge.jplace.gz",
+                "gappa/PF14720.joint.taxonomy.krona.profile",
+                "gappa/PF14720.joint.taxonomy.labelled_tree.newick",
+                "gappa/PF14720.joint.taxonomy.per_query.tsv",
+                "gappa/PF14720.joint.taxonomy.profile.tsv",
+                "gappa/PF14720.joint.taxonomy.sativa.tsv",
+                "gappa/PF14720mafft.graft.newick",
                 "gappa/PF14720mafft.heattree.colours.txt",
                 "gappa/PF14720mafft.heattree.log",
                 "gappa/PF14720mafft.heattree.tree.nexus",
@@ -82,13 +109,13 @@
                 "gappa/PF14720mafft.taxonomy.per_query.tsv",
                 "gappa/PF14720mafft.taxonomy.profile.tsv",
                 "gappa/PF14720mafft.taxonomy.sativa.tsv",
-                "gappa/PF14720wo.graft.PF14720wo.epa_result.newick",
+                "gappa/PF14720wo.graft.newick",
                 "gappa/PF14720wo.heattree.colours.txt",
                 "gappa/PF14720wo.heattree.log",
                 "gappa/PF14720wo.heattree.tree.nexus",
                 "gappa/PF14720wo.heattree.tree.phyloxml",
                 "gappa/PF14720wo.heattree.tree.svg",
-                "gappa/PF14720wt.graft.PF14720wt.epa_result.newick",
+                "gappa/PF14720wt.graft.newick",
                 "gappa/PF14720wt.heattree.colours.txt",
                 "gappa/PF14720wt.heattree.log",
                 "gappa/PF14720wt.heattree.tree.nexus",
@@ -99,13 +126,20 @@
                 "gappa/PF14720wt.taxonomy.per_query.tsv",
                 "gappa/PF14720wt.taxonomy.profile.tsv",
                 "gappa/PF14720wt.taxonomy.sativa.tsv",
-                "gappa/nuc_hmmer.graft.nuc_hmmer.epa_result.newick",
+                "gappa/cyanos16s.joint.graft.newick",
+                "gappa/cyanos16s.joint.heattree.colours.txt",
+                "gappa/cyanos16s.joint.heattree.log",
+                "gappa/cyanos16s.joint.heattree.tree.nexus",
+                "gappa/cyanos16s.joint.heattree.tree.phyloxml",
+                "gappa/cyanos16s.joint.heattree.tree.svg",
+                "gappa/cyanos16s.joint.merge.jplace.gz",
+                "gappa/nuc_hmmer.graft.newick",
                 "gappa/nuc_hmmer.heattree.colours.txt",
                 "gappa/nuc_hmmer.heattree.log",
                 "gappa/nuc_hmmer.heattree.tree.nexus",
                 "gappa/nuc_hmmer.heattree.tree.phyloxml",
                 "gappa/nuc_hmmer.heattree.tree.svg",
-                "gappa/nuc_mafft.graft.nuc_mafft.epa_result.newick",
+                "gappa/nuc_mafft.graft.newick",
                 "gappa/nuc_mafft.heattree.colours.txt",
                 "gappa/nuc_mafft.heattree.log",
                 "gappa/nuc_mafft.heattree.tree.nexus",
@@ -153,18 +187,37 @@
                 "multiqc/multiqc_data/multiqc_sources.txt",
                 "multiqc/multiqc_report.html",
                 "pipeline_info",
-                "pipeline_info/nf_core_phyloplace_software_mqc_versions.yml"
+                "pipeline_info/nf_core_phyloplace_software_mqc_versions.yml",
+                "resolvetaxonomy",
+                "resolvetaxonomy/PF14720mafft.resolved.alnfaa",
+                "resolvetaxonomy/PF14720mafft.resolved.tax",
+                "resolvetaxonomy/PF14720mafft.warnings.txt",
+                "resolvetaxonomy/PF14720wo.resolved.alnfaa",
+                "resolvetaxonomy/PF14720wo.resolved.tax",
+                "resolvetaxonomy/PF14720wo.warnings.txt",
+                "resolvetaxonomy/PF14720wt.resolved.alnfaa",
+                "resolvetaxonomy/PF14720wt.resolved.tax",
+                "resolvetaxonomy/PF14720wt.warnings.txt",
+                "resolvetaxonomy/nuc_hmmer.resolved.alnfna",
+                "resolvetaxonomy/nuc_hmmer.resolved.tax",
+                "resolvetaxonomy/nuc_hmmer.warnings.txt",
+                "resolvetaxonomy/nuc_mafft.resolved.alnfna",
+                "resolvetaxonomy/nuc_mafft.resolved.tax",
+                "resolvetaxonomy/nuc_mafft.warnings.txt"
             ],
             [
                 "PF14720mafft.query.fasta.gz:md5,ff1159ff8a5d2587fb20309a81da3c29",
                 "PF14720mafft.reference.fasta.gz:md5,e7753871101c48c42fc417ce0e9b398a",
                 "nuc_mafft.query.fasta.gz:md5,2baad0ba34b2e9dc3fed7de404723dd0",
                 "nuc_mafft.reference.fasta.gz:md5,7501f39ac2768edf72df4271b2bc81a3",
+                "PF14720.joint.heattree.colours.txt:md5,694154016a0e5ab7494ceb59dce0f444",
+                "PF14720.joint.taxonomy.labelled_tree.newick:md5,39de8a46303ea757f6eb94478db1ffe0",
                 "PF14720mafft.heattree.colours.txt:md5,7704cd341c8693981253ba6d740c1061",
                 "PF14720mafft.taxonomy.labelled_tree.newick:md5,39de8a46303ea757f6eb94478db1ffe0",
                 "PF14720wo.heattree.colours.txt:md5,7704cd341c8693981253ba6d740c1061",
                 "PF14720wt.heattree.colours.txt:md5,7704cd341c8693981253ba6d740c1061",
                 "PF14720wt.taxonomy.labelled_tree.newick:md5,39de8a46303ea757f6eb94478db1ffe0",
+                "cyanos16s.joint.heattree.colours.txt:md5,d727f5c5b380b63d785ff71eecdef495",
                 "nuc_hmmer.heattree.colours.txt:md5,060d5679b75e45b2985fd4414c29aa43",
                 "nuc_mafft.heattree.colours.txt:md5,6270886accbc76484791c5a96da851ad",
                 "PF14720wo.query.hmmalign.masked.afa.gz:md5,69b6d82789587f368da4d808ce20744a",
@@ -190,19 +243,37 @@
                 "nuc_hmmer.ref.unaligned.afa.gz:md5,3cc3e86ece1474c03803c1c3c3810129",
                 "PF14720mafft.fas:md5,30090ede37d92efe6000c5d1436f6b26",
                 "nuc_mafft.fas:md5,6c36484acde5e80b9f1bbe4a4bc132e6",
-                "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f"
+                "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
+                "PF14720mafft.resolved.alnfaa:md5,6a8a43da1544439c127bf52ac5167b41",
+                "PF14720mafft.resolved.tax:md5,9fb30dd6893e5a968f4403ad3c035bd2",
+                "PF14720mafft.warnings.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "PF14720wo.resolved.alnfaa:md5,6a8a43da1544439c127bf52ac5167b41",
+                "PF14720wo.resolved.tax:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "PF14720wo.warnings.txt:md5,1e68f7ca5224a418fc63f3cbed905ded",
+                "PF14720wt.resolved.alnfaa:md5,6a8a43da1544439c127bf52ac5167b41",
+                "PF14720wt.resolved.tax:md5,9fb30dd6893e5a968f4403ad3c035bd2",
+                "PF14720wt.warnings.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "nuc_hmmer.resolved.alnfna:md5,abd2f63f818786fd406e65074b8f76a8",
+                "nuc_hmmer.resolved.tax:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "nuc_hmmer.warnings.txt:md5,af9640af51aa61f84ecea493c59bd24c",
+                "nuc_mafft.resolved.alnfna:md5,abd2f63f818786fd406e65074b8f76a8",
+                "nuc_mafft.resolved.tax:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "nuc_mafft.warnings.txt:md5,af9640af51aa61f84ecea493c59bd24c"
             ],
             6,
             5,
             2,
             6,
             5,
-            2
+            2,
+            12,
+            5,
+            5
         ],
-        "timestamp": "2026-06-16T10:52:25.095165799",
+        "timestamp": "2026-08-31T20:41:56.016013153",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.3"
+            "nextflow": "26.04.6"
         }
     }
 }

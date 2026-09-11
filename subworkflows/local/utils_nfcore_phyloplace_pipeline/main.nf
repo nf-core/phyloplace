@@ -39,7 +39,6 @@ workflow PIPELINE_INITIALISATION {
     taxonomy          //  string: From params.taxonomy
     hmmfile           //  string: From params.hmmfile
     alignmethod       //  string: From params.alignmethod
-    fasta             //  string: From params.fasta
     phyloplace_input  //  string: Path to phyloplace input samplesheet
     phylosearch_input //  string: Path to phylosearch input samplesheet
     search_fasta      //  string: From params.search_fasta
@@ -100,7 +99,7 @@ workflow PIPELINE_INITIALISATION {
         before_text,
         after_text,
         command,
-        null
+        false
     )
 
     //
@@ -126,17 +125,18 @@ workflow PIPELINE_INITIALISATION {
 
     if ( phylosearch_input && search_fasta ) {
         ch_phylosearch_data = channel.fromList(samplesheetToList(phylosearch_input, "${projectDir}/assets/schema_phylosearch_input.json"))
-            .map { vmeta, vhmm, vextract_hmm, vrefseqfile, vrefphylogeny, vmodel, valignmethod, vtaxonomy ->
+            .map { vmeta, vhmm, vextract_hmm, vrefseqfile, vrefphylogeny, vmodel, valignmethod, vtaxonomy, vreftreename ->
                 [
                     meta: vmeta,
                     data: [
-                        alignmethod:  valignmethod  ?: 'hmmer',
+                        alignmethod:  valignmethod ?: 'clustalo',
                         hmm:          vhmm,
                         extract_hmm:  vextract_hmm,
                         refseqfile:   vrefseqfile,
                         refphylogeny: vrefphylogeny,
                         model:        vmodel,
-                        taxonomy:     vtaxonomy
+                        taxonomy:     vtaxonomy,
+                        reftreename:  vreftreename
                     ]
                 ]
             }
@@ -144,35 +144,43 @@ workflow PIPELINE_INITIALISATION {
             .set { ch_sequence_fasta }
     } else if ( phyloplace_input ) {
         ch_phyloplace_data = channel.fromList(samplesheetToList(phyloplace_input, "${projectDir}/assets/schema_phyloplace_input.json"))
-            .map { vmeta, vqueryseqfile, vrefseqfile, vrefphylogeny, vhmmfile, vmodel, valignmethod, vtaxonomy ->
+            .map { vmeta, vqueryseqfile, vrefseqfile, vrefphylogeny, vhmmfile, vmodel, valignmethod, vtaxonomy, vreftreename ->
+                if ( vhmmfile && valignmethod == 'mafft' ) {
+                    log.warn "Row '${vmeta.id}' sets alignmethod to 'mafft' but also provides hmmfile -- hmmfile is only used by the hmmer alignment branch, so alignmethod will be 'hmmer' for this row instead."
+                }
                 [
                     meta: vmeta,
                     data: [
-                        alignmethod:  valignmethod  ?: 'hmmer',
+                        alignmethod:  vhmmfile ? 'hmmer' : (valignmethod ?: 'clustalo'),
                         queryseqfile: vqueryseqfile,
                         refseqfile:   vrefseqfile,
                         hmmfile:      vhmmfile,
                         refphylogeny: vrefphylogeny,
                         model:        vmodel,
-                        taxonomy:     vtaxonomy
+                        taxonomy:     vtaxonomy,
+                        reftreename:  vreftreename
                     ]
                 ]
             }
     } else if ( id && queryseqfile && refseqfile && refphylogeny && model ) {
+        if ( hmmfile && alignmethod == 'mafft' ) {
+            log.warn "--alignmethod is 'mafft' but --hmmfile was also given -- hmmfile is only used by the hmmer alignment branch, so alignmethod will be 'hmmer' instead."
+        }
         channel.of([
             meta: [ id: id ],
             data: [
-                alignmethod:  alignmethod ? alignmethod    : 'hmmer',
+                alignmethod:  hmmfile ? 'hmmer' : alignmethod,
                 queryseqfile: file(queryseqfile),
                 refseqfile:   file(refseqfile),
                 refphylogeny: file(refphylogeny),
                 hmmfile:      hmmfile     ? file(hmmfile)  : [],
                 model:        model,
-                taxonomy:     taxonomy    ? file(taxonomy) : []
+                taxonomy:     taxonomy    ? file(taxonomy) : [],
+                reftreename:  null
             ]
         ])
             .set { ch_phyloplace_data }
-    } else if ( phylosearch_input || fasta ) {
+    } else if ( phylosearch_input ) {
         exit 1, "For phylosearch mode, you need to provide an input sample sheet with --phylosearch_input *and* a fasta file with --search_fasta"
     } else {
         exit 1, "For phyloplace mode, you need to provide an input sample sheet with --phyloplace_input or the corresponding info with individual parameters"

@@ -14,6 +14,10 @@
 
   > Eddy, Sean R. “Accelerated Profile HMM Searches.” PLoS Comput Biol 7, no. 10 (October 20, 2011): e1002195. https://doi.org/10.1371/journal.pcbi.1002195.
 
+- [Biopython](https://pubmed.ncbi.nlm.nih.gov/19304878/)
+
+  > Cock, Peter J. A., Tiago Antao, Jeffrey T. Chang, Brad A. Chapman, Cymon J. Cox, Andrew Dalke, Iddo Friedberg, Thomas Hamelryck, Frank Kauff, Bartek Wilczynski, and Michiel J. L. de Hoon. “Biopython: Freely Available Python Tools for Computational Molecular Biology and Bioinformatics.” Bioinformatics 25, no. 11 (June 1, 2009): 1422–23. https://doi.org/10.1093/bioinformatics/btp163.
+
 - [Clustal Omega](https://pubmed.ncbi.nlm.nih.gov/21988835/)
 
   > Sievers, F., A. Wilm, D. Dineen, T. J. Gibson, K. Karplus, W. Li, R. Lopez, et al. 2011. “Fast, Scalable Generation of High-Quality Protein Multiple Sequence Alignments Using Clustal Omega.” Molecular Systems Biology 7 (1): 539–539. https://doi.org/10.1038/msb.2011.75.
