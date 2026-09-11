@@ -107,7 +107,7 @@ workflow PHYLOPLACE {
     ch_phyloplace_data = FASTA_HMMSEARCH_RANK_FASTAS.out.seqfastas
         .join(
             ch_phylosearch_data
-                .filter { it -> it.data.alignmethod && it.data.refseqfile && it.data.refphylogeny }
+                .filter { it -> it.data.refseqfile && it.data.refphylogeny }
                 .map { it -> [ [ id: it.meta.id ], it ] }
         )
         // Carry the row over wholesale, overriding only queryseqfile -- listing fields out

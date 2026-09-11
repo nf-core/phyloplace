@@ -145,6 +145,9 @@ workflow PIPELINE_INITIALISATION {
     } else if ( phyloplace_input ) {
         ch_phyloplace_data = channel.fromList(samplesheetToList(phyloplace_input, "${projectDir}/assets/schema_phyloplace_input.json"))
             .map { vmeta, vqueryseqfile, vrefseqfile, vrefphylogeny, vhmmfile, vmodel, valignmethod, vtaxonomy, vreftreename ->
+                if ( vhmmfile && valignmethod == 'mafft' ) {
+                    log.warn "Row '${vmeta.id}' sets alignmethod to 'mafft' but also provides hmmfile -- hmmfile is only used by the hmmer alignment branch, so alignmethod will be 'hmmer' for this row instead."
+                }
                 [
                     meta: vmeta,
                     data: [
@@ -160,6 +163,9 @@ workflow PIPELINE_INITIALISATION {
                 ]
             }
     } else if ( id && queryseqfile && refseqfile && refphylogeny && model ) {
+        if ( hmmfile && alignmethod == 'mafft' ) {
+            log.warn "--alignmethod is 'mafft' but --hmmfile was also given -- hmmfile is only used by the hmmer alignment branch, so alignmethod will be 'hmmer' instead."
+        }
         channel.of([
             meta: [ id: id ],
             data: [
