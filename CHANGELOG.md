@@ -11,9 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Dependencies`
 
-| software   | previously | now   |
-| ---------- | ---------- | ----- |
-| nft-utils  | 0.0.3      | 1.2.0 |
+| software  | previously | now   |
+| --------- | ---------- | ----- |
+| nft-utils | 0.0.3      | 1.2.0 |
 
 ### `Deprecated`
 
