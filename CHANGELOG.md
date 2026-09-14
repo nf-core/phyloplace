@@ -9,9 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
+    - [#92](https://github.com/nf-core/phyloplace/pull/92) - Bump `nft-utils` to 1.2.0, whose `removeNextflowVersion()` now returns keys pre-sorted, avoiding intermittent snapshot mismatches from non-deterministic key order within a process's inner tool-version map ([#90](https://github.com/nf-core/phyloplace/issues/90)) (by @erikrikarddaniel)
+
 ### `Changed`
 
 ### `Dependencies`
+
+| software   | previously | now   |
+| ---------- | ---------- | ----- |
+| nft-utils  | 0.0.3      | 1.2.0 |
 
 ### `Deprecated`
 
