@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
-- [#NN](https://github.com/nf-core/phyloplace/pull/NN) - Memory usage in `hmmer/hmmrank`, by rewriting it from an in-memory R script to streaming DuckDB SQL ([#93](https://github.com/nf-core/phyloplace/issues/93)) (by @erikrikarddaniel)
+- [#94](https://github.com/nf-core/phyloplace/pull/94) - Memory usage in `hmmer/hmmrank`, by rewriting it from an in-memory R script to streaming DuckDB SQL ([#93](https://github.com/nf-core/phyloplace/issues/93)) (by @erikrikarddaniel)
 
 ### `Dependencies`
 
