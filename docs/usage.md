@@ -128,9 +128,6 @@ Mixing compressed and uncompressed files in one run is fine, including within a 
 
 Compression is detected from the `.gz` suffix, so a gzipped file has to keep it: `refseqs.faa.gz`, not `refseqs.faa`.
 
-`xz` is not supported.
-HMMER's Easel cannot open an xz file at all, so the pipeline rejects one up front with an explicit error rather than letting it fail several steps in.
-
 ## Saving the per-domain hit table
 
 By default the pipeline keeps `hmmsearch`'s per-sequence hit table (`--tblout`) but not its per-domain one.
