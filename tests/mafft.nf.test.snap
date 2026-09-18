@@ -47,7 +47,7 @@
                 "gappa/placement.taxonomy.profile.tsv",
                 "gappa/placement.taxonomy.sativa.tsv",
                 "mafft",
-                "mafft/placement.fas",
+                "mafft/placement.fas.gz",
                 "multiqc",
                 "multiqc/multiqc_data",
                 "multiqc/multiqc_data/llms-full.txt",
@@ -70,7 +70,7 @@
                 "placement.reference.fasta.gz:md5,e7753871101c48c42fc417ce0e9b398a",
                 "placement.heattree.colours.txt:md5,7704cd341c8693981253ba6d740c1061",
                 "placement.taxonomy.labelled_tree.newick:md5,39de8a46303ea757f6eb94478db1ffe0",
-                "placement.fas:md5,30090ede37d92efe6000c5d1436f6b26",
+                "placement.fas.gz:md5,30090ede37d92efe6000c5d1436f6b26",
                 "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
                 "placement.resolved.alnfaa:md5,6a8a43da1544439c127bf52ac5167b41",
                 "placement.resolved.tax:md5,9fb30dd6893e5a968f4403ad3c035bd2",
@@ -80,9 +80,9 @@
             5,
             2
         ],
-        "timestamp": "2026-08-31T20:40:38.497096117",
+        "timestamp": "2026-09-18T13:46:43.260083208",
         "meta": {
-            "nf-test": "0.9.5",
+            "nf-test": "0.9.4",
             "nextflow": "26.04.6"
         }
     }

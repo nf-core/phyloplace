@@ -16,25 +16,25 @@
             "queryseqfile": {
                 "type": "string",
                 "format": "file-path",
-                "pattern": "^\\S+$",
+                "pattern": "^(\\S+\\.(fa|fna|faa|fasta)(\\.gz)?|https?://\\S*/[^/.\\s]+)$",
                 "errorMessage": "File with query sequences to place in phylogeny. Any format supported by hmmaline in HMMER (e.g. fasta, clustal, phylip, stockholm) or MAFFT."
             },
             "refseqfile": {
                 "type": "string",
                 "format": "file-path",
-                "pattern": "^\\S+$",
-                "errorMessage": "Multiple sequence alignment of reference sequences. Any format suppored by hmmbuild in HMMER (see queryfile for examples) or MAFFT."
+                "pattern": "^(\\S+\\.(aln|alnfaa|alnfna|fa|fna|faa|fasta|ph|phy|phylip)(\\.gz)?|https?://\\S*/[^/.\\s]+)$",
+                "errorMessage": "Multiple sequence alignment of reference sequences. Any format supported by hmmbuild in HMMER (see queryfile for examples) or MAFFT."
             },
             "refphylogeny": {
                 "type": "string",
                 "format": "file-path",
-                "pattern": "^\\S+$",
+                "pattern": "^(\\S+\\.(newick|nwk|tree)(\\.gz)?|https?://\\S*/[^/.\\s]+)$",
                 "errorMessage": "Newick formatted file with the reference phylogeny."
             },
             "hmmfile": {
                 "type": "string",
                 "format": "file-path",
-                "pattern": "^\\S+$",
+                "pattern": "^(\\S+\\.hmm(\\.gz)?|https?://\\S*/[^/.\\s]+)$",
                 "errorMessage": "HMM file to use for alignment, if the reference sequences are not aligned."
             },
             "model": {
@@ -51,7 +51,7 @@
             "taxonomy": {
                 "type": "string",
                 "format": "file-path",
-                "pattern": "^\\S+$",
+                "pattern": "^(\\S+\\.tsv(\\.gz)?|https?://\\S*/[^/.\\s]+)$",
                 "errorMessage": "Optional TSV file with taxonomy information."
             },
             "reftreename": {

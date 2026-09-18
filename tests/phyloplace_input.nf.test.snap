@@ -174,8 +174,8 @@
                 "hmmer/nuc_hmmer.ref.hmmbuild.txt",
                 "hmmer/nuc_hmmer.ref.unaligned.afa.gz",
                 "mafft",
-                "mafft/PF14720mafft.fas",
-                "mafft/nuc_mafft.fas",
+                "mafft/PF14720mafft.fas.gz",
+                "mafft/nuc_mafft.fas.gz",
                 "multiqc",
                 "multiqc/multiqc_data",
                 "multiqc/multiqc_data/llms-full.txt",
@@ -241,8 +241,8 @@
                 "nuc_hmmer.ref.hmmalign.masked.sthlm.gz:md5,d7b5c3a226f1cd372709097be4711d6d",
                 "nuc_hmmer.ref.hmmalign.sto.gz:md5,a7b41fbd6f915854ec3c67ea3d333e9c",
                 "nuc_hmmer.ref.unaligned.afa.gz:md5,3cc3e86ece1474c03803c1c3c3810129",
-                "PF14720mafft.fas:md5,30090ede37d92efe6000c5d1436f6b26",
-                "nuc_mafft.fas:md5,6c36484acde5e80b9f1bbe4a4bc132e6",
+                "PF14720mafft.fas.gz:md5,30090ede37d92efe6000c5d1436f6b26",
+                "nuc_mafft.fas.gz:md5,6c36484acde5e80b9f1bbe4a4bc132e6",
                 "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
                 "PF14720mafft.resolved.alnfaa:md5,6a8a43da1544439c127bf52ac5167b41",
                 "PF14720mafft.resolved.tax:md5,9fb30dd6893e5a968f4403ad3c035bd2",
@@ -270,9 +270,9 @@
             5,
             5
         ],
-        "timestamp": "2026-08-31T20:41:56.016013153",
+        "timestamp": "2026-09-18T13:48:11.220067125",
         "meta": {
-            "nf-test": "0.9.5",
+            "nf-test": "0.9.4",
             "nextflow": "26.04.6"
         }
     }

@@ -3,6 +3,24 @@ Changes in component 'nf-core/fasta_newick_epang_gappa'
 Changes in 'fasta_newick_epang_gappa/main.nf':
 --- subworkflows/nf-core/fasta_newick_epang_gappa/main.nf
 +++ subworkflows/nf-core/fasta_newick_epang_gappa/main.nf
+@@ -96,7 +96,7 @@
+         [ ],
+         ch_clustalo_data.map { it -> it.data.refseqfile },
+         [ ],
+-        false
++        true
+     )
+ 
+     // 2.b Split the profile alignment into reference and query parts
+@@ -113,7 +113,7 @@
+         [ [], [] ],
+         [ [], [] ],
+         [ [], [] ],
+-        false
++        true
+     )
+ 
+     // 3.b Split the profile alignment into reference and query parts
 @@ -165,8 +165,10 @@
      emit:
      epang               = EPANG_PLACE.out.epang

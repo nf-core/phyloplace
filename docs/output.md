@@ -76,7 +76,7 @@ The MAFFT alignment strategy keeps the structure of the original reference align
 <summary>Output files</summary>
 
 - `clustalo/`
-  - `*.aln`: Full alignment, containing both reference and query sequences.
+  - `*.aln.gz`: Full alignment, containing both reference and query sequences.
 
 </details>
 
@@ -89,7 +89,7 @@ Since the resulting alignment contains both query and reference sequences it nee
 <summary>Output files</summary>
 
 - `mafft/`
-  - `*.fas`: Full alignment, containing both reference and query sequences.
+  - `*.fas.gz`: Full alignment, containing both reference and query sequences.
 - `epang/`
   - `*.query.fasta.gz`: Aligned query sequences in Fasta format.
   - `*.reference.fasta.gz`: Aligned query sequences in Fasta format.

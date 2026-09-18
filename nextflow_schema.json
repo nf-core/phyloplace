@@ -38,6 +38,7 @@
                     "type": "string",
                     "format": "file-path",
                     "mimetype": "text/plain",
+                    "pattern": "^(\\S+\\.(fa|fna|faa|fasta)(\\.gz)?|https?://\\S*/[^/.\\s]+)$",
                     "description": "Fasta file with sequences to be searched with HMM profiles.",
                     "help_text": "Sequences from this file matching an HMM profile, will be placed in the reference phylogeny corresponding to the HMM profile.",
                     "fa_icon": "fas fa-file-tsv"
@@ -66,6 +67,7 @@
                     "type": "string",
                     "format": "file-path",
                     "mimetype": "text/plain",
+                    "pattern": "^(\\S+\\.(fa|fna|faa|fasta)(\\.gz)?|https?://\\S*/[^/.\\s]+)$",
                     "description": "Fasta file with query sequences",
                     "fa_icon": "far fa-file-code"
                 },
@@ -73,6 +75,7 @@
                     "type": "string",
                     "format": "file-path",
                     "mimetype": "text/plain",
+                    "pattern": "^(\\S+\\.(aln|alnfaa|alnfna|fa|fna|faa|fasta|ph|phy|phylip)(\\.gz)?|https?://\\S*/[^/.\\s]+)$",
                     "description": "File with reference sequences. Any format supported by HMMER tools.",
                     "help_text": "If the sequences are not aligned, you need to provide an alignment option, e.g. --hmmfile. When refseqfile is FASTA and --taxonomy is not given, taxonomy is instead derived from each record's own header, GTDB-style ('>id taxonomy;string').",
                     "fa_icon": "far fa-file-code"
@@ -81,6 +84,7 @@
                     "type": "string",
                     "format": "file-path",
                     "mimetype": "text/plain",
+                    "pattern": "^(\\S+\\.hmm(\\.gz)?|https?://\\S*/[^/.\\s]+)$",
                     "description": "HMM file. If provided, will be used to align both the reference and query sequences.",
                     "fa_icon": "far fa-file-code"
                 },
@@ -88,6 +92,7 @@
                     "type": "string",
                     "format": "file-path",
                     "mimetype": "text/plain",
+                    "pattern": "^(\\S+\\.(newick|nwk|tree)(\\.gz)?|https?://\\S*/[^/.\\s]+)$",
                     "description": "Newick file with aligned reference sequences.",
                     "fa_icon": "far fa-file-code"
                 },
@@ -100,7 +105,7 @@
                     "type": "string",
                     "format": "file-path",
                     "mimetype": "text/tab-separated-values",
-                    "pattern": "^\\S+\\.tsv$",
+                    "pattern": "^(\\S+\\.tsv(\\.gz)?|https?://\\S*/[^/.\\s]+)$",
                     "description": "Tab-separated file with taxonomy assignments of reference sequences.",
                     "help_text": "The first column should consist of names of reference sequences, the second of taxonomy strings, e.g. 'Bacteria;Proteobacteria;Gammaproteobacteria;Enterobacterales;Enterobacteriaceae;Escherichia;Escherichia coli'. If omitted and refseqfile is FASTA, taxonomy is instead derived from each record's own header. If both are given, this file wins (a warning is logged if the headers also carry embedded taxonomy text).",
                     "fa_icon": "fas fa-file-tsv"
@@ -228,7 +233,8 @@
                     "format": "file-path",
                     "description": "Custom config file to supply to MultiQC.",
                     "fa_icon": "fas fa-cog",
-                    "hidden": true
+                    "hidden": true,
+                    "pattern": "^\\S+\\.(yml|yaml)$"
                 },
                 "multiqc_logo": {
                     "type": "string",
