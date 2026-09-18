@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Changed`
 
+- [#95](https://github.com/nf-core/phyloplace/pull/95) - Check the file name extension of every input file parameter, in samplesheets and individual parameters alike, instead of accepting any name; download URLs with no file name extension at all are still accepted (by @erikrikarddaniel)
 - [#95](https://github.com/nf-core/phyloplace/pull/95) - Write the Clustal Omega and MAFFT alignments gzipped, like the rest of the pipeline's intermediate files (by @erikrikarddaniel)
 
 ### `Fixed`
