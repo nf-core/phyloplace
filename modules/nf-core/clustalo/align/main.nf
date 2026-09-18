@@ -32,11 +32,11 @@ process CLUSTALO_ALIGN {
     def fhmm_batch   = hmm_batch ? "--hmm-batch=${hmm_batch}" : ""
     def fprofile1    = profile1  ? "--profile1=${profile1}"   : ""
     def fprofile2    = profile2  ? "--profile2=${profile2}"   : ""
-    // Compression is a separate step rather than `-o >(pigz ...)`: with a process
-    // substitution the shell does not wait for pigz, so the task can exit before pigz has
-    // flushed and leave a truncated .gz behind. Readers that tolerate a short gzip stream
-    // (EPA-NG among them) then hang on it instead of failing.
-    def compress_output = compress ? "pigz -p ${task.cpus} ${prefix}.aln" : ""
+    def write_output = compress ? "--force -o >(pigz -cp ${task.cpus} > ${prefix}.aln.gz) && wait \$!" : "-o ${prefix}.aln"
+    // Process substitution keeps alignment data separate from verbose stdout.
+    // Its status is not part of clustalo's status: wait for pigz before success.
+    // && preserves clustalo failures; wait propagates compression failures.
+    // --force permits opening the existing /dev/fd/<id> path.
     """
     clustalo \
         -i ${fasta} \
@@ -47,9 +47,7 @@ process CLUSTALO_ALIGN {
         ${fprofile2} \
         --threads=${task.cpus} \
         $args \
-        -o ${prefix}.aln
-
-    $compress_output
+        $write_output
     """
 
     stub:
