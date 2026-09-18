@@ -100,7 +100,7 @@
                     "type": "string",
                     "format": "file-path",
                     "mimetype": "text/tab-separated-values",
-                    "pattern": "^\\S+\\.tsv$",
+                    "pattern": "^\\S+\\.tsv(\\.gz)?$",
                     "description": "Tab-separated file with taxonomy assignments of reference sequences.",
                     "help_text": "The first column should consist of names of reference sequences, the second of taxonomy strings, e.g. 'Bacteria;Proteobacteria;Gammaproteobacteria;Enterobacterales;Enterobacteriaceae;Escherichia;Escherichia coli'. If omitted and refseqfile is FASTA, taxonomy is instead derived from each record's own header. If both are given, this file wins (a warning is logged if the headers also carry embedded taxonomy text).",
                     "fa_icon": "fas fa-file-tsv"

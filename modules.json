@@ -8,12 +8,14 @@
                     "clustalo/align": {
                         "branch": "master",
                         "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
-                        "installed_by": ["fasta_newick_epang_gappa"]
+                        "installed_by": ["fasta_newick_epang_gappa"],
+                        "patch": "modules/nf-core/clustalo/align/clustalo-align.diff"
                     },
                     "custom/resolvetaxonomy": {
                         "branch": "master",
                         "git_sha": "74be114b46468b8387826e7ffe5bf7c25ba2fc09",
-                        "installed_by": ["modules"]
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/custom/resolvetaxonomy/custom-resolvetaxonomy.diff"
                     },
                     "duckdb/table2parquet": {
                         "branch": "master",
@@ -23,7 +25,8 @@
                     "epang/place": {
                         "branch": "master",
                         "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
-                        "installed_by": ["fasta_newick_epang_gappa"]
+                        "installed_by": ["fasta_newick_epang_gappa"],
+                        "patch": "modules/nf-core/epang/place/epang-place.diff"
                     },
                     "epang/split": {
                         "branch": "master",
@@ -38,7 +41,8 @@
                     "gappa/examineassign": {
                         "branch": "master",
                         "git_sha": "7e678ba56e91b8b61b01ad8e94a6987db443f7e4",
-                        "installed_by": ["fasta_newick_epang_gappa"]
+                        "installed_by": ["fasta_newick_epang_gappa"],
+                        "patch": "modules/nf-core/gappa/examineassign/gappa-examineassign.diff"
                     },
                     "gappa/examinegraft": {
                         "branch": "master",
@@ -88,7 +92,8 @@
                     "mafft/align": {
                         "branch": "master",
                         "git_sha": "f0fc064c76250bf362d1900bbf8b62092f9f2a1b",
-                        "installed_by": ["fasta_newick_epang_gappa"]
+                        "installed_by": ["fasta_newick_epang_gappa"],
+                        "patch": "modules/nf-core/mafft/align/mafft-align.diff"
                     },
                     "multiqc": {
                         "branch": "master",

@@ -96,7 +96,7 @@ workflow FASTA_NEWICK_EPANG_GAPPA {
         [ ],
         ch_clustalo_data.map { it -> it.data.refseqfile },
         [ ],
-        false
+        true
     )
 
     // 2.b Split the profile alignment into reference and query parts
@@ -113,7 +113,7 @@ workflow FASTA_NEWICK_EPANG_GAPPA {
         [ [], [] ],
         [ [], [] ],
         [ [], [] ],
-        false
+        true
     )
 
     // 3.b Split the profile alignment into reference and query parts

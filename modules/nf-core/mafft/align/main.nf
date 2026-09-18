@@ -44,7 +44,7 @@ process MAFFT_ALIGN {
         ${addprofile_opt} \\
         ${addlong_opt} \\
         ${args} \\
-        ${fasta} \\
+        <(unpigz -cdf ${fasta}) \\
         ${write_output}
     """
 

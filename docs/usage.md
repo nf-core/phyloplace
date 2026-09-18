@@ -119,6 +119,18 @@ A few things worth knowing about this:
 - The samplesheet formats above support multiple rows, each with its own `refseqfile`/`taxonomy` pair -- this applies per row, not once globally.
 - If neither a `--taxonomy` file nor embedded header text is available, the pipeline proceeds without taxonomic classification, same as before -- this is not an error.
 
+## Compressed input files
+
+Every sequence, tree, profile and taxonomy file the pipeline reads may be gzipped, whether it is named in a samplesheet or given as an individual parameter.
+This covers `--queryseqfile`, `--refseqfile`, `--refphylogeny`, `--hmmfile`, `--taxonomy` and `--search_fasta`, along with the samplesheet columns of the same names.
+The samplesheets themselves (`--phyloplace_input`, `--phylosearch_input`) are the exception and stay uncompressed CSV.
+Mixing compressed and uncompressed files in one run is fine, including within a single samplesheet row.
+
+Compression is detected from the `.gz` suffix, so a gzipped file has to keep it: `refseqs.faa.gz`, not `refseqs.faa`.
+
+`xz` is not supported.
+HMMER's Easel cannot open an xz file at all, so the pipeline rejects one up front with an explicit error rather than letting it fail several steps in.
+
 ## Saving the per-domain hit table
 
 By default the pipeline keeps `hmmsearch`'s per-sequence hit table (`--tblout`) but not its per-domain one.

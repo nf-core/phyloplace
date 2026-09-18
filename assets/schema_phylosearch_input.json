@@ -16,7 +16,7 @@
             "hmm": {
                 "type": "string",
                 "format": "file-path",
-                "pattern": "^\\S+.hmm$",
+                "pattern": "^\\S+\\.hmm(\\.gz)?$",
                 "errorMessage": "HMMER HMM file to search sequences with."
             },
             "extract_hmm": {
