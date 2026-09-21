@@ -27,12 +27,12 @@ nextflow_pipeline {
         when {
             params {
                 outdir = "$outputDir"
-                def base = "https://github.com/nf-core/test-datasets/raw/phyloplace/testdata"
+                // Validation rejects the name before any file is read, so none needs to exist
                 def samplesheet = new File("$outputDir/phyloplace_input_zip.csv")
                 samplesheet.parentFile.mkdirs()
                 samplesheet.text = [
                     "sample,alignmethod,queryseqfile,refseqfile,refphylogeny,model,taxonomy,reftreename",
-                    "zip,hmmer,${base}/PF14720_3_sequences.faa.zip,${base}/PF14720_seed.alnfaa,${base}/PF14720_seed.ft.LGCAT.newick,LG,,"
+                    "zip,hmmer,PF14720_3_sequences.faa.zip,PF14720_seed.alnfaa,PF14720_seed.ft.LGCAT.newick,LG,,"
                 ].join('\n') + '\n'
                 phyloplace_input = samplesheet.toString()
                 queryseqfile     = null
