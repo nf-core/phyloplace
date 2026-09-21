@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
-- [#NN](https://github.com/nf-core/phyloplace/pull/NN) - Search with the profile named in `extract_hmm` also when a row's `target` equals the name of its `hmm` file, instead of silently searching with every profile in the file (by @erikrikarddaniel)
+- [#98](https://github.com/nf-core/phyloplace/pull/98) - Search with the profile named in `extract_hmm` also when a row's `target` equals the name of its `hmm` file, instead of silently searching with every profile in the file (by @erikrikarddaniel)
 - [#94](https://github.com/nf-core/phyloplace/pull/94) - Memory usage in `hmmer/hmmrank`, by rewriting it from an in-memory R script to streaming DuckDB SQL ([#93](https://github.com/nf-core/phyloplace/issues/93)) (by @erikrikarddaniel)
 
 ### `Dependencies`
