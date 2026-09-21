@@ -10,7 +10,7 @@ process HMMER_HMMEXTRACT {
         'quay.io/biocontainers/hmmer:3.4--hb6cb901_4' }"
 
     input:
-    tuple val(meta), path(hmm), val(key)
+    tuple val(meta), path(hmm, stageAs: 'input/*'), val(key)
 
     output:
     tuple val(meta), path("*.hmm"), emit: hmm
@@ -24,16 +24,7 @@ process HMMER_HMMEXTRACT {
     def prefix  = task.ext.prefix ?: "${meta.id}"
     def outfile = ! key ? '' : "> ${prefix}.hmm"
 
-    // Avoid accidentally overwriting the input hmm
-    def move    = ""
-    if ( "${prefix}.hmm" == "${hmm}" ) {
-        move    = "mv ${hmm} ${prefix}.in.hmm"
-        hmm     = "${prefix}.in.hmm"
-    }
-
     """
-    $move
-
     hmmfetch \\
         $args \\
         $hmm \\

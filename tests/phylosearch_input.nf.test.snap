@@ -93,7 +93,7 @@
                 "gappa/bac16s.taxonomy.sativa.tsv",
                 "hmmer",
                 "hmmer/arc.domtbl.gz",
-                "hmmer/arc.in.hmm",
+                "hmmer/arc.hmm",
                 "hmmer/arc.tbl.gz",
                 "hmmer/arc.txt.gz",
                 "hmmer/bac16s.domtbl.gz",
@@ -151,7 +151,7 @@
                 "arc.taxonomy.labelled_tree.newick:md5,88aad266c8ecd72275dcd8e1620520bc",
                 "bac16s.heattree.colours.txt:md5,02d6f8d81aff45fde65c684c6775bcdc",
                 "bac16s.taxonomy.labelled_tree.newick:md5,c0c614157f253b670b016966fa5f866e",
-                "arc.in.hmm:md5,c1b16c9c572f58b686b58e77329c639b",
+                "arc.hmm:md5,3688ae1a1599ec90fa2ea0e0f82ad174",
                 "bac16s.hmm:md5,a4dcd05876712b7bacddcdfb4662f6df",
                 "euk18s.hmm:md5,7257b503fc0eabe7cefef4e31cd6d8c4",
                 "euk28s.hmm:md5,5686ecd69ead0cabfefb74320d1207fb",
@@ -176,7 +176,7 @@
             54,
             11
         ],
-        "timestamp": "2026-09-18T13:49:17.233563601",
+        "timestamp": "2026-09-21T21:08:25.827337638",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.04.6"
