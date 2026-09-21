@@ -33,10 +33,8 @@ process CLUSTALO_ALIGN {
     def fprofile1    = profile1  ? "--profile1=${profile1}"   : ""
     def fprofile2    = profile2  ? "--profile2=${profile2}"   : ""
     def write_output = compress ? "--force -o >(pigz -cp ${task.cpus} > ${prefix}.aln.gz) && wait \$!" : "-o ${prefix}.aln"
-    // Process substitution keeps alignment data separate from verbose stdout.
-    // Its status is not part of clustalo's status: wait for pigz before success.
-    // && preserves clustalo failures; wait propagates compression failures.
-    // --force permits opening the existing /dev/fd/<id> path.
+    // The shell does not wait for a process substitution: without wait the task can end before pigz
+    // has finished, leaving a truncated .aln.gz. --force lets clustalo open the existing /dev/fd/<id> path.
     """
     clustalo \
         -i ${fasta} \

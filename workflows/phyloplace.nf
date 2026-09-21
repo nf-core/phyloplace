@@ -170,7 +170,7 @@ workflow PHYLOPLACE {
     //
     // SUBWORKFLOW: Run phylogenetic placement
     //
-    FASTA_NEWICK_EPANG_GAPPA(ch_phyloplace_data)
+    FASTA_NEWICK_EPANG_GAPPA(ch_phyloplace_data, true)
 
     //
     // MODULES: Summarise placements per reference tree too. `graft` can't merge several
