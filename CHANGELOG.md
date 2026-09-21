@@ -20,9 +20,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Dependencies`
 
-| software  | previously | now   |
-| --------- | ---------- | ----- |
-| nft-utils | 0.0.3      | 1.2.0 |
+| software     | previously | now   |
+| ------------ | ---------- | ----- |
+| duckdb-cli   |            | 1.5.5 |
+| gawk         |            | 5.3.1 |
+| gzip         |            | 1.13  |
+| nft-utils    | 0.0.3      | 1.2.0 |
+| r-base       | 4.2.3      |       |
+| r-data.table | 1.14.8     |       |
+| r-dtplyr     | 1.3.1      |       |
+| r-stringi    | 1.8.4      |       |
+| r-stringr    | 1.5.1      |       |
+| r-tidyverse  | 2.0.0      |       |
 
 ### `Deprecated`
 

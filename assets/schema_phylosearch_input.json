@@ -22,7 +22,7 @@
             "extract_hmm": {
                 "type": "string",
                 "pattern": "^\\S+$",
-                "errorMessage": "Name of HMM file in multi-HMM to extract."
+                "errorMessage": "Name of the profile to extract from a multi-profile HMM file."
             },
             "min_bitscore": {
                 "type": "integer",
@@ -51,7 +51,7 @@
                 "type": "string",
                 "pattern": "^\\S+$",
                 "enum": ["hmmer", "clustalo", "mafft"],
-                "errorMessage": "Method to use for aligning: 'hmmer', 'mafft' or 'clustalo'."
+                "errorMessage": "Method to use for aligning: 'hmmer', 'clustalo' or 'mafft'."
             },
             "taxonomy": {
                 "type": "string",

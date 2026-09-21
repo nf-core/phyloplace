@@ -29,7 +29,7 @@ The [Nextflow DSL2](https://www.nextflow.io/docs/latest/dsl2.html) implementatio
 Where possible, these processes have been submitted to and installed from [nf-core/modules](https://github.com/nf-core/modules) in order to make them available to all nf-core pipelines, and to everyone within the Nextflow community!
 
 On release, automated continuous integration tests run the pipeline on a full-sized dataset on the AWS cloud infrastructure.
-This ensures that the pipeline runs on AWS, has sensible resource allocation defaults set to run on real-world datasets, and permits the persistent storage of results to benchmark between pipeline releases and other analysis sources.The results obtained from the full-sized test can be viewed on the [nf-core website](https://nf-co.re/phyloplace/results).
+This ensures that the pipeline runs on AWS, has sensible resource allocation defaults set to run on real-world datasets, and permits the persistent storage of results to benchmark between pipeline releases and other analysis sources. The results obtained from the full-sized test can be viewed on the [nf-core website](https://nf-co.re/phyloplace/results).
 
 ## Pipeline summary
 
@@ -38,6 +38,8 @@ This ensures that the pipeline runs on AWS, has sensible resource allocation def
 3. Place query sequences in reference phylogeny with [`EPA-NG`](https://github.com/Pbdas/epa-ng).
 4. Graft query sequences onto the reference phylogeny with [`GAPPA`](https://github.com/lczech/gappa).
 5. If a classification of the reference sequences is provided, or can be derived from `--refseqfile`'s own FASTA headers, classify query sequences with [`GAPPA`](https://github.com/lczech/gappa).
+
+Input sequence, profile, tree and taxonomy files may be gzipped.
 
 <p align="center">
     <img src="docs/images/phyloplace_workflow.png" alt="nf-core/phyloplace workflow overview" width="60%">
@@ -81,8 +83,6 @@ For more details about the output files and reports, please refer to the
 ## Credits
 
 nf-core/phyloplace was originally written by Daniel Lundin.
-
-We thank the following people for their extensive assistance in the development of this pipeline:
 
 ## Contributions and Support
 

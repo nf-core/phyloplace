@@ -39,10 +39,10 @@ Alignment of query sequences is done either with [HMMER](http://hmmer.org/), [Cl
 
 #### HMMER
 
-In the "search and place" mode of the pipeline, `hmmsearch` output files as well as a `*.hmmrank.tsv.gz` summarising the search is output.
+In the "search and place" mode of the pipeline, `hmmsearch` output files as well as a `*.hmmrank.tsv.gz` summarising the search, are output.
 
 When using HMMER as the alignment program, a profile is first built, which is then used to align _both_ the query and reference sequences, hence the presence of alignment files for the reference sequences in the output.
-The realignment of the reference sequences is done because an alignment will likely result in a profile that doesn't exactly reflect the structure of the alignment in all parts.
+The reference sequences are realigned because a profile built from an alignment will rarely reflect the structure of that alignment in all parts.
 In particular, gappy positions in the original alignment will typically not be covered by the profile.
 These positions are often not phylogenetically informative or reliable.
 The MAFFT alignment strategy keeps the structure of the original reference alignment.
@@ -51,39 +51,51 @@ The MAFFT alignment strategy keeps the structure of the original reference align
 <summary>Output files</summary>
 
 - `hmmer/`
-  - `*.query.hmmalign.sthlm.gz`: Query sequences aligned to reference HMM, in [Stockholm format](https://sonnhammer.sbc.su.se/Stockholm.html).
+  - `*.query.hmmalign.sto.gz`: Query sequences aligned to reference HMM, in [Stockholm format](https://sonnhammer.sbc.su.se/Stockholm.html).
   - `*.query.hmmalign.masked.sthlm.gz`: Masked query sequence alignment, in Stockholm format.
   - `*.query.hmmalign.masked.afa.gz`: Masked query sequence alignment, in Fasta format.
-  - `*.ref.hmmalign.sthlm.gz`: Reference sequences aligned to reference HMM, in [Stockholm format](https://sonnhammer.sbc.su.se/Stockholm.html).
-  - `*.ref.hmmalign.masked.sthlm.gz`: Masked query sequence alignment, in Stockholm format.
-  - `*.ref.hmmalign.masked.afa.gz`: Masked query sequence alignment, in Fasta format.
+  - `*.ref.hmmalign.sto.gz`: Reference sequences aligned to reference HMM, in [Stockholm format](https://sonnhammer.sbc.su.se/Stockholm.html).
+  - `*.ref.hmmalign.masked.sthlm.gz`: Masked reference sequence alignment, in Stockholm format.
+  - `*.ref.hmmalign.masked.afa.gz`: Masked reference sequence alignment, in Fasta format.
   - `*.ref.hmmbuild.txt`: Log from HMM profile build.
   - `*.ref.hmm.gz`: HMM profile made from the reference alignment, if not provided using the `hmmfile` parameter.
   - `*.ref.unaligned.afa.gz`: "Unaligned", i.e. without gap characters, reference sequences in Fasta format.
-  - `*.tbl.gz`: Per-sequence hit table (`--tblout`) for individual `hmmsearch` runs in "search and place" mode
+  - `*.hmm`: Profiles extracted from a multi-profile `hmm` file with the `extract_hmm` sample sheet column, in "search and place" mode.
+  - `*.tbl.gz`: Per-sequence hit table (`--tblout`) for individual `hmmsearch` runs in "search and place" mode.
   - `*.domtbl.gz`: Per-domain hit table (`--domtblout`) for individual `hmmsearch` runs in "search and place" mode, only written when `--save_domtblout` is set.
     Unlike the per-sequence table, this one carries alignment coordinates for each domain, which are needed to work out profile coverage or to find genes split over several ORFs.
-  - `*.txt.gz`: Standard, human-readable, format results for individual `hmmsearch` runs in "search and place" mode
+  - `*.txt.gz`: Standard, human-readable, format results for individual `hmmsearch` runs in "search and place" mode.
+  - `*.tblout.tsv.gz`, `*.domtblout.tsv.gz`: The per-sequence and per-domain hit tables of all profiles, combined into one tab-separated file each; the per-domain one only when `--save_domtblout` is set.
   - `*.hmmrank.tsv.gz`: Summarised `hmmsearch` results, one row per sequence and profile, ranking the profiles that matched each sequence.
     When `--save_domtblout` is set, each row also carries the sequence and profile lengths (`tlen`, `qlen`) and, for each of the `hmm`, `ali` and `env` coordinate sets, the match bounds (`x_from`, `x_to`), the covered length (`x_len`) and the number of separate stretches it falls into (`x_n_islands`) -- e.g. profile coverage is `hmm_len / qlen`.
     Rows whose hit cleared the per-sequence threshold but has no domain records of its own (possible, since `--domtblout` uses a stricter per-domain threshold) carry `NA` in all of these columns instead.
+- `duckdb/`
+  - `*.tblout.parquet`, `*.domtblout.parquet`: The same combined hit tables, in Parquet format.
+- `seqtk/`
+  - `*.fa.gz`: The sequences whose best hit was each profile, in Fasta format. These are the query sequences for placement.
 
 </details>
 
 #### Clustal Omega
+
+Clustal Omega aligns the query sequences to the reference alignment as a profile.
+Since the resulting alignment contains both query and reference sequences it needs to be split, which is done with EPA-NG, which places two files in the `epang` directory.
 
 <details markdown="1">
 <summary>Output files</summary>
 
 - `clustalo/`
   - `*.aln.gz`: Full alignment, containing both reference and query sequences.
+- `epang/`
+  - `*.query.fasta.gz`: Aligned query sequences in Fasta format.
+  - `*.reference.fasta.gz`: Aligned reference sequences in Fasta format.
 
 </details>
 
 #### MAFFT
 
-When MAFFT is used for alignment, it us run with the `--keeplength` option to ensure the structure of the query alignment is identical to the reference alignment.
-Since the resulting alignment contains both query and reference sequences it needs to be split, which is done with EPA-NG which places two files in the `epang` directory.
+When MAFFT is used for alignment, it is run with the `--keeplength` option to ensure the structure of the query alignment is identical to the reference alignment.
+Since the resulting alignment contains both query and reference sequences it needs to be split, which is done with EPA-NG, which places two files in the `epang` directory.
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -92,7 +104,7 @@ Since the resulting alignment contains both query and reference sequences it nee
   - `*.fas.gz`: Full alignment, containing both reference and query sequences.
 - `epang/`
   - `*.query.fasta.gz`: Aligned query sequences in Fasta format.
-  - `*.reference.fasta.gz`: Aligned query sequences in Fasta format.
+  - `*.reference.fasta.gz`: Aligned reference sequences in Fasta format.
 
 </details>
 
@@ -121,8 +133,8 @@ Third, if a classification of the reference sequences is available (see [Taxonom
 
 - `gappa/`
   - `*.graft.newick`: Full phylogeny with query sequences grafted on to the reference phylogeny.
-  - `*.heattree.*`: Files from calling `gappa examine heattree`, see [Gappa documentation](https://github.com/Pbdas/epa-ng/blob/master/README.md) for details.
-  - `*.taxonomy.*`: Classification files from calling `gappa examine examinassign`, see [Gappa documentation](https://github.com/Pbdas/epa-ng/blob/master/README.md) for details.
+  - `*.heattree.*`: Files from calling `gappa examine heat-tree`, see the [Gappa documentation](https://github.com/lczech/gappa/wiki/Subcommand:-heat-tree) for details.
+  - `*.taxonomy.*`: Classification files from calling `gappa examine assign`, see the [Gappa documentation](https://github.com/lczech/gappa/wiki/Subcommand:-assign) for details.
 
 </details>
 
@@ -165,7 +177,7 @@ Results generated by MultiQC collate pipeline QC from supported tools e.g. FastQ
 
 - `pipeline_info/`
   - Reports generated by Nextflow: `execution_report.html`, `execution_timeline.html`, `execution_trace.txt` and `pipeline_dag.dot`/`pipeline_dag.svg`.
-  - Reports generated by the pipeline: `pipeline_report.html`, `pipeline_report.txt` and `software_versions.yml`. The `pipeline_report*` files will only be present if the `--email` / `--email_on_fail` parameter's are used when running the pipeline.
+  - Reports generated by the pipeline: `pipeline_report.html`, `pipeline_report.txt` and `software_versions.yml`. The `pipeline_report*` files will only be present if the `--email` / `--email_on_fail` parameters are used when running the pipeline.
   - Reformatted samplesheet files used as input to the pipeline: `samplesheet.valid.csv`.
   - Parameters used by the pipeline run: `params.json`.
 
