@@ -60,8 +60,8 @@
             },
             [
                 "clustalo",
-                "clustalo/arc16s.aln",
-                "clustalo/bac16s.aln",
+                "clustalo/arc16s.aln.gz",
+                "clustalo/bac16s.aln.gz",
                 "duckdb",
                 "duckdb/rank.tblout.parquet",
                 "epang",
@@ -141,8 +141,8 @@
                 "seqtk/bac16s.fa.gz"
             ],
             [
-                "arc16s.aln:md5,ddf6ca1b7f4484bbe45126e6d00f03b6",
-                "bac16s.aln:md5,a75c1b85f66dd2ed8a06ba1c586e0b97",
+                "arc16s.aln.gz:md5,ddf6ca1b7f4484bbe45126e6d00f03b6",
+                "bac16s.aln.gz:md5,a75c1b85f66dd2ed8a06ba1c586e0b97",
                 "rank.tblout.parquet:md5,8c2f3d4b5c73a6df4caf2ef660066ce5",
                 "arc16s.query.fasta.gz:md5,422bbb9834338b72bd9d8b4054027057",
                 "arc16s.reference.fasta.gz:md5,04c8ed3903b8ff3edb50eb1da619a66b",
@@ -172,9 +172,9 @@
             82,
             187
         ],
-        "timestamp": "2026-09-17T12:50:11.035096291",
+        "timestamp": "2026-09-18T13:50:28.618241141",
         "meta": {
-            "nf-test": "0.9.5",
+            "nf-test": "0.9.4",
             "nextflow": "26.04.6"
         }
     }

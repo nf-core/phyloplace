@@ -35,9 +35,14 @@ def indentBlock(text, indent) {
 }
 
 // Only FASTA headers can carry embedded taxonomy text (GTDB-style `>id taxonomy;string`),
-// so this gates whether CUSTOM_RESOLVETAXONOMY runs on a row at all.
+// so this gates whether CUSTOM_RESOLVETAXONOMY runs on a row at all. A gzipped file has to be
+// read through the decompressor, or its raw bytes sniff as "not FASTA" and the row silently
+// skips taxonomy resolution instead of failing.
 def isFastaFile(path) {
-    path.withReader { reader -> reader.readLine()?.trim()?.startsWith('>') } ?: false
+    def stream = path.name.endsWith('.gz')
+        ? new java.util.zip.GZIPInputStream(path.newInputStream())
+        : path.newInputStream()
+    stream.withReader { reader -> reader.readLine()?.trim()?.startsWith('>') } ?: false
 }
 
 // Wrap a GAPPA heat tree SVG in a MultiQC custom content file, skipping embedding above
@@ -165,7 +170,7 @@ workflow PHYLOPLACE {
     //
     // SUBWORKFLOW: Run phylogenetic placement
     //
-    FASTA_NEWICK_EPANG_GAPPA(ch_phyloplace_data)
+    FASTA_NEWICK_EPANG_GAPPA(ch_phyloplace_data, true)
 
     //
     // MODULES: Summarise placements per reference tree too. `graft` can't merge several

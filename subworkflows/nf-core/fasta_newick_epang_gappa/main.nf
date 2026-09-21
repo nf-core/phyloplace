@@ -19,6 +19,7 @@ workflow FASTA_NEWICK_EPANG_GAPPA {
 
     take:
     ch_pp_data // channel: [ meta: val(meta), data: [ alignmethod: val(alignmethod), queryseqfile: file(queryseqfile), refseqfile: file(refseqfile), refphylogeny: file(refphylogeny), hmmfile: file(hmmfile), model: val(model) ] ]
+    compress_alignment // value: boolean, write the clustalo and mafft alignments gzipped
 
     main:
 
@@ -96,7 +97,7 @@ workflow FASTA_NEWICK_EPANG_GAPPA {
         [ ],
         ch_clustalo_data.map { it -> it.data.refseqfile },
         [ ],
-        false
+        compress_alignment
     )
 
     // 2.b Split the profile alignment into reference and query parts
@@ -113,7 +114,7 @@ workflow FASTA_NEWICK_EPANG_GAPPA {
         [ [], [] ],
         [ [], [] ],
         [ [], [] ],
-        false
+        compress_alignment
     )
 
     // 3.b Split the profile alignment into reference and query parts
