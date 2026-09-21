@@ -187,9 +187,9 @@ workflow PIPELINE_INITIALISATION {
     }
 
     emit:
-    phyloplace_data  = ch_phyloplace_data.map { row -> rejectXzRow(row) }
-    phylosearch_data = ch_phylosearch_data.map { row -> rejectXzRow(row) }
-    sequence_fasta   = ch_sequence_fasta.map { fasta -> rejectXz('--search_fasta', fasta) ; fasta }
+    phyloplace_data  = ch_phyloplace_data
+    phylosearch_data = ch_phylosearch_data
+    sequence_fasta   = ch_sequence_fasta
     versions         = ch_versions
 }
 
@@ -246,21 +246,6 @@ workflow PIPELINE_COMPLETION {
 //
 // Check and validate pipeline parameters
 //
-//
-// Gzip is read natively by every tool in the chain, but HMMER's Easel cannot open xz at all,
-// so an xz input would otherwise fail several processes deep with a "misformatted file" error.
-//
-def rejectXz(label, value) {
-    if (value && value.toString().endsWith('.xz')) {
-        error("${label} is xz-compressed (${value}). Only gzip-compressed and uncompressed input are supported.")
-    }
-}
-
-def rejectXzRow(row) {
-    row.data.each { field, value -> rejectXz("Row '${row.meta.id}', ${field},", value) }
-    row
-}
-
 def validateInputParameters() {
 }
 

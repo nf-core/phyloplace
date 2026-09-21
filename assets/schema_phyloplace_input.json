@@ -17,25 +17,25 @@
                 "type": "string",
                 "format": "file-path",
                 "pattern": "^(\\S+\\.(fa|fna|faa|fasta)(\\.gz)?|https?://\\S*/[^/.\\s]+)$",
-                "errorMessage": "File with query sequences to place in phylogeny. Any format supported by hmmaline in HMMER (e.g. fasta, clustal, phylip, stockholm) or MAFFT."
+                "errorMessage": "FASTA file with query sequences: extension .fa, .fna, .faa or .fasta, optionally gzipped (.gz). xz is not supported."
             },
             "refseqfile": {
                 "type": "string",
                 "format": "file-path",
-                "pattern": "^(\\S+\\.(aln|alnfaa|alnfna|fa|fna|faa|fasta|ph|phy|phylip)(\\.gz)?|https?://\\S*/[^/.\\s]+)$",
-                "errorMessage": "Multiple sequence alignment of reference sequences. Any format supported by hmmbuild in HMMER (see queryfile for examples) or MAFFT."
+                "pattern": "^(\\S+\\.(aln|alnfa|alnfaa|alnfna|mfa|fa|fna|faa|fasta|ph|phy|phylip)(\\.gz)?|https?://\\S*/[^/.\\s]+)$",
+                "errorMessage": "Multiple sequence alignment of the reference sequences: extension .aln, .alnfa, .alnfaa, .alnfna, .mfa, .fa, .fna, .faa, .fasta, .ph, .phy or .phylip, optionally gzipped (.gz). xz is not supported."
             },
             "refphylogeny": {
                 "type": "string",
                 "format": "file-path",
                 "pattern": "^(\\S+\\.(newick|nwk|tree)(\\.gz)?|https?://\\S*/[^/.\\s]+)$",
-                "errorMessage": "Newick formatted file with the reference phylogeny."
+                "errorMessage": "Newick file with the reference phylogeny: extension .newick, .nwk or .tree, optionally gzipped (.gz). xz is not supported."
             },
             "hmmfile": {
                 "type": "string",
                 "format": "file-path",
-                "pattern": "^(\\S+\\.hmm(\\.gz)?|https?://\\S*/[^/.\\s]+)$",
-                "errorMessage": "HMM file to use for alignment, if the reference sequences are not aligned."
+                "pattern": "^(\\S+\\.(hmm)(\\.gz)?|https?://\\S*/[^/.\\s]+)$",
+                "errorMessage": "HMM profile file: extension .hmm, optionally gzipped (.gz). xz is not supported."
             },
             "model": {
                 "type": "string",
@@ -51,8 +51,8 @@
             "taxonomy": {
                 "type": "string",
                 "format": "file-path",
-                "pattern": "^(\\S+\\.tsv(\\.gz)?|https?://\\S*/[^/.\\s]+)$",
-                "errorMessage": "Optional TSV file with taxonomy information."
+                "pattern": "^(\\S+\\.(tsv|tax)(\\.gz)?|https?://\\S*/[^/.\\s]+)$",
+                "errorMessage": "Optional tab-separated taxonomy file: extension .tsv or .tax, optionally gzipped (.gz). xz is not supported."
             },
             "reftreename": {
                 "type": "string",
