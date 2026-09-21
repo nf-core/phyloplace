@@ -34,6 +34,6 @@ Changes in 'fasta_newick_epang_gappa/main.nf':
  }
 
 'subworkflows/nf-core/fasta_newick_epang_gappa/tests/nextflow.config' is unchanged
-'subworkflows/nf-core/fasta_newick_epang_gappa/tests/main.nf.test.snap' is unchanged
 'subworkflows/nf-core/fasta_newick_epang_gappa/tests/main.nf.test' is unchanged
+'subworkflows/nf-core/fasta_newick_epang_gappa/tests/main.nf.test.snap' is unchanged
 ************************************************************
