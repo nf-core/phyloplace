@@ -206,10 +206,10 @@
                 "resolvetaxonomy/nuc_mafft.warnings.txt"
             ],
             [
-                "PF14720mafft.query.fasta.gz:md5,ff1159ff8a5d2587fb20309a81da3c29",
-                "PF14720mafft.reference.fasta.gz:md5,e7753871101c48c42fc417ce0e9b398a",
-                "nuc_mafft.query.fasta.gz:md5,2baad0ba34b2e9dc3fed7de404723dd0",
-                "nuc_mafft.reference.fasta.gz:md5,7501f39ac2768edf72df4271b2bc81a3",
+                "PF14720mafft.query.fasta.gz:md5,2761ba0d5a249bf44b6fbdf29492c518",
+                "PF14720mafft.reference.fasta.gz:md5,1c9f3619abacd50a6ea2bd7d31671520",
+                "nuc_mafft.query.fasta.gz:md5,c85a9edad24d367f91305e2cc6b412f4",
+                "nuc_mafft.reference.fasta.gz:md5,7bce7fe7874d465a7cf42c3fa781e169",
                 "PF14720.joint.heattree.colours.txt:md5,694154016a0e5ab7494ceb59dce0f444",
                 "PF14720.joint.taxonomy.labelled_tree.newick:md5,39de8a46303ea757f6eb94478db1ffe0",
                 "PF14720mafft.heattree.colours.txt:md5,7704cd341c8693981253ba6d740c1061",
@@ -241,8 +241,8 @@
                 "nuc_hmmer.ref.hmmalign.masked.sthlm.gz:md5,d7b5c3a226f1cd372709097be4711d6d",
                 "nuc_hmmer.ref.hmmalign.sto.gz:md5,a7b41fbd6f915854ec3c67ea3d333e9c",
                 "nuc_hmmer.ref.unaligned.afa.gz:md5,3cc3e86ece1474c03803c1c3c3810129",
-                "PF14720mafft.fas.gz:md5,30090ede37d92efe6000c5d1436f6b26",
-                "nuc_mafft.fas.gz:md5,6c36484acde5e80b9f1bbe4a4bc132e6",
+                "PF14720mafft.fas.gz:md5,5a41d3443ea56b4b9105d8190043e37e",
+                "nuc_mafft.fas.gz:md5,bacfb002890232c90656238ff2e28116",
                 "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
                 "PF14720mafft.resolved.alnfaa:md5,6a8a43da1544439c127bf52ac5167b41",
                 "PF14720mafft.resolved.tax:md5,9fb30dd6893e5a968f4403ad3c035bd2",
@@ -270,7 +270,7 @@
             5,
             5
         ],
-        "timestamp": "2026-09-18T13:48:11.220067125",
+        "timestamp": "2026-09-21T20:48:16.303578127",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.04.6"

@@ -34,4 +34,27 @@ nextflow_pipeline {
             )
         }
     }
+
+    test("-profile test_mafft, query with an insertion") {
+
+        when {
+            params {
+                outdir = "$outputDir"
+                // E1QGS5_DESB2 from the reference alignment, ungapped, with 20 W inserted: MAFFT adds
+                // columns for the insertion unless run with --keeplength
+                def query = new File("$outputDir/insertion.faa")
+                query.parentFile.mkdirs()
+                query.text = ">insertion\nYGATIHDKCPRRAHFEEAEFVKRFGDEGAINGWCLFEMGC${'W' * 20}KGPDTHNNCSLVKFNDGTNWPVGAGHPCLGCSEPQFWDNMAPFY\n"
+                queryseqfile = query.toString()
+            }
+        }
+
+        then {
+            def widths = { fasta -> fasta.values()*.length().unique() }
+            assertAll(
+                { assert workflow.success },
+                { assert widths(path("${params.outdir}/mafft/placement.fas.gz").fasta) == widths(path("${params.outdir}/resolvetaxonomy/placement.resolved.alnfaa").fasta) }
+            )
+        }
+    }
 }
