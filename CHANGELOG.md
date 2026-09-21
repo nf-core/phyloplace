@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
-- [#95](https://github.com/nf-core/phyloplace/pull/95) - Accept gzipped input files throughout the pipeline, for every samplesheet column and individual file parameter alike; `xz`-compressed input is rejected up front, since HMMER cannot read it ([#76](https://github.com/nf-core/phyloplace/issues/76)) (by @erikrikarddaniel)
+- [#95](https://github.com/nf-core/phyloplace/pull/95) - Accept gzipped input files throughout the pipeline, for every samplesheet column and individual file parameter alike ([#76](https://github.com/nf-core/phyloplace/issues/76)) (by @erikrikarddaniel)
 
 ### `Changed`
 

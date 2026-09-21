@@ -42,7 +42,7 @@
                     "description": "Fasta file with sequences to be searched with HMM profiles.",
                     "help_text": "Sequences from this file matching an HMM profile, will be placed in the reference phylogeny corresponding to the HMM profile.",
                     "fa_icon": "fas fa-file-tsv",
-                    "errorMessage": "FASTA file to search with the HMM profiles: extension .fa, .fna, .faa or .fasta, optionally gzipped (.gz). xz is not supported."
+                    "errorMessage": "FASTA file to search with the HMM profiles: extension .fa, .fna, .faa or .fasta, optionally gzipped (.gz); no other compression format is supported."
                 },
                 "save_domtblout": {
                     "type": "boolean",
@@ -71,7 +71,7 @@
                     "pattern": "^(\\S+\\.(fa|fna|faa|fasta)(\\.gz)?|https?://\\S*/[^/.\\s]+)$",
                     "description": "Fasta file with query sequences",
                     "fa_icon": "far fa-file-code",
-                    "errorMessage": "FASTA file with query sequences: extension .fa, .fna, .faa or .fasta, optionally gzipped (.gz). xz is not supported."
+                    "errorMessage": "FASTA file with query sequences: extension .fa, .fna, .faa or .fasta, optionally gzipped (.gz); no other compression format is supported."
                 },
                 "refseqfile": {
                     "type": "string",
@@ -81,7 +81,7 @@
                     "description": "File with reference sequences. Any format supported by HMMER tools.",
                     "help_text": "If the sequences are not aligned, you need to provide an alignment option, e.g. --hmmfile. When refseqfile is FASTA and --taxonomy is not given, taxonomy is instead derived from each record's own header, GTDB-style ('>id taxonomy;string').",
                     "fa_icon": "far fa-file-code",
-                    "errorMessage": "Multiple sequence alignment of the reference sequences: extension .aln, .alnfa, .alnfaa, .alnfna, .mfa, .fa, .fna, .faa, .fasta, .ph, .phy or .phylip, optionally gzipped (.gz). xz is not supported."
+                    "errorMessage": "Multiple sequence alignment of the reference sequences: extension .aln, .alnfa, .alnfaa, .alnfna, .mfa, .fa, .fna, .faa, .fasta, .ph, .phy or .phylip, optionally gzipped (.gz); no other compression format is supported."
                 },
                 "hmmfile": {
                     "type": "string",
@@ -90,7 +90,7 @@
                     "pattern": "^(\\S+\\.(hmm)(\\.gz)?|https?://\\S*/[^/.\\s]+)$",
                     "description": "HMM file. If provided, will be used to align both the reference and query sequences.",
                     "fa_icon": "far fa-file-code",
-                    "errorMessage": "HMM profile file: extension .hmm, optionally gzipped (.gz). xz is not supported."
+                    "errorMessage": "HMM profile file: extension .hmm, optionally gzipped (.gz); no other compression format is supported."
                 },
                 "refphylogeny": {
                     "type": "string",
@@ -99,7 +99,7 @@
                     "pattern": "^(\\S+\\.(newick|nwk|tree)(\\.gz)?|https?://\\S*/[^/.\\s]+)$",
                     "description": "Newick file with aligned reference sequences.",
                     "fa_icon": "far fa-file-code",
-                    "errorMessage": "Newick file with the reference phylogeny: extension .newick, .nwk or .tree, optionally gzipped (.gz). xz is not supported."
+                    "errorMessage": "Newick file with the reference phylogeny: extension .newick, .nwk or .tree, optionally gzipped (.gz); no other compression format is supported."
                 },
                 "model": {
                     "type": "string",
@@ -114,7 +114,7 @@
                     "description": "Tab-separated file with taxonomy assignments of reference sequences.",
                     "help_text": "The first column should consist of names of reference sequences, the second of taxonomy strings, e.g. 'Bacteria;Proteobacteria;Gammaproteobacteria;Enterobacterales;Enterobacteriaceae;Escherichia;Escherichia coli'. If omitted and refseqfile is FASTA, taxonomy is instead derived from each record's own header. If both are given, this file wins (a warning is logged if the headers also carry embedded taxonomy text).",
                     "fa_icon": "fas fa-file-tsv",
-                    "errorMessage": "Optional tab-separated taxonomy file: extension .tsv or .tax, optionally gzipped (.gz). xz is not supported."
+                    "errorMessage": "Optional tab-separated taxonomy file: extension .tsv or .tax, optionally gzipped (.gz); no other compression format is supported."
                 },
                 "outdir": {
                     "type": "string",

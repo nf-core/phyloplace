@@ -17,7 +17,7 @@
                 "type": "string",
                 "format": "file-path",
                 "pattern": "^(\\S+\\.(hmm)(\\.gz)?|https?://\\S*/[^/.\\s]+)$",
-                "errorMessage": "HMM profile file: extension .hmm, optionally gzipped (.gz). xz is not supported."
+                "errorMessage": "HMM profile file: extension .hmm, optionally gzipped (.gz); no other compression format is supported."
             },
             "extract_hmm": {
                 "type": "string",
@@ -34,13 +34,13 @@
                 "type": "string",
                 "format": "file-path",
                 "pattern": "^(\\S+\\.(aln|alnfa|alnfaa|alnfna|mfa|fa|fna|faa|fasta|ph|phy|phylip)(\\.gz)?|https?://\\S*/[^/.\\s]+)$",
-                "errorMessage": "Multiple sequence alignment of the reference sequences: extension .aln, .alnfa, .alnfaa, .alnfna, .mfa, .fa, .fna, .faa, .fasta, .ph, .phy or .phylip, optionally gzipped (.gz). xz is not supported."
+                "errorMessage": "Multiple sequence alignment of the reference sequences: extension .aln, .alnfa, .alnfaa, .alnfna, .mfa, .fa, .fna, .faa, .fasta, .ph, .phy or .phylip, optionally gzipped (.gz); no other compression format is supported."
             },
             "refphylogeny": {
                 "type": "string",
                 "format": "file-path",
                 "pattern": "^(\\S+\\.(newick|nwk|tree)(\\.gz)?|https?://\\S*/[^/.\\s]+)$",
-                "errorMessage": "Newick file with the reference phylogeny: extension .newick, .nwk or .tree, optionally gzipped (.gz). xz is not supported."
+                "errorMessage": "Newick file with the reference phylogeny: extension .newick, .nwk or .tree, optionally gzipped (.gz); no other compression format is supported."
             },
             "model": {
                 "type": "string",
@@ -57,7 +57,7 @@
                 "type": "string",
                 "format": "file-path",
                 "pattern": "^(\\S+\\.(tsv|tax)(\\.gz)?|https?://\\S*/[^/.\\s]+)$",
-                "errorMessage": "Optional tab-separated taxonomy file: extension .tsv or .tax, optionally gzipped (.gz). xz is not supported."
+                "errorMessage": "Optional tab-separated taxonomy file: extension .tsv or .tax, optionally gzipped (.gz); no other compression format is supported."
             },
             "reftreename": {
                 "type": "string",

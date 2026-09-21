@@ -5,34 +5,34 @@ nextflow_pipeline {
     tag "pipeline"
     profile "test"
 
-    test("-profile test, xz-compressed --queryseqfile is rejected") {
+    test("-profile test, zip-compressed --queryseqfile is rejected") {
 
         when {
             params {
                 outdir       = "$outputDir"
-                queryseqfile = "${params.pipelines_testdata_base_path}phyloplace/testdata/PF14720_3_sequences.faa.xz"
+                queryseqfile = "${params.pipelines_testdata_base_path}phyloplace/testdata/PF14720_3_sequences.faa.zip"
             }
         }
 
         then {
             assertAll(
                 { assert workflow.failed },
-                { assert (workflow.stdout + workflow.stderr).any { it.contains('xz is not supported') } }
+                { assert (workflow.stdout + workflow.stderr).any { it.contains('no other compression format is supported') } }
             )
         }
     }
 
-    test("-profile test, xz-compressed samplesheet column is rejected") {
+    test("-profile test, zip-compressed samplesheet column is rejected") {
 
         when {
             params {
                 outdir = "$outputDir"
                 def base = "https://github.com/nf-core/test-datasets/raw/phyloplace/testdata"
-                def samplesheet = new File("$outputDir/phyloplace_input_xz.csv")
+                def samplesheet = new File("$outputDir/phyloplace_input_zip.csv")
                 samplesheet.parentFile.mkdirs()
                 samplesheet.text = [
                     "sample,alignmethod,queryseqfile,refseqfile,refphylogeny,model,taxonomy,reftreename",
-                    "xz,hmmer,${base}/PF14720_3_sequences.faa.xz,${base}/PF14720_seed.alnfaa,${base}/PF14720_seed.ft.LGCAT.newick,LG,,"
+                    "zip,hmmer,${base}/PF14720_3_sequences.faa.zip,${base}/PF14720_seed.alnfaa,${base}/PF14720_seed.ft.LGCAT.newick,LG,,"
                 ].join('\n') + '\n'
                 phyloplace_input = samplesheet.toString()
                 queryseqfile     = null
@@ -46,7 +46,7 @@ nextflow_pipeline {
         then {
             assertAll(
                 { assert workflow.failed },
-                { assert (workflow.stdout + workflow.stderr).any { it.contains('xz is not supported') } }
+                { assert (workflow.stdout + workflow.stderr).any { it.contains('no other compression format is supported') } }
             )
         }
     }
