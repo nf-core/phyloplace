@@ -13,7 +13,7 @@ One of the outputs from the pipeline is nevertheless a full phylogeny containing
 
 Placement is performed with the [EPA-NG](https://github.com/Pbdas/epa-ng/blob/master/README.md) program after query sequences have been aligned to the reference alignment.
 
-The pipeline can either take parameters on the command line (or in a `params.yaml` file, see below) to perform a single placement, or a sample `csv` file that can accomodate parameters for several placements.
+The pipeline can either take parameters on the command line (or in a `params.yaml` file, see below) to perform a single placement, or a sample `csv` file that can accommodate parameters for several placements.
 There are two different types of sample `csv` files, one for direct phylogenetic placement (`--phyloplace_input`), the other for search followed by phylogenetic placement (`--phylosearch_input`).
 
 ## Parameter input
@@ -21,7 +21,7 @@ There are two different types of sample `csv` files, one for direct phylogenetic
 At minimum, four parameters are required:
 
 1. `--queryseqfile`: A fasta formatted file with sequences to place.
-2. `--refseqfile`: Reference sequences, several popular formats supported e.g. aligned fasta and phylip. Unless when specifying an `--hmmfile`, the sequences needs to be aligned.
+2. `--refseqfile`: Reference sequences, several popular formats supported e.g. aligned fasta and phylip. The sequences need to be aligned, except with `--hmmfile`, where they must be unaligned.
 3. `--refphylogeny`: Reference phylogeny.
 4. `--model`: Evolutionary model used when estimating the phylogeny, e.g. "LG+F+R6".
 
@@ -30,7 +30,7 @@ A few more parameters can be used to control execution, see the [parameter docum
 ## Samplesheet input for phylogenetic placement
 
 Each of the four parameters mentioned above can be specified as columns in a comma separated sample sheet instead.
-In addition, a `sample` column needs to be present and the columns `taxonomy`, `alignmethod`, `hmmfile` and `reftreename` refering to the parameters with the same names can be included.
+In addition, a `sample` column needs to be present and the columns `taxonomy`, `alignmethod`, `hmmfile` and `reftreename` referring to the parameters with the same names can be included.
 
 ```bash
 --phyloplace_input '[path to samplesheet file]'
@@ -48,12 +48,15 @@ This mode of the pipeline starts by searching a fasta file with a set of HMMER `
 The results are then passed to phylogenetic placement.
 The samplesheet for this mode hence needs to contain paths to `hmm` files plus the phylogenetic placement information.
 
-:::note
-If an `hmm` file is not accompanied by a reference tree, plus the associated information, this will be used to search, but not phylogenetic placement, and the sequences will appear in a result table.
-In the below example, the `rnr` entry will only be used for searching, while the other two will be both searched for and placed.)
-:::
+> [!NOTE]
+> A row without a reference tree and its associated files is used for searching only, not for placement; its hits still appear in the result table.
+> In the example below, the `rnr` row is only searched for, while the other two are both searched for and placed.
 
-The rest of the sample sheet is like the one for phylogenetic placement only.
+The placement columns are the same as in the sample sheet for phylogenetic placement only.
+Two further optional columns control the search:
+
+- `extract_hmm`: the name of one profile to extract from a multi-profile `hmm` file, instead of searching with the whole file.
+- `min_bitscore`: the minimum bit score for a hit to this profile, passed to `hmmsearch` as `--incT`.
 
 In addition to the sample sheet, this mode requires that a fasta file to search is provided via the `--search_fasta` parameter.
 
@@ -64,7 +67,7 @@ In addition to the sample sheet, this mode requires that a fasta file to search 
 ```csv title="phylosearch_sheet.csv"
 target,hmm,refseqfile,refphylogeny,model,taxonomy
 ring-hydrox,PF00848.hmm,PF00848.alnfaa,PF00848.newick,LG+F+I,PF00848.taxonomy.tsv
-meth-dehydr,PF00389.hmm,PF00389.alnfaa,PF00389.newick,LG+F+I,PF00848.taxonomy.tsv
+meth-dehydr,PF00389.hmm,PF00389.alnfaa,PF00389.newick,LG+F+I,PF00389.taxonomy.tsv
 rnr,PF00788.hmm,,,,
 ```
 
@@ -104,7 +107,7 @@ A few things worth knowing about this:
 ## Deriving taxonomy from FASTA headers
 
 `--taxonomy` is optional.
-If it's omitted and `--refseqfile` is FASTA, taxonomy is instead derived from each reference sequence's own header, following [GTDB](https://gtdb.ecogenomic.org/)'s own single-file convention: the id followed by a space, and the taxonomy string (taxonomic ranks separated by ";")
+If it's omitted and `--refseqfile` is FASTA, taxonomy is instead derived from each reference sequence's own header, following [GTDB](https://gtdb.ecogenomic.org/)'s own single-file convention: the id followed by a space, and the taxonomy string (taxonomic ranks separated by ";").
 
 ```fasta title="refseqfile.fasta"
 >ref_seq_1 Bacteria;Proteobacteria;Gammaproteobacteria;Enterobacterales;Enterobacteriaceae;Escherichia;Escherichia coli
@@ -115,9 +118,9 @@ A few things worth knowing about this:
 
 - If both `--taxonomy` and embedded header text are present (through `--refseqfile`), the taxonomy file wins -- a warning is logged though.
 - Reference sequence headers are stripped down to a bare id afterwards, regardless of which source was used, since some downstream tools keep the whole header line as the sequence/leaf name rather than just the first token.
-- This only applies when `--refseqfile` is FASTA -- other formats HMMER tools accept (e.g. aligned Phylip) have no room for embedded taxonomy text and keep needing a separate `--taxonomy` file.
+- This only applies when `--refseqfile` is FASTA -- other formats HMMER tools accept (e.g. aligned Phylip) have no room for embedded taxonomy text and still need a separate `--taxonomy` file.
 - The samplesheet formats above support multiple rows, each with its own `refseqfile`/`taxonomy` pair -- this applies per row, not once globally.
-- If neither a `--taxonomy` file nor embedded header text is available, the pipeline proceeds without taxonomic classification, same as before -- this is not an error.
+- If neither a `--taxonomy` file nor embedded header text is available, the pipeline proceeds without taxonomic classification -- this is not an error.
 
 ## Compressed input files
 
@@ -145,19 +148,19 @@ Setting the flag also adds coordinate and length columns to the ranked summary i
 Run the pipeline with command line parameters specifying the placement parameters as follows:
 
 ```bash
-nextflow run nf-core/phyloplace --refphylogeny reference.newick --refseqfile reference.alnfaa --query query.faa --model LG+F --taxonomy taxonomy.tsv -profile docker
+nextflow run nf-core/phyloplace --refphylogeny reference.newick --refseqfile reference.alnfaa --queryseqfile query.faa --model LG+F --taxonomy taxonomy.tsv --outdir results -profile docker
 ```
 
 With a placement samplesheet as follows:
 
 ```bash
-nextflow run nf-core/phyloplace --phyloplace_input phyloplace_sheet.csv -profile docker
+nextflow run nf-core/phyloplace --phyloplace_input phyloplace_sheet.csv --outdir results -profile docker
 ```
 
 Or in search and place mode as follows:
 
 ```bash
-nextflow run nf-core/phyloplace --phylosearch_input phylosearch_sheet.csv --search_fasta unknowns.faa -profile docker
+nextflow run nf-core/phyloplace --phylosearch_input phylosearch_sheet.csv --search_fasta unknowns.faa --outdir results -profile docker
 ```
 
 This will launch the pipeline with the `docker` configuration profile. See below for more information about profiles.
@@ -187,7 +190,7 @@ nextflow run nf-core/phyloplace -profile docker -params-file params.yaml
 with:
 
 ```yaml title="params.yaml"
-phyloplace_input: './phylosearch_sheet.csv'
+phylosearch_input: './phylosearch_sheet.csv'
 outdir: './results/'
 search_fasta: './unknowns.faa'
 <...>
@@ -307,7 +310,7 @@ Some HPC setups also allow you to run nextflow within a cluster job submitted yo
 ## Nextflow memory requirements
 
 In some cases, the Nextflow Java virtual machines can start to request a large amount of memory.
-We recommend adding the following line to your environment to limit this (typically in `~/.bashrc` or `~./bash_profile`):
+We recommend adding the following line to your environment to limit this (typically in `~/.bashrc` or `~/.bash_profile`):
 
 ```bash
 NXF_OPTS='-Xms1g -Xmx4g'

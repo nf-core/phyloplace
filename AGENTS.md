@@ -25,7 +25,7 @@ prek run -a                       # pre-commit hooks: prettier, trailing-whitesp
 nf-core pipelines lint            # nf-core community pipeline-standards lint (add --release for PRs targeting master)
 nextflow lint .                   # Nextflow strict-syntax lint; run against both the declared minimum
                                    # Nextflow version (nextflowVersion in nextflow.config, currently
-                                   # '!>=25.10.4') and latest, via NXF_VER=<version> nextflow lint .
+                                   # '!>=26.04.0') and latest, via NXF_VER=<version> nextflow lint .
 ```
 
 `prek` and `nf-core` are available in the `nf-core` conda env if not already on `PATH`
