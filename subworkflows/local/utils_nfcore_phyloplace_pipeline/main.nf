@@ -263,7 +263,7 @@ def toolCitationText() {
             "EPA-NG (Barbera et al. 2019),",
             "Gappa (Czech et al. 2020),",
             "DuckDB (Raasveldt and Mühleisen 2019),",
-            "MultiQC (Ewels et al. 2016),",
+            "MultiQC (Ewels et al. 2016)",
             "."
         ].join(' ').trim()
 
