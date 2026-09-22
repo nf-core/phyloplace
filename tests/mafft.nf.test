@@ -42,7 +42,7 @@ nextflow_pipeline {
                 outdir = "$outputDir"
                 // E1QGS5_DESB2 from the reference alignment, ungapped, with 20 W inserted: MAFFT adds
                 // columns for the insertion unless run with --keeplength
-                def query = new File("$outputDir/insertion.faa")
+                def query = new File("$launchDir/insertion.faa")
                 query.parentFile.mkdirs()
                 query.text = ">insertion\nYGATIHDKCPRRAHFEEAEFVKRFGDEGAINGWCLFEMGC${'W' * 20}KGPDTHNNCSLVKFNDGTNWPVGAGHPCLGCSEPQFWDNMAPFY\n"
                 queryseqfile = query.toString()
