@@ -66,11 +66,11 @@
                 "resolvetaxonomy/placement.warnings.txt"
             ],
             [
-                "placement.query.fasta.gz:md5,ff1159ff8a5d2587fb20309a81da3c29",
-                "placement.reference.fasta.gz:md5,e7753871101c48c42fc417ce0e9b398a",
+                "placement.query.fasta.gz:md5,2761ba0d5a249bf44b6fbdf29492c518",
+                "placement.reference.fasta.gz:md5,1c9f3619abacd50a6ea2bd7d31671520",
                 "placement.heattree.colours.txt:md5,7704cd341c8693981253ba6d740c1061",
                 "placement.taxonomy.labelled_tree.newick:md5,39de8a46303ea757f6eb94478db1ffe0",
-                "placement.fas.gz:md5,30090ede37d92efe6000c5d1436f6b26",
+                "placement.fas.gz:md5,5a41d3443ea56b4b9105d8190043e37e",
                 "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
                 "placement.resolved.alnfaa:md5,6a8a43da1544439c127bf52ac5167b41",
                 "placement.resolved.tax:md5,9fb30dd6893e5a968f4403ad3c035bd2",
@@ -80,7 +80,7 @@
             5,
             2
         ],
-        "timestamp": "2026-09-18T13:46:43.260083208",
+        "timestamp": "2026-09-21T20:45:18.05089157",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.04.6"
