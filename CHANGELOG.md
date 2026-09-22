@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Fixed`
 
 - [#97](https://github.com/nf-core/phyloplace/pull/97) - Correct the usage and output documentation (wrong parameter names in examples, wrong output file names and descriptions), document the `extract_hmm` and `min_bitscore` sample sheet columns and the search outputs, and cite Clustal Omega and DuckDB in the MultiQC methods description (by @erikrikarddaniel)
+- [#96](https://github.com/nf-core/phyloplace/pull/96) - Run MAFFT with `--keeplength` as documented, so that query sequences with insertions no longer widen the reference alignment (by @erikrikarddaniel)
 - [#94](https://github.com/nf-core/phyloplace/pull/94) - Memory usage in `hmmer/hmmrank`, by rewriting it from an in-memory R script to streaming DuckDB SQL ([#93](https://github.com/nf-core/phyloplace/issues/93)) (by @erikrikarddaniel)
 
 ### `Dependencies`
@@ -26,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | duckdb-cli   |            | 1.5.5 |
 | gawk         |            | 5.3.1 |
 | gzip         |            | 1.13  |
+| nft-fasta    |            | 1.0.0 |
 | nft-utils    | 0.0.3      | 1.2.0 |
 | r-base       | 4.2.3      |       |
 | r-data.table | 1.14.8     |       |
