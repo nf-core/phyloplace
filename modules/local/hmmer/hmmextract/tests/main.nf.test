@@ -1,0 +1,35 @@
+nextflow_process {
+
+    name "Test Process HMMER_HMMEXTRACT"
+    script "../main.nf"
+    process "HMMER_HMMEXTRACT"
+
+    tag "modules"
+    tag "modules_local"
+    tag "hmmer"
+    tag "hmmer/hmmextract"
+
+    test("barrnap arc.hmm - 16S_rRNA, output named like the input") {
+
+        when {
+            process {
+                """
+                input[0] = [
+                    [ id: 'arc' ],
+                    file('https://raw.githubusercontent.com/tseemann/barrnap/refs/tags/0.9/db/arc.hmm', checkIfExists: true),
+                    '16S_rRNA'
+                ]
+                """
+            }
+        }
+
+        then {
+            def hmms = process.out.hmm.collect { _meta, hmm -> hmm }.flatten().collect { hmm -> file(hmm) }
+            assertAll(
+                { assert process.success },
+                { assert hmms*.name == [ 'arc.hmm' ] },
+                { assert hmms[0].readLines().findAll { it.startsWith('NAME ') }*.split(/\s+/)*.getAt(1) == [ '16S_rRNA' ] }
+            )
+        }
+    }
+}

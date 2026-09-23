@@ -25,19 +25,21 @@ include { methodsDescriptionText        } from '../subworkflows/local/utils_nfco
 */
 
 //
-// Re-indent every line of a block of text, for embedding as a YAML block literal (`data: |`)
-// in a MultiQC custom content file: every content line must be indented at least as much as
-// the block's first line, which raw multi-line tool log/SVG content won't be on its own.
+// Indent every line of text for a YAML block literal (`data: |`) in MultiQC custom content,
+// which needs every line indented at least as much as the first.
 //
 def indentBlock(text, indent) {
     def pad = ' ' * indent
     text.readLines().collect { line -> pad + line }.join('\n')
 }
 
-// Only FASTA headers can carry embedded taxonomy text (GTDB-style `>id taxonomy;string`),
-// so this gates whether CUSTOM_RESOLVETAXONOMY runs on a row at all.
+// Only FASTA headers can carry embedded taxonomy, so this decides whether a row goes through
+// CUSTOM_RESOLVETAXONOMY. Read gzipped files decompressed, or they never look like FASTA.
 def isFastaFile(path) {
-    path.withReader { reader -> reader.readLine()?.trim()?.startsWith('>') } ?: false
+    def stream = path.name.endsWith('.gz')
+        ? new java.util.zip.GZIPInputStream(path.newInputStream())
+        : path.newInputStream()
+    stream.withReader { reader -> reader.readLine()?.trim()?.startsWith('>') } ?: false
 }
 
 // Wrap a GAPPA heat tree SVG in a MultiQC custom content file, skipping embedding above
@@ -70,7 +72,7 @@ workflow PHYLOPLACE {
 
     take:
     ch_phyloplace_data  // channel: [ meta: [ id: string ], data: [ alignmethod: string, queryseqfile: fasta, refseqfile: fasta, refphylogeny: newick, hmmfile: hmm, model: string, taxonomy: tsv ] ]
-    ch_phylosearch_data // channel: [ meta: [ id: string, min_bitscore: int ], data: [ alignmethod: string, hmm: file, extract_hmm: file, refseqfile: fasta, refphylogeny: newick, model: string, taxonomy: tsv ] ]
+    ch_phylosearch_data // channel: [ meta: [ id: string, min_bitscore: int ], data: [ alignmethod: string, hmm: file, extract_hmm: string, refseqfile: fasta, refphylogeny: newick, model: string, taxonomy: tsv ] ]
     ch_sequence_fasta   // channel: sequences to search
     save_domtblout      // boolean: also save hmmsearch's per-domain hit table (--domtblout)
     multiqc_config
@@ -93,7 +95,7 @@ workflow PHYLOPLACE {
 
     HMMER_HMMEXTRACT(ch_hmmextract)
 
-    // Create an input channel for FASTA_HMMSEARCH_RANK_FASTAS by adding the non-keyed entries from the original channel to the output of the extracted
+    // Search with the extracted profiles plus the rows that need no extraction
     HMMER_HMMEXTRACT.out.hmm
         .mix(
             ch_phylosearch_data
@@ -165,7 +167,7 @@ workflow PHYLOPLACE {
     //
     // SUBWORKFLOW: Run phylogenetic placement
     //
-    FASTA_NEWICK_EPANG_GAPPA(ch_phyloplace_data)
+    FASTA_NEWICK_EPANG_GAPPA(ch_phyloplace_data, true)
 
     //
     // MODULES: Summarise placements per reference tree too. `graft` can't merge several

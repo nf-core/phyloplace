@@ -3,6 +3,42 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v2.3.0 - [2026-09-23]
+
+### `Added`
+
+- [#95](https://github.com/nf-core/phyloplace/pull/95) - Accept gzipped input files throughout the pipeline, for every samplesheet column and individual file parameter alike ([#76](https://github.com/nf-core/phyloplace/issues/76)) (by @erikrikarddaniel)
+
+### `Changed`
+
+- [#95](https://github.com/nf-core/phyloplace/pull/95) - Check the file name extension of every input file parameter, in samplesheets and individual parameters alike, instead of accepting any name; download URLs with no file name extension at all are still accepted (by @erikrikarddaniel)
+- [#95](https://github.com/nf-core/phyloplace/pull/95) - Write the Clustal Omega and MAFFT alignments gzipped, like the rest of the pipeline's intermediate files (by @erikrikarddaniel)
+
+### `Fixed`
+
+- [#98](https://github.com/nf-core/phyloplace/pull/98) - Search with the profile named in `extract_hmm` also when a row's `target` equals the name of its `hmm` file, instead of silently searching with every profile in the file (by @erikrikarddaniel)
+- [#97](https://github.com/nf-core/phyloplace/pull/97) - Correct the usage and output documentation (wrong parameter names in examples, wrong output file names and descriptions), document the `extract_hmm` and `min_bitscore` sample sheet columns and the search outputs, and cite Clustal Omega and DuckDB in the MultiQC methods description (by @erikrikarddaniel)
+- [#96](https://github.com/nf-core/phyloplace/pull/96) - Run MAFFT with `--keeplength` as documented, so that query sequences with insertions no longer widen the reference alignment (by @erikrikarddaniel)
+- [#94](https://github.com/nf-core/phyloplace/pull/94) - Memory usage in `hmmer/hmmrank`, by rewriting it from an in-memory R script to streaming DuckDB SQL ([#93](https://github.com/nf-core/phyloplace/issues/93)) (by @erikrikarddaniel)
+
+### `Dependencies`
+
+| software     | previously | now   |
+| ------------ | ---------- | ----- |
+| duckdb-cli   |            | 1.5.5 |
+| gawk         |            | 5.3.1 |
+| gzip         |            | 1.13  |
+| nft-fasta    |            | 1.0.0 |
+| nft-utils    | 0.0.3      | 1.2.0 |
+| r-base       | 4.2.3      |       |
+| r-data.table | 1.14.8     |       |
+| r-dtplyr     | 1.3.1      |       |
+| r-stringi    | 1.8.4      |       |
+| r-stringr    | 1.5.1      |       |
+| r-tidyverse  | 2.0.0      |       |
+
+### `Deprecated`
+
 ## v2.2.0 - [2026-09-11]
 
 ### `Added`

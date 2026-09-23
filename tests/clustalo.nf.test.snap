@@ -25,12 +25,12 @@
                     "gappa": "0.9.0"
                 },
                 "Workflow": {
-                    "nf-core/phyloplace": "v2.2.0"
+                    "nf-core/phyloplace": "v2.3.0"
                 }
             },
             [
                 "clustalo",
-                "clustalo/placement.aln",
+                "clustalo/placement.aln.gz",
                 "epang",
                 "epang/placement.epa_info.log",
                 "epang/placement.epa_result.jplace.gz",
@@ -66,7 +66,7 @@
                 "resolvetaxonomy/placement.warnings.txt"
             ],
             [
-                "placement.aln:md5,bc500eae88f3858f0f27800f8cd69698",
+                "placement.aln.gz:md5,bc500eae88f3858f0f27800f8cd69698",
                 "placement.query.fasta.gz:md5,ab8a614cf0b53987f6854c22b80fed9c",
                 "placement.reference.fasta.gz:md5,7b7b77930cdb15033625d129df3201d4",
                 "placement.heattree.colours.txt:md5,7704cd341c8693981253ba6d740c1061",
@@ -80,9 +80,9 @@
             5,
             2
         ],
-        "timestamp": "2026-08-31T20:40:16.553528812",
+        "timestamp": "2026-09-18T13:43:43.59970941",
         "meta": {
-            "nf-test": "0.9.5",
+            "nf-test": "0.9.4",
             "nextflow": "26.04.6"
         }
     }

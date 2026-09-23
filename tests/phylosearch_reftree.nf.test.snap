@@ -9,6 +9,9 @@
                 "CUSTOM_RESOLVETAXONOMY": {
                     "biopython": 1.84
                 },
+                "DUCKDB_TABLE2PARQUET_TBLOUT": {
+                    "duckdb": "1.5.5"
+                },
                 "EPANG_PLACE": {
                     "epa-ng": "0.3.8"
                 },
@@ -36,12 +39,14 @@
                 "GAPPA_JOINTHEATTREE": {
                     "gappa": "0.9.0"
                 },
+                "HMMER_FORMATTSV_TBLOUT": {
+                    "gawk": "5.3.1"
+                },
                 "HMMER_HMMEXTRACT": {
                     "hmmsearch": 3.4
                 },
                 "HMMER_HMMRANK": {
-                    "r-base": "4.2.3",
-                    "r-tidyverse": "2.0.0"
+                    "duckdb": "1.5.5"
                 },
                 "HMMER_HMMSEARCH": {
                     "hmmer": 3.4
@@ -50,13 +55,15 @@
                     "seqtk": "1.4-r122"
                 },
                 "Workflow": {
-                    "nf-core/phyloplace": "v2.2.0"
+                    "nf-core/phyloplace": "v2.3.0"
                 }
             },
             [
                 "clustalo",
-                "clustalo/arc16s.aln",
-                "clustalo/bac16s.aln",
+                "clustalo/arc16s.aln.gz",
+                "clustalo/bac16s.aln.gz",
+                "duckdb",
+                "duckdb/rank.tblout.parquet",
                 "epang",
                 "epang/arc16s.epa_info.log",
                 "epang/arc16s.epa_result.jplace.gz",
@@ -109,6 +116,7 @@
                 "hmmer/bac16s.tbl.gz",
                 "hmmer/bac16s.txt.gz",
                 "hmmer/rank.hmmrank.tsv.gz",
+                "hmmer/rank.tblout.tblout.tsv.gz",
                 "multiqc",
                 "multiqc/multiqc_data",
                 "multiqc/multiqc_data/llms-full.txt",
@@ -133,8 +141,9 @@
                 "seqtk/bac16s.fa.gz"
             ],
             [
-                "arc16s.aln:md5,ddf6ca1b7f4484bbe45126e6d00f03b6",
-                "bac16s.aln:md5,a75c1b85f66dd2ed8a06ba1c586e0b97",
+                "arc16s.aln.gz:md5,ddf6ca1b7f4484bbe45126e6d00f03b6",
+                "bac16s.aln.gz:md5,a75c1b85f66dd2ed8a06ba1c586e0b97",
+                "rank.tblout.parquet:md5,8c2f3d4b5c73a6df4caf2ef660066ce5",
                 "arc16s.query.fasta.gz:md5,422bbb9834338b72bd9d8b4054027057",
                 "arc16s.reference.fasta.gz:md5,04c8ed3903b8ff3edb50eb1da619a66b",
                 "bac16s.query.fasta.gz:md5,d14126ef257890870b1faa9c9534a6eb",
@@ -147,7 +156,8 @@
                 "bac16s.taxonomy.labelled_tree.newick:md5,88aad266c8ecd72275dcd8e1620520bc",
                 "arc16s.hmm:md5,3688ae1a1599ec90fa2ea0e0f82ad174",
                 "bac16s.hmm:md5,a4dcd05876712b7bacddcdfb4662f6df",
-                "rank.hmmrank.tsv.gz:md5,ee4e777c815c37727358ab4ebda276b3",
+                "rank.hmmrank.tsv.gz:md5,76f4f8aa2d63cb35e81ab31e72260f67",
+                "rank.tblout.tblout.tsv.gz:md5,ef7f97b9a96329e5398c7b07563ab64e",
                 "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
                 "arc16s.resolved.fasta:md5,5b5e525bdf70c97f1c9abf61e7c9457e",
                 "arc16s.resolved.tax:md5,1983c36e63cdb0706ce82788c3aa6e2c",
@@ -162,9 +172,9 @@
             82,
             187
         ],
-        "timestamp": "2026-08-31T20:43:16.596694667",
+        "timestamp": "2026-09-18T13:50:28.618241141",
         "meta": {
-            "nf-test": "0.9.5",
+            "nf-test": "0.9.4",
             "nextflow": "26.04.6"
         }
     }
