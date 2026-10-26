@@ -1,15 +1,21 @@
 lint:
   files_exist:
     - conf/igenomes.config
+    - conf/igenomes_ignored.config
+    - .github/workflows/linting_comment.yml
   files_unchanged:
     - .gitattributes
     - assets/nf-core-phyloplace_logo_light.png
     - assets/nf-core-phyloplace_logo_dark.png
     - docs/images/nf-core-phyloplace_logo_light.png
     - docs/images/nf-core-phyloplace_logo_dark.png
-  nextflow_config:
-    - params.input
-nf_core_version: 4.0.3
+    - .github/workflows/branch.yml
+    - .github/workflows/linting.yml
+  nextflow_config: false
+  nf_test_content:
+    - tests/compressed_input.nf.test
+  schema_params: false
+nf_core_version: 4.2.1
 repository_type: pipeline
 template:
   author: Daniel Lundin
@@ -21,4 +27,4 @@ template:
   outdir: .
   skip_features:
     - igenomes
-  version: 2.1.0dev
+  version: 2.3.1dev
