@@ -8,5 +8,5 @@ testing*
 *.pyc
 null/
 .lineage/
-.nf-test*
-nxf-tmp.*
+.nf-test/
+.nf-test.log
