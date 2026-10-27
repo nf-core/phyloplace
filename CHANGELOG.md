@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Changed`
 
-- [#NN](https://github.com/nf-core/phyloplace/pull/NN) - Template updated to nf-core/tools 4.2.1, which changes the GitHub Actions and the tool versions used by the CI workflows and the pre-commit hooks. The Seqera Platform launch action of the full-size test is unchanged (by @erikrikarddaniel)
+- [#106](https://github.com/nf-core/phyloplace/pull/106) - Template updated to nf-core/tools 4.2.1, which changes the GitHub Actions and the tool versions used by the CI workflows and the pre-commit hooks. The Seqera Platform launch action of the full-size test is unchanged (by @erikrikarddaniel)
 
 ### `Dependencies`
 
