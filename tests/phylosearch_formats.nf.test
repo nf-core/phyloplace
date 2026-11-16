@@ -1,0 +1,92 @@
+// The sheets are translated from the CSV sheets of test_phylosearch_catalogue at test time,
+// so they cannot drift from them.
+def readSheet(String name) {
+    def lines = new URL("https://raw.githubusercontent.com/nf-core/test-datasets/phyloplace/testdata/${name}").text.readLines().findAll { line -> line }
+    def header = lines[0].split(',', -1)
+    return lines.drop(1).collect { line ->
+        [header, line.split(',', -1)].transpose()
+            .findAll { pair -> pair[1] }
+            .collectEntries { pair -> [pair[0], pair[1]] }
+    }
+}
+
+def yaml(rows) {
+    def options = new org.yaml.snakeyaml.DumperOptions()
+    options.setDefaultFlowStyle(org.yaml.snakeyaml.DumperOptions.FlowStyle.BLOCK)
+    return new org.yaml.snakeyaml.Yaml(options).dump(rows)
+}
+
+nextflow_pipeline {
+
+    name "Test pipeline"
+    script "../main.nf"
+    tag "pipeline"
+    profile "test_phylosearch_catalogue"
+
+    test("-profile test_phylosearch_catalogue, TSV, YAML and JSON sheets") {
+
+        when {
+            def sheets = new File("${launchDir}/sheets")
+            sheets.mkdirs()
+            def own = this.readSheet('phylosearch_own.csv')
+            new File(sheets, 'catalogue.tsv').text = new URL('https://raw.githubusercontent.com/nf-core/test-datasets/phyloplace/testdata/phylosearch_catalogue.csv').text.replace(',', '\t')
+            new File(sheets, 'own.yml').text = this.yaml(own.findAll { row -> row.target != 'mito16s' })
+            new File(sheets, 'mito.json').text = groovy.json.JsonOutput.toJson(own.findAll { row -> row.target == 'mito16s' })
+
+            params {
+                outdir            = "$outputDir"
+                phylosearch_input = "${sheets}/catalogue.tsv,${sheets}/own.yml,${sheets}/mito.json"
+            }
+        }
+
+        then {
+            assert workflow.success
+            assertAll(
+                { assert snapshot(
+                    removeNextflowVersion("$outputDir/pipeline_info/nf_core_phyloplace_software_mqc_versions.yml"),
+                    path("${params.outdir}/gappa/arc.taxonomy.per_query.tsv").csv(sep: '\t', header: true).rowCount,
+                    path("${params.outdir}/gappa/bac16s.taxonomy.per_query.tsv").csv(sep: '\t', header: true).rowCount,
+                ).match() },
+                // Row counts are those of the CSV run in phylosearch_catalogue.nf.test
+                { assert path("${params.outdir}/gappa/arc.taxonomy.per_query.tsv").csv(sep: '\t', header: true).rowCount == 88 },
+                { assert path("${params.outdir}/gappa/bac16s.taxonomy.per_query.tsv").csv(sep: '\t', header: true).rowCount == 106 },
+                // euk18s comes from the YAML sheet
+                { assert file("${params.outdir}/seqtk/euk18s.fa.gz").exists() }
+            )
+        }
+    }
+
+    test("-profile test_phylosearch_catalogue, a --phylosearch_input sheet with another extension is rejected") {
+
+        when {
+            params {
+                outdir            = "$outputDir"
+                phylosearch_input = 'sheet.txt'
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.failed },
+                { assert (workflow.stdout + workflow.stderr).any { it.contains('--phylosearch_input (sheet.txt)') && it.contains('does not match regular expression') } }
+            )
+        }
+    }
+
+    test("-profile test_phylosearch_catalogue, a --phyloplace_input sheet with another extension is rejected") {
+
+        when {
+            params {
+                outdir           = "$outputDir"
+                phyloplace_input = 'sheet.xlsx'
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.failed },
+                { assert (workflow.stdout + workflow.stderr).any { it.contains('--phyloplace_input (sheet.xlsx)') && it.contains('does not match regular expression') } }
+            )
+        }
+    }
+}

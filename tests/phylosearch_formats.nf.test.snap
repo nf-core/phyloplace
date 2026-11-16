@@ -1,0 +1,58 @@
+{
+    "-profile test_phylosearch_catalogue, TSV, YAML and JSON sheets": {
+        "content": [
+            {
+                "CLUSTALO_ALIGN": {
+                    "clustalo": "1.2.4",
+                    "pigz": 2.8
+                },
+                "CUSTOM_RESOLVETAXONOMY": {
+                    "biopython": 1.84
+                },
+                "DUCKDB_TABLE2PARQUET_TBLOUT": {
+                    "duckdb": "1.5.5"
+                },
+                "EPANG_PLACE": {
+                    "epa-ng": "0.3.8"
+                },
+                "EPANG_SPLIT_CLUSTALO": {
+                    "epa-ng": "0.3.8"
+                },
+                "GAPPA_ASSIGN": {
+                    "gappa": "0.9.0"
+                },
+                "GAPPA_GRAFT": {
+                    "gappa": "0.9.0"
+                },
+                "GAPPA_HEATTREE": {
+                    "gappa": "0.9.0"
+                },
+                "HMMER_FORMATTSV_TBLOUT": {
+                    "gawk": "5.3.1"
+                },
+                "HMMER_HMMEXTRACT": {
+                    "hmmsearch": 3.4
+                },
+                "HMMER_HMMRANK": {
+                    "duckdb": "1.5.5"
+                },
+                "HMMER_HMMSEARCH": {
+                    "hmmer": 3.4
+                },
+                "SEQTK_SUBSEQ": {
+                    "seqtk": "1.4-r122"
+                },
+                "Workflow": {
+                    "nf-core/phyloplace": "v2.3.1dev"
+                }
+            },
+            88,
+            106
+        ],
+        "timestamp": "2026-11-16T12:36:47.437477787",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

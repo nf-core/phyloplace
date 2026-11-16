@@ -13,8 +13,12 @@ One of the outputs from the pipeline is nevertheless a full phylogeny containing
 
 Placement is performed with the [EPA-NG](https://github.com/Pbdas/epa-ng/blob/master/README.md) program after query sequences have been aligned to the reference alignment.
 
-The pipeline can either take parameters on the command line (or in a `params.yaml` file, see below) to perform a single placement, or a sample `csv` file that can accommodate parameters for several placements.
-There are two different types of sample `csv` files, one for direct phylogenetic placement (`--phyloplace_input`), the other for search followed by phylogenetic placement (`--phylosearch_input`).
+The pipeline can either take parameters on the command line (or in a `params.yaml` file, see below) to perform a single placement, or a sample sheet that can accommodate parameters for several placements.
+There are two different types of sample sheets, one for direct phylogenetic placement (`--phyloplace_input`), the other for search followed by phylogenetic placement (`--phylosearch_input`).
+
+Sample sheets can be CSV (`.csv`), TSV (`.tsv`), YAML (`.yml` or `.yaml`) or JSON (`.json`) files, and the format is taken from the file extension.
+A YAML or JSON sheet is a list of entries, each with the same keys as the columns of the CSV sheet.
+The examples below use CSV.
 
 ## Parameter input
 
@@ -75,6 +79,7 @@ rnr,PF00788.hmm,,,,
 
 `--phylosearch_input` takes a comma-separated list of sample sheets, which are combined into one.
 This makes it possible to use a shared collection of reference phylogenies together with a sheet of your own profiles.
+The sheets in a list can have different formats.
 
 ```bash
 --phylosearch_input 'collection.csv,my_profiles.csv' --search_fasta '[path to fasta file]'
