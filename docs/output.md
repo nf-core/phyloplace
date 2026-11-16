@@ -60,7 +60,7 @@ The MAFFT alignment strategy keeps the structure of the original reference align
   - `*.ref.hmmbuild.txt`: Log from HMM profile build.
   - `*.ref.hmm.gz`: HMM profile made from the reference alignment, if not provided using the `hmmfile` parameter.
   - `*.ref.unaligned.afa.gz`: "Unaligned", i.e. without gap characters, reference sequences in Fasta format.
-  - `*.hmm`: Profiles extracted from a multi-profile `hmm` file with the `extract_hmm` sample sheet column, in "search and place" mode.
+  - `*.hmm`: Profiles extracted from a multi-profile `hmm` file with the `extract_hmm` target sheet column, in "search and place" mode.
   - `*.tbl.gz`: Per-sequence hit table (`--tblout`) for individual `hmmsearch` runs in "search and place" mode.
   - `*.domtbl.gz`: Per-domain hit table (`--domtblout`) for individual `hmmsearch` runs in "search and place" mode, only written when `--save_domtblout` is set.
     Unlike the per-sequence table, this one carries alignment coordinates for each domain, which are needed to work out profile coverage or to find genes split over several ORFs.
@@ -138,7 +138,7 @@ Third, if a classification of the reference sequences is available (see [Taxonom
 
 </details>
 
-When rows of the sample sheet share a `reftreename` (see [Summarising several profiles on one reference tree](usage.md#summarising-several-profiles-on-one-reference-tree)), the same three summaries are also produced once for the group as a whole, on top of the per-row ones above.
+When rows of a sample or target sheet share a `reftreename` (see [Summarising several profiles on one reference tree](usage.md#summarising-several-profiles-on-one-reference-tree)), the same three summaries are also produced once for the group as a whole, on top of the per-row ones above.
 The group's placements are first merged into a single jplace file, since `gappa examine graft` summarises each jplace file it is given separately, and then grafted, classified and heat-treed from that.
 
 <details markdown="1">

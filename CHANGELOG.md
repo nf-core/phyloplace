@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
-- [#109](https://github.com/nf-core/phyloplace/pull/109) - `--phylosearch_input` accepts a comma-separated list of sample sheets, for example a shared collection of reference phylogenies together with a sheet of your own profiles. Target names must be unique across the sheets. The new `--phylosearch_targets` keeps only the listed targets (by @erikrikarddaniel)
+- [#109](https://github.com/nf-core/phyloplace/pull/109) - `--phylosearch_input` accepts a comma-separated list of target sheets, for example a shared collection of reference phylogenies together with a sheet of your own profiles. Target names must be unique across the sheets. The new `--phylosearch_targets` keeps only the listed targets (by @erikrikarddaniel)
 
 ### `Fixed`
 
@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Changed`
 
-- [#NN](https://github.com/nf-core/phyloplace/pull/NN) - `--phyloplace_input` and `--phylosearch_input` accept sample sheets in CSV, TSV, YAML and JSON format, not only CSV (by @erikrikarddaniel)
+- [#110](https://github.com/nf-core/phyloplace/pull/110) - `--phyloplace_input` (sample sheet) and `--phylosearch_input` (target sheets) accept sheets in CSV, TSV, YAML and JSON format, not only CSV (by @erikrikarddaniel)
 - [#108](https://github.com/nf-core/phyloplace/pull/108) - Template updated to nf-core/tools 4.2.2, which moves the Apptainer setup action of the CI workflows to v3. No pipeline code changes
 - [#106](https://github.com/nf-core/phyloplace/pull/106) - Template updated to nf-core/tools 4.2.1, which changes the GitHub Actions and the tool versions used by the CI workflows and the pre-commit hooks. The Seqera Platform launch action of the full-size test is unchanged (by @erikrikarddaniel)
 

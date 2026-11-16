@@ -40,8 +40,8 @@ workflow PIPELINE_INITIALISATION {
     hmmfile             //  string: From params.hmmfile
     alignmethod         //  string: From params.alignmethod
     phyloplace_input    //  string: Path to phyloplace input samplesheet
-    phylosearch_input   //  string: Comma-separated paths to phylosearch input samplesheets
-    phylosearch_targets //  string: Comma-separated target names to keep from the phylosearch samplesheets, or null for all
+    phylosearch_input   //  string: Comma-separated paths to phylosearch target sheets
+    phylosearch_targets //  string: Comma-separated target names to keep from the phylosearch target sheets, or null for all
     search_fasta        //  string: From params.search_fasta
     help                // boolean: Display help message and exit
     help_full           // boolean: Show the full help message
@@ -186,7 +186,7 @@ workflow PIPELINE_INITIALISATION {
         ])
             .set { ch_phyloplace_data }
     } else if ( phylosearch_input ) {
-        exit 1, "For phylosearch mode, you need to provide an input sample sheet with --phylosearch_input *and* a fasta file with --search_fasta"
+        exit 1, "For phylosearch mode, you need to provide an input target sheet with --phylosearch_input *and* a fasta file with --search_fasta"
     } else {
         exit 1, "For phyloplace mode, you need to provide an input sample sheet with --phyloplace_input or the corresponding info with individual parameters"
     }
