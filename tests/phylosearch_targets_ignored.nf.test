@@ -1,0 +1,28 @@
+nextflow_pipeline {
+
+    name "Test pipeline"
+    script "../main.nf"
+    tag "pipeline"
+    profile "test"
+
+    test("-profile test, --phylosearch_targets without --phylosearch_input warns") {
+
+        options "-stub"
+
+        when {
+            params {
+                outdir              = "$outputDir"
+                phylosearch_targets = 'arc'
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(removeNextflowVersion("$outputDir/pipeline_info/nf_core_phyloplace_software_mqc_versions.yml")).match() },
+                // The warning is in the log, not in the captured console output
+                { assert new File("${launchDir}/meta/nextflow.log").text.contains('--phylosearch_targets is ignored unless both --phylosearch_input and --search_fasta are given') }
+            )
+        }
+    }
+}

@@ -71,6 +71,31 @@ meth-dehydr,PF00389.hmm,PF00389.alnfaa,PF00389.newick,LG+F+I,PF00389.taxonomy.ts
 rnr,PF00788.hmm,,,,
 ```
 
+### Several sample sheets and selecting targets
+
+`--phylosearch_input` takes a comma-separated list of sample sheets, which are combined into one.
+This makes it possible to use a shared collection of reference phylogenies together with a sheet of your own profiles.
+
+```bash
+--phylosearch_input 'collection.csv,my_profiles.csv' --search_fasta '[path to fasta file]'
+```
+
+Target names must be unique across all sheets.
+If a name occurs more than once, the pipeline stops and lists the duplicates.
+
+All targets in the sheets are searched for by default.
+To use only some of them, list their names in `--phylosearch_targets`.
+Every name must exist in the sheets.
+
+```bash
+--phylosearch_input 'collection.csv,my_profiles.csv' --phylosearch_targets 'ring-hydrox,rnr'
+```
+
+Hits are ranked across all profiles that are searched for, so leaving a target out can change which sequences end up with another target.
+
+Relative paths in a sheet are resolved against the directory you launch Nextflow from, not the location of the sheet.
+A sheet that is shared between users should therefore use absolute paths or URLs.
+
 ## Summarising several profiles on one reference tree
 
 Several rows can deliberately place onto one and the same reference phylogeny.

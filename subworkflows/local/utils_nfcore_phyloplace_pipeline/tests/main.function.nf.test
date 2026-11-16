@@ -1,0 +1,121 @@
+// The text of a sheet as it must be written inside a function block, with \n as two characters
+def sheet(List targets) {
+    return (['target,hmm,refseqfile,refphylogeny,model'] +
+        targets.collect { t -> "${t},${t}.hmm,${t}.aln,${t}.nwk,GTR" }).join('\\n') + '\\n'
+}
+
+nextflow_function {
+
+    name "Test combinePhylosearchSheets"
+    script "../main.nf"
+    function "combinePhylosearchSheets"
+    tag "subworkflows"
+    tag "utils_nfcore_phyloplace_pipeline"
+
+    test("keeps the targets of all sheets in order") {
+
+        when {
+            function {
+                """
+                file('a.csv').text = '${this.sheet(['arc', 'bac'])}'
+                file('b.csv').text = '${this.sheet(['own'])}'
+                input[0] = 'a.csv,b.csv'
+                input[1] = null
+                input[2] = "${projectDir}/assets/schema_phylosearch_input.json"
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert function.success },
+                { assert function.result.collect { it[0].id } == ['arc', 'bac', 'own'] }
+            )
+        }
+    }
+
+    test("with targets keeps only those, in sheet order") {
+
+        when {
+            function {
+                """
+                file('a.csv').text = '${this.sheet(['arc', 'bac'])}'
+                file('b.csv').text = '${this.sheet(['own'])}'
+                input[0] = 'a.csv,b.csv'
+                input[1] = 'own,arc'
+                input[2] = "${projectDir}/assets/schema_phylosearch_input.json"
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert function.success },
+                { assert function.result.collect { it[0].id } == ['arc', 'own'] }
+            )
+        }
+    }
+
+    test("rejects a target that is in two sheets") {
+
+        when {
+            function {
+                """
+                file('a.csv').text = '${this.sheet(['arc', 'bac'])}'
+                file('b.csv').text = '${this.sheet(['bac', 'own'])}'
+                input[0] = 'a.csv,b.csv'
+                input[1] = null
+                input[2] = "${projectDir}/assets/schema_phylosearch_input.json"
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert function.failed },
+                { assert (function.stdout + function.stderr).any { it.contains('must be unique across all --phylosearch_input files') && it.endsWith('more than once: bac') } }
+            )
+        }
+    }
+
+    test("rejects an unknown target") {
+
+        when {
+            function {
+                """
+                file('a.csv').text = '${this.sheet(['arc', 'bac'])}'
+                input[0] = 'a.csv'
+                input[1] = 'bac,nosuchtarget'
+                input[2] = "${projectDir}/assets/schema_phylosearch_input.json"
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert function.failed },
+                { assert (function.stdout + function.stderr).any { it.contains('not in --phylosearch_input') && it.contains('nosuchtarget') } }
+            )
+        }
+    }
+
+    test("reports a missing sheet") {
+
+        when {
+            function {
+                """
+                input[0] = 'nosuchsheet.csv'
+                input[1] = null
+                input[2] = "${projectDir}/assets/schema_phylosearch_input.json"
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert function.failed },
+                { assert (function.stdout + function.stderr).any { it.contains('nosuchsheet.csv') && it.contains('does not exist') } }
+            )
+        }
+    }
+}

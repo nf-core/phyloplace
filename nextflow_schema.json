@@ -25,14 +25,17 @@
                 },
                 "phylosearch_input": {
                     "type": "string",
-                    "format": "file-path",
-                    "exists": true,
-                    "schema": "assets/schema_phylosearch_input.json",
-                    "mimetype": "text/csv",
-                    "pattern": "^\\S+\\.csv$",
-                    "description": "Path to comma-separated file containing information about phylogenetic searches to perform.",
-                    "help_text": "This specifies parameters for phylogenetic placement of unknown sequences onto reference phylogeny after first using HMMER to search through a collection of unknown sequences (see `--search_fasta`) in contrast to when only placing known query sequences, see `--phyloplace_input`. It has to be a comma-separated file with at least two columns that specifies search HMM profiles ('target' and 'hmm') and at least three columns specifying the reference phylogenies ('refseqfile', 'refphylogeny' and 'model') for placement of search results. (Decoy profiles, i.e. profiles only used for searches, not placements, are allowed.) See [usage docs](https://nf-co.re/phyloplace/usage#samplesheet-input-for-search-followed-by-phylogenetic-placement).",
+                    "pattern": "^\\S+\\.csv(,\\S+\\.csv)*$",
+                    "description": "Comma-separated list of comma-separated files containing information about phylogenetic searches to perform.",
+                    "help_text": "This specifies parameters for phylogenetic placement of unknown sequences onto reference phylogeny after first using HMMER to search through a collection of unknown sequences (see `--search_fasta`) in contrast to when only placing known query sequences, see `--phyloplace_input`. Each file has to be a comma-separated file with at least two columns that specifies search HMM profiles ('target' and 'hmm') and at least three columns specifying the reference phylogenies ('refseqfile', 'refphylogeny' and 'model') for placement of search results. (Decoy profiles, i.e. profiles only used for searches, not placements, are allowed.) Several files can be given as a comma-separated list, for example a collection of reference phylogenies together with your own profiles; target names must then be unique across all files. Relative paths in a file are resolved against the directory Nextflow is launched from, so a file that is shared between users should use absolute paths or URLs. See [usage docs](https://nf-co.re/phyloplace/usage#samplesheet-input-for-search-followed-by-phylogenetic-placement).",
                     "fa_icon": "fas fa-file-csv"
+                },
+                "phylosearch_targets": {
+                    "type": "string",
+                    "pattern": "^\\S+$",
+                    "description": "Comma-separated list of targets to use from the `--phylosearch_input` files.",
+                    "help_text": "By default, all targets in the `--phylosearch_input` files are searched for. Use this parameter to keep only the listed targets, for example a few from a large collection of reference phylogenies. Targets are named in the 'target' column. Every name must exist in the input files. Note that dropping a target also drops its profile from the ranking of hits across profiles.",
+                    "fa_icon": "fas fa-filter"
                 },
                 "search_fasta": {
                     "type": "string",
