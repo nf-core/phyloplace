@@ -26,26 +26,26 @@ include { UTILS_NEXTFLOW_PIPELINE   } from '../../nf-core/utils_nextflow_pipelin
 workflow PIPELINE_INITIALISATION {
 
     take:
-    version           // boolean: Display version and exit
-    validate_params   // boolean: Boolean whether to validate parameters against the schema at runtime
-    monochrome_logs   // boolean: Do not use coloured log outputs
-    nextflow_cli_args //   array: List of positional nextflow CLI args
-    outdir            //  string: The output directory where the results will be saved
-    id                //  string: From params.id
-    queryseqfile      //  string: From params.queryseqfile
-    refseqfile        //  string: From params.refseqfile
-    refphylogeny      //  string: From params.refphylogeny
-    model             //  string: From params.model
-    taxonomy          //  string: From params.taxonomy
-    hmmfile           //  string: From params.hmmfile
-    alignmethod       //  string: From params.alignmethod
-    phyloplace_input  //  string: Path to phyloplace input samplesheet
-    phylosearch_input //  string: Comma-separated paths to phylosearch input samplesheets
-    phylosearch_targets // string: Comma-separated target names to keep from the phylosearch samplesheets, or null for all
-    search_fasta      //  string: From params.search_fasta
-    help              // boolean: Display help message and exit
-    help_full         // boolean: Show the full help message
-    show_hidden       // boolean: Show hidden parameters in the help message
+    version             // boolean: Display version and exit
+    validate_params     // boolean: Boolean whether to validate parameters against the schema at runtime
+    monochrome_logs     // boolean: Do not use coloured log outputs
+    nextflow_cli_args   //   array: List of positional nextflow CLI args
+    outdir              //  string: The output directory where the results will be saved
+    id                  //  string: From params.id
+    queryseqfile        //  string: From params.queryseqfile
+    refseqfile          //  string: From params.refseqfile
+    refphylogeny        //  string: From params.refphylogeny
+    model               //  string: From params.model
+    taxonomy            //  string: From params.taxonomy
+    hmmfile             //  string: From params.hmmfile
+    alignmethod         //  string: From params.alignmethod
+    phyloplace_input    //  string: Path to phyloplace input samplesheet
+    phylosearch_input   //  string: Comma-separated paths to phylosearch input samplesheets
+    phylosearch_targets //  string: Comma-separated target names to keep from the phylosearch samplesheets, or null for all
+    search_fasta        //  string: From params.search_fasta
+    help                // boolean: Display help message and exit
+    help_full           // boolean: Show the full help message
+    show_hidden         // boolean: Show hidden parameters in the help message
 
     main:
 
@@ -124,27 +124,12 @@ workflow PIPELINE_INITIALISATION {
     ch_sequence_fasta   = channel.empty()
     ch_phyloplace_data  = channel.empty()
 
+    if ( phylosearch_targets && !( phylosearch_input && search_fasta ) ) {
+        log.warn "--phylosearch_targets is ignored unless both --phylosearch_input and --search_fasta are given"
+    }
+
     if ( phylosearch_input && search_fasta ) {
-        def search_rows = phylosearch_input.tokenize(',').collectMany { sheet ->
-            samplesheetToList(sheet.trim(), "${projectDir}/assets/schema_phylosearch_input.json")
-        }
-
-        def search_ids = search_rows.collect { row -> row[0].id }
-        def duplicated = search_ids.countBy { tid -> tid }.findAll { _tid, n -> n > 1 }.keySet()
-        if ( duplicated ) {
-            exit 1, "Target names must be unique across all --phylosearch_input files, but these occur more than once: ${duplicated.join(', ')}"
-        }
-
-        if ( phylosearch_targets ) {
-            def wanted  = phylosearch_targets.tokenize(',').collect { tid -> tid.trim() }
-            def unknown = wanted - search_ids
-            if ( unknown ) {
-                exit 1, "--phylosearch_targets names targets that are not in --phylosearch_input: ${unknown.join(', ')}"
-            }
-            search_rows = search_rows.findAll { row -> row[0].id in wanted }
-        }
-
-        ch_phylosearch_data = channel.fromList(search_rows)
+        ch_phylosearch_data = channel.fromList(combinePhylosearchSheets(phylosearch_input, phylosearch_targets, "${projectDir}/assets/schema_phylosearch_input.json"))
             .map { vmeta, vhmm, vextract_hmm, vrefseqfile, vrefphylogeny, vmodel, valignmethod, vtaxonomy, vreftreename ->
                 [
                     meta: vmeta,
@@ -263,6 +248,30 @@ workflow PIPELINE_COMPLETION {
     FUNCTIONS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
+//
+// Read the sheets in a comma-separated list, require unique target names and keep only the comma-separated `targets`, if given
+//
+def combinePhylosearchSheets(String sheets, String targets, String schema) {
+    def rows = sheets.tokenize(',').collectMany { sheet -> samplesheetToList(sheet, schema) }
+    def ids  = rows.collect { row -> row[0].id }
+
+    def duplicated = ids.countBy { tid -> tid }.findAll { _tid, n -> n > 1 }.keySet()
+    if ( duplicated ) {
+        error "Target names must be unique across all --phylosearch_input files, but these occur more than once: ${duplicated.join(', ')}"
+    }
+
+    if ( !targets ) {
+        return rows
+    }
+
+    def wanted  = targets.tokenize(',')
+    def unknown = wanted - ids
+    if ( unknown ) {
+        error "--phylosearch_targets names targets that are not in --phylosearch_input: ${unknown.join(', ')}"
+    }
+    return rows.findAll { row -> row[0].id in wanted }
+}
+
 //
 // Check and validate pipeline parameters
 //
