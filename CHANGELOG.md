@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
+- [#NN](https://github.com/nf-core/phyloplace/pull/NN) - `--phylosearch_input` accepts a comma-separated list of sample sheets, for example a shared collection of reference phylogenies together with a sheet of your own profiles. Target names must be unique across the sheets. The new `--phylosearch_targets` keeps only the listed targets (by @erikrikarddaniel)
+
 ### `Fixed`
 
 - [#104](https://github.com/nf-core/phyloplace/pull/104) - Launch the AWS tests with `seqeralabs/action-seqera-launch` and the v2 syntax parser, and stop uploading the debug log as an artifact (by @erikrikarddaniel)

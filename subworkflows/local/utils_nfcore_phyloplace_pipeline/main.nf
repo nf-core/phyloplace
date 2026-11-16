@@ -40,7 +40,8 @@ workflow PIPELINE_INITIALISATION {
     hmmfile           //  string: From params.hmmfile
     alignmethod       //  string: From params.alignmethod
     phyloplace_input  //  string: Path to phyloplace input samplesheet
-    phylosearch_input //  string: Path to phylosearch input samplesheet
+    phylosearch_input //  string: Comma-separated paths to phylosearch input samplesheets
+    phylosearch_targets // string: Comma-separated target names to keep from the phylosearch samplesheets, or null for all
     search_fasta      //  string: From params.search_fasta
     help              // boolean: Display help message and exit
     help_full         // boolean: Show the full help message
@@ -124,7 +125,26 @@ workflow PIPELINE_INITIALISATION {
     ch_phyloplace_data  = channel.empty()
 
     if ( phylosearch_input && search_fasta ) {
-        ch_phylosearch_data = channel.fromList(samplesheetToList(phylosearch_input, "${projectDir}/assets/schema_phylosearch_input.json"))
+        def search_rows = phylosearch_input.tokenize(',').collectMany { sheet ->
+            samplesheetToList(sheet.trim(), "${projectDir}/assets/schema_phylosearch_input.json")
+        }
+
+        def search_ids = search_rows.collect { row -> row[0].id }
+        def duplicated = search_ids.countBy { tid -> tid }.findAll { _tid, n -> n > 1 }.keySet()
+        if ( duplicated ) {
+            exit 1, "Target names must be unique across all --phylosearch_input files, but these occur more than once: ${duplicated.join(', ')}"
+        }
+
+        if ( phylosearch_targets ) {
+            def wanted  = phylosearch_targets.tokenize(',').collect { tid -> tid.trim() }
+            def unknown = wanted - search_ids
+            if ( unknown ) {
+                exit 1, "--phylosearch_targets names targets that are not in --phylosearch_input: ${unknown.join(', ')}"
+            }
+            search_rows = search_rows.findAll { row -> row[0].id in wanted }
+        }
+
+        ch_phylosearch_data = channel.fromList(search_rows)
             .map { vmeta, vhmm, vextract_hmm, vrefseqfile, vrefphylogeny, vmodel, valignmethod, vtaxonomy, vreftreename ->
                 [
                     meta: vmeta,

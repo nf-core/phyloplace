@@ -24,6 +24,7 @@ params {
     // Input options
     phyloplace_input:             String? = null
     phylosearch_input:            String? = null
+    phylosearch_targets:          String? = null
     id:                            String = 'placement'
     alignmethod:                   String = 'clustalo'
     queryseqfile:                 String? = null
@@ -133,6 +134,7 @@ workflow {
         params.alignmethod,
         params.phyloplace_input,
         params.phylosearch_input,
+        params.phylosearch_targets,
         params.search_fasta,
         params.help,
         params.help_full,
