@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
-- [#NN](https://github.com/nf-core/phyloplace/pull/NN) - Document that the reference sequences of a target sheet are always aligned, that its `hmm` column is used for the search only, and that a row without `alignmethod` uses `clustalo` ([#113](https://github.com/nf-core/phyloplace/issues/113)) (by @erikrikarddaniel)
+- [#114](https://github.com/nf-core/phyloplace/pull/114) - Document that the reference sequences of a target sheet are always aligned, that its `hmm` column is used for the search only, and that a row without `alignmethod` uses `clustalo` ([#113](https://github.com/nf-core/phyloplace/issues/113)) (by @erikrikarddaniel)
 - [#104](https://github.com/nf-core/phyloplace/pull/104) - Launch the AWS tests with `seqeralabs/action-seqera-launch` and the v2 syntax parser, and stop uploading the debug log as an artifact (by @erikrikarddaniel)
 
 ### `Changed`
