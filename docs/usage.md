@@ -28,6 +28,7 @@ At minimum, four parameters are required:
 
 1. `--queryseqfile`: A fasta formatted file with sequences to place.
 2. `--refseqfile`: Reference sequences, several popular formats supported e.g. aligned fasta and phylip. The sequences need to be aligned, except with `--hmmfile`, where they must be unaligned.
+   The same exception applies to the `hmmfile` column of a sample sheet, but not to the `hmm` column of a target sheet, see below.
 3. `--refphylogeny`: Reference phylogeny.
 4. `--model`: Evolutionary model used when estimating the phylogeny, e.g. "LG+F+R6".
 
@@ -37,6 +38,7 @@ A few more parameters can be used to control execution, see the [parameter docum
 
 Each of the four parameters mentioned above can be specified as columns in a comma separated sample sheet instead.
 In addition, a `sample` column needs to be present and the columns `taxonomy`, `alignmethod`, `hmmfile` and `reftreename` referring to the parameters with the same names can be included.
+As with `--hmmfile`, a row with an `hmmfile` is aligned with `hmmer` and needs unaligned reference sequences.
 
 ```bash
 --phyloplace_input '[path to samplesheet file]'
@@ -53,6 +55,10 @@ pp1,q1.faa,ref1.alnfaa,ref1.newick,LG+F+R6,ref1.taxonomy,clustalo
 This mode of the pipeline starts by searching a fasta file with a set of HMMER `hmm` files.
 The results are then passed to phylogenetic placement.
 The target sheet for this mode hence needs to contain paths to `hmm` files plus the phylogenetic placement information.
+
+The `hmm` file is used for the search only, never for aligning, so it does not imply `alignmethod` `hmmer` the way `hmmfile` does in a sample sheet.
+`refseqfile` is therefore always an alignment of the reference sequences in a target sheet, also with `alignmethod` `hmmer`, which then builds its own profile from that alignment.
+A row without a value in `alignmethod` is aligned with `clustalo`, the default of `--alignmethod`.
 
 > [!NOTE]
 > A row without a reference tree and its associated files is used for searching only, not for placement; its hits still appear in the result table.
