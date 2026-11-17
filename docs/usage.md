@@ -19,6 +19,7 @@ Each row of a target sheet is a search target: a profile to search with, and opt
 
 Sample and target sheets can be CSV (`.csv`), TSV (`.tsv`), YAML (`.yml` or `.yaml`) or JSON (`.json`) files, and the format is taken from the file extension.
 A YAML or JSON sheet is a list of entries, each with the same keys as the columns of the CSV sheet.
+In YAML and JSON the values keep their type, so `min_bitscore` must be a number (`30`, not `"30"`), while CSV and TSV sheets can't tell the difference.
 The examples below use CSV.
 
 ## Parameter input
