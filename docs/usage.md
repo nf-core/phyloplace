@@ -13,8 +13,14 @@ One of the outputs from the pipeline is nevertheless a full phylogeny containing
 
 Placement is performed with the [EPA-NG](https://github.com/Pbdas/epa-ng/blob/master/README.md) program after query sequences have been aligned to the reference alignment.
 
-The pipeline can either take parameters on the command line (or in a `params.yaml` file, see below) to perform a single placement, or a sample `csv` file that can accommodate parameters for several placements.
-There are two different types of sample `csv` files, one for direct phylogenetic placement (`--phyloplace_input`), the other for search followed by phylogenetic placement (`--phylosearch_input`).
+The pipeline can either take parameters on the command line (or in a `params.yaml` file, see below) to perform a single placement, or a sample sheet that can accommodate parameters for several placements.
+There are two different types of sheets: a sample sheet for direct phylogenetic placement (`--phyloplace_input`) and a target sheet for search followed by phylogenetic placement (`--phylosearch_input`).
+Each row of a target sheet is a search target: a profile to search with, and optionally the reference phylogeny to place its hits on.
+
+Sample and target sheets can be CSV (`.csv`), TSV (`.tsv`), YAML (`.yml` or `.yaml`) or JSON (`.json`) files, and the format is taken from the file extension.
+A YAML or JSON sheet is a list of entries, each with the same keys as the columns of the CSV sheet.
+In YAML and JSON the values keep their type, so `min_bitscore` must be a number (`30`, not `"30"`), while CSV and TSV sheets can't tell the difference.
+The examples below use CSV.
 
 ## Parameter input
 
@@ -42,11 +48,11 @@ pp0,q0.faa,ref0.alnfaa,ref0.newick,LG,ref0.taxonomy,clustalo
 pp1,q1.faa,ref1.alnfaa,ref1.newick,LG+F+R6,ref1.taxonomy,clustalo
 ```
 
-## Samplesheet input for search followed by phylogenetic placement
+## Target sheet input for search followed by phylogenetic placement
 
 This mode of the pipeline starts by searching a fasta file with a set of HMMER `hmm` files.
 The results are then passed to phylogenetic placement.
-The samplesheet for this mode hence needs to contain paths to `hmm` files plus the phylogenetic placement information.
+The target sheet for this mode hence needs to contain paths to `hmm` files plus the phylogenetic placement information.
 
 > [!NOTE]
 > A row without a reference tree and its associated files is used for searching only, not for placement; its hits still appear in the result table.
@@ -58,10 +64,10 @@ Two further optional columns control the search:
 - `extract_hmm`: the name of one profile to extract from a multi-profile `hmm` file, instead of searching with the whole file.
 - `min_bitscore`: the minimum bit score for a hit to this profile, passed to `hmmsearch` as `--incT`.
 
-In addition to the sample sheet, this mode requires that a fasta file to search is provided via the `--search_fasta` parameter.
+In addition to the target sheet, this mode requires that a fasta file to search is provided via the `--search_fasta` parameter.
 
 ```bash
---phylosearch_input '[path to samplesheet file]' --search_fasta '[path to fasta file]'
+--phylosearch_input '[path to target sheet file]' --search_fasta '[path to fasta file]'
 ```
 
 ```csv title="phylosearch_sheet.csv"
@@ -71,10 +77,11 @@ meth-dehydr,PF00389.hmm,PF00389.alnfaa,PF00389.newick,LG+F+I,PF00389.taxonomy.ts
 rnr,PF00788.hmm,,,,
 ```
 
-### Several sample sheets and selecting targets
+### Several target sheets and selecting targets
 
-`--phylosearch_input` takes a comma-separated list of sample sheets, which are combined into one.
+`--phylosearch_input` takes a comma-separated list of target sheets, which are combined into one.
 This makes it possible to use a shared collection of reference phylogenies together with a sheet of your own profiles.
+The sheets in a list can have different formats.
 
 ```bash
 --phylosearch_input 'collection.csv,my_profiles.csv' --search_fasta '[path to fasta file]'
@@ -113,7 +120,7 @@ NrdAr,NrdAr.hmm,NrdA.alnfaa,NrdA.newick,LG+F+I,NrdA.taxonomy.tsv,NrdA
 NrdJ,NrdJ.hmm,NrdJ.alnfaa,NrdJ.newick,LG+F+I,NrdJ.taxonomy.tsv,
 ```
 
-The column works the same way in both sample sheet formats.
+The column works the same way in sample sheets and target sheets.
 
 A few things worth knowing about this:
 
@@ -125,7 +132,7 @@ A few things worth knowing about this:
   Rows that derive taxonomy from their reference sequences' own FASTA headers count as agreeing, since they take it from the same place.
 - A group needs at least two rows.
   A `reftreename` used by a single row produces no joint output, since it would only duplicate that row's own.
-- Rows that leave `reftreename` empty keep their per-row outputs only, so adding the column to an existing sample sheet changes nothing until it is filled in.
+- Rows that leave `reftreename` empty keep their per-row outputs only, so adding the column to an existing sheet changes nothing until it is filled in.
 - One sequence can be hit by more than one profile in a group.
   It is then placed once per profile and appears once per placement in the joint outputs, under the same name each time.
 
@@ -151,7 +158,7 @@ A few things worth knowing about this:
 
 Every sequence, tree, profile and taxonomy file the pipeline reads may be gzipped, whether it is named in a samplesheet or given as an individual parameter.
 This covers `--queryseqfile`, `--refseqfile`, `--refphylogeny`, `--hmmfile`, `--taxonomy` and `--search_fasta`, along with the samplesheet columns of the same names.
-The samplesheets themselves (`--phyloplace_input`, `--phylosearch_input`) are the exception and stay uncompressed CSV.
+The sheets themselves (`--phyloplace_input`, `--phylosearch_input`) are the exception and must not be compressed.
 Mixing compressed and uncompressed files in one run is fine, including within a single samplesheet row.
 
 Compression is detected from the `.gz` suffix, so a gzipped file has to keep it: `refseqs.faa.gz`, not `refseqs.faa`.
@@ -162,7 +169,7 @@ By default the pipeline keeps `hmmsearch`'s per-sequence hit table (`--tblout`) 
 Add `--save_domtblout` to also write the per-domain table, as one gzipped `*.domtbl.gz` file per profile in the `hmmer` output directory.
 
 ```bash
---phylosearch_input '[path to samplesheet file]' --search_fasta '[path to fasta file]' --save_domtblout
+--phylosearch_input '[path to target sheet file]' --search_fasta '[path to fasta file]' --save_domtblout
 ```
 
 The per-domain table is the only output that carries alignment coordinates, so it is what you need to work out how much of a profile a hit covers, or to find a gene split over several adjacent ORFs where no single ORF covers enough of the profile to be classified on its own.
