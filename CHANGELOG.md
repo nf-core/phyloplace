@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Changed`
 
-- [#NN](https://github.com/nf-core/phyloplace/pull/NN) - Update the nf-core modules and the `fasta_hmmsearch_rank_fastas` and `fasta_newick_epang_gappa` subworkflows. The modules now use the container images of the Seqera community registry, with the same tool versions as before, and the DuckDB modules name their SQL heredoc after a hash of its content, so `-resume` no longer re-runs them (by @erikrikarddaniel)
+- [#111](https://github.com/nf-core/phyloplace/pull/111) - Update the nf-core modules and the `fasta_hmmsearch_rank_fastas` and `fasta_newick_epang_gappa` subworkflows. The modules now use the container images of the Seqera community registry, with the same tool versions as before, and the DuckDB modules name their SQL heredoc after a hash of its content, so `-resume` no longer re-runs them (by @erikrikarddaniel)
 - [#110](https://github.com/nf-core/phyloplace/pull/110) - `--phyloplace_input` (sample sheet) and `--phylosearch_input` (target sheets) accept sheets in CSV, TSV, YAML and JSON format, not only CSV (by @erikrikarddaniel)
 - [#108](https://github.com/nf-core/phyloplace/pull/108) - Template updated to nf-core/tools 4.2.2, which moves the Apptainer setup action of the CI workflows to v3. No pipeline code changes
 - [#106](https://github.com/nf-core/phyloplace/pull/106) - Template updated to nf-core/tools 4.2.1, which changes the GitHub Actions and the tool versions used by the CI workflows and the pre-commit hooks. The Seqera Platform launch action of the full-size test is unchanged (by @erikrikarddaniel)
