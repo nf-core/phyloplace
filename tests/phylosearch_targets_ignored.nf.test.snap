@@ -16,7 +16,7 @@
                     "epa-ng": "0.3.8"
                 },
                 "Workflow": {
-                    "nf-core/phyloplace": "v2.3.1dev"
+                    "nf-core/phyloplace": "v2.4.0"
                 }
             }
         ],
