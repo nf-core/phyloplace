@@ -71,8 +71,8 @@ ${content}
 workflow PHYLOPLACE {
 
     take:
-    ch_phyloplace_data  // channel: [ meta: [ id: string ], data: [ alignmethod: string, queryseqfile: fasta, refseqfile: fasta, refphylogeny: newick, hmmfile: hmm, model: string, taxonomy: tsv ] ]
-    ch_phylosearch_data // channel: [ meta: [ id: string, min_bitscore: int ], data: [ alignmethod: string, hmm: file, extract_hmm: string, refseqfile: fasta, refphylogeny: newick, model: string, taxonomy: tsv ] ]
+    ch_phyloplace_data  // channel: [ meta: [ id: string ], data: [ alignmethod: string, queryseqfile: fasta, refseqfile: fasta, refphylogeny: newick, hmmfile: hmm, model: string, taxonomy: tsv, min_query_columns: int, min_reference_coverage: float ] ]
+    ch_phylosearch_data // channel: [ meta: [ id: string, min_bitscore: int ], data: [ alignmethod: string, hmm: file, extract_hmm: string, refseqfile: fasta, refphylogeny: newick, model: string, taxonomy: tsv, min_query_columns: int, min_reference_coverage: float ] ]
     ch_sequence_fasta   // channel: sequences to search
     save_domtblout      // boolean: also save hmmsearch's per-domain hit table (--domtblout)
     multiqc_config

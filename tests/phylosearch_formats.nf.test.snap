@@ -12,6 +12,9 @@
                 "DUCKDB_TABLE2PARQUET_TBLOUT": {
                     "duckdb": "1.5.5"
                 },
+                "EPANG_FILTERQUERY": {
+                    "gawk": "5.3.1"
+                },
                 "EPANG_PLACE": {
                     "epa-ng": "0.3.8"
                 },
@@ -49,7 +52,7 @@
             88,
             106
         ],
-        "timestamp": "2026-11-16T12:36:47.437477787",
+        "timestamp": "2026-11-18T09:50:38.528505873",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"
