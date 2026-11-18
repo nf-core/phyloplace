@@ -20,6 +20,11 @@
                         "git_sha": "7b3452a23773f687ededb4befd037920e5a51341",
                         "installed_by": ["fasta_hmmsearch_rank_fastas"]
                     },
+                    "epang/filterquery": {
+                        "branch": "master",
+                        "git_sha": "c256a0ebbda74979a0ecd86bcfed0422c5e4ea55",
+                        "installed_by": ["fasta_newick_epang_gappa"]
+                    },
                     "epang/place": {
                         "branch": "master",
                         "git_sha": "d06ef576fbf8440246d420b7d0d4eb291b6ef034",
@@ -111,7 +116,7 @@
                     },
                     "fasta_newick_epang_gappa": {
                         "branch": "master",
-                        "git_sha": "7b3452a23773f687ededb4befd037920e5a51341",
+                        "git_sha": "c256a0ebbda74979a0ecd86bcfed0422c5e4ea55",
                         "installed_by": ["subworkflows"]
                     },
                     "utils_nextflow_pipeline": {
