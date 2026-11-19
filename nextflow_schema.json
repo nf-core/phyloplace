@@ -61,7 +61,7 @@
                 "alignmethod": {
                     "type": "string",
                     "description": "Method used to align query sequences with.",
-                    "help_text": "Query sequences will be aligned to the reference alignment using either HMMER, Clustal Omega or MAFFT, except when an hmm profile is provided (--hmmfile; implies that --alignmethod is set to 'hmmer'), in which case both the reference and query sequences will be aligned with the profile (reference sequences must not be aligned, i.e. must not contain '-' characters).",
+                    "help_text": "Query sequences will be aligned to the reference alignment using either HMMER, Clustal Omega or MAFFT, except when an hmm profile is provided (--hmmfile; implies that --alignmethod is set to 'hmmer'), in which case both the reference and query sequences will be aligned with the profile (reference sequences must not be aligned, i.e. must not contain '-' characters). The hmm column of a --phylosearch_input target sheet is used for the search only and does not imply 'hmmer': a row without a value in its alignmethod column is aligned with the default, 'clustalo'.",
                     "default": "clustalo",
                     "fa_icon": "far fa-file-code",
                     "enum": ["hmmer", "clustalo", "mafft"]
@@ -98,7 +98,7 @@
                     "mimetype": "text/plain",
                     "pattern": "^(\\S+\\.(aln|alnfa|alnfaa|alnfna|mfa|fa|fna|faa|fasta|ph|phy|phylip)(\\.gz)?|https?://\\S*/[^/.\\s]+)$",
                     "description": "File with reference sequences. Any format supported by HMMER tools.",
-                    "help_text": "If the sequences are not aligned, you need to provide an alignment option, e.g. --hmmfile. When refseqfile is FASTA and --taxonomy is not given, taxonomy is instead derived from each record's own header, GTDB-style ('>id taxonomy;string').",
+                    "help_text": "The sequences must be aligned, except with --hmmfile (or the hmmfile column of a --phyloplace_input sample sheet), where they must be unaligned. In a --phylosearch_input target sheet they are always aligned. When refseqfile is FASTA and --taxonomy is not given, taxonomy is instead derived from each record's own header, GTDB-style ('>id taxonomy;string').",
                     "fa_icon": "far fa-file-code",
                     "errorMessage": "Multiple sequence alignment of the reference sequences: extension .aln, .alnfa, .alnfaa, .alnfna, .mfa, .fa, .fna, .faa, .fasta, .ph, .phy or .phylip, optionally gzipped (.gz); no other compression format is supported."
                 },
@@ -152,6 +152,29 @@
                     "type": "string",
                     "description": "MultiQC report title. Printed as page header, used for filename if not otherwise specified.",
                     "fa_icon": "fas fa-file-signature"
+                }
+            }
+        },
+        "epa_ng_options": {
+            "title": "EPA-ng options",
+            "type": "object",
+            "fa_icon": "fas fa-sitemap",
+            "description": "Settings for the phylogenetic placement with EPA-ng.",
+            "properties": {
+                "epang_filter_max": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "description": "Maximum number of placements EPA-ng keeps per query sequence. EPA-ng's own default is 7.",
+                    "help_text": "A query sequence whose likelihood weight is spread over many branches keeps at most this many placements, so the accumulated likelihood weight (aLWR) in the Gappa taxonomy output can be low even when all the placements are in the same clade. Raise this together with `--epang_filter_acc_lwr` to keep more of the weight. Not set by default, which leaves EPA-ng's own default.",
+                    "fa_icon": "fas fa-sort-numeric-up"
+                },
+                "epang_filter_acc_lwr": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1,
+                    "description": "Accumulated likelihood weight after which EPA-ng discards further placements of a query sequence.",
+                    "help_text": "For example 0.99 keeps placements until they hold 99% of the likelihood weight, but never more than `--epang_filter_max`, which is 7 unless set. Not set by default, which leaves EPA-ng's own default of discarding placements with a likelihood weight below 0.01.",
+                    "fa_icon": "fas fa-percentage"
                 }
             }
         },
@@ -317,6 +340,9 @@
     "allOf": [
         {
             "$ref": "#/$defs/input_output_options"
+        },
+        {
+            "$ref": "#/$defs/epa_ng_options"
         },
         {
             "$ref": "#/$defs/institutional_config_options"

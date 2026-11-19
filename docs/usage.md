@@ -28,6 +28,7 @@ At minimum, four parameters are required:
 
 1. `--queryseqfile`: A fasta formatted file with sequences to place.
 2. `--refseqfile`: Reference sequences, several popular formats supported e.g. aligned fasta and phylip. The sequences need to be aligned, except with `--hmmfile`, where they must be unaligned.
+   The same exception applies to the `hmmfile` column of a sample sheet, but not to the `hmm` column of a target sheet, see below.
 3. `--refphylogeny`: Reference phylogeny.
 4. `--model`: Evolutionary model used when estimating the phylogeny, e.g. "LG+F+R6".
 
@@ -37,6 +38,7 @@ A few more parameters can be used to control execution, see the [parameter docum
 
 Each of the four parameters mentioned above can be specified as columns in a comma separated sample sheet instead.
 In addition, a `sample` column needs to be present and the columns `taxonomy`, `alignmethod`, `hmmfile` and `reftreename` referring to the parameters with the same names can be included.
+As with `--hmmfile`, a row with an `hmmfile` is aligned with `hmmer` and needs unaligned reference sequences.
 The columns `min_query_columns` and `min_reference_coverage` set the thresholds described in [Filtering query sequences before placement](#filtering-query-sequences-before-placement) for one row.
 
 ```bash
@@ -54,6 +56,10 @@ pp1,q1.faa,ref1.alnfaa,ref1.newick,LG+F+R6,ref1.taxonomy,clustalo
 This mode of the pipeline starts by searching a fasta file with a set of HMMER `hmm` files.
 The results are then passed to phylogenetic placement.
 The target sheet for this mode hence needs to contain paths to `hmm` files plus the phylogenetic placement information.
+
+The `hmm` file is used for the search only, never for aligning, so it does not imply `alignmethod` `hmmer` the way `hmmfile` does in a sample sheet.
+`refseqfile` is therefore always an alignment of the reference sequences in a target sheet, also with `alignmethod` `hmmer`, which then builds its own profile from that alignment.
+A row without a value in `alignmethod` is aligned with `clustalo`, the default of `--alignmethod`.
 
 > [!NOTE]
 > A row without a reference tree and its associated files is used for searching only, not for placement; its hits still appear in the result table.
@@ -73,11 +79,13 @@ In addition to the target sheet, this mode requires that a fasta file to search 
 ```
 
 ```csv title="phylosearch_sheet.csv"
-target,hmm,refseqfile,refphylogeny,model,taxonomy
-ring-hydrox,PF00848.hmm,PF00848.alnfaa,PF00848.newick,LG+F+I,PF00848.taxonomy.tsv
-meth-dehydr,PF00389.hmm,PF00389.alnfaa,PF00389.newick,LG+F+I,PF00389.taxonomy.tsv
-rnr,PF00788.hmm,,,,
+target,hmm,refseqfile,refphylogeny,model,taxonomy,alignmethod
+ring-hydrox,PF00848.hmm,PF00848.alnfaa,PF00848.newick,LG+F+I,PF00848.taxonomy.tsv,mafft
+meth-dehydr,PF00389.hmm,PF00389.alnfaa,PF00389.newick,LG+F+I,PF00389.taxonomy.tsv,
+rnr,PF00788.hmm,,,,,
 ```
+
+Here `ring-hydrox` is aligned with `mafft`, while the empty `alignmethod` of `meth-dehydr` means `clustalo`.
 
 ### Several target sheets and selecting targets
 
@@ -201,6 +209,24 @@ Add `--save_domtblout` to also write the per-domain table, as one gzipped `*.dom
 
 The per-domain table is the only output that carries alignment coordinates, so it is what you need to work out how much of a profile a hit covers, or to find a gene split over several adjacent ORFs where no single ORF covers enough of the profile to be classified on its own.
 Setting the flag also adds coordinate and length columns to the ranked summary in `*.hmmrank.tsv.gz`, which is usually the easier place to read them off; see the [output documentation](output.md) for what each column means.
+
+## Placements kept per query sequence
+
+EPA-ng keeps at most seven placements for each query sequence, and discards those with a likelihood weight ratio below 0.01.
+A query sequence whose weight is spread over many branches, for example a short or divergent one, therefore keeps placements that add up to far less than 1.
+The accumulated likelihood weight (`aLWR`) that `gappa examine assign` reports in the `*.taxonomy.*` files then stays low, even when all the kept placements are in the same clade.
+The normalised fraction (`afract` in `*.taxonomy.per_query.tsv`) is not affected.
+
+To keep more of the weight, use `--epang_filter_max` and `--epang_filter_acc_lwr`:
+
+```bash
+--epang_filter_max 20 --epang_filter_acc_lwr 0.99
+```
+
+`--epang_filter_acc_lwr` sets the accumulated weight after which EPA-ng discards further placements of a query sequence, and `--epang_filter_max` the most it keeps, so raise both to see an effect.
+Neither is set by default, which leaves EPA-ng's own limits.
+They apply to all placements of a run, not to single rows of a sample or target sheet.
+More placements make the `*.jplace.gz` files and the Gappa results larger.
 
 ## Running the pipeline
 

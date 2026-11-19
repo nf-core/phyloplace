@@ -38,6 +38,10 @@ params {
     search_fasta:                 String? = null
     save_domtblout:               Boolean = false
 
+    // EPA-ng options
+    epang_filter_max:             Integer? = null
+    epang_filter_acc_lwr:         Float?   = null
+
     // MultiQC options
     multiqc_config:               String? = null
     multiqc_title:                String? = null

@@ -7,11 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
-- [#116](https://github.com/nf-core/phyloplace/pull/116) - Query sequences are filtered before placement, as EPA-NG stops the whole run on a query sequence with no residue in the columns occupied by the reference sequences. `--min_query_columns` (default 1) and `--min_reference_coverage` (default 0, off) set the thresholds, and columns with the same names set them per row in `--phyloplace_input` and `--phylosearch_input` sheets. Sequences that are dropped are reported in a warning and in `filterquery/*.filterquery.tsv`. Runs that earlier stopped with an EPA-NG error now continue without those sequences
+- [#118](https://github.com/nf-core/phyloplace/pull/118) - `--epang_filter_max` and `--epang_filter_acc_lwr` set how many placements EPA-ng keeps per query sequence. EPA-ng keeps at most 7 by default, which leaves a low accumulated likelihood weight (`aLWR`) for query sequences with a diffuse placement ([#117](https://github.com/nf-core/phyloplace/issues/117)) (by @erikrikarddaniel, reviewed by @eduard-watchmaker)
+- [#116](https://github.com/nf-core/phyloplace/pull/116) - Query sequences are filtered before placement, as EPA-NG stops the whole run on a query sequence with no residue in the columns occupied by the reference sequences. `--min_query_columns` (default 1) and `--min_reference_coverage` (default 0, off) set the thresholds, and columns with the same names set them per row in `--phyloplace_input` and `--phylosearch_input` sheets. Sequences that are dropped are reported in a warning and in `filterquery/*.filterquery.tsv`. Runs that earlier stopped with an EPA-NG error now continue without those sequences (by @erikrikarddaniel, reviewed by @eduard-watchmaker)
 - [#109](https://github.com/nf-core/phyloplace/pull/109) - `--phylosearch_input` accepts a comma-separated list of target sheets, for example a shared collection of reference phylogenies together with a sheet of your own profiles. Target names must be unique across the sheets. The new `--phylosearch_targets` keeps only the listed targets (by @erikrikarddaniel, reviewed by @piplus2)
 
 ### `Fixed`
 
+- [#114](https://github.com/nf-core/phyloplace/pull/114) - Document that the reference sequences of a target sheet are always aligned, that its `hmm` column is used for the search only, and that a row without `alignmethod` uses `clustalo` ([#113](https://github.com/nf-core/phyloplace/issues/113)) (by @erikrikarddaniel, reviewed by @Joon-Klaps)
 - [#104](https://github.com/nf-core/phyloplace/pull/104) - Launch the AWS tests with `seqeralabs/action-seqera-launch` and the v2 syntax parser, and stop uploading the debug log as an artifact (by @erikrikarddaniel, reviewed by @piplus2)
 
 ### `Changed`
