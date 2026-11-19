@@ -13,6 +13,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [HMMER](#hmmer) - If the pipeline is run in "search and place" mode, an initial HMMER search is performed to identify query sequences for placement
 - [Taxonomy](#taxonomy) - If `--refseqfile` is FASTA and no `--taxonomy` file is given, taxonomy is derived from the reference sequences' own headers
 - [Alignment](#alignment) - Align query sequences to the reference alignment
+- [Filtering of query sequences](#filtering-of-query-sequences) - Drop query sequences that EPA-NG cannot place, or that cover too little of the reference alignment
 - [Placement](#placement) - Place query sequences in the reference phylogeny
 - [Summary](#summary) - Summarise placement with a grafted tree, a classification and a heattree
 - [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline
