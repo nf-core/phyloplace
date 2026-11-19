@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
+- [#118](https://github.com/nf-core/phyloplace/pull/118) - `--epang_filter_max` and `--epang_filter_acc_lwr` set how many placements EPA-ng keeps per query sequence. EPA-ng keeps at most 7 by default, which leaves a low accumulated likelihood weight (`aLWR`) for query sequences with a diffuse placement ([#117](https://github.com/nf-core/phyloplace/issues/117)) (by @erikrikarddaniel)
 - [#109](https://github.com/nf-core/phyloplace/pull/109) - `--phylosearch_input` accepts a comma-separated list of target sheets, for example a shared collection of reference phylogenies together with a sheet of your own profiles. Target names must be unique across the sheets. The new `--phylosearch_targets` keeps only the listed targets (by @erikrikarddaniel, reviewed by @piplus2)
 
 ### `Fixed`

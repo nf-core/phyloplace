@@ -1,0 +1,89 @@
+// The test data places three queries. With EPA-ng's own defaults they keep 3, 3 and 1 placements,
+// with likelihood weight ratios [0.917, 0.071, 0.012], [0.725, 0.230, 0.044] and [1.0].
+
+nextflow_pipeline {
+
+    name "Test the EPA-ng placement filters"
+    script "../main.nf"
+    tag "pipeline"
+    profile "test"
+
+    test("--epang_filter_max") {
+
+        when {
+            params {
+                outdir = "$outputDir"
+                epang_filter_max = 1
+            }
+        }
+
+        then {
+            def placementWeights = { jplace ->
+                def json = new groovy.json.JsonSlurper().parseText(new java.util.zip.GZIPInputStream(new File(jplace).newInputStream()).text)
+                def lwr = json.fields.indexOf('like_weight_ratio')
+                json.placements.collect { placement -> placement.p.collect { it[lwr] } }.sort { it.size() }
+            }
+            def weights = placementWeights.call("${params.outdir}/epang/placement.epa_result.jplace.gz")
+            assert workflow.success
+            assertAll(
+                // pipeline versions.yml file for multiqc from which Nextflow version is removed because we test pipelines on multiple Nextflow versions
+                { assert snapshot(removeNextflowVersion("$outputDir/pipeline_info/nf_core_phyloplace_software_mqc_versions.yml")).match() },
+                // one placement per query, where the defaults keep up to three
+                { assert weights.collect { it.size() } == [1, 1, 1] },
+                // the kept weight is below 1 for the queries that had more
+                { assert weights.count { it.sum() < 0.999 } == 2 }
+            )
+        }
+    }
+
+    test("--epang_filter_acc_lwr") {
+
+        when {
+            params {
+                outdir = "$outputDir"
+                epang_filter_acc_lwr = 0.7
+            }
+        }
+
+        then {
+            def placementWeights = { jplace ->
+                def json = new groovy.json.JsonSlurper().parseText(new java.util.zip.GZIPInputStream(new File(jplace).newInputStream()).text)
+                def lwr = json.fields.indexOf('like_weight_ratio')
+                json.placements.collect { placement -> placement.p.collect { it[lwr] } }.sort { it.size() }
+            }
+            def weights = placementWeights.call("${params.outdir}/epang/placement.epa_result.jplace.gz")
+            assert workflow.success
+            assertAll(
+                // the best placement of every query holds at least 0.7, so no further placement is kept
+                { assert weights.collect { it.size() } == [1, 1, 1] },
+                { assert weights.every { it.sum() >= 0.7 } }
+            )
+        }
+    }
+
+    test("--epang_filter_max and --epang_filter_acc_lwr") {
+
+        when {
+            params {
+                outdir = "$outputDir"
+                epang_filter_max = 2
+                epang_filter_acc_lwr = 0.9
+            }
+        }
+
+        then {
+            def placementWeights = { jplace ->
+                def json = new groovy.json.JsonSlurper().parseText(new java.util.zip.GZIPInputStream(new File(jplace).newInputStream()).text)
+                def lwr = json.fields.indexOf('like_weight_ratio')
+                json.placements.collect { placement -> placement.p.collect { it[lwr] } }.sort { it.size() }
+            }
+            def weights = placementWeights.call("${params.outdir}/epang/placement.epa_result.jplace.gz")
+            assert workflow.success
+            assertAll(
+                // 0.917 reaches 0.9 at once, 0.725 + 0.230 reaches it with the second placement
+                { assert weights.collect { it.size() } == [1, 1, 2] },
+                { assert weights.every { it.sum() >= 0.9 } }
+            )
+        }
+    }
+}
