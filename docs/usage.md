@@ -182,7 +182,7 @@ An empty cell uses the value of the parameter, and a `0` in the `min_reference_c
 The columns are numeric: in YAML and JSON sheets the values must be numbers, not strings.
 
 Which characters count as residues depends on the alphabet, which is detected from the reference alignment.
-If at least 90% of its characters are `A`, `C`, `G`, `T`, `U` or `N`, it is taken to be nucleotides, and `N` and `?` are then counted as gaps.
+If at least 90% of its non-gap characters are `A`, `C`, `G`, `T`, `U` or `N`, it is taken to be nucleotides, and `N` and `?` are then counted as gaps.
 Otherwise it is taken to be protein, where `N` is asparagine and counts as a residue.
 In both, `-` and `.` are gaps.
 EPA-NG reads `N`, `X`, `O` and `?` as gaps in either alphabet, so a sequence with residues in the occupied columns that are all of those cannot be placed either, and is dropped.

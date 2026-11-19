@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Added`
 
 - [#116](https://github.com/nf-core/phyloplace/pull/116) - Query sequences are filtered before placement, as EPA-NG stops the whole run on a query sequence with no residue in the columns occupied by the reference sequences. `--min_query_columns` (default 1) and `--min_reference_coverage` (default 0, off) set the thresholds, and columns with the same names set them per row in `--phyloplace_input` and `--phylosearch_input` sheets. Sequences that are dropped are reported in a warning and in `filterquery/*.filterquery.tsv`. Runs that earlier stopped with an EPA-NG error now continue without those sequences
-- [#109](https://github.com/nf-core/phyloplace/pull/109) - `--phylosearch_input` accepts a comma-separated list of target sheets, for example a shared collection of reference phylogenies together with a sheet of your own profiles. Target names must be unique across the sheets. The new `--phylosearch_targets` keeps only the listed targets (by @erikrikarddaniel)
+- [#109](https://github.com/nf-core/phyloplace/pull/109) - `--phylosearch_input` accepts a comma-separated list of target sheets, for example a shared collection of reference phylogenies together with a sheet of your own profiles. Target names must be unique across the sheets. The new `--phylosearch_targets` keeps only the listed targets (by @erikrikarddaniel, reviewed by @piplus2)
 
 ### `Fixed`
 
