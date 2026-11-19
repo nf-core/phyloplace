@@ -12,6 +12,9 @@
                 "DUCKDB_TABLE2PARQUET_TBLOUT": {
                     "duckdb": "1.5.5"
                 },
+                "EPANG_FILTERQUERY": {
+                    "gawk": "5.3.1"
+                },
                 "EPANG_PLACE": {
                     "epa-ng": "0.3.8"
                 },
@@ -73,6 +76,9 @@
                 "epang/bac16s.epa_result.jplace.gz",
                 "epang/bac16s.query.fasta.gz",
                 "epang/bac16s.reference.fasta.gz",
+                "filterquery",
+                "filterquery/arc16s.filterquery.tsv",
+                "filterquery/bac16s.filterquery.tsv",
                 "gappa",
                 "gappa/arc16s.graft.newick",
                 "gappa/arc16s.heattree.colours.txt",
@@ -148,6 +154,8 @@
                 "arc16s.reference.fasta.gz:md5,04c8ed3903b8ff3edb50eb1da619a66b",
                 "bac16s.query.fasta.gz:md5,d14126ef257890870b1faa9c9534a6eb",
                 "bac16s.reference.fasta.gz:md5,2464274bdbc4e37477880cbd8b047ab2",
+                "arc16s.filterquery.tsv:md5,25f212ea2e405631f8221dbaae5017ae",
+                "bac16s.filterquery.tsv:md5,4305098518b467d2f0769257bffc92c9",
                 "arc16s.heattree.colours.txt:md5,7e695b7c9b6d467ca44341fc1db251b0",
                 "arc16s.joint.heattree.colours.txt:md5,0889f4707d83550bba9203ea19d928d7",
                 "arc16s.joint.taxonomy.labelled_tree.newick:md5,88aad266c8ecd72275dcd8e1620520bc",
@@ -172,7 +180,7 @@
             82,
             187
         ],
-        "timestamp": "2026-09-18T13:50:28.618241141",
+        "timestamp": "2026-11-18T09:53:10.727353309",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.04.6"

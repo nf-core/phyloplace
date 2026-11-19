@@ -108,6 +108,18 @@ Since the resulting alignment contains both query and reference sequences it nee
 
 </details>
 
+### Filtering of query sequences
+
+Before placement, query sequences that fall below `--min_query_columns` or `--min_reference_coverage` are dropped, see the [usage documentation](usage.md#filtering-of-query-sequences-before-placement).
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `filterquery/`
+  - `*.filterquery.tsv`: One row per query sequence, with the number of columns of the alignment occupied by the reference sequences (`reference_columns`), the number of those columns in which the query has a residue (`query_columns`), the fraction (`reference_coverage`), the number of those columns in which the query has a residue that EPA-NG does not treat as a gap (`unambiguous_columns`), and whether the sequence was `kept` (`true` or `false`).
+
+</details>
+
 ### Placement
 
 Phylogenetic placement of query sequences is performed with [EPA-NG](https://github.com/Pbdas/epa-ng).

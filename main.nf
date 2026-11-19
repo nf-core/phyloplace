@@ -27,6 +27,8 @@ params {
     phylosearch_targets:          String? = null
     id:                            String = 'placement'
     alignmethod:                   String = 'clustalo'
+    min_query_columns:            Integer = 1
+    min_reference_coverage:         Float = 0.0
     queryseqfile:                 String? = null
     refseqfile:                   String? = null
     hmmfile:                      String? = null
@@ -136,6 +138,8 @@ workflow {
         params.taxonomy,
         params.hmmfile,
         params.alignmethod,
+        params.min_query_columns,
+        params.min_reference_coverage,
         params.phyloplace_input,
         params.phylosearch_input,
         params.phylosearch_targets,

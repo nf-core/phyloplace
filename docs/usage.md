@@ -39,6 +39,7 @@ A few more parameters can be used to control execution, see the [parameter docum
 Each of the four parameters mentioned above can be specified as columns in a comma separated sample sheet instead.
 In addition, a `sample` column needs to be present and the columns `taxonomy`, `alignmethod`, `hmmfile` and `reftreename` referring to the parameters with the same names can be included.
 As with `--hmmfile`, a row with an `hmmfile` is aligned with `hmmer` and needs unaligned reference sequences.
+The columns `min_query_columns` and `min_reference_coverage` set the thresholds described in [Filtering query sequences before placement](#filtering-query-sequences-before-placement) for one row.
 
 ```bash
 --phyloplace_input '[path to samplesheet file]'
@@ -69,6 +70,7 @@ Two further optional columns control the search:
 
 - `extract_hmm`: the name of one profile to extract from a multi-profile `hmm` file, instead of searching with the whole file.
 - `min_bitscore`: the minimum bit score for a hit to this profile, passed to `hmmsearch` as `--incT`.
+- `min_query_columns` and `min_reference_coverage`: the thresholds described in [Filtering query sequences before placement](#filtering-query-sequences-before-placement), for the sequences found with this profile.
 
 In addition to the target sheet, this mode requires that a fasta file to search is provided via the `--search_fasta` parameter.
 
@@ -170,6 +172,31 @@ The sheets themselves (`--phyloplace_input`, `--phylosearch_input`) are the exce
 Mixing compressed and uncompressed files in one run is fine, including within a single samplesheet row.
 
 Compression is detected from the `.gz` suffix, so a gzipped file has to keep it: `refseqs.faa.gz`, not `refseqs.faa`.
+
+## Filtering query sequences before placement
+
+EPA-NG cannot place a query sequence that has no residue in the columns of the alignment that the reference sequences occupy, and stops the whole run when it meets one.
+This happens, for example, with a fragment that is aligned to a region where all reference sequences have gaps.
+The pipeline therefore checks every query sequence after alignment and drops those that fall below two thresholds:
+
+- `--min_query_columns` (default `1`): the minimum number of residues a query sequence must have in the columns occupied by the reference sequences.
+  The default only removes sequences that EPA-NG cannot place at all.
+- `--min_reference_coverage` (default `0`, i.e. off): the minimum fraction of those columns in which a query sequence must have a residue.
+  A fraction of `0.5` keeps only sequences that cover at least half of the reference alignment.
+  Placements of sequences covering little of the reference alignment are often uninformative, so this is a way to avoid them.
+
+Both thresholds can also be set per row, in columns with the same names in a `--phyloplace_input` sample sheet or a `--phylosearch_input` target sheet.
+An empty cell uses the value of the parameter, and a `0` in the `min_reference_coverage` column switches the filter off for that row even if the parameter is set.
+The columns are numeric: in YAML and JSON sheets the values must be numbers, not strings.
+
+Which characters count as residues depends on the alphabet, which is detected from the reference alignment.
+If at least 90% of its non-gap characters are `A`, `C`, `G`, `T`, `U` or `N`, it is taken to be nucleotides, and `N` and `?` are then counted as gaps.
+Otherwise it is taken to be protein, where `N` is asparagine and counts as a residue.
+In both, `-` and `.` are gaps.
+EPA-NG reads `N`, `X`, `O` and `?` as gaps in either alphabet, so a sequence with residues in the occupied columns that are all of those cannot be placed either, and is dropped.
+
+A warning is written for each sample that loses query sequences, and `filterquery/<sample>.filterquery.tsv` lists every query sequence with its numbers (see the [output documentation](output.md#filtering-of-query-sequences)).
+A sample where no query sequence passes is not placed and has no placement outputs, but the other samples are not affected.
 
 ## Saving the per-domain hit table
 

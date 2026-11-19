@@ -66,6 +66,23 @@
                     "fa_icon": "far fa-file-code",
                     "enum": ["hmmer", "clustalo", "mafft"]
                 },
+                "min_query_columns": {
+                    "type": "integer",
+                    "description": "Minimum number of residues a query sequence must have in the reference columns.",
+                    "help_text": "Before placement, query sequences are checked against the columns of the alignment that the reference sequences occupy (columns with only gaps in the reference are ignored by EPA-NG). A query with fewer residues in those columns than this value is dropped with a warning, and listed in the `filterquery` output. The default of 1 only removes queries with no residue at all in those columns, which EPA-NG cannot place and which otherwise stop the whole run. Can be set per row in the `min_query_columns` column of a `--phyloplace_input` or `--phylosearch_input` sheet.",
+                    "default": 1,
+                    "minimum": 1,
+                    "fa_icon": "fas fa-filter"
+                },
+                "min_reference_coverage": {
+                    "type": "number",
+                    "description": "Minimum fraction of the reference columns in which a query sequence must have a residue.",
+                    "help_text": "The reference coverage of a query is the number of residues it has in the columns that the reference sequences occupy, divided by the number of such columns. A query below this value is dropped with a warning, and listed in the `filterquery` output. The default of 0 turns the coverage filter off. Can be set per row in the `min_reference_coverage` column of a `--phyloplace_input` or `--phylosearch_input` sheet.",
+                    "default": 0,
+                    "minimum": 0,
+                    "maximum": 1,
+                    "fa_icon": "fas fa-filter"
+                },
                 "queryseqfile": {
                     "type": "string",
                     "format": "file-path",

@@ -9,6 +9,9 @@
                 "CUSTOM_RESOLVETAXONOMY": {
                     "biopython": 1.84
                 },
+                "EPANG_FILTERQUERY": {
+                    "gawk": "5.3.1"
+                },
                 "EPANG_PLACE": {
                     "epa-ng": "0.3.8"
                 },
@@ -20,7 +23,7 @@
                 }
             }
         ],
-        "timestamp": "2026-11-16T13:00:00.354138355",
+        "timestamp": "2026-11-18T09:53:44.611085214",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"
