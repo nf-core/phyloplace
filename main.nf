@@ -24,8 +24,11 @@ params {
     // Input options
     phyloplace_input:             String? = null
     phylosearch_input:            String? = null
+    phylosearch_targets:          String? = null
     id:                            String = 'placement'
     alignmethod:                   String = 'clustalo'
+    min_query_columns:            Integer = 1
+    min_reference_coverage:         Float = 0.0
     queryseqfile:                 String? = null
     refseqfile:                   String? = null
     hmmfile:                      String? = null
@@ -34,6 +37,10 @@ params {
     taxonomy:                     String? = null
     search_fasta:                 String? = null
     save_domtblout:               Boolean = false
+
+    // EPA-ng options
+    epang_filter_max:             Integer? = null
+    epang_filter_acc_lwr:         Float?   = null
 
     // MultiQC options
     multiqc_config:               String? = null
@@ -131,8 +138,11 @@ workflow {
         params.taxonomy,
         params.hmmfile,
         params.alignmethod,
+        params.min_query_columns,
+        params.min_reference_coverage,
         params.phyloplace_input,
         params.phylosearch_input,
+        params.phylosearch_targets,
         params.search_fasta,
         params.help,
         params.help_full,

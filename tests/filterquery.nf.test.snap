@@ -1,0 +1,38 @@
+{
+    "-profile test, thresholds set per row of a --phyloplace_input sheet": {
+        "content": [
+            {
+                "CLUSTALO_ALIGN": {
+                    "clustalo": "1.2.4",
+                    "pigz": 2.8
+                },
+                "CUSTOM_RESOLVETAXONOMY": {
+                    "biopython": 1.84
+                },
+                "EPANG_FILTERQUERY": {
+                    "gawk": "5.3.1"
+                },
+                "EPANG_PLACE": {
+                    "epa-ng": "0.3.8"
+                },
+                "EPANG_SPLIT_CLUSTALO": {
+                    "epa-ng": "0.3.8"
+                },
+                "GAPPA_GRAFT": {
+                    "gappa": "0.9.0"
+                },
+                "GAPPA_HEATTREE": {
+                    "gappa": "0.9.0"
+                },
+                "Workflow": {
+                    "nf-core/phyloplace": "v2.4.0"
+                }
+            }
+        ],
+        "timestamp": "2026-11-18T09:41:53.050407477",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.04.6"
+        }
+    }
+}

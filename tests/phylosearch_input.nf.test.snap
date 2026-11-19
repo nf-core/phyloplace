@@ -15,6 +15,9 @@
                 "DUCKDB_TABLE2PARQUET_TBLOUT": {
                     "duckdb": "1.5.5"
                 },
+                "EPANG_FILTERQUERY": {
+                    "gawk": "5.3.1"
+                },
                 "EPANG_PLACE": {
                     "epa-ng": "0.3.8"
                 },
@@ -49,7 +52,7 @@
                     "seqtk": "1.4-r122"
                 },
                 "Workflow": {
-                    "nf-core/phyloplace": "v2.3.0"
+                    "nf-core/phyloplace": "v2.4.0"
                 }
             },
             [
@@ -68,6 +71,9 @@
                 "epang/bac16s.epa_result.jplace.gz",
                 "epang/bac16s.query.fasta.gz",
                 "epang/bac16s.reference.fasta.gz",
+                "filterquery",
+                "filterquery/arc.filterquery.tsv",
+                "filterquery/bac16s.filterquery.tsv",
                 "gappa",
                 "gappa/arc.graft.newick",
                 "gappa/arc.heattree.colours.txt",
@@ -147,6 +153,8 @@
                 "arc.reference.fasta.gz:md5,3202c886132ef01bab8508076c8734c0",
                 "bac16s.query.fasta.gz:md5,a60427f34274cbaf4ac6516d7b9a125e",
                 "bac16s.reference.fasta.gz:md5,c5ee2a6bf9658a76cbfd1500563dedae",
+                "arc.filterquery.tsv:md5,0532669ba74a5e46cad5d8aab3fc19ab",
+                "bac16s.filterquery.tsv:md5,f5288b75d133989812333ee2840046c7",
                 "arc.heattree.colours.txt:md5,adceb5cf88545cc4b47afa64da5bd5ec",
                 "arc.taxonomy.labelled_tree.newick:md5,88aad266c8ecd72275dcd8e1620520bc",
                 "bac16s.heattree.colours.txt:md5,02d6f8d81aff45fde65c684c6775bcdc",
@@ -176,7 +184,7 @@
             54,
             11
         ],
-        "timestamp": "2026-09-21T21:08:25.827337638",
+        "timestamp": "2026-11-18T09:51:55.117015488",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.04.6"

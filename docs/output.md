@@ -13,6 +13,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [HMMER](#hmmer) - If the pipeline is run in "search and place" mode, an initial HMMER search is performed to identify query sequences for placement
 - [Taxonomy](#taxonomy) - If `--refseqfile` is FASTA and no `--taxonomy` file is given, taxonomy is derived from the reference sequences' own headers
 - [Alignment](#alignment) - Align query sequences to the reference alignment
+- [Filtering of query sequences](#filtering-of-query-sequences) - Drop query sequences that EPA-NG cannot place, or that cover too little of the reference alignment
 - [Placement](#placement) - Place query sequences in the reference phylogeny
 - [Summary](#summary) - Summarise placement with a grafted tree, a classification and a heattree
 - [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline
@@ -60,7 +61,7 @@ The MAFFT alignment strategy keeps the structure of the original reference align
   - `*.ref.hmmbuild.txt`: Log from HMM profile build.
   - `*.ref.hmm.gz`: HMM profile made from the reference alignment, if not provided using the `hmmfile` parameter.
   - `*.ref.unaligned.afa.gz`: "Unaligned", i.e. without gap characters, reference sequences in Fasta format.
-  - `*.hmm`: Profiles extracted from a multi-profile `hmm` file with the `extract_hmm` sample sheet column, in "search and place" mode.
+  - `*.hmm`: Profiles extracted from a multi-profile `hmm` file with the `extract_hmm` target sheet column, in "search and place" mode.
   - `*.tbl.gz`: Per-sequence hit table (`--tblout`) for individual `hmmsearch` runs in "search and place" mode.
   - `*.domtbl.gz`: Per-domain hit table (`--domtblout`) for individual `hmmsearch` runs in "search and place" mode, only written when `--save_domtblout` is set.
     Unlike the per-sequence table, this one carries alignment coordinates for each domain, which are needed to work out profile coverage or to find genes split over several ORFs.
@@ -108,6 +109,18 @@ Since the resulting alignment contains both query and reference sequences it nee
 
 </details>
 
+### Filtering of query sequences
+
+Before placement, query sequences that fall below `--min_query_columns` or `--min_reference_coverage` are dropped, see the [usage documentation](usage.md#filtering-of-query-sequences-before-placement).
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `filterquery/`
+  - `*.filterquery.tsv`: One row per query sequence, with the number of columns of the alignment occupied by the reference sequences (`reference_columns`), the number of those columns in which the query has a residue (`query_columns`), the fraction (`reference_coverage`), the number of those columns in which the query has a residue that EPA-NG does not treat as a gap (`unambiguous_columns`), and whether the sequence was `kept` (`true` or `false`).
+
+</details>
+
 ### Placement
 
 Phylogenetic placement of query sequences is performed with [EPA-NG](https://github.com/Pbdas/epa-ng).
@@ -138,7 +151,7 @@ Third, if a classification of the reference sequences is available (see [Taxonom
 
 </details>
 
-When rows of the sample sheet share a `reftreename` (see [Summarising several profiles on one reference tree](usage.md#summarising-several-profiles-on-one-reference-tree)), the same three summaries are also produced once for the group as a whole, on top of the per-row ones above.
+When rows of a sample or target sheet share a `reftreename` (see [Summarising several profiles on one reference tree](usage.md#summarising-several-profiles-on-one-reference-tree)), the same three summaries are also produced once for the group as a whole, on top of the per-row ones above.
 The group's placements are first merged into a single jplace file, since `gappa examine graft` summarises each jplace file it is given separately, and then grafted, classified and heat-treed from that.
 
 <details markdown="1">

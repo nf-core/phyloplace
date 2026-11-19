@@ -1,0 +1,121 @@
+nextflow_pipeline {
+
+    name "Test pipeline"
+    script "../main.nf"
+    tag "pipeline"
+    profile "test"
+
+    // Reference coverage of the three queries in PF14720_3_sequences.faa after Clustal Omega
+    // alignment, residues in occupied columns / 88 occupied columns: B4F2Z1_PROMH 86 (0.977),
+    // A0A1B7XJK0_9DELT 82 (0.932), A0A1J4NSI0_9ACTN 79 (0.898).
+
+    test("-profile test, thresholds set per row of a --phyloplace_input sheet") {
+
+        when {
+            params {
+                outdir = "$outputDir"
+                def base = "https://raw.githubusercontent.com/nf-core/test-datasets/phyloplace/testdata/"
+                def samplesheet = new File("$outputDir/phyloplace_input_filterquery.csv")
+                samplesheet.parentFile.mkdirs()
+                samplesheet.text = [
+                    "sample,alignmethod,queryseqfile,refseqfile,refphylogeny,model,min_query_columns,min_reference_coverage",
+                    "defaults,clustalo,${base}PF14720_3_sequences.faa,${base}PF14720_seed.alnfaa,${base}PF14720_seed.ft.LGCAT.newick,LG,,",
+                    "columns,clustalo,${base}PF14720_3_sequences.faa,${base}PF14720_seed.alnfaa,${base}PF14720_seed.ft.LGCAT.newick,LG,80,",
+                    "coverage,clustalo,${base}PF14720_3_sequences.faa,${base}PF14720_seed.alnfaa,${base}PF14720_seed.ft.LGCAT.newick,LG,,0.95",
+                    "nothing,clustalo,${base}PF14720_3_sequences.faa,${base}PF14720_seed.alnfaa,${base}PF14720_seed.ft.LGCAT.newick,LG,89,"
+                ].join('\n') + '\n'
+                phyloplace_input = samplesheet.toString()
+                queryseqfile     = null
+                refseqfile       = null
+                refphylogeny     = null
+                model            = null
+                taxonomy         = null
+            }
+        }
+
+        then {
+            def kept = { id ->
+                new File("${params.outdir}/filterquery/${id}.filterquery.tsv").readLines().drop(1)
+                    .findAll { it.endsWith('\ttrue') }.collect { it.split('\t')[0] }.sort()
+            }
+            def placed = { id -> new File("${params.outdir}/gappa/${id}.graft.newick").text }
+
+            assert workflow.success
+            assertAll(
+                { assert snapshot(removeNextflowVersion("$outputDir/pipeline_info/nf_core_phyloplace_software_mqc_versions.yml")).match() },
+                { assert kept('defaults') == ['A0A1B7XJK0_9DELT', 'A0A1J4NSI0_9ACTN', 'B4F2Z1_PROMH'] },
+                { assert kept('columns') == ['A0A1B7XJK0_9DELT', 'B4F2Z1_PROMH'] },
+                { assert kept('coverage') == ['B4F2Z1_PROMH'] },
+                { assert kept('nothing') == [] },
+
+                // The dropped queries are not placed
+                { assert placed('defaults').with { it.contains('A0A1B7XJK0_9DELT') && it.contains('A0A1J4NSI0_9ACTN') && it.contains('B4F2Z1_PROMH') } },
+                { assert placed('columns').with { it.contains('A0A1B7XJK0_9DELT') && !it.contains('A0A1J4NSI0_9ACTN') && it.contains('B4F2Z1_PROMH') } },
+                { assert placed('coverage').with { !it.contains('A0A1B7XJK0_9DELT') && !it.contains('A0A1J4NSI0_9ACTN') && it.contains('B4F2Z1_PROMH') } },
+
+                // A sample without a surviving query is skipped, the others are not affected
+                { assert !new File("${params.outdir}/gappa/nothing.graft.newick").exists() },
+                { assert !new File("${params.outdir}/epang/nothing.epa_result.jplace.gz").exists() },
+                { assert new File("${launchDir}/meta/nextflow.log").text.contains("none of the 3 query sequences of 'nothing' passed the filter") },
+                { assert new File("${launchDir}/meta/nextflow.log").text.contains("1 of 3 query sequences of 'columns' were dropped") }
+            )
+        }
+    }
+
+    test("-profile test, --min_reference_coverage is the default of rows that don't set it, a row value of 0 overrides it") {
+
+        when {
+            params {
+                outdir                 = "$outputDir"
+                min_reference_coverage = 0.95
+                def base = "https://raw.githubusercontent.com/nf-core/test-datasets/phyloplace/testdata/"
+                def samplesheet = new File("$outputDir/phyloplace_input_filterquery_global.csv")
+                samplesheet.parentFile.mkdirs()
+                samplesheet.text = [
+                    "sample,alignmethod,queryseqfile,refseqfile,refphylogeny,model,min_reference_coverage",
+                    "global,clustalo,${base}PF14720_3_sequences.faa,${base}PF14720_seed.alnfaa,${base}PF14720_seed.ft.LGCAT.newick,LG,",
+                    "zero,clustalo,${base}PF14720_3_sequences.faa,${base}PF14720_seed.alnfaa,${base}PF14720_seed.ft.LGCAT.newick,LG,0"
+                ].join('\n') + '\n'
+                phyloplace_input = samplesheet.toString()
+                queryseqfile     = null
+                refseqfile       = null
+                refphylogeny     = null
+                model            = null
+                taxonomy         = null
+            }
+        }
+
+        then {
+            def kept = { id ->
+                new File("${params.outdir}/filterquery/${id}.filterquery.tsv").readLines().drop(1)
+                    .findAll { it.endsWith('\ttrue') }.collect { it.split('\t')[0] }.sort()
+            }
+
+            assert workflow.success
+            assertAll(
+                { assert kept('global') == ['B4F2Z1_PROMH'] },
+                { assert kept('zero') == ['A0A1B7XJK0_9DELT', 'A0A1J4NSI0_9ACTN', 'B4F2Z1_PROMH'] }
+            )
+        }
+    }
+
+    test("-profile test, --min_query_columns and --min_reference_coverage with individual parameters") {
+
+        when {
+            params {
+                outdir                 = "$outputDir"
+                min_query_columns      = 80
+                min_reference_coverage = 0.9
+            }
+        }
+
+        then {
+            assert workflow.success
+            assertAll(
+                // 79 residues in occupied columns is below 80, and 0.932 is above 0.9
+                { assert new File("${params.outdir}/filterquery/placement.filterquery.tsv").readLines().drop(1)
+                    .findAll { it.endsWith('\ttrue') }.collect { it.split('\t')[0] }.sort() == ['A0A1B7XJK0_9DELT', 'B4F2Z1_PROMH'] }
+            )
+        }
+    }
+}

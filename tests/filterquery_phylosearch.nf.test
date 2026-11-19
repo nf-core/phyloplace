@@ -1,0 +1,40 @@
+nextflow_pipeline {
+
+    name "Test pipeline"
+    script "../main.nf"
+    tag "pipeline"
+    profile "test_phylosearch_input"
+
+    test("-profile test_phylosearch_input, thresholds set per row of a --phylosearch_input target sheet") {
+
+        when {
+            params {
+                outdir = "$outputDir"
+                def base = "https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/phyloplace/testdata/"
+                def sheet = new File("$outputDir/phylosearch_filterquery.csv")
+                sheet.parentFile.mkdirs()
+                sheet.text = [
+                    "target,alignmethod,hmm,extract_hmm,refseqfile,refphylogeny,model,min_query_columns",
+                    "lenient,clustalo,https://raw.githubusercontent.com/tseemann/barrnap/refs/tags/0.9/db/bac.hmm,16S_rRNA,${base}bac120.alnfna,${base}bac120.newick,GTR+F+I+G4,",
+                    "strict,clustalo,https://raw.githubusercontent.com/tseemann/barrnap/refs/tags/0.9/db/arc.hmm,16S_rRNA,https://ndownloader.figshare.com/files/47244067,https://ndownloader.figshare.com/files/47244070,GTR+F+I+G4,100000"
+                ].join('\n') + '\n'
+                phylosearch_input = sheet.toString()
+            }
+        }
+
+        then {
+            def rows = { id -> new File("${params.outdir}/filterquery/${id}.filterquery.tsv").readLines().drop(1) }
+
+            assert workflow.success
+            assertAll(
+                { assert snapshot(removeNextflowVersion("$outputDir/pipeline_info/nf_core_phyloplace_software_mqc_versions.yml")).match() },
+                { assert rows('lenient').size() > 0 },
+                { assert rows('lenient').every { it.endsWith('\ttrue') } },
+                { assert new File("${params.outdir}/gappa/lenient.graft.newick").exists() },
+                { assert rows('strict').size() > 0 },
+                { assert rows('strict').every { it.endsWith('\tfalse') } },
+                { assert !new File("${params.outdir}/gappa/strict.graft.newick").exists() }
+            )
+        }
+    }
+}

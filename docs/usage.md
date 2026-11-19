@@ -13,8 +13,14 @@ One of the outputs from the pipeline is nevertheless a full phylogeny containing
 
 Placement is performed with the [EPA-NG](https://github.com/Pbdas/epa-ng/blob/master/README.md) program after query sequences have been aligned to the reference alignment.
 
-The pipeline can either take parameters on the command line (or in a `params.yaml` file, see below) to perform a single placement, or a sample `csv` file that can accommodate parameters for several placements.
-There are two different types of sample `csv` files, one for direct phylogenetic placement (`--phyloplace_input`), the other for search followed by phylogenetic placement (`--phylosearch_input`).
+The pipeline can either take parameters on the command line (or in a `params.yaml` file, see below) to perform a single placement, or a sample sheet that can accommodate parameters for several placements.
+There are two different types of sheets: a sample sheet for direct phylogenetic placement (`--phyloplace_input`) and a target sheet for search followed by phylogenetic placement (`--phylosearch_input`).
+Each row of a target sheet is a search target: a profile to search with, and optionally the reference phylogeny to place its hits on.
+
+Sample and target sheets can be CSV (`.csv`), TSV (`.tsv`), YAML (`.yml` or `.yaml`) or JSON (`.json`) files, and the format is taken from the file extension.
+A YAML or JSON sheet is a list of entries, each with the same keys as the columns of the CSV sheet.
+In YAML and JSON the values keep their type, so `min_bitscore` must be a number (`30`, not `"30"`), while CSV and TSV sheets can't tell the difference.
+The examples below use CSV.
 
 ## Parameter input
 
@@ -22,6 +28,7 @@ At minimum, four parameters are required:
 
 1. `--queryseqfile`: A fasta formatted file with sequences to place.
 2. `--refseqfile`: Reference sequences, several popular formats supported e.g. aligned fasta and phylip. The sequences need to be aligned, except with `--hmmfile`, where they must be unaligned.
+   The same exception applies to the `hmmfile` column of a sample sheet, but not to the `hmm` column of a target sheet, see below.
 3. `--refphylogeny`: Reference phylogeny.
 4. `--model`: Evolutionary model used when estimating the phylogeny, e.g. "LG+F+R6".
 
@@ -29,8 +36,10 @@ A few more parameters can be used to control execution, see the [parameter docum
 
 ## Samplesheet input for phylogenetic placement
 
-Each of the four parameters mentioned above can be specified as columns in a comma separated sample sheet instead.
+Each of the four parameters mentioned above can be specified as columns in a sample sheet instead.
 In addition, a `sample` column needs to be present and the columns `taxonomy`, `alignmethod`, `hmmfile` and `reftreename` referring to the parameters with the same names can be included.
+As with `--hmmfile`, a row with an `hmmfile` is aligned with `hmmer` and needs unaligned reference sequences.
+The columns `min_query_columns` and `min_reference_coverage` set the thresholds described in [Filtering query sequences before placement](#filtering-query-sequences-before-placement) for one row.
 
 ```bash
 --phyloplace_input '[path to samplesheet file]'
@@ -42,34 +51,67 @@ pp0,q0.faa,ref0.alnfaa,ref0.newick,LG,ref0.taxonomy,clustalo
 pp1,q1.faa,ref1.alnfaa,ref1.newick,LG+F+R6,ref1.taxonomy,clustalo
 ```
 
-## Samplesheet input for search followed by phylogenetic placement
+## Target sheet input for search followed by phylogenetic placement
 
 This mode of the pipeline starts by searching a fasta file with a set of HMMER `hmm` files.
 The results are then passed to phylogenetic placement.
-The samplesheet for this mode hence needs to contain paths to `hmm` files plus the phylogenetic placement information.
+The target sheet for this mode hence needs to contain paths to `hmm` files plus the phylogenetic placement information.
+
+The `hmm` file is used for the search only, never for aligning, so it does not imply `alignmethod` `hmmer` the way `hmmfile` does in a sample sheet.
+`refseqfile` is therefore always an alignment of the reference sequences in a target sheet, also with `alignmethod` `hmmer`, which then builds its own profile from that alignment.
+A row without a value in `alignmethod` is aligned with `clustalo`, the default of `--alignmethod`.
 
 > [!NOTE]
 > A row without a reference tree and its associated files is used for searching only, not for placement; its hits still appear in the result table.
 > In the example below, the `rnr` row is only searched for, while the other two are both searched for and placed.
 
 The placement columns are the same as in the sample sheet for phylogenetic placement only.
-Two further optional columns control the search:
+Further optional columns:
 
 - `extract_hmm`: the name of one profile to extract from a multi-profile `hmm` file, instead of searching with the whole file.
 - `min_bitscore`: the minimum bit score for a hit to this profile, passed to `hmmsearch` as `--incT`.
+- `min_query_columns` and `min_reference_coverage`: the thresholds described in [Filtering query sequences before placement](#filtering-query-sequences-before-placement), for the sequences found with this profile.
 
-In addition to the sample sheet, this mode requires that a fasta file to search is provided via the `--search_fasta` parameter.
+In addition to the target sheet, this mode requires that a fasta file to search is provided via the `--search_fasta` parameter.
 
 ```bash
---phylosearch_input '[path to samplesheet file]' --search_fasta '[path to fasta file]'
+--phylosearch_input '[path to target sheet file]' --search_fasta '[path to fasta file]'
 ```
 
 ```csv title="phylosearch_sheet.csv"
-target,hmm,refseqfile,refphylogeny,model,taxonomy
-ring-hydrox,PF00848.hmm,PF00848.alnfaa,PF00848.newick,LG+F+I,PF00848.taxonomy.tsv
-meth-dehydr,PF00389.hmm,PF00389.alnfaa,PF00389.newick,LG+F+I,PF00389.taxonomy.tsv
-rnr,PF00788.hmm,,,,
+target,hmm,refseqfile,refphylogeny,model,taxonomy,alignmethod
+ring-hydrox,PF00848.hmm,PF00848.alnfaa,PF00848.newick,LG+F+I,PF00848.taxonomy.tsv,mafft
+meth-dehydr,PF00389.hmm,PF00389.alnfaa,PF00389.newick,LG+F+I,PF00389.taxonomy.tsv,
+rnr,PF00788.hmm,,,,,
 ```
+
+Here `ring-hydrox` is aligned with `mafft`, while the empty `alignmethod` of `meth-dehydr` means `clustalo`.
+
+### Several target sheets and selecting targets
+
+`--phylosearch_input` takes a comma-separated list of target sheets, which are combined into one.
+This makes it possible to use a shared collection of reference phylogenies together with a sheet of your own profiles.
+The sheets in a list can have different formats.
+
+```bash
+--phylosearch_input 'collection.csv,my_profiles.csv' --search_fasta '[path to fasta file]'
+```
+
+Target names must be unique across all sheets.
+If a name occurs more than once, the pipeline stops and lists the duplicates.
+
+All targets in the sheets are searched for by default.
+To use only some of them, list their names in `--phylosearch_targets`.
+Every name must exist in the sheets.
+
+```bash
+--phylosearch_input 'collection.csv,my_profiles.csv' --phylosearch_targets 'ring-hydrox,rnr'
+```
+
+Hits are ranked across all profiles that are searched for, so leaving a target out can change which sequences end up with another target.
+
+Relative paths in a sheet are resolved against the directory you launch Nextflow from, not the location of the sheet.
+A sheet that is shared between users should therefore use absolute paths or URLs.
 
 ## Summarising several profiles on one reference tree
 
@@ -88,7 +130,7 @@ NrdAr,NrdAr.hmm,NrdA.alnfaa,NrdA.newick,LG+F+I,NrdA.taxonomy.tsv,NrdA
 NrdJ,NrdJ.hmm,NrdJ.alnfaa,NrdJ.newick,LG+F+I,NrdJ.taxonomy.tsv,
 ```
 
-The column works the same way in both sample sheet formats.
+The column works the same way in sample sheets and target sheets.
 
 A few things worth knowing about this:
 
@@ -100,7 +142,7 @@ A few things worth knowing about this:
   Rows that derive taxonomy from their reference sequences' own FASTA headers count as agreeing, since they take it from the same place.
 - A group needs at least two rows.
   A `reftreename` used by a single row produces no joint output, since it would only duplicate that row's own.
-- Rows that leave `reftreename` empty keep their per-row outputs only, so adding the column to an existing sample sheet changes nothing until it is filled in.
+- Rows that leave `reftreename` empty keep their per-row outputs only, so adding the column to an existing sheet changes nothing until it is filled in.
 - One sequence can be hit by more than one profile in a group.
   It is then placed once per profile and appears once per placement in the joint outputs, under the same name each time.
 
@@ -126,10 +168,35 @@ A few things worth knowing about this:
 
 Every sequence, tree, profile and taxonomy file the pipeline reads may be gzipped, whether it is named in a samplesheet or given as an individual parameter.
 This covers `--queryseqfile`, `--refseqfile`, `--refphylogeny`, `--hmmfile`, `--taxonomy` and `--search_fasta`, along with the samplesheet columns of the same names.
-The samplesheets themselves (`--phyloplace_input`, `--phylosearch_input`) are the exception and stay uncompressed CSV.
+The sheets themselves (`--phyloplace_input`, `--phylosearch_input`) are the exception and must not be compressed.
 Mixing compressed and uncompressed files in one run is fine, including within a single samplesheet row.
 
 Compression is detected from the `.gz` suffix, so a gzipped file has to keep it: `refseqs.faa.gz`, not `refseqs.faa`.
+
+## Filtering query sequences before placement
+
+EPA-NG cannot place a query sequence that has no residue in the columns of the alignment that the reference sequences occupy, and stops the whole run when it meets one.
+This happens, for example, with a fragment that is aligned to a region where all reference sequences have gaps.
+The pipeline therefore checks every query sequence after alignment and drops those that fall below two thresholds:
+
+- `--min_query_columns` (default `1`): the minimum number of residues a query sequence must have in the columns occupied by the reference sequences.
+  The default only removes sequences that EPA-NG cannot place at all.
+- `--min_reference_coverage` (default `0`, i.e. off): the minimum fraction of those columns in which a query sequence must have a residue.
+  A fraction of `0.5` keeps only sequences that cover at least half of the reference alignment.
+  Placements of sequences covering little of the reference alignment are often uninformative, so this is a way to avoid them.
+
+Both thresholds can also be set per row, in columns with the same names in a `--phyloplace_input` sample sheet or a `--phylosearch_input` target sheet.
+An empty cell uses the value of the parameter, and a `0` in the `min_reference_coverage` column switches the filter off for that row even if the parameter is set.
+The columns are numeric: in YAML and JSON sheets the values must be numbers, not strings.
+
+Which characters count as residues depends on the alphabet, which is detected from the reference alignment.
+If at least 90% of its non-gap characters are `A`, `C`, `G`, `T`, `U` or `N`, it is taken to be nucleotides, and `N` and `?` are then counted as gaps.
+Otherwise it is taken to be protein, where `N` is asparagine and counts as a residue.
+In both, `-` and `.` are gaps.
+EPA-NG reads `N`, `X`, `O` and `?` as gaps in either alphabet, so a sequence with residues in the occupied columns that are all of those cannot be placed either, and is dropped.
+
+A warning is written for each sample that loses query sequences, and `filterquery/<sample>.filterquery.tsv` lists every query sequence with its numbers (see the [output documentation](output.md#filtering-of-query-sequences)).
+A sample where no query sequence passes is not placed and has no placement outputs, but the other samples are not affected.
 
 ## Saving the per-domain hit table
 
@@ -137,11 +204,29 @@ By default the pipeline keeps `hmmsearch`'s per-sequence hit table (`--tblout`) 
 Add `--save_domtblout` to also write the per-domain table, as one gzipped `*.domtbl.gz` file per profile in the `hmmer` output directory.
 
 ```bash
---phylosearch_input '[path to samplesheet file]' --search_fasta '[path to fasta file]' --save_domtblout
+--phylosearch_input '[path to target sheet file]' --search_fasta '[path to fasta file]' --save_domtblout
 ```
 
 The per-domain table is the only output that carries alignment coordinates, so it is what you need to work out how much of a profile a hit covers, or to find a gene split over several adjacent ORFs where no single ORF covers enough of the profile to be classified on its own.
 Setting the flag also adds coordinate and length columns to the ranked summary in `*.hmmrank.tsv.gz`, which is usually the easier place to read them off; see the [output documentation](output.md) for what each column means.
+
+## Placements kept per query sequence
+
+EPA-ng keeps at most seven placements for each query sequence, and discards those with a likelihood weight ratio below 0.01.
+A query sequence whose weight is spread over many branches, for example a short or divergent one, therefore keeps placements that add up to far less than 1.
+The accumulated likelihood weight (`aLWR`) that `gappa examine assign` reports in the `*.taxonomy.*` files then stays low, even when all the kept placements are in the same clade.
+The normalised fraction (`afract` in `*.taxonomy.per_query.tsv`) is not affected.
+
+To keep more of the weight, use `--epang_filter_max` and `--epang_filter_acc_lwr`:
+
+```bash
+--epang_filter_max 20 --epang_filter_acc_lwr 0.99
+```
+
+`--epang_filter_acc_lwr` sets the accumulated weight after which EPA-ng discards further placements of a query sequence, and `--epang_filter_max` the most it keeps, so raise both to see an effect.
+Neither is set by default, which leaves EPA-ng's own limits.
+They apply to all placements of a run, not to single rows of a sample or target sheet.
+More placements make the `*.jplace.gz` files and the Gappa results larger.
 
 ## Running the pipeline
 
