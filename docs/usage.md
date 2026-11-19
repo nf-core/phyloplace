@@ -77,11 +77,13 @@ In addition to the target sheet, this mode requires that a fasta file to search 
 ```
 
 ```csv title="phylosearch_sheet.csv"
-target,hmm,refseqfile,refphylogeny,model,taxonomy
-ring-hydrox,PF00848.hmm,PF00848.alnfaa,PF00848.newick,LG+F+I,PF00848.taxonomy.tsv
-meth-dehydr,PF00389.hmm,PF00389.alnfaa,PF00389.newick,LG+F+I,PF00389.taxonomy.tsv
-rnr,PF00788.hmm,,,,
+target,hmm,refseqfile,refphylogeny,model,taxonomy,alignmethod
+ring-hydrox,PF00848.hmm,PF00848.alnfaa,PF00848.newick,LG+F+I,PF00848.taxonomy.tsv,mafft
+meth-dehydr,PF00389.hmm,PF00389.alnfaa,PF00389.newick,LG+F+I,PF00389.taxonomy.tsv,
+rnr,PF00788.hmm,,,,,
 ```
+
+Here `ring-hydrox` is aligned with `mafft`, while the empty `alignmethod` of `meth-dehydr` means `clustalo`.
 
 ### Several target sheets and selecting targets
 
