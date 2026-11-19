@@ -183,6 +183,24 @@ Add `--save_domtblout` to also write the per-domain table, as one gzipped `*.dom
 The per-domain table is the only output that carries alignment coordinates, so it is what you need to work out how much of a profile a hit covers, or to find a gene split over several adjacent ORFs where no single ORF covers enough of the profile to be classified on its own.
 Setting the flag also adds coordinate and length columns to the ranked summary in `*.hmmrank.tsv.gz`, which is usually the easier place to read them off; see the [output documentation](output.md) for what each column means.
 
+## Placements kept per query sequence
+
+EPA-ng keeps at most seven placements for each query sequence, and discards those with a likelihood weight ratio below 0.01.
+A query sequence whose weight is spread over many branches, for example a short or divergent one, therefore keeps placements that add up to far less than 1.
+The accumulated likelihood weight (`aLWR`) that `gappa examine assign` reports in the `*.taxonomy.*` files then stays low, even when all the kept placements are in the same clade.
+The normalised fraction (`afract` in `*.taxonomy.per_query.tsv`) is not affected.
+
+To keep more of the weight, use `--epang_filter_max` and `--epang_filter_acc_lwr`:
+
+```bash
+--epang_filter_max 20 --epang_filter_acc_lwr 0.99
+```
+
+`--epang_filter_acc_lwr` sets the accumulated weight after which EPA-ng discards further placements of a query sequence, and `--epang_filter_max` the most it keeps, so raise both to see an effect.
+Neither is set by default, which leaves EPA-ng's own limits.
+They apply to all placements of a run, not to single rows of a sample or target sheet.
+More placements make the `*.jplace.gz` files and the Gappa results larger.
+
 ## Running the pipeline
 
 Run the pipeline with command line parameters specifying the placement parameters as follows:

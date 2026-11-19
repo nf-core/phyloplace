@@ -138,6 +138,29 @@
                 }
             }
         },
+        "epa_ng_options": {
+            "title": "EPA-ng options",
+            "type": "object",
+            "fa_icon": "fas fa-sitemap",
+            "description": "Settings for the phylogenetic placement with EPA-ng.",
+            "properties": {
+                "epang_filter_max": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "description": "Maximum number of placements EPA-ng keeps per query sequence. EPA-ng's own default is 7.",
+                    "help_text": "A query sequence whose likelihood weight is spread over many branches keeps at most this many placements, so the accumulated likelihood weight (aLWR) in the Gappa taxonomy output can be low even when all the placements are in the same clade. Raise this together with `--epang_filter_acc_lwr` to keep more of the weight. Not set by default, which leaves EPA-ng's own default.",
+                    "fa_icon": "fas fa-sort-numeric-up"
+                },
+                "epang_filter_acc_lwr": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1,
+                    "description": "Accumulated likelihood weight after which EPA-ng discards further placements of a query sequence.",
+                    "help_text": "For example 0.99 keeps placements until they hold 99% of the likelihood weight, but never more than `--epang_filter_max`, which is 7 unless set. Not set by default, which leaves EPA-ng's own default of discarding placements with a likelihood weight below 0.01.",
+                    "fa_icon": "fas fa-percentage"
+                }
+            }
+        },
         "institutional_config_options": {
             "title": "Institutional config options",
             "type": "object",
@@ -300,6 +323,9 @@
     "allOf": [
         {
             "$ref": "#/$defs/input_output_options"
+        },
+        {
+            "$ref": "#/$defs/epa_ng_options"
         },
         {
             "$ref": "#/$defs/institutional_config_options"
