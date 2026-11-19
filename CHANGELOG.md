@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
+- [#119](https://github.com/nf-core/phyloplace/pull/119) - Documentation: the pipeline summary in the README and the output overview now list the filtering of query sequences, and the usage page no longer says that sample sheets must be comma separated (by @erikrikarddaniel)
 - [#114](https://github.com/nf-core/phyloplace/pull/114) - Document that the reference sequences of a target sheet are always aligned, that its `hmm` column is used for the search only, and that a row without `alignmethod` uses `clustalo` ([#113](https://github.com/nf-core/phyloplace/issues/113)) (by @erikrikarddaniel, reviewed by @Joon-Klaps)
 - [#104](https://github.com/nf-core/phyloplace/pull/104) - Launch the AWS tests with `seqeralabs/action-seqera-launch` and the v2 syntax parser, and stop uploading the debug log as an artifact (by @erikrikarddaniel, reviewed by @piplus2)
 
