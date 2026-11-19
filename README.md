@@ -35,9 +35,10 @@ This ensures that the pipeline runs on AWS, has sensible resource allocation def
 
 1. Optionally: Search a fasta file with a set of [`HMMER`](http://hmmer.org/) profiles. Best hits for each profile will be passed to the steps below.
 2. Align query sequences to the reference alignment using either [`HMMER`](http://hmmer.org/), [`clustalo`](http://www.clustal.org/omega/) or [`MAFFT`](https://mafft.cbrc.jp/alignment/software/).
-3. Place query sequences in reference phylogeny with [`EPA-NG`](https://github.com/Pbdas/epa-ng).
-4. Graft query sequences onto the reference phylogeny with [`GAPPA`](https://github.com/lczech/gappa).
-5. If a classification of the reference sequences is provided, or can be derived from `--refseqfile`'s own FASTA headers, classify query sequences with [`GAPPA`](https://github.com/lczech/gappa).
+3. Drop query sequences that [`EPA-NG`](https://github.com/Pbdas/epa-ng) cannot place, and optionally those that cover too little of the reference alignment.
+4. Place query sequences in reference phylogeny with [`EPA-NG`](https://github.com/Pbdas/epa-ng).
+5. Graft query sequences onto the reference phylogeny with [`GAPPA`](https://github.com/lczech/gappa).
+6. If a classification of the reference sequences is provided, or can be derived from `--refseqfile`'s own FASTA headers, classify query sequences with [`GAPPA`](https://github.com/lczech/gappa).
 
 Input sequence, profile, tree and taxonomy files may be gzipped.
 

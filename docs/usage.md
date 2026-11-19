@@ -36,7 +36,7 @@ A few more parameters can be used to control execution, see the [parameter docum
 
 ## Samplesheet input for phylogenetic placement
 
-Each of the four parameters mentioned above can be specified as columns in a comma separated sample sheet instead.
+Each of the four parameters mentioned above can be specified as columns in a sample sheet instead.
 In addition, a `sample` column needs to be present and the columns `taxonomy`, `alignmethod`, `hmmfile` and `reftreename` referring to the parameters with the same names can be included.
 As with `--hmmfile`, a row with an `hmmfile` is aligned with `hmmer` and needs unaligned reference sequences.
 The columns `min_query_columns` and `min_reference_coverage` set the thresholds described in [Filtering query sequences before placement](#filtering-query-sequences-before-placement) for one row.
@@ -66,7 +66,7 @@ A row without a value in `alignmethod` is aligned with `clustalo`, the default o
 > In the example below, the `rnr` row is only searched for, while the other two are both searched for and placed.
 
 The placement columns are the same as in the sample sheet for phylogenetic placement only.
-Two further optional columns control the search:
+Further optional columns:
 
 - `extract_hmm`: the name of one profile to extract from a multi-profile `hmm` file, instead of searching with the whole file.
 - `min_bitscore`: the minimum bit score for a hit to this profile, passed to `hmmsearch` as `--incT`.
