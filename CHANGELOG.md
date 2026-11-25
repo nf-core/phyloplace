@@ -15,7 +15,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [#119](https://github.com/nf-core/phyloplace/pull/119) - Documentation: the pipeline summary in the README and the output overview now list the filtering of query sequences, and the usage page no longer says that sample sheets must be comma separated (by @erikrikarddaniel, reviewed by @eduard-watchmaker)
 - [#114](https://github.com/nf-core/phyloplace/pull/114) - Document that the reference sequences of a target sheet are always aligned, that its `hmm` column is used for the search only, and that a row without `alignmethod` uses `clustalo` ([#113](https://github.com/nf-core/phyloplace/issues/113)) (by @erikrikarddaniel, reviewed by @Joon-Klaps)
-- [#104](https://github.com/nf-core/phyloplace/pull/104) - Launch the AWS tests with `seqeralabs/action-seqera-launch` and the v2 syntax parser, and stop uploading the debug log as an artifact (by @erikrikarddaniel, reviewed by @piplus2)
 
 ### `Changed`
 
@@ -23,6 +22,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#110](https://github.com/nf-core/phyloplace/pull/110) - `--phyloplace_input` (sample sheet) and `--phylosearch_input` (target sheets) accept sheets in CSV, TSV, YAML and JSON format, not only CSV (by @erikrikarddaniel, reviewed by @eduard-watchmaker)
 - [#108](https://github.com/nf-core/phyloplace/pull/108) - Template updated to nf-core/tools 4.2.2, which moves the Apptainer setup action of the CI workflows to v3. No pipeline code changes (by @erikrikarddaniel, reviewed by @mashehu)
 - [#106](https://github.com/nf-core/phyloplace/pull/106) - Template updated to nf-core/tools 4.2.1, which changes the GitHub Actions and the tool versions used by the CI workflows and the pre-commit hooks. The Seqera Platform launch action of the full-size test is unchanged (by @erikrikarddaniel, reviewed by @mashehu and @jfy133)
+- [#104](https://github.com/nf-core/phyloplace/pull/104) - Launch the AWS tests with `seqeralabs/action-seqera-launch` and the v2 syntax parser, and stop uploading the debug log as an artifact (by @erikrikarddaniel, reviewed by @piplus2)
+- [#102](https://github.com/nf-core/phyloplace/pull/102) - Pin nf-schema in the launch config of the AWS full-size tests, which failed at start since nf-schema 3.0.0 (by @erikrikarddaniel)
 
 ### `Dependencies`
 
