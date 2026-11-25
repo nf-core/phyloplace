@@ -1,0 +1,32 @@
+{
+    "-profile test, --phylosearch_targets without --phylosearch_input warns": {
+        "content": [
+            {
+                "CLUSTALO_ALIGN": {
+                    "clustalo": "1.2.4",
+                    "pigz": 2.8
+                },
+                "CUSTOM_RESOLVETAXONOMY": {
+                    "biopython": 1.84
+                },
+                "EPANG_FILTERQUERY": {
+                    "gawk": "5.3.1"
+                },
+                "EPANG_PLACE": {
+                    "epa-ng": "0.3.8"
+                },
+                "EPANG_SPLIT_CLUSTALO": {
+                    "epa-ng": "0.3.8"
+                },
+                "Workflow": {
+                    "nf-core/phyloplace": "v2.4.0"
+                }
+            }
+        ],
+        "timestamp": "2026-11-18T09:53:44.611085214",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
+    }
+}

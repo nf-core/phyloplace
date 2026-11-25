@@ -17,22 +17,24 @@
                     "format": "file-path",
                     "exists": true,
                     "schema": "assets/schema_phyloplace_input.json",
-                    "mimetype": "text/csv",
-                    "pattern": "^\\S+\\.csv$",
-                    "description": "Path to comma-separated file containing information about phylogenetic placements to perform.",
-                    "help_text": "This specifies parameters for direct phylogenetic placement of query sequences onto a reference phylogeny, in contrast to when a HMMER search is first performed, see `--phylosearch_input`. It has to be a comma-separated file with at least five columns, and a header row ('sample', 'queryseqfile', 'refseqfile', 'refphylogeny' and 'model'). See [usage docs](https://nf-co.re/phyloplace/usage#samplesheet-input-for-phylogenetic-placement).",
+                    "pattern": "^\\S+\\.(csv|tsv|ya?ml|json)$",
+                    "description": "Path to a sample sheet (CSV, TSV, YAML or JSON) containing information about phylogenetic placements to perform.",
+                    "help_text": "This specifies parameters for direct phylogenetic placement of query sequences onto a reference phylogeny, in contrast to when a HMMER search is first performed, see `--phylosearch_input`. The format is taken from the file extension: `.csv`, `.tsv`, `.yml`/`.yaml` or `.json`. A CSV or TSV file needs at least five columns, and a header row ('sample', 'queryseqfile', 'refseqfile', 'refphylogeny' and 'model'); a YAML or JSON file is a list of entries with the same keys. See [usage docs](https://nf-co.re/phyloplace/usage#samplesheet-input-for-phylogenetic-placement).",
                     "fa_icon": "fas fa-file-csv"
                 },
                 "phylosearch_input": {
                     "type": "string",
-                    "format": "file-path",
-                    "exists": true,
-                    "schema": "assets/schema_phylosearch_input.json",
-                    "mimetype": "text/csv",
-                    "pattern": "^\\S+\\.csv$",
-                    "description": "Path to comma-separated file containing information about phylogenetic searches to perform.",
-                    "help_text": "This specifies parameters for phylogenetic placement of unknown sequences onto reference phylogeny after first using HMMER to search through a collection of unknown sequences (see `--search_fasta`) in contrast to when only placing known query sequences, see `--phyloplace_input`. It has to be a comma-separated file with at least two columns that specifies search HMM profiles ('target' and 'hmm') and at least three columns specifying the reference phylogenies ('refseqfile', 'refphylogeny' and 'model') for placement of search results. (Decoy profiles, i.e. profiles only used for searches, not placements, are allowed.) See [usage docs](https://nf-co.re/phyloplace/usage#samplesheet-input-for-search-followed-by-phylogenetic-placement).",
+                    "pattern": "^\\S+\\.(csv|tsv|ya?ml|json)(,\\S+\\.(csv|tsv|ya?ml|json))*$",
+                    "description": "Comma-separated list of target sheets (CSV, TSV, YAML or JSON) containing information about phylogenetic searches to perform.",
+                    "help_text": "This specifies parameters for phylogenetic placement of unknown sequences onto reference phylogeny after first using HMMER to search through a collection of unknown sequences (see `--search_fasta`) in contrast to when only placing known query sequences, see `--phyloplace_input`. The format of each file is taken from its extension: `.csv`, `.tsv`, `.yml`/`.yaml` or `.json`, and the formats can be mixed. A CSV or TSV file needs at least two columns that specify search HMM profiles ('target' and 'hmm') and at least three columns specifying the reference phylogenies ('refseqfile', 'refphylogeny' and 'model') for placement of search results; a YAML or JSON file is a list of entries with the same keys. (Decoy profiles, i.e. profiles only used for searches, not placements, are allowed.) Several files can be given as a comma-separated list, for example a collection of reference phylogenies together with your own profiles; target names must then be unique across all files. Relative paths in a file are resolved against the directory Nextflow is launched from, so a file that is shared between users should use absolute paths or URLs. See [usage docs](https://nf-co.re/phyloplace/usage#target-sheet-input-for-search-followed-by-phylogenetic-placement).",
                     "fa_icon": "fas fa-file-csv"
+                },
+                "phylosearch_targets": {
+                    "type": "string",
+                    "pattern": "^\\S+$",
+                    "description": "Comma-separated list of targets to use from the `--phylosearch_input` files.",
+                    "help_text": "By default, all targets in the `--phylosearch_input` files are searched for. Use this parameter to keep only the listed targets, for example a few from a large collection of reference phylogenies. Targets are named in the 'target' column. Every name must exist in the input files. Note that dropping a target also drops its profile from the ranking of hits across profiles.",
+                    "fa_icon": "fas fa-filter"
                 },
                 "search_fasta": {
                     "type": "string",
@@ -59,10 +61,27 @@
                 "alignmethod": {
                     "type": "string",
                     "description": "Method used to align query sequences with.",
-                    "help_text": "Query sequences will be aligned to the reference alignment using either HMMER, Clustal Omega or MAFFT, except when an hmm profile is provided (--hmmfile; implies that --alignmethod is set to 'hmmer'), in which case both the reference and query sequences will be aligned with the profile (reference sequences must not be aligned, i.e. must not contain '-' characters).",
+                    "help_text": "Query sequences will be aligned to the reference alignment using either HMMER, Clustal Omega or MAFFT, except when an hmm profile is provided (--hmmfile; implies that --alignmethod is set to 'hmmer'), in which case both the reference and query sequences will be aligned with the profile (reference sequences must not be aligned, i.e. must not contain '-' characters). The hmm column of a --phylosearch_input target sheet is used for the search only and does not imply 'hmmer': a row without a value in its alignmethod column is aligned with the default, 'clustalo'.",
                     "default": "clustalo",
                     "fa_icon": "far fa-file-code",
                     "enum": ["hmmer", "clustalo", "mafft"]
+                },
+                "min_query_columns": {
+                    "type": "integer",
+                    "description": "Minimum number of residues a query sequence must have in the reference columns.",
+                    "help_text": "Before placement, query sequences are checked against the columns of the alignment that the reference sequences occupy (columns with only gaps in the reference are ignored by EPA-NG). A query with fewer residues in those columns than this value is dropped with a warning, and listed in the `filterquery` output. The default of 1 only removes queries with no residue at all in those columns, which EPA-NG cannot place and which otherwise stop the whole run. Can be set per row in the `min_query_columns` column of a `--phyloplace_input` or `--phylosearch_input` sheet.",
+                    "default": 1,
+                    "minimum": 1,
+                    "fa_icon": "fas fa-filter"
+                },
+                "min_reference_coverage": {
+                    "type": "number",
+                    "description": "Minimum fraction of the reference columns in which a query sequence must have a residue.",
+                    "help_text": "The reference coverage of a query is the number of residues it has in the columns that the reference sequences occupy, divided by the number of such columns. A query below this value is dropped with a warning, and listed in the `filterquery` output. The default of 0 turns the coverage filter off. Can be set per row in the `min_reference_coverage` column of a `--phyloplace_input` or `--phylosearch_input` sheet.",
+                    "default": 0,
+                    "minimum": 0,
+                    "maximum": 1,
+                    "fa_icon": "fas fa-filter"
                 },
                 "queryseqfile": {
                     "type": "string",
@@ -79,7 +98,7 @@
                     "mimetype": "text/plain",
                     "pattern": "^(\\S+\\.(aln|alnfa|alnfaa|alnfna|mfa|fa|fna|faa|fasta|ph|phy|phylip)(\\.gz)?|https?://\\S*/[^/.\\s]+)$",
                     "description": "File with reference sequences. Any format supported by HMMER tools.",
-                    "help_text": "If the sequences are not aligned, you need to provide an alignment option, e.g. --hmmfile. When refseqfile is FASTA and --taxonomy is not given, taxonomy is instead derived from each record's own header, GTDB-style ('>id taxonomy;string').",
+                    "help_text": "The sequences must be aligned, except with --hmmfile (or the hmmfile column of a --phyloplace_input sample sheet), where they must be unaligned. In a --phylosearch_input target sheet they are always aligned. When refseqfile is FASTA and --taxonomy is not given, taxonomy is instead derived from each record's own header, GTDB-style ('>id taxonomy;string').",
                     "fa_icon": "far fa-file-code",
                     "errorMessage": "Multiple sequence alignment of the reference sequences: extension .aln, .alnfa, .alnfaa, .alnfna, .mfa, .fa, .fna, .faa, .fasta, .ph, .phy or .phylip, optionally gzipped (.gz); no other compression format is supported."
                 },
@@ -133,6 +152,29 @@
                     "type": "string",
                     "description": "MultiQC report title. Printed as page header, used for filename if not otherwise specified.",
                     "fa_icon": "fas fa-file-signature"
+                }
+            }
+        },
+        "epa_ng_options": {
+            "title": "EPA-ng options",
+            "type": "object",
+            "fa_icon": "fas fa-sitemap",
+            "description": "Settings for the phylogenetic placement with EPA-ng.",
+            "properties": {
+                "epang_filter_max": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "description": "Maximum number of placements EPA-ng keeps per query sequence. EPA-ng's own default is 7.",
+                    "help_text": "A query sequence whose likelihood weight is spread over many branches keeps at most this many placements, so the accumulated likelihood weight (aLWR) in the Gappa taxonomy output can be low even when all the placements are in the same clade. Raise this together with `--epang_filter_acc_lwr` to keep more of the weight. Not set by default, which leaves EPA-ng's own default.",
+                    "fa_icon": "fas fa-sort-numeric-up"
+                },
+                "epang_filter_acc_lwr": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1,
+                    "description": "Accumulated likelihood weight after which EPA-ng discards further placements of a query sequence.",
+                    "help_text": "For example 0.99 keeps placements until they hold 99% of the likelihood weight, but never more than `--epang_filter_max`, which is 7 unless set. Not set by default, which leaves EPA-ng's own default of discarding placements with a likelihood weight below 0.01.",
+                    "fa_icon": "fas fa-percentage"
                 }
             }
         },
@@ -276,7 +318,7 @@
                 },
                 "trace_report_suffix": {
                     "type": "string",
-                    "fa_icon": "far calendar",
+                    "fa_icon": "far fa-calendar",
                     "description": "Suffix to add to the trace report filename. Default is the date and time in the format yyyy-MM-dd_HH-mm-ss.",
                     "hidden": true
                 },
@@ -298,6 +340,9 @@
     "allOf": [
         {
             "$ref": "#/$defs/input_output_options"
+        },
+        {
+            "$ref": "#/$defs/epa_ng_options"
         },
         {
             "$ref": "#/$defs/institutional_config_options"

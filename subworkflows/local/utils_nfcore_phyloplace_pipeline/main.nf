@@ -26,25 +26,28 @@ include { UTILS_NEXTFLOW_PIPELINE   } from '../../nf-core/utils_nextflow_pipelin
 workflow PIPELINE_INITIALISATION {
 
     take:
-    version           // boolean: Display version and exit
-    validate_params   // boolean: Boolean whether to validate parameters against the schema at runtime
-    monochrome_logs   // boolean: Do not use coloured log outputs
-    nextflow_cli_args //   array: List of positional nextflow CLI args
-    outdir            //  string: The output directory where the results will be saved
-    id                //  string: From params.id
-    queryseqfile      //  string: From params.queryseqfile
-    refseqfile        //  string: From params.refseqfile
-    refphylogeny      //  string: From params.refphylogeny
-    model             //  string: From params.model
-    taxonomy          //  string: From params.taxonomy
-    hmmfile           //  string: From params.hmmfile
-    alignmethod       //  string: From params.alignmethod
-    phyloplace_input  //  string: Path to phyloplace input samplesheet
-    phylosearch_input //  string: Path to phylosearch input samplesheet
-    search_fasta      //  string: From params.search_fasta
-    help              // boolean: Display help message and exit
-    help_full         // boolean: Show the full help message
-    show_hidden       // boolean: Show hidden parameters in the help message
+    version             // boolean: Display version and exit
+    validate_params     // boolean: Boolean whether to validate parameters against the schema at runtime
+    monochrome_logs     // boolean: Do not use coloured log outputs
+    nextflow_cli_args   //   array: List of positional nextflow CLI args
+    outdir              //  string: The output directory where the results will be saved
+    id                  //  string: From params.id
+    queryseqfile        //  string: From params.queryseqfile
+    refseqfile          //  string: From params.refseqfile
+    refphylogeny        //  string: From params.refphylogeny
+    model               //  string: From params.model
+    taxonomy            //  string: From params.taxonomy
+    hmmfile             //  string: From params.hmmfile
+    alignmethod         //  string: From params.alignmethod
+    min_query_columns   // integer: From params.min_query_columns, used for rows that don't set it
+    min_reference_coverage // float: From params.min_reference_coverage, used for rows that don't set it
+    phyloplace_input    //  string: Path to phyloplace input samplesheet
+    phylosearch_input   //  string: Comma-separated paths to phylosearch target sheets
+    phylosearch_targets //  string: Comma-separated target names to keep from the phylosearch target sheets, or null for all
+    search_fasta        //  string: From params.search_fasta
+    help                // boolean: Display help message and exit
+    help_full           // boolean: Show the full help message
+    show_hidden         // boolean: Show hidden parameters in the help message
 
     main:
 
@@ -99,7 +102,7 @@ workflow PIPELINE_INITIALISATION {
         before_text,
         after_text,
         command,
-        false
+        null
     )
 
     //
@@ -123,20 +126,26 @@ workflow PIPELINE_INITIALISATION {
     ch_sequence_fasta   = channel.empty()
     ch_phyloplace_data  = channel.empty()
 
+    if ( phylosearch_targets && !( phylosearch_input && search_fasta ) ) {
+        log.warn "--phylosearch_targets is ignored unless both --phylosearch_input and --search_fasta are given"
+    }
+
     if ( phylosearch_input && search_fasta ) {
-        ch_phylosearch_data = channel.fromList(samplesheetToList(phylosearch_input, "${projectDir}/assets/schema_phylosearch_input.json"))
-            .map { vmeta, vhmm, vextract_hmm, vrefseqfile, vrefphylogeny, vmodel, valignmethod, vtaxonomy, vreftreename ->
+        ch_phylosearch_data = channel.fromList(combinePhylosearchSheets(phylosearch_input, phylosearch_targets, "${projectDir}/assets/schema_phylosearch_input.json"))
+            .map { vmeta, vhmm, vextract_hmm, vrefseqfile, vrefphylogeny, vmodel, valignmethod, vtaxonomy, vreftreename, vmin_query_columns, vmin_reference_coverage ->
                 [
                     meta: vmeta,
                     data: [
-                        alignmethod:  valignmethod ?: 'clustalo',
-                        hmm:          vhmm,
-                        extract_hmm:  vextract_hmm,
-                        refseqfile:   vrefseqfile,
-                        refphylogeny: vrefphylogeny,
-                        model:        vmodel,
-                        taxonomy:     vtaxonomy,
-                        reftreename:  vreftreename
+                        alignmethod:            valignmethod ?: 'clustalo',
+                        hmm:                    vhmm,
+                        extract_hmm:            vextract_hmm,
+                        refseqfile:             vrefseqfile,
+                        refphylogeny:           vrefphylogeny,
+                        model:                  vmodel,
+                        taxonomy:               vtaxonomy,
+                        reftreename:            vreftreename,
+                        min_query_columns:      numberOrDefault(vmin_query_columns, min_query_columns),
+                        min_reference_coverage: numberOrDefault(vmin_reference_coverage, min_reference_coverage)
                     ]
                 ]
             }
@@ -144,21 +153,23 @@ workflow PIPELINE_INITIALISATION {
             .set { ch_sequence_fasta }
     } else if ( phyloplace_input ) {
         ch_phyloplace_data = channel.fromList(samplesheetToList(phyloplace_input, "${projectDir}/assets/schema_phyloplace_input.json"))
-            .map { vmeta, vqueryseqfile, vrefseqfile, vrefphylogeny, vhmmfile, vmodel, valignmethod, vtaxonomy, vreftreename ->
+            .map { vmeta, vqueryseqfile, vrefseqfile, vrefphylogeny, vhmmfile, vmodel, valignmethod, vtaxonomy, vreftreename, vmin_query_columns, vmin_reference_coverage ->
                 if ( vhmmfile && valignmethod == 'mafft' ) {
                     log.warn "Row '${vmeta.id}' sets alignmethod to 'mafft' but also provides hmmfile -- hmmfile is only used by the hmmer alignment branch, so alignmethod will be 'hmmer' for this row instead."
                 }
                 [
                     meta: vmeta,
                     data: [
-                        alignmethod:  vhmmfile ? 'hmmer' : (valignmethod ?: 'clustalo'),
-                        queryseqfile: vqueryseqfile,
-                        refseqfile:   vrefseqfile,
-                        hmmfile:      vhmmfile,
-                        refphylogeny: vrefphylogeny,
-                        model:        vmodel,
-                        taxonomy:     vtaxonomy,
-                        reftreename:  vreftreename
+                        alignmethod:            vhmmfile ? 'hmmer' : (valignmethod ?: 'clustalo'),
+                        queryseqfile:           vqueryseqfile,
+                        refseqfile:             vrefseqfile,
+                        hmmfile:                vhmmfile,
+                        refphylogeny:           vrefphylogeny,
+                        model:                  vmodel,
+                        taxonomy:               vtaxonomy,
+                        reftreename:            vreftreename,
+                        min_query_columns:      numberOrDefault(vmin_query_columns, min_query_columns),
+                        min_reference_coverage: numberOrDefault(vmin_reference_coverage, min_reference_coverage)
                     ]
                 ]
             }
@@ -169,19 +180,21 @@ workflow PIPELINE_INITIALISATION {
         channel.of([
             meta: [ id: id ],
             data: [
-                alignmethod:  hmmfile ? 'hmmer' : alignmethod,
-                queryseqfile: file(queryseqfile),
-                refseqfile:   file(refseqfile),
-                refphylogeny: file(refphylogeny),
-                hmmfile:      hmmfile     ? file(hmmfile)  : [],
-                model:        model,
-                taxonomy:     taxonomy    ? file(taxonomy) : [],
-                reftreename:  null
+                alignmethod:            hmmfile ? 'hmmer' : alignmethod,
+                queryseqfile:           file(queryseqfile),
+                refseqfile:             file(refseqfile),
+                refphylogeny:           file(refphylogeny),
+                hmmfile:                hmmfile     ? file(hmmfile)  : [],
+                model:                  model,
+                taxonomy:               taxonomy    ? file(taxonomy) : [],
+                reftreename:            null,
+                min_query_columns:      min_query_columns,
+                min_reference_coverage: min_reference_coverage
             ]
         ])
             .set { ch_phyloplace_data }
     } else if ( phylosearch_input ) {
-        exit 1, "For phylosearch mode, you need to provide an input sample sheet with --phylosearch_input *and* a fasta file with --search_fasta"
+        exit 1, "For phylosearch mode, you need to provide an input target sheet with --phylosearch_input *and* a fasta file with --search_fasta"
     } else {
         exit 1, "For phyloplace mode, you need to provide an input sample sheet with --phyloplace_input or the corresponding info with individual parameters"
     }
@@ -225,7 +238,7 @@ workflow PIPELINE_COMPLETION {
                 plaintext_email,
                 outdir,
                 monochrome_logs,
-                multiqc_reports.getVal(),
+                multiqc_reports.isBound() ? multiqc_reports.getVal() : [],
             )
         }
 
@@ -243,6 +256,36 @@ workflow PIPELINE_COMPLETION {
     FUNCTIONS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
+//
+// Read the sheets in a comma-separated list, require unique target names and keep only the comma-separated `targets`, if given
+//
+def combinePhylosearchSheets(String sheets, String targets, String schema) {
+    def rows = sheets.tokenize(',').collectMany { sheet -> samplesheetToList(sheet, schema) }
+    def ids  = rows.collect { row -> row[0].id }
+
+    def duplicated = ids.countBy { tid -> tid }.findAll { _tid, n -> n > 1 }.keySet()
+    if ( duplicated ) {
+        error "Target names must be unique across all --phylosearch_input files, but these occur more than once: ${duplicated.join(', ')}"
+    }
+
+    if ( !targets ) {
+        return rows
+    }
+
+    def wanted  = targets.tokenize(',')
+    def unknown = wanted - ids
+    if ( unknown ) {
+        error "--phylosearch_targets names targets that are not in --phylosearch_input: ${unknown.join(', ')}"
+    }
+    return rows.findAll { row -> row[0].id in wanted }
+}
+
+// An empty cell of a numeric sheet column arrives as an empty list, not as null.
+// Test for a number rather than truthiness: a row value of 0 must override a nonzero default.
+def numberOrDefault(value, default_value) {
+    return value instanceof Number ? value : default_value
+}
+
 //
 // Check and validate pipeline parameters
 //

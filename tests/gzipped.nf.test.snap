@@ -5,6 +5,9 @@
                 "CUSTOM_RESOLVETAXONOMY": {
                     "biopython": 1.84
                 },
+                "EPANG_FILTERQUERY": {
+                    "gawk": "5.3.1"
+                },
                 "EPANG_PLACE": {
                     "epa-ng": "0.3.8"
                 },
@@ -25,7 +28,7 @@
                     "pigz": 2.8
                 },
                 "Workflow": {
-                    "nf-core/phyloplace": "v2.3.0"
+                    "nf-core/phyloplace": "v2.4.0"
                 }
             },
             [
@@ -34,6 +37,8 @@
                 "epang/placement.epa_result.jplace.gz",
                 "epang/placement.query.fasta.gz",
                 "epang/placement.reference.fasta.gz",
+                "filterquery",
+                "filterquery/placement.filterquery.tsv",
                 "gappa",
                 "gappa/placement.graft.newick",
                 "gappa/placement.heattree.colours.txt",
@@ -68,6 +73,7 @@
             [
                 "placement.query.fasta.gz:md5,2761ba0d5a249bf44b6fbdf29492c518",
                 "placement.reference.fasta.gz:md5,1c9f3619abacd50a6ea2bd7d31671520",
+                "placement.filterquery.tsv:md5,033399880f2a73ef8c377b5863dfd66a",
                 "placement.heattree.colours.txt:md5,7704cd341c8693981253ba6d740c1061",
                 "placement.taxonomy.labelled_tree.newick:md5,39de8a46303ea757f6eb94478db1ffe0",
                 "placement.fas.gz:md5,5a41d3443ea56b4b9105d8190043e37e",
@@ -80,7 +86,7 @@
             5,
             2
         ],
-        "timestamp": "2026-09-21T20:44:40.293232217",
+        "timestamp": "2026-11-18T09:44:06.344532982",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.04.6"

@@ -1,0 +1,92 @@
+nextflow_pipeline {
+
+    name "Test pipeline"
+    script "../main.nf"
+    tag "pipeline"
+    profile "test_phylosearch_catalogue"
+
+    test("-profile test_phylosearch_catalogue") {
+
+        when {
+            params {
+                outdir = "$outputDir"
+            }
+        }
+
+        then {
+            def stable_path = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
+            def stable_content = getAllFilesFromDir(params.outdir, ignoreFile: 'tests/.nftignore')
+            assert workflow.success
+            assertAll(
+                { assert snapshot(
+                    removeNextflowVersion("$outputDir/pipeline_info/nf_core_phyloplace_software_mqc_versions.yml"),
+                    stable_path,
+                    stable_content,
+                    path("${params.outdir}/gappa/arc.taxonomy.per_query.tsv").csv(sep: '\t', header: true).rowCount,
+                    path("${params.outdir}/gappa/bac16s.taxonomy.per_query.tsv").csv(sep: '\t', header: true).rowCount,
+                ).match() },
+                // arc and bac16s come from the first sheet, euk18s from the second
+                { assert file("${params.outdir}/gappa/arc.taxonomy.per_query.tsv").exists() },
+                { assert file("${params.outdir}/gappa/bac16s.taxonomy.per_query.tsv").exists() },
+                { assert file("${params.outdir}/seqtk/euk18s.fa.gz").exists() }
+            )
+        }
+    }
+
+    test("-profile test_phylosearch_catalogue, --phylosearch_targets keeps only the listed targets") {
+
+        when {
+            params {
+                outdir              = "$outputDir"
+                phylosearch_targets = 'bac16s,euk18s'
+            }
+        }
+
+        then {
+            def stable_path = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
+            assert workflow.success
+            assertAll(
+                { assert snapshot(stable_path).match() },
+                // arc is in the first sheet but not in the list, so nothing may be searched or placed for it
+                { assert !file("${params.outdir}/gappa/arc.taxonomy.per_query.tsv").exists() },
+                { assert !file("${params.outdir}/seqtk/arc.fa.gz").exists() },
+                { assert file("${params.outdir}/gappa/bac16s.taxonomy.per_query.tsv").exists() },
+                { assert file("${params.outdir}/seqtk/euk18s.fa.gz").exists() }
+            )
+        }
+    }
+
+    test("-profile test_phylosearch_catalogue, a target in two sheets is rejected") {
+
+        when {
+            params {
+                outdir            = "$outputDir"
+                phylosearch_input = 'https://raw.githubusercontent.com/nf-core/test-datasets/phyloplace/testdata/phylosearch_catalogue.csv,https://raw.githubusercontent.com/nf-core/test-datasets/phyloplace/testdata/phylosearch_input.csv'
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.failed },
+                { assert (workflow.stdout + workflow.stderr).any { it.contains('must be unique across all --phylosearch_input files') && it.contains('arc, bac16s') } }
+            )
+        }
+    }
+
+    test("-profile test_phylosearch_catalogue, --phylosearch_targets naming an unknown target is rejected") {
+
+        when {
+            params {
+                outdir              = "$outputDir"
+                phylosearch_targets = 'bac16s,nosuchtarget'
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.failed },
+                { assert (workflow.stdout + workflow.stderr).any { it.contains('not in --phylosearch_input') && it.contains('nosuchtarget') } }
+            )
+        }
+    }
+}

@@ -5,6 +5,9 @@
                 "CUSTOM_RESOLVETAXONOMY": {
                     "biopython": 1.84
                 },
+                "EPANG_FILTERQUERY": {
+                    "gawk": "5.3.1"
+                },
                 "EPANG_PLACE": {
                     "epa-ng": "0.3.8"
                 },
@@ -66,7 +69,7 @@
                     "pigz": 2.8
                 },
                 "Workflow": {
-                    "nf-core/phyloplace": "v2.3.0"
+                    "nf-core/phyloplace": "v2.4.0"
                 }
             },
             [
@@ -85,6 +88,12 @@
                 "epang/nuc_mafft.epa_result.jplace.gz",
                 "epang/nuc_mafft.query.fasta.gz",
                 "epang/nuc_mafft.reference.fasta.gz",
+                "filterquery",
+                "filterquery/PF14720mafft.filterquery.tsv",
+                "filterquery/PF14720wo.filterquery.tsv",
+                "filterquery/PF14720wt.filterquery.tsv",
+                "filterquery/nuc_hmmer.filterquery.tsv",
+                "filterquery/nuc_mafft.filterquery.tsv",
                 "gappa",
                 "gappa/PF14720.joint.graft.newick",
                 "gappa/PF14720.joint.heattree.colours.txt",
@@ -210,6 +219,11 @@
                 "PF14720mafft.reference.fasta.gz:md5,1c9f3619abacd50a6ea2bd7d31671520",
                 "nuc_mafft.query.fasta.gz:md5,c85a9edad24d367f91305e2cc6b412f4",
                 "nuc_mafft.reference.fasta.gz:md5,7bce7fe7874d465a7cf42c3fa781e169",
+                "PF14720mafft.filterquery.tsv:md5,033399880f2a73ef8c377b5863dfd66a",
+                "PF14720wo.filterquery.tsv:md5,c5986026c0dae52f83fe30ec9ebcd774",
+                "PF14720wt.filterquery.tsv:md5,c5986026c0dae52f83fe30ec9ebcd774",
+                "nuc_hmmer.filterquery.tsv:md5,6c7c2ad7bd0e10e45cec46c194840714",
+                "nuc_mafft.filterquery.tsv:md5,c64affc6cdd3fe3a3825c1beaf7a2f01",
                 "PF14720.joint.heattree.colours.txt:md5,694154016a0e5ab7494ceb59dce0f444",
                 "PF14720.joint.taxonomy.labelled_tree.newick:md5,39de8a46303ea757f6eb94478db1ffe0",
                 "PF14720mafft.heattree.colours.txt:md5,7704cd341c8693981253ba6d740c1061",
@@ -270,7 +284,7 @@
             5,
             5
         ],
-        "timestamp": "2026-09-21T20:48:16.303578127",
+        "timestamp": "2026-11-18T09:47:25.876971468",
         "meta": {
             "nf-test": "0.9.4",
             "nextflow": "26.04.6"

@@ -16,6 +16,7 @@
             "hmm": {
                 "type": "string",
                 "format": "file-path",
+                "description": "HMM profile to search with. Used for the search only, never for aligning.",
                 "pattern": "^(\\S+\\.(hmm)(\\.gz)?|https?://\\S*/[^/.\\s]+)$",
                 "errorMessage": "HMM profile file: extension .hmm, optionally gzipped (.gz); no other compression format is supported."
             },
@@ -33,6 +34,7 @@
             "refseqfile": {
                 "type": "string",
                 "format": "file-path",
+                "description": "Alignment of the reference sequences. Always aligned in a target sheet, also with alignmethod hmmer.",
                 "pattern": "^(\\S+\\.(aln|alnfa|alnfaa|alnfna|mfa|fa|fna|faa|fasta|ph|phy|phylip)(\\.gz)?|https?://\\S*/[^/.\\s]+)$",
                 "errorMessage": "Multiple sequence alignment of the reference sequences: extension .aln, .alnfa, .alnfaa, .alnfna, .mfa, .fa, .fna, .faa, .fasta, .ph, .phy or .phylip, optionally gzipped (.gz); no other compression format is supported."
             },
@@ -49,6 +51,7 @@
             },
             "alignmethod": {
                 "type": "string",
+                "description": "Method to align the hits with. A row without a value uses 'clustalo', the default of --alignmethod.",
                 "pattern": "^\\S+$",
                 "enum": ["hmmer", "clustalo", "mafft"],
                 "errorMessage": "Method to use for aligning: 'hmmer', 'clustalo' or 'mafft'."
@@ -63,6 +66,17 @@
                 "type": "string",
                 "pattern": "^\\S+$",
                 "errorMessage": "Optional name of the reference tree this row places onto. Rows sharing a name are summarised jointly, in addition to individually, and must share the same reference phylogeny."
+            },
+            "min_query_columns": {
+                "type": "integer",
+                "minimum": 1,
+                "errorMessage": "Optional minimum number of residues a query sequence must have in the reference alignment columns that EPA-NG uses; a positive integer. Defaults to --min_query_columns."
+            },
+            "min_reference_coverage": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1,
+                "errorMessage": "Optional minimum fraction of the reference alignment columns that EPA-NG uses in which a query sequence must have a residue; a number between 0 and 1. Defaults to --min_reference_coverage."
             }
         },
         "required": ["target", "hmm"]
