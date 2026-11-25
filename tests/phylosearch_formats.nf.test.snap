@@ -46,7 +46,7 @@
                     "seqtk": "1.4-r122"
                 },
                 "Workflow": {
-                    "nf-core/phyloplace": "v2.4.0"
+                    "nf-core/phyloplace": "v2.4.1dev"
                 }
             },
             88,
