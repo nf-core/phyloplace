@@ -28,9 +28,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="0.70710678"
-     inkscape:cx="855.59921"
-     inkscape:cy="480.12551"
+     inkscape:zoom="1.4142136"
+     inkscape:cx="1343.5029"
+     inkscape:cy="254.20489"
      inkscape:window-width="1920"
      inkscape:window-height="1032"
      inkscape:window-x="0"
@@ -63,7 +63,7 @@
     <color-profile
        name="Built-in-display"
        xlink:href="../../../../.local/share/icc/edid-2ba92cb5bd5f547ffbd65776dbb8d4ae.icc"
-       id="color-profile3168" />
+       id="color-profile2617" />
     <rect
        x="610.61627"
        y="449.07727"
@@ -268,9 +268,9 @@
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect302);display:inline;fill:#f2f2f2;fill-opacity:1;stroke:none"><tspan
          x="610.61719"
          y="485.47313"
-         id="tspan3504"><tspan
+         id="tspan2932"><tspan
            style="font-weight:bold;font-size:13.3333px"
-           id="tspan3502">MAFFT</tspan></tspan></text>
+           id="tspan2930">MAFFT</tspan></tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,-5.249159,34.168669)"
@@ -278,9 +278,9 @@
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect1686);display:inline;fill:#f2f2f2;fill-opacity:1;stroke:none"><tspan
          x="610.61719"
          y="485.47313"
-         id="tspan3508"><tspan
+         id="tspan2936"><tspan
            style="font-weight:bold;font-size:13.3333px"
-           id="tspan3506">EPA-NG split</tspan></tspan></text>
+           id="tspan2934">EPA-NG split</tspan></tspan></text>
     <text
        xml:space="preserve"
        style="font-size:3.52778px;line-height:1.25;font-family:Commissioner;-inkscape-font-specification:Commissioner;letter-spacing:0px;stroke-width:0.264583"
@@ -397,21 +397,21 @@
            inkscape:connector-curvature="0"
            sodipodi:nodetypes="scsccccccccssscsssscsssscsscsccsscccccccccc"
            style="stroke-width:0.327892" />
-        <flowRoot
+        <text
            xml:space="preserve"
-           id="flowRoot3507"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:30.1251px;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-           transform="matrix(0.32789193,0,0,0.32789193,-139.47405,-575.8648)"><flowRegion
-             id="flowRegion3503"><rect
-               id="rect3501"
-               width="112"
-               height="53.599998"
-               x="474.39999"
-               y="-1904.0004"
-               style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';fill:#2b2b2b"
-               transform="scale(1,-1)" /></flowRegion><flowPara
-             id="flowPara3505"
-             style="font-size:30.1251px;line-height:1.25">tsv</flowPara></flowRoot>
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87778px;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:0.327892px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           x="21.31982"
+           y="42.095158"
+           id="text1532"><tspan
+             sodipodi:role="line"
+             x="21.31982"
+             y="42.095158"
+             id="tspan1530"
+             style="stroke-width:0.327892px"><tspan
+               x="21.31982"
+               y="42.095158"
+               style="line-height:1.25;stroke-width:0.327892px"
+               id="tspan1528">tsv</tspan></tspan></text>
         <path
            id="path3509"
            d="m 17.704932,21.189446 h 15.587523 v 6.885173 c 0,0.371764 0.301605,0.672867 0.672861,0.672867 h 5.944048 V 32.11851 H 17.704932 Z M 39.909426,52.449351 H 17.704932 v -6.482587 h 22.204432 v 6.482587 z"
@@ -526,9 +526,9 @@
        style="font-style:normal;font-weight:normal;font-size:13.3333px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect5190);display:inline;fill:#f2f2f2;fill-opacity:1;stroke:none"><tspan
          x="610.61719"
          y="461.20976"
-         id="tspan3512"><tspan
+         id="tspan2940"><tspan
            style="font-weight:bold"
-           id="tspan3510">Clustal Omega</tspan></tspan></text>
+           id="tspan2938">Clustal Omega</tspan></tspan></text>
     <path
        style="fill:none;stroke:#ae63fa;stroke-width:2.75716;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 141.21222,191.29546 h 25.78226"
@@ -547,9 +547,9 @@
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect5202);display:inline;fill:#f2f2f2;fill-opacity:1;stroke:none"><tspan
          x="610.61719"
          y="485.47313"
-         id="tspan3516"><tspan
+         id="tspan2944"><tspan
            style="font-weight:bold;font-size:13.3333px"
-           id="tspan3514">EPA-NG split</tspan></tspan></text>
+           id="tspan2942">EPA-NG split</tspan></tspan></text>
     <circle
        style="fill:#2b2b2b;stroke:#f2f2f2;stroke-width:2.64583;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke markers fill;stop-color:#000000"
        id="circle5200"
@@ -618,21 +618,21 @@
            inkscape:connector-curvature="0"
            sodipodi:nodetypes="scsccccccccssscsssscsssscsscsccsscccccccccc"
            style="stroke-width:0.327892" />
-        <flowRoot
+        <text
            xml:space="preserve"
-           id="flowRoot45300"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:30.1251px;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-           transform="matrix(0.32789193,0,0,0.32789193,-139.47405,-575.8648)"><flowRegion
-             id="flowRegion45296"><rect
-               id="rect45294"
-               width="112"
-               height="53.599998"
-               x="474.39999"
-               y="-1904.0004"
-               style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';fill:#2b2b2b"
-               transform="scale(1,-1)" /></flowRegion><flowPara
-             id="flowPara45298"
-             style="font-size:30.1251px;line-height:1.25">fasta</flowPara></flowRoot>
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87778px;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:0.327892px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           x="16.078011"
+           y="42.095158"
+           id="text1484"><tspan
+             sodipodi:role="line"
+             x="16.078011"
+             y="42.095158"
+             id="tspan1482"
+             style="stroke-width:0.327892px"><tspan
+               x="16.078011"
+               y="42.095158"
+               style="line-height:1.25;stroke-width:0.327892px"
+               id="tspan1480">fasta</tspan></tspan></text>
         <path
            id="path45302"
            d="m 17.704932,21.189446 h 15.587523 v 6.885173 c 0,0.371764 0.301605,0.672867 0.672861,0.672867 h 5.944048 V 32.11851 H 17.704932 Z M 39.909426,52.449351 H 17.704932 v -6.482587 h 22.204432 v 6.482587 z"
@@ -673,21 +673,21 @@
                  inkscape:connector-curvature="0"
                  sodipodi:nodetypes="scsccccccccssscsssscsssscsscsccsscccccccccc"
                  style="stroke-width:0.327892" />
-              <flowRoot
+              <text
                  xml:space="preserve"
-                 id="flowRoot45938"
-                 style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:30.1251px;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-                 transform="matrix(0.32789193,0,0,0.32789193,-139.47405,-575.8648)"><flowRegion
-                   id="flowRegion45934"><rect
-                     id="rect45932"
-                     width="112"
-                     height="53.599998"
-                     x="474.39999"
-                     y="-1904.0004"
-                     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';fill:#2b2b2b"
-                     transform="scale(1,-1)" /></flowRegion><flowPara
-                   id="flowPara45936"
-                   style="font-size:30.1251px;line-height:1.25">hmm</flowPara></flowRoot>
+                 style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87778px;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:0.327892px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 x="16.078011"
+                 y="42.095158"
+                 id="text2245"><tspan
+                   sodipodi:role="line"
+                   x="16.078011"
+                   y="42.095158"
+                   id="tspan2243"
+                   style="stroke-width:0.327892px"><tspan
+                     x="16.078011"
+                     y="42.095158"
+                     style="line-height:1.25;stroke-width:0.327892px"
+                     id="tspan2241">hmm</tspan></tspan></text>
               <path
                  id="path45940"
                  d="m 17.704932,21.189446 h 15.587523 v 6.885173 c 0,0.371764 0.301605,0.672867 0.672861,0.672867 h 5.944048 V 32.11851 H 17.704932 Z M 39.909426,52.449351 H 17.704932 v -6.482587 h 22.204432 v 6.482587 z"
@@ -718,21 +718,21 @@
                  inkscape:connector-curvature="0"
                  sodipodi:nodetypes="scsccccccccssscsssscsssscsscsccsscccccccccc"
                  style="stroke-width:0.327892" />
-              <flowRoot
+              <text
                  xml:space="preserve"
-                 id="flowRoot535"
-                 style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:30.1251px;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-                 transform="matrix(0.32789193,0,0,0.32789193,-139.47405,-575.8648)"><flowRegion
-                   id="flowRegion531"><rect
-                     id="rect529"
-                     width="112"
-                     height="53.599998"
-                     x="474.39999"
-                     y="-1904.0004"
-                     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';fill:#2b2b2b"
-                     transform="scale(1,-1)" /></flowRegion><flowPara
-                   id="flowPara533"
-                   style="font-size:30.1251px;line-height:1.25">hmm</flowPara></flowRoot>
+                 style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87778px;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:0.327892px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 x="16.078011"
+                 y="42.095158"
+                 id="text1889"><tspan
+                   sodipodi:role="line"
+                   x="16.078011"
+                   y="42.095158"
+                   id="tspan1887"
+                   style="stroke-width:0.327892px"><tspan
+                     x="16.078011"
+                     y="42.095158"
+                     style="line-height:1.25;stroke-width:0.327892px"
+                     id="tspan1885">hmm</tspan></tspan></text>
               <path
                  id="path537"
                  d="m 17.704932,21.189446 h 15.587523 v 6.885173 c 0,0.371764 0.301605,0.672867 0.672861,0.672867 h 5.944048 V 32.11851 H 17.704932 Z M 39.909426,52.449351 H 17.704932 v -6.482587 h 22.204432 v 6.482587 z"
@@ -761,21 +761,21 @@
                inkscape:connector-curvature="0"
                sodipodi:nodetypes="scsccccccccssscsssscsssscsscsccsscccccccccc"
                style="stroke-width:0.327892" />
-            <flowRoot
+            <text
                xml:space="preserve"
-               id="flowRoot555"
-               style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:30.1251px;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-               transform="matrix(0.32789193,0,0,0.32789193,-139.47405,-575.8648)"><flowRegion
-                 id="flowRegion551"><rect
-                   id="rect549"
-                   width="112"
-                   height="53.599998"
-                   x="474.39999"
-                   y="-1904.0004"
-                   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';fill:#2b2b2b"
-                   transform="scale(1,-1)" /></flowRegion><flowPara
-                 id="flowPara553"
-                 style="font-size:30.1251px;line-height:1.25">hmm</flowPara></flowRoot>
+               style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87778px;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:0.327892px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+               x="16.078011"
+               y="42.095158"
+               id="text1490"><tspan
+                 sodipodi:role="line"
+                 x="16.078011"
+                 y="42.095158"
+                 id="tspan1488"
+                 style="stroke-width:0.327892px"><tspan
+                   x="16.078011"
+                   y="42.095158"
+                   style="line-height:1.25;stroke-width:0.327892px"
+                   id="tspan1486">hmm</tspan></tspan></text>
             <path
                id="path557"
                d="m 17.704932,21.189446 h 15.587523 v 6.885173 c 0,0.371764 0.301605,0.672867 0.672861,0.672867 h 5.944048 V 32.11851 H 17.704932 Z M 39.909426,52.449351 H 17.704932 v -6.482587 h 22.204432 v 6.482587 z"
@@ -822,21 +822,21 @@
                inkscape:connector-curvature="0"
                sodipodi:nodetypes="scsccccccccssscsssscsssscsscsccsscccccccccc"
                style="stroke-width:0.327892" />
-            <flowRoot
+            <text
                xml:space="preserve"
-               id="flowRoot2950"
-               style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:30.1251px;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-               transform="matrix(0.32789193,0,0,0.32789193,-138.66394,-483.07474)"><flowRegion
-                 id="flowRegion2946"><rect
-                   id="rect2944"
-                   width="112"
-                   height="53.599998"
-                   x="474.39999"
-                   y="-1904.0004"
-                   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';fill:#2b2b2b"
-                   transform="scale(1,-1)" /></flowRegion><flowPara
-                 id="flowPara2948"
-                 style="font-size:30.1251px;line-height:1.25">align</flowPara></flowRoot>
+               style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87778px;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:0.327892px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+               x="16.888119"
+               y="133.00374"
+               id="text1526"><tspan
+                 sodipodi:role="line"
+                 x="16.888119"
+                 y="133.00374"
+                 id="tspan1524"
+                 style="stroke-width:0.327892px"><tspan
+                   x="16.888119"
+                   y="133.00374"
+                   style="line-height:1.25;stroke-width:0.327892px"
+                   id="tspan1522">align</tspan></tspan></text>
             <path
                id="path2952"
                d="m 18.515045,112.39199 h 15.587523 v 6.88518 c 0,0.37176 0.301605,0.67286 0.672861,0.67286 h 5.944048 v 3.37103 H 18.515045 Z M 40.719539,143.6519 H 18.515045 v -6.48259 h 22.204432 v 6.48259 z"
@@ -853,21 +853,21 @@
                inkscape:connector-curvature="0"
                sodipodi:nodetypes="scsccccccccssscsssscsssscsscsccsscccccccccc"
                style="stroke-width:0.327892" />
-            <flowRoot
+            <text
                xml:space="preserve"
-               id="flowRoot925"
-               style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:30.1251px;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-               transform="matrix(0.32789193,0,0,0.32789193,-138.66394,-483.07474)"><flowRegion
-                 id="flowRegion921"><rect
-                   id="rect919"
-                   width="112"
-                   height="53.599998"
-                   x="474.39999"
-                   y="-1904.0004"
-                   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';fill:#2b2b2b"
-                   transform="scale(1,-1)" /></flowRegion><flowPara
-                 id="flowPara923"
-                 style="font-size:30.1251px;line-height:1.25">align</flowPara></flowRoot>
+               style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87778px;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:0.327892px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+               x="16.888119"
+               y="133.00374"
+               id="text1520"><tspan
+                 sodipodi:role="line"
+                 x="16.888119"
+                 y="133.00374"
+                 id="tspan1518"
+                 style="stroke-width:0.327892px"><tspan
+                   x="16.888119"
+                   y="133.00374"
+                   style="line-height:1.25;stroke-width:0.327892px"
+                   id="tspan1516">align</tspan></tspan></text>
             <path
                id="path927"
                d="m 18.515045,112.39199 h 15.587523 v 6.88518 c 0,0.37176 0.301605,0.67286 0.672861,0.67286 h 5.944048 v 3.37103 H 18.515045 Z M 40.719539,143.6519 H 18.515045 v -6.48259 h 22.204432 v 6.48259 z"
@@ -884,21 +884,21 @@
                inkscape:connector-curvature="0"
                sodipodi:nodetypes="scsccccccccssscsssscsssscsscsccsscccccccccc"
                style="stroke-width:0.327892" />
-            <flowRoot
+            <text
                xml:space="preserve"
-               id="flowRoot939"
-               style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:30.1251px;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-               transform="matrix(0.32789193,0,0,0.32789193,-138.66394,-483.07474)"><flowRegion
-                 id="flowRegion935"><rect
-                   id="rect933"
-                   width="112"
-                   height="53.599998"
-                   x="474.39999"
-                   y="-1904.0004"
-                   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';fill:#2b2b2b"
-                   transform="scale(1,-1)" /></flowRegion><flowPara
-                 id="flowPara937"
-                 style="font-size:30.1251px;line-height:1.25">align</flowPara></flowRoot>
+               style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87778px;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:0.327892px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+               x="16.888119"
+               y="133.00374"
+               id="text1496"><tspan
+                 sodipodi:role="line"
+                 x="16.888119"
+                 y="133.00374"
+                 id="tspan1494"
+                 style="stroke-width:0.327892px"><tspan
+                   x="16.888119"
+                   y="133.00374"
+                   style="line-height:1.25;stroke-width:0.327892px"
+                   id="tspan1492">align</tspan></tspan></text>
             <path
                id="path941"
                d="m 18.515045,112.39199 h 15.587523 v 6.88518 c 0,0.37176 0.301605,0.67286 0.672861,0.67286 h 5.944048 v 3.37103 H 18.515045 Z M 40.719539,143.6519 H 18.515045 v -6.48259 h 22.204432 v 6.48259 z"
@@ -934,21 +934,21 @@
                inkscape:connector-curvature="0"
                sodipodi:nodetypes="scsccccccccssscsssscsssscsscsccsscccccccccc"
                style="stroke-width:0.327892" />
-            <flowRoot
+            <text
                xml:space="preserve"
-               id="flowRoot1048"
-               style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-               transform="matrix(0.32789193,0,0,0.32789193,-138.94256,-528.1217)"><flowRegion
-                 id="flowRegion1044"><rect
-                   id="rect1042"
-                   width="112"
-                   height="53.599998"
-                   x="474.39999"
-                   y="-1904.0004"
-                   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';fill:#2b2b2b"
-                   transform="scale(1,-1)" /></flowRegion><flowPara
-                 id="flowPara1046"
-                 style="font-size:21.5179px;line-height:1.25">newick</flowPara></flowRoot>
+               style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.9347px;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:0.327892px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+               x="16.609499"
+               y="87.167648"
+               id="text1514"><tspan
+                 sodipodi:role="line"
+                 x="16.609499"
+                 y="87.167648"
+                 id="tspan1512"
+                 style="stroke-width:0.327892px"><tspan
+                   x="16.609499"
+                   y="87.167648"
+                   style="font-size:7.05555px;line-height:1.25;stroke-width:0.327892px"
+                   id="tspan1510">newick</tspan></tspan></text>
             <path
                id="path1050"
                d="m 18.236422,67.345035 h 15.587523 v 6.885173 c 0,0.371764 0.301605,0.672867 0.672861,0.672867 h 5.944048 v 3.371024 H 18.236422 Z M 40.440916,98.60494 H 18.236422 v -6.482587 h 22.204432 v 6.482587 z"
@@ -965,21 +965,21 @@
                inkscape:connector-curvature="0"
                sodipodi:nodetypes="scsccccccccssscsssscsssscsscsccsscccccccccc"
                style="stroke-width:0.327892" />
-            <flowRoot
+            <text
                xml:space="preserve"
-               id="flowRoot1066"
-               style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-               transform="matrix(0.32789193,0,0,0.32789193,-138.94256,-528.1217)"><flowRegion
-                 id="flowRegion1062"><rect
-                   id="rect1060"
-                   width="112"
-                   height="53.599998"
-                   x="474.39999"
-                   y="-1904.0004"
-                   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';fill:#2b2b2b"
-                   transform="scale(1,-1)" /></flowRegion><flowPara
-                 id="flowPara1064"
-                 style="font-size:21.5179px;line-height:1.25">newick</flowPara></flowRoot>
+               style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.9347px;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:0.327892px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+               x="16.609499"
+               y="87.167648"
+               id="text1508"><tspan
+                 sodipodi:role="line"
+                 x="16.609499"
+                 y="87.167648"
+                 id="tspan1506"
+                 style="stroke-width:0.327892px"><tspan
+                   x="16.609499"
+                   y="87.167648"
+                   style="font-size:7.05555px;line-height:1.25;stroke-width:0.327892px"
+                   id="tspan1504">newick</tspan></tspan></text>
             <path
                id="path1068"
                d="m 18.236422,67.345035 h 15.587523 v 6.885173 c 0,0.371764 0.301605,0.672867 0.672861,0.672867 h 5.944048 v 3.371024 H 18.236422 Z M 40.440916,98.60494 H 18.236422 v -6.482587 h 22.204432 v 6.482587 z"
@@ -996,21 +996,21 @@
                inkscape:connector-curvature="0"
                sodipodi:nodetypes="scsccccccccssscsssscsssscsscsccsscccccccccc"
                style="stroke-width:0.327892" />
-            <flowRoot
+            <text
                xml:space="preserve"
-               id="flowRoot1080"
-               style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-               transform="matrix(0.32789193,0,0,0.32789193,-138.94256,-528.1217)"><flowRegion
-                 id="flowRegion1076"><rect
-                   id="rect1074"
-                   width="112"
-                   height="53.599998"
-                   x="474.39999"
-                   y="-1904.0004"
-                   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';fill:#2b2b2b"
-                   transform="scale(1,-1)" /></flowRegion><flowPara
-                 id="flowPara1078"
-                 style="font-size:21.5179px;line-height:1.25">newick</flowPara></flowRoot>
+               style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.9347px;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:0.327892px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+               x="16.609499"
+               y="88.108391"
+               id="text1502"><tspan
+                 sodipodi:role="line"
+                 x="16.609499"
+                 y="88.108391"
+                 id="tspan1500"
+                 style="stroke-width:0.327892px"><tspan
+                   x="16.609499"
+                   y="88.108391"
+                   style="font-size:7.05555px;line-height:1.25;stroke-width:0.327892px"
+                   id="tspan1498">newick</tspan></tspan></text>
             <path
                id="path1082"
                d="m 18.236422,67.345035 h 15.587523 v 6.885173 c 0,0.371764 0.301605,0.672867 0.672861,0.672867 h 5.944048 v 3.371024 H 18.236422 Z M 40.440916,98.60494 H 18.236422 v -6.482587 h 22.204432 v 6.482587 z"
@@ -1058,21 +1058,21 @@
                    inkscape:connector-curvature="0"
                    sodipodi:nodetypes="scsccccccccssscsssscsssscsscsccsscccccccccc"
                    style="stroke-width:0.327892" />
-                <flowRoot
+                <text
                    xml:space="preserve"
-                   id="flowRoot8924"
-                   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:30.1251px;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-                   transform="matrix(0.32789193,0,0,0.32789193,-139.47405,-575.8648)"><flowRegion
-                     id="flowRegion8920"><rect
-                       id="rect8918"
-                       width="112"
-                       height="53.599998"
-                       x="474.39999"
-                       y="-1904.0004"
-                       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';fill:#2b2b2b"
-                       transform="scale(1,-1)" /></flowRegion><flowPara
-                     id="flowPara8922"
-                     style="font-size:30.1251px;line-height:1.25">fasta</flowPara></flowRoot>
+                   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87778px;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:0.327892px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                   x="16.078011"
+                   y="40.213676"
+                   id="text2600"><tspan
+                     sodipodi:role="line"
+                     x="16.078011"
+                     y="40.213676"
+                     id="tspan2598"
+                     style="stroke-width:0.327892px"><tspan
+                       x="16.078011"
+                       y="40.213676"
+                       style="line-height:1.25;stroke-width:0.327892px"
+                       id="tspan2596">fasta</tspan></tspan></text>
                 <path
                    id="path8926"
                    d="m 17.704932,21.189446 h 15.587523 v 6.885173 c 0,0.371764 0.301605,0.672867 0.672861,0.672867 h 5.944048 V 32.11851 H 17.704932 Z M 39.909426,52.449351 H 17.704932 v -6.482587 h 22.204432 v 6.482587 z"
@@ -1119,21 +1119,21 @@
                    inkscape:connector-curvature="0"
                    sodipodi:nodetypes="scsccccccccssscsssscsssscsscsccsscccccccccc"
                    style="stroke-width:0.327892" />
-                <flowRoot
+                <text
                    xml:space="preserve"
-                   id="flowRoot8948"
-                   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-                   transform="matrix(0.32789193,0,0,0.32789193,-138.94256,-528.1217)"><flowRegion
-                     id="flowRegion8944"><rect
-                       id="rect8942"
-                       width="112"
-                       height="53.599998"
-                       x="474.39999"
-                       y="-1904.0004"
-                       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';fill:#2b2b2b"
-                       transform="scale(1,-1)" /></flowRegion><flowPara
-                     id="flowPara8946"
-                     style="font-size:21.5179px;line-height:1.25">newick</flowPara></flowRoot>
+                   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.9347px;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:0.327892px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                   x="16.609499"
+                   y="85.286171"
+                   id="text2606"><tspan
+                     sodipodi:role="line"
+                     x="16.609499"
+                     y="85.286171"
+                     id="tspan2604"
+                     style="stroke-width:0.327892px"><tspan
+                       x="16.609499"
+                       y="85.286171"
+                       style="font-size:7.05555px;line-height:1.25;stroke-width:0.327892px"
+                       id="tspan2602">newick</tspan></tspan></text>
                 <path
                    id="path8950"
                    d="m 18.236422,67.345035 h 15.587523 v 6.885173 c 0,0.371764 0.301605,0.672867 0.672861,0.672867 h 5.944048 v 3.371024 H 18.236422 Z M 40.440916,98.60494 H 18.236422 v -6.482587 h 22.204432 v 6.482587 z"
@@ -1164,21 +1164,21 @@
                    inkscape:connector-curvature="0"
                    sodipodi:nodetypes="scsccccccccssscsssscsssscsscsccsscccccccccc"
                    style="stroke-width:0.327892" />
-                <flowRoot
+                <text
                    xml:space="preserve"
-                   id="flowRoot8998"
-                   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:30.1251px;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-                   transform="matrix(0.32789193,0,0,0.32789193,-138.66394,-483.07474)"><flowRegion
-                     id="flowRegion8994"><rect
-                       id="rect8992"
-                       width="112"
-                       height="53.599998"
-                       x="474.39999"
-                       y="-1904.0004"
-                       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';fill:#2b2b2b"
-                       transform="scale(1,-1)" /></flowRegion><flowPara
-                     id="flowPara8996"
-                     style="font-size:30.1251px;line-height:1.25">align</flowPara></flowRoot>
+                   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87778px;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:0.327892px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                   x="16.888119"
+                   y="133.00374"
+                   id="text2612"><tspan
+                     sodipodi:role="line"
+                     x="16.888119"
+                     y="133.00374"
+                     id="tspan2610"
+                     style="stroke-width:0.327892px"><tspan
+                       x="16.888119"
+                       y="133.00374"
+                       style="line-height:1.25;stroke-width:0.327892px"
+                       id="tspan2608">align</tspan></tspan></text>
                 <path
                    id="path9000"
                    d="m 18.515045,112.39199 h 15.587523 v 6.88518 c 0,0.37176 0.301605,0.67286 0.672861,0.67286 h 5.944048 v 3.37103 H 18.515045 Z M 40.719539,143.6519 H 18.515045 v -6.48259 h 22.204432 v 6.48259 z"
@@ -1236,21 +1236,21 @@
                  inkscape:connector-curvature="0"
                  sodipodi:nodetypes="scsccccccccssscsssscsssscsscsccsscccccccccc"
                  style="stroke-width:0.327892" />
-              <flowRoot
+              <text
                  xml:space="preserve"
-                 id="flowRoot10480"
-                 style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:30.1251px;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-                 transform="matrix(0.32789193,0,0,0.32789193,-139.47405,-575.8648)"><flowRegion
-                   id="flowRegion10476"><rect
-                     id="rect10474"
-                     width="112"
-                     height="53.599998"
-                     x="474.39999"
-                     y="-1904.0004"
-                     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';fill:#2b2b2b"
-                     transform="scale(1,-1)" /></flowRegion><flowPara
-                   id="flowPara10478"
-                   style="font-size:30.1251px;line-height:1.25">fasta</flowPara></flowRoot>
+                 style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87778px;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:0.327892px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 x="16.9736"
+                 y="42.095158"
+                 id="text1472"><tspan
+                   sodipodi:role="line"
+                   x="16.9736"
+                   y="42.095158"
+                   id="tspan1470"
+                   style="stroke-width:0.327892px"><tspan
+                     x="16.9736"
+                     y="42.095158"
+                     style="line-height:1.25;stroke-width:0.327892px"
+                     id="tspan1468">fasta</tspan></tspan></text>
               <path
                  id="path10482"
                  d="m 17.704932,21.189446 h 15.587523 v 6.885173 c 0,0.371764 0.301605,0.672867 0.672861,0.672867 h 5.944048 V 32.11851 H 17.704932 Z M 39.909426,52.449351 H 17.704932 v -6.482587 h 22.204432 v 6.482587 z"
@@ -1297,21 +1297,21 @@
                  inkscape:connector-curvature="0"
                  sodipodi:nodetypes="scsccccccccssscsssscsssscsscsccsscccccccccc"
                  style="stroke-width:0.327892" />
-              <flowRoot
+              <text
                  xml:space="preserve"
-                 id="flowRoot10506"
-                 style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-                 transform="matrix(0.32789193,0,0,0.32789193,-138.94256,-528.1217)"><flowRegion
-                   id="flowRegion10502"><rect
-                     id="rect10500"
-                     width="112"
-                     height="53.599998"
-                     x="474.39999"
-                     y="-1904.0004"
-                     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';fill:#2b2b2b"
-                     transform="scale(1,-1)" /></flowRegion><flowPara
-                   id="flowPara10504"
-                   style="font-size:21.5179px;line-height:1.25">newick</flowPara></flowRoot>
+                 style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.9347px;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:0.327892px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 x="17.294849"
+                 y="87.167648"
+                 id="text1466"><tspan
+                   sodipodi:role="line"
+                   x="17.294849"
+                   y="87.167648"
+                   id="tspan1464"
+                   style="stroke-width:0.327892px"><tspan
+                     x="17.294849"
+                     y="87.167648"
+                     style="font-size:7.05555px;line-height:1.25;stroke-width:0.327892px"
+                     id="tspan1462">newick</tspan></tspan></text>
               <path
                  id="path10508"
                  d="m 18.236422,67.345035 h 15.587523 v 6.885173 c 0,0.371764 0.301605,0.672867 0.672861,0.672867 h 5.944048 v 3.371024 H 18.236422 Z M 40.440916,98.60494 H 18.236422 v -6.482587 h 22.204432 v 6.482587 z"
@@ -1342,21 +1342,21 @@
                  inkscape:connector-curvature="0"
                  sodipodi:nodetypes="scsccccccccssscsssscsssscsscsccsscccccccccc"
                  style="stroke-width:0.327892" />
-              <flowRoot
+              <text
                  xml:space="preserve"
-                 id="flowRoot10526"
-                 style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:30.1251px;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-                 transform="matrix(0.32789193,0,0,0.32789193,-138.66394,-483.07474)"><flowRegion
-                   id="flowRegion10522"><rect
-                     id="rect10520"
-                     width="112"
-                     height="53.599998"
-                     x="474.39999"
-                     y="-1904.0004"
-                     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';fill:#2b2b2b"
-                     transform="scale(1,-1)" /></flowRegion><flowPara
-                   id="flowPara10524"
-                   style="font-size:30.1251px;line-height:1.25">align</flowPara></flowRoot>
+                 style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87778px;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:0.327892px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 x="18.19364"
+                 y="133.00374"
+                 id="text1478"><tspan
+                   sodipodi:role="line"
+                   x="18.19364"
+                   y="133.00374"
+                   id="tspan1476"
+                   style="stroke-width:0.327892px"><tspan
+                     x="18.19364"
+                     y="133.00374"
+                     style="line-height:1.25;stroke-width:0.327892px"
+                     id="tspan1474">align</tspan></tspan></text>
               <path
                  id="path10528"
                  d="m 18.515045,112.39199 h 15.587523 v 6.88518 c 0,0.37176 0.301605,0.67286 0.672861,0.67286 h 5.944048 v 3.37103 H 18.515045 Z M 40.719539,143.6519 H 18.515045 v -6.48259 h 22.204432 v 6.48259 z"
@@ -1425,21 +1425,21 @@
                inkscape:connector-curvature="0"
                sodipodi:nodetypes="scsccccccccssscsssscsssscsscsccsscccccccccc"
                style="stroke-width:0.327892" />
-            <flowRoot
+            <text
                xml:space="preserve"
-               id="flowRoot77605"
-               style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-               transform="matrix(0.32789193,0,0,0.32789193,-138.94256,-528.1217)"><flowRegion
-                 id="flowRegion77601"><rect
-                   id="rect77599"
-                   width="112"
-                   height="53.599998"
-                   x="474.39999"
-                   y="-1904.0004"
-                   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';fill:#2b2b2b"
-                   transform="scale(1,-1)" /></flowRegion><flowPara
-                 id="flowPara77603"
-                 style="font-size:21.5179px;line-height:1.25">newick</flowPara></flowRoot>
+               style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.9347px;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:0.327892px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+               x="16.609499"
+               y="87.167648"
+               id="text1091"><tspan
+                 sodipodi:role="line"
+                 x="16.609499"
+                 y="87.167648"
+                 id="tspan1089"
+                 style="stroke-width:0.327892px"><tspan
+                   x="16.609499"
+                   y="87.167648"
+                   style="font-size:7.05555px;line-height:1.25;stroke-width:0.327892px"
+                   id="tspan1087">newick</tspan></tspan></text>
             <path
                id="path77607"
                d="m 18.236422,67.345035 h 15.587523 v 6.885173 c 0,0.371764 0.301605,0.672867 0.672861,0.672867 h 5.944048 v 3.371024 H 18.236422 Z M 40.440916,98.60494 H 18.236422 v -6.482587 h 22.204432 v 6.482587 z"
@@ -1471,21 +1471,21 @@
                inkscape:connector-curvature="0"
                sodipodi:nodetypes="scsccccccccssscsssscsssscsscsccsscccccccccc"
                style="stroke-width:0.327892" />
-            <flowRoot
+            <text
                xml:space="preserve"
-               id="flowRoot78343"
-               style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:30.1251px;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-               transform="matrix(0.32789193,0,0,0.32789193,-139.47405,-575.8648)"><flowRegion
-                 id="flowRegion78339"><rect
-                   id="rect78337"
-                   width="112"
-                   height="53.599998"
-                   x="474.39999"
-                   y="-1904.0004"
-                   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';fill:#2b2b2b"
-                   transform="scale(1,-1)" /></flowRegion><flowPara
-                 id="flowPara78341"
-                 style="font-size:30.1251px;line-height:1.25">tsv</flowPara></flowRoot>
+               style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87778px;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:0.327892px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+               x="21.31982"
+               y="42.095158"
+               id="text1085"><tspan
+                 sodipodi:role="line"
+                 x="21.31982"
+                 y="42.095158"
+                 id="tspan1083"
+                 style="stroke-width:0.327892px"><tspan
+                   x="21.31982"
+                   y="42.095158"
+                   style="line-height:1.25;stroke-width:0.327892px"
+                   id="tspan1081">tsv</tspan></tspan></text>
             <path
                id="path78345"
                d="m 17.704932,21.189446 h 15.587523 v 6.885173 c 0,0.371764 0.301605,0.672867 0.672861,0.672867 h 5.944048 V 32.11851 H 17.704932 Z M 39.909426,52.449351 H 17.704932 v -6.482587 h 22.204432 v 6.482587 z"
@@ -1517,21 +1517,21 @@
                inkscape:connector-curvature="0"
                sodipodi:nodetypes="scsccccccccssscsssscsssscsscsccsscccccccccc"
                style="stroke-width:0.327892" />
-            <flowRoot
+            <text
                xml:space="preserve"
-               id="flowRoot80373"
-               style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-               transform="matrix(0.32789193,0,0,0.32789193,-138.94256,-528.1217)"><flowRegion
-                 id="flowRegion80369"><rect
-                   id="rect80367"
-                   width="112"
-                   height="53.599998"
-                   x="474.39999"
-                   y="-1904.0004"
-                   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';fill:#2b2b2b"
-                   transform="scale(1,-1)" /></flowRegion><flowPara
-                 id="flowPara80371"
-                 style="font-size:21.5179px;line-height:1.25">SVG</flowPara></flowRoot>
+               style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.9347px;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:0.327892px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+               x="22.515959"
+               y="87.167648"
+               id="text1079"><tspan
+                 sodipodi:role="line"
+                 x="22.515959"
+                 y="87.167648"
+                 id="tspan1077"
+                 style="stroke-width:0.327892px"><tspan
+                   x="22.515959"
+                   y="87.167648"
+                   style="font-size:7.05555px;line-height:1.25;stroke-width:0.327892px"
+                   id="tspan1075">SVG</tspan></tspan></text>
             <path
                id="path80375"
                d="m 18.236422,67.345035 h 15.587523 v 6.885173 c 0,0.371764 0.301605,0.672867 0.672861,0.672867 h 5.944048 v 3.371024 H 18.236422 Z M 40.440916,98.60494 H 18.236422 v -6.482587 h 22.204432 v 6.482587 z"
@@ -1563,21 +1563,21 @@
                inkscape:connector-curvature="0"
                sodipodi:nodetypes="scsccccccccssscsssscsssscsscsccsscccccccccc"
                style="stroke-width:0.327892" />
-            <flowRoot
+            <text
                xml:space="preserve"
-               id="flowRoot10398"
-               style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-               transform="matrix(0.32789193,0,0,0.32789193,-138.94256,-528.1217)"><flowRegion
-                 id="flowRegion10394"><rect
-                   id="rect10392"
-                   width="112"
-                   height="53.599998"
-                   x="474.39999"
-                   y="-1904.0004"
-                   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';fill:#2b2b2b"
-                   transform="scale(1,-1)" /></flowRegion><flowPara
-                 id="flowPara10396"
-                 style="font-size:21.5179px;line-height:1.25">jplace</flowPara></flowRoot>
+               style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.9347px;line-height:0.01%;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro Bold';letter-spacing:0px;word-spacing:0px;fill:#2b2b2b;fill-opacity:1;stroke:none;stroke-width:0.327892px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+               x="19.499559"
+               y="86.226913"
+               id="text1097"><tspan
+                 sodipodi:role="line"
+                 x="19.499559"
+                 y="86.226913"
+                 id="tspan1095"
+                 style="stroke-width:0.327892px"><tspan
+                   x="19.499559"
+                   y="86.226913"
+                   style="font-size:7.05555px;line-height:1.25;stroke-width:0.327892px"
+                   id="tspan1093">jplace</tspan></tspan></text>
             <path
                id="path10400"
                d="m 18.236422,67.345035 h 15.587523 v 6.885173 c 0,0.371764 0.301605,0.672867 0.672861,0.672867 h 5.944048 v 3.371024 H 18.236422 Z M 40.440916,98.60494 H 18.236422 v -6.482587 h 22.204432 v 6.482587 z"
@@ -1636,7 +1636,7 @@
        style="font-style:normal;font-weight:normal;font-size:13.3333px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect11877);display:inline;fill:#f2f2f2;fill-opacity:1;stroke:none"><tspan
          x="610.61719"
          y="461.20976"
-         id="tspan3518">Clustal Omega</tspan></text>
+         id="tspan2946">Clustal Omega</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,84.018946,102.43116)"
@@ -1644,7 +1644,7 @@
        style="font-style:normal;font-weight:normal;font-size:13.3333px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect11883);display:inline;fill:#f2f2f2;fill-opacity:1;stroke:none"><tspan
          x="610.61719"
          y="461.20976"
-         id="tspan3520">hmmalign</tspan></text>
+         id="tspan2948">hmmalign</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,84.018946,97.139493)"
@@ -1652,7 +1652,7 @@
        style="font-style:normal;font-weight:normal;font-size:13.3333px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect11901);display:inline;fill:#f2f2f2;fill-opacity:1;stroke:none"><tspan
          x="610.61719"
          y="461.20976"
-         id="tspan3522">MAFFT</tspan></text>
+         id="tspan2950">MAFFT</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,72.081685,86.556159)"
@@ -1660,14 +1660,14 @@
        style="font-style:normal;font-weight:normal;font-size:13.3333px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect11907);display:inline;fill:#f2f2f2;fill-opacity:1;stroke:none"><tspan
          x="610.61719"
          y="461.20976"
-         id="tspan3526"><tspan
+         id="tspan2954"><tspan
            style="font-weight:bold"
-           id="tspan3524">Aligner for query to </tspan></tspan><tspan
+           id="tspan2952">Aligner for query to </tspan></tspan><tspan
          x="610.61719"
          y="477.87639"
-         id="tspan3531"><tspan
+         id="tspan2958"><tspan
            style="font-weight:bold"
-           id="tspan3529">reference alignment</tspan></tspan></text>
+           id="tspan2956">reference alignment</tspan></tspan></text>
     <path
        style="fill:none;stroke:#ff9914;stroke-width:2.6;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 218.75483,172.63764 h 22.92684"
