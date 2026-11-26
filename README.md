@@ -43,7 +43,10 @@ This ensures that the pipeline runs on AWS, has sensible resource allocation def
 Input sequence, profile, tree and taxonomy files may be gzipped.
 
 <p align="center">
-    <img src="docs/images/phyloplace_workflow.png" alt="nf-core/phyloplace workflow overview" width="60%">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/images/phyloplace_workflow_dark.svg">
+    <img src="docs/images/phyloplace_workflow_light.svg" alt="nf-core/phyloplace workflow overview" width="60%">
+  </picture>
 </p>
 
 ## Usage
