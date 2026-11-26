@@ -8,7 +8,7 @@
    version="1.1"
    id="svg178"
    inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
-   sodipodi:docname="phyloplace_workflow.svg"
+   sodipodi:docname="phyloplace_workflow_light.svg"
    inkscape:export-filename="phyloplace_workflow.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96"
@@ -28,8 +28,8 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="0.70710678"
-     inkscape:cx="769.33218"
-     inkscape:cy="490.025"
+     inkscape:cx="695.08597"
+     inkscape:cy="491.43921"
      inkscape:window-width="1920"
      inkscape:window-height="1032"
      inkscape:window-x="0"
@@ -62,7 +62,7 @@
     <color-profile
        name="Built-in-display"
        xlink:href="../../../../.local/share/icc/edid-2ba92cb5bd5f547ffbd65776dbb8d4ae.icc"
-       id="color-profile16694" />
+       id="color-profile723" />
     <rect
        x="610.61627"
        y="449.07727"
@@ -141,13 +141,6 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(41.273399,-87.194268)">
-    <rect
-       style="opacity:1;fill:#e6e6e6;fill-opacity:1;stroke:#cccccc;stroke-width:0.499999;stroke-dasharray:2, 0.499999;stroke-dashoffset:0;stroke-opacity:1"
-       id="rect14611"
-       width="401.91592"
-       height="165.73915"
-       x="-36.023399"
-       y="92.444267" />
     <path
        style="display:inline;fill:none;stroke:#ff9914;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 64.386978,172.5851 h 5.29166 c 4.85578,0 14.55206,4.11929 14.55208,14.55208 l 1e-5,5.29167"
@@ -279,9 +272,9 @@
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect302);display:inline;fill:#000000;fill-opacity:1;stroke:none"><tspan
          x="610.61719"
          y="485.47313"
-         id="tspan17026"><tspan
+         id="tspan1057"><tspan
            style="font-size:13.3333px"
-           id="tspan17024">MAFFT</tspan></tspan></text>
+           id="tspan1055">MAFFT</tspan></tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,-4.6971228,34.168669)"
@@ -289,9 +282,9 @@
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect1686);display:inline;fill:#000000;fill-opacity:1;stroke:none"><tspan
          x="610.61719"
          y="485.47313"
-         id="tspan17030"><tspan
+         id="tspan1061"><tspan
            style="font-size:13.3333px"
-           id="tspan17028">EPA-NG split</tspan></tspan></text>
+           id="tspan1059">EPA-NG split</tspan></tspan></text>
     <text
        xml:space="preserve"
        style="font-size:3.52778px;line-height:1.25;font-family:Commissioner;-inkscape-font-specification:Commissioner;letter-spacing:0px;stroke-width:0.264583"
@@ -545,7 +538,7 @@
        style="font-style:normal;font-weight:normal;font-size:13.3333px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect5190);display:inline;fill:#000000;fill-opacity:1;stroke:none"><tspan
          x="610.61719"
          y="461.20976"
-         id="tspan17032">Clustal Omega</tspan></text>
+         id="tspan1063">Clustal Omega</tspan></text>
     <path
        style="fill:none;stroke:#ae63fa;stroke-width:2.75716;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 141.21222,191.29546 h 25.78226"
@@ -564,9 +557,9 @@
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect5202);display:inline;fill:#000000;fill-opacity:1;stroke:none"><tspan
          x="610.61719"
          y="485.47313"
-         id="tspan17036"><tspan
+         id="tspan1067"><tspan
            style="font-size:13.3333px"
-           id="tspan17034">EPA-NG split</tspan></tspan></text>
+           id="tspan1065">EPA-NG split</tspan></tspan></text>
     <circle
        style="fill:#ffffff;stroke:#000000;stroke-width:2.64583;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke markers fill;stop-color:#000000"
        id="circle5200"
@@ -1653,7 +1646,7 @@
        style="font-style:normal;font-weight:normal;font-size:13.3333px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect11877);display:inline;fill:#000000;fill-opacity:1;stroke:none"><tspan
          x="610.61719"
          y="461.20976"
-         id="tspan17038">Clustal Omega</tspan></text>
+         id="tspan1069">Clustal Omega</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,53.856445,102.43116)"
@@ -1661,7 +1654,7 @@
        style="font-style:normal;font-weight:normal;font-size:13.3333px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect11883);display:inline;fill:#000000;fill-opacity:1;stroke:none"><tspan
          x="610.61719"
          y="461.20976"
-         id="tspan17040">hmmalign</tspan></text>
+         id="tspan1071">hmmalign</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,53.856445,97.139493)"
@@ -1669,7 +1662,7 @@
        style="font-style:normal;font-weight:normal;font-size:13.3333px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect11901);display:inline;fill:#000000;fill-opacity:1;stroke:none"><tspan
          x="610.61719"
          y="461.20976"
-         id="tspan17042">MAFFT</tspan></text>
+         id="tspan1073">MAFFT</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,41.919184,86.556159)"
@@ -1677,10 +1670,10 @@
        style="font-style:normal;font-weight:normal;font-size:13.3333px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect11907);display:inline;fill:#000000;fill-opacity:1;stroke:none"><tspan
          x="610.61719"
          y="461.20976"
-         id="tspan17044">Aligner for query to </tspan><tspan
+         id="tspan1075">Aligner for query to </tspan><tspan
          x="610.61719"
          y="477.87639"
-         id="tspan17046">reference alignment</tspan></text>
+         id="tspan1077">reference alignment</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,66.57622,17.792466)"
@@ -1688,9 +1681,9 @@
        style="font-size:42.6667px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect14392);display:inline"><tspan
          x="558.94141"
          y="499.11278"
-         id="tspan17050"><tspan
+         id="tspan1081"><tspan
            style="font-weight:bold;font-family:'Maven Pro';-inkscape-font-specification:'Maven Pro'"
-           id="tspan17048">version 2.0</tspan></tspan></text>
+           id="tspan1079">version 2.5</tspan></tspan></text>
     <rect
        style="opacity:1;fill:#e6e6e6;fill-opacity:0;stroke:none;stroke-width:0.499999;stroke-dasharray:2, 0.499999;stroke-dashoffset:0;stroke-opacity:1"
        id="rect14453"
