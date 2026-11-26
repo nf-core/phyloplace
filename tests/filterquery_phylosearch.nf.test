@@ -16,7 +16,7 @@ nextflow_pipeline {
                 sheet.text = [
                     "target,alignmethod,hmm,extract_hmm,refseqfile,refphylogeny,model,min_query_columns",
                     "lenient,clustalo,https://raw.githubusercontent.com/tseemann/barrnap/refs/tags/0.9/db/bac.hmm,16S_rRNA,${base}bac120.alnfna,${base}bac120.newick,GTR+F+I+G4,",
-                    "strict,clustalo,https://raw.githubusercontent.com/tseemann/barrnap/refs/tags/0.9/db/arc.hmm,16S_rRNA,https://ndownloader.figshare.com/files/47244067,https://ndownloader.figshare.com/files/47244070,GTR+F+I+G4,100000"
+                    "strict,clustalo,https://raw.githubusercontent.com/tseemann/barrnap/refs/tags/0.9/db/arc.hmm,16S_rRNA,${base}ar53.alnfna.gz,${base}ar53.newick.gz,GTR+F+I+G4,100000"
                 ].join('\n') + '\n'
                 phylosearch_input = sheet.toString()
             }
