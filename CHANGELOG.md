@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Changed`
 
-- [#122](https://github.com/nf-core/phyloplace/pull/122) - Add the query-filtering step to the workflow diagram, fix two of its labels, and add a dark-mode version (by @erikrikarddaniel)
+- [#122](https://github.com/nf-core/phyloplace/pull/122) - Add the query-filtering step to the workflow diagram, fix two of its labels, and add a dark-mode version (by @erikrikarddaniel, reviewed by @mashehu)
 
 ### `Dependencies`
 
